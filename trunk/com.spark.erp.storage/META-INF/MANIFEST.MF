@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Storage
+Bundle-SymbolicName: com.spark.erp.storage
+Bundle-Version: 1.0.0
+Bundle-Vendor: SPARK
+Require-Bundle: com.jiuqi.dna.core
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

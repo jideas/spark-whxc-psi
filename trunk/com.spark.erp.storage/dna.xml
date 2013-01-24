@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+  <publish>
+    <services>
+      <!-- service space="dna/core" class="com.jiuqi.dna.core.XXService" -->
+    </services>
+    <orms>
+      <!-- orm space="dna/core" class="com.jiuqi.dna.core.XXORM" -->
+    </orms>
+    <commands>
+      <!-- command space="dna/core" class="com.jiuqi.dna.core.XXCommand" -->
+    </commands>
+    <querys>
+      <!-- query space="dna/core" class="com.jiuqi.dna.core.XXQuery" -->
+    </querys>
+    <tables>
+      <!--table space="dna/core" class="com.jiuqi.dna.core.impl.TD_BundleBin" /-->
+      <table space="SPARK" class="com.spark.psi.storage.base.customer.TB_PSI_Base_Customer" />
+      <table space="SPARK" class="com.spark.psi.storage.base.supplier.TB_PSI_BASE_SUPPLIER" />
+      <table space="SPARK" class="com.spark.b2c.storage.base.member.TB_B2C_Base_Member" />
+      <table space="SPARK" class="com.spark.psi.storage.base.supplier.TB_PSI_Base_JointVenture" />
+      <table space="SPARK" class="com.spark.psi.storage.base.supplier.TB_PSI_Base_BankAccount" />
+      <table space="SPARK" class="com.spark.psi.storage.base.store.TB_PSI_Base_Store" />
+      <table space="SPARK" class="com.spark.psi.storage.base.store.TB_PSI_Base_Store_Manager" />
+      <table space="SPARK" class="com.spark.psi.storage.base.store.TB_PSI_Base_Shelf" />
+      <table space="SPARK" class="com.spark.psi.storage.base.station.TB_PSI_Base_Station" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_GoodsCategory" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_Goods" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_GoodsItem" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_Bom" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_BomDetail" />
+      <table space="SPARK" class="com.spark.psi.storage.base.material.TB_PSI_Base_MaterialCategory" />
+      <table space="SPARK" class="com.spark.psi.storage.base.material.TB_PSI_Base_Material" />
+      <table space="SPARK" class="com.spark.psi.storage.base.material.TB_PSI_Base_MaterialItem" />
+      <table space="SPARK" class="com.spark.psi.storage.base.notice.TB_PSI_Base_Notice" />
+      <table space="SPARK" class="com.spark.psi.storage.base.notice.TB_PSI_Base_Notice_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.base.linkman.TB_PSI_Base_Linkman" />
+      <table space="SPARK" class="com.spark.psi.storage.account.dealing.TB_PSI_ACCOUNT_DEALING" />
+      <table space="SPARK" class="com.spark.psi.storage.account.dealing.TB_PSI_ACCOUNT_DEAL" />
+      <table space="SPARK" class="com.spark.psi.storage.account.payment.TB_PSI_ACCOUNT_Payment" />
+      <table space="SPARK" class="com.spark.psi.storage.account.payment.TB_PSI_ACCOUNT_Payment_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.account.receipts.TB_PSI_ACCOUNT_Receipts" />
+      <table space="SPARK" class="com.spark.psi.storage.account.receipts.TB_PSI_ACCOUNT_Receipts_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.account.receipts.TB_PSI_ACCOUNT_Receipts_Log" />
+      <table space="SPARK" class="com.spark.psi.storage.account.payment.TB_PSI_ACCOUNT_Payment_Log" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_Inventory_GoodsStoreDet" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_Inventory_GoodsStore" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.allocate.TB_PSI_Inventory_Allocate" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.allocate.TB_PSI_Inventory_Allocate_Det" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.check.TB_PSI_Inventory_Check" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.check.TB_PSI_Inventory_Check_Det" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_Inventory_Book" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_Inventory_Log" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.reportloss.TB_PSI_Inventory_ReportLoss" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Deliver_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Deliver_Sheet" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Deliver_Ticket" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_DeliverTicket_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Produce_FinishedLog" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Produce_GoodsDet" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Produce_MaterialDet" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Produce_Order" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Sales_Order_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Sales_Order" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Sales_Return_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.sales.TB_PSI_Sales_Return" />
+      <table space="SPARK" class="com.spark.erp.storage.sales.TB_ERP_Sales_OnlineOrder_Det" />
+      <table space="SPARK" class="com.spark.erp.storage.sales.TB_ERP_Sales_OnlineOrder" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_INVENTORY_MATEIAL" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_INVENTORY_MATERIALDET" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.TB_PSI_INVENTORY_MATERIAL" />
+      <table space="SPARK" class="com.spark.psi.storage.base.goods.TB_PSI_Base_BomHistory" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.reportloss.TB_PSI_INVENTORY_REPORTLOSS_DET" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.reportloss.TB_PSI_INVENTORY_REPORTLOSS_SHELF" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkin.TB_PSI_Inventory_Checkin" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkin.TB_PSI_Inventory_Checkin_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkin.TB_PSI_Inventory_Checkining" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkin.TB_PSI_Inventory_Checkining_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkout.TB_PSI_Inventory_Checkouting" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkout.TB_PSI_Inventory_Checkouting_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkout.TB_PSI_Inventory_Checkout" />
+      <table space="SPARK" class="com.spark.psi.storage.inventory.checkout.TB_PSI_Inventory_Checkout_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.purchase.TB_PSI_Purchase_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.purchase.TB_PSI_Purchase_Order_CREATE" />
+      <table space="SPARK" class="com.spark.psi.storage.purchase.TB_PSI_Purchase_Order" />
+      <table space="SPARK" class="com.spark.psi.storage.purchase.TB_PSI_Purchase_Return_Det" />
+      <table space="SPARK" class="com.spark.psi.storage.purchase.TB_PSI_Purchase_Return" />
+      <table space="spark" class="com.spark.erp.storage.sales.TB_ERP_Sales_OnlineOrder_Log" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.allocate.TB_PSI_Inventory_Allocate_Shelf" />
+      <table space="SPARK" class="com.spark.b2c.storage.joint.TB_PSI_JOINT_RECORD" />
+      <table space="spark" class="com.spark.b2c.storage.joint.TB_PSI_Materials_Joint_Log" />
+      <table space="spark" class="com.spark.b2c.storage.joint.TB_PSI_Joint_Settlement" />
+      <table space="spark" class="com.spark.b2c.storage.joint.TB_PSI_Joint_Settlement_Det" />
+      <table space="SPARK" class="com.spark.erp.storage.onlinereturn.TB_PSI_SALES_ONLINERETURN" />
+      <table space="SPARK" class="com.spark.erp.storage.onlinereturn.TB_PSI_SALES_OLRETURN_DET" />
+      <table space="SPARK" class="com.spark.erp.storage.base.TB_PSI_SENDMESSAGE_LOG" />
+      <table space="SPARK" class="com.spark.erp.storage.base.TB_PSI_BASE_MSGCONFIG" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_INFO" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_ADDRESS" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_ACCOUNT" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_DEALING" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_VANTAGES" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_DELIVERY" />
+      <table space="SPARK" class="com.spark.cms.storage.member.TB_CMS_MEMBER_DELIVER_LOG" />
+      <table space="SPARK" class="com.spark.cms.storage.card.TB_CMS_CARD" />
+      <table space="SPARK" class="com.spark.cms.storage.card.TB_CMS_CARD_DISTRIBUTE_LOG" />
+      <table space="SPARK" class="com.spark.cms.storage.card.TB_CMS_CARD_CONFIG" />
+      <table space="SPARK" class="com.spark.cms.storage.card.TB_CMS_PICTURE" />
+      <table space="SPARK" class="com.spark.cms.storage.goods.TB_CMS_GOODS_CATEGORY" />
+      <table space="SPARK" class="com.spark.cms.storage.goods.TB_CMS_CATEGORY_PROPERTIES" />
+      <table space="SPARK" class="com.spark.cms.storage.goods.TB_CMS_CATEGORY_PVALUES" />
+      <table space="SPARK" class="com.spark.cms.storage.goods.TB_CMS_GOODS" />
+      <table space="SPARK" class="com.spark.cms.storage.base.TB_CMS_GIFT" />
+      <table space="SPARK" class="com.spark.cms.storage.goods.TB_CMS_GOODS_CONTENT" />
+      <table space="SPARK" class="com.spark.cms.storage.promotion.TB_CMS_ORDER_PROMOTION" />
+      <table space="SPARK" class="com.spark.cms.storage.promotion.TB_CMS_GOODS_PROMOTION" />
+      <table space="SPARK" class="com.spark.cms.storage.order.TB_CMS_ORDER_DET" />
+      <table space="SPARK" class="com.spark.cms.storage.order.TB_CMS_ORDER" />
+      <table space="SPARK" class="com.spark.cms.storage.order.TB_CMS_SHOPPINGCART" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_channel" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_channel_content" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_channel_advertising" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_channel_goods" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_floor" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_PopularKeyWords" />
+      <table space="SPARK" class="com.spark.cms.storage.base.TB_CMS_FOLDER" />
+      <table space="SPARK" class="com.spark.cms.storage.promotion.TB_CMS_CARD_PROMOTION" />
+      <table space="spark/cms" class="com.spark.cms.storage.base.TB_CMS_DELIVERY_PRICE" />
+      <table space="spark/cms" class="com.spark.cms.storage.manager.TB_cms_floor_advertising" />
+      <table space="SPARK" class="com.spark.cms.storage.base.TB_CMS_JOINUS" />
+      <table space="SPARK" class="com.spark.cms.storage.base.TB_CMS_PAYINGBILLS" />
+      <table space="spark/cms" class="com.spark.cms.storage.base.TB_CMS_IMAGE_INFO" />
+      <table space="spark" class="com.spark.cms.storage.extra.TB_cms_question" />
+    </tables>
+    <ui-entrys>
+      <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
+				</uientry-->
+    </ui-entrys>
+    <pages>
+      <!--page space="mydemo" name="testtemplate" class="com.jiuqi.dna.ui.template.launch.TemplatePage" /-->
+    </pages>
+    <ui-stylesheets>
+      <!-- stylesheet name="stylesheet" title="stylesheet" path="com/jiuqi/dna/ui/demo/stylesheet.css" -->
+    </ui-stylesheets>
+    <portlets>
+      <!-- portlet name="portlet" class="com.jiuqi.dna.ui.XXPortlet" -->
+    </portlets>
+  </publish>
+</dna>
+
