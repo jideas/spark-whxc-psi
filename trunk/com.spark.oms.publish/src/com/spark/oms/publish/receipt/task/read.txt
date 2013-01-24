@@ -1,0 +1,6 @@
+关联财务相关模块的操作(增、删、改)：
+1、生成收退款、开票记录：销售新建  DoReceiptActionTask
+2、生成收支流水记录:新建收支记录；短信充值；新订单生效 DoPaymentAction
+3、确认收款：AdjustReceiptStateTask
+4、确认开票:AdjustDrawFeeStateTask
+5、退款：
