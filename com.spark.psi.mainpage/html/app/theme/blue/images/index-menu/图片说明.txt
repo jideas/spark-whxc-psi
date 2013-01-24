@@ -1,0 +1,5 @@
+文件名称			透明度
+/*首页*/
+menu-bg_left.gif		90%
+menu-bg_center.gif		90%
+menu-bg_right.gif		90%

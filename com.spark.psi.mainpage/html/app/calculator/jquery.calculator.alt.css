@@ -1,0 +1,254 @@
+/* Alternative (native) style sheet for jQuery Calculator v1.3.2 */
+div.hasCalculator, span.hasCalculator {
+	position: relative;
+}
+button.calculator-trigger {
+	width: 25px;
+	padding: 0px;
+}
+img.calculator-trigger {
+	margin: 2px;
+	vertical-align: middle;
+}
+.calculator-popup {
+	display: none;
+	z-index: 10;
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background-color: #f4f4f4;
+	font-family: Arial,Helvetica,sans-serif;
+}
+.calculator-keyentry {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	width: 0px;
+}
+.calculator-inline {
+	position: relative;
+	background-image:url(app/theme/common/images/level1/toolface/cct_bgWindow_c.png);
+
+	height:257px;
+	width:197px;
+}
+.calculator-inline .calculator-close {
+	display: none;
+}
+.calculator-disabled {
+	position: absolute;
+	z-index: 100;
+	background-color: white;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+.calculator-rtl {
+	direction: rtl;
+}
+.calculator-prompt {
+	clear: both;
+	text-align: center;
+	
+}
+.calculator-prompt.ui-widget-header {
+	margin: 2px;
+}
+
+/*这个是显示框
+
+*/
+.calculator-result {
+background-repeat: repeat-x;
+	background:url(../../app/theme/common/images/level1/toolface/cct_screen_bj.png);
+	clear: both;
+	margin-bottom:17px;
+	margin-top:10px;
+	margin-left:5px;
+	width:187px;
+	text-align: right;
+	height:34px;
+	font-size: 110%;
+	overflow:hidden;
+	
+	
+	
+}
+.calculator-focussed {
+	background-color: #ffc;
+}
+.calculator-row {
+	clear: both;
+	width: 100%;
+}
+.calculator-space {
+	float: left;
+	margin: 2px;
+	width: 28px;
+}
+.calculator-half-space {
+	float: left;
+	margin: 1px;
+	width: 14px;
+}
+.calculator-row button {
+	position: relative;
+	float: left;
+	margin:2px;
+	padding: 0px;
+	height: 22px;
+	text-align: center;
+	cursor: pointer;
+	
+}
+/*这个是大按键的CSS*/
+.calculator-row .calculator-ctrl {
+	width: 72px;
+	height: 29px;
+}
+/*这个是单独的一个=号设置CSS*/
+.calculator-row .calculator-ctrl2 {
+	width: 34px;
+	height:29px;
+	
+}
+.calculator-row .calculator-undo, .calculator-row .calculator-clear-error, .calculator-row .calculator-clear {
+	width: 28px;
+}
+.calculator-row .calculator-base, .calculator-row .calculator-angle {
+	width: 28px;
+	font-size: 70%;
+}
+.calculator-row .calculator-base-active, .calculator-row .calculator-angle-active {
+	
+}
+/*这个是按键的宽度*/
+.calculator-digit, .calculator-oper {
+	width: 34px;
+	height:29px;
+}
+/*这个是按键0的宽度*/
+.calculator-digit2 {
+	width: 72px;
+	height: 29px;
+}
+.calculator-mem-empty {
+	color: #888;
+}
+.calculator-row .calculator-trig {
+	font-size: 70%;
+}
+@-moz-document url-prefix() { // Firefox
+	.calculator-trig, .calculator-base {
+		text-indent: -3px;
+	}
+}
+.calculator-key-down {
+}
+.calculator-keystroke {
+	display: none;
+	width: 16px;
+	height: 14px;
+	position: absolute;
+	left: -8px;
+	top: -8px;
+	color: #000;
+	background-color: #fff;
+	
+	font-size: 80%;
+}
+.calculator-angle .calculator-keystroke, .calculator-base .calculator-keystroke, .calculator-trig .calculator-keystroke {
+	top: -10px;
+	font-size: 95%;
+}
+.calculator-keyname {
+	width: 22px;
+	font-size: 70%;
+}
+.calculator-cover {
+	display: none;
+	display/**/: block;
+	position: absolute;
+	z-index: -1;
+	filter: mask();
+	top: -4px;
+	left: -4px;
+	width: 125px;
+	height: 200px;
+}
+
+.button-top-left{
+	background-repeat:  no-repeat;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_lt.png);
+}
+
+.button-top-center{
+	background-repeat: repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_t.png);
+}
+
+.button-top-right{
+	
+	background-repeat:  repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_rt.png);
+}
+
+.button-center-left{
+	background-repeat: no-repeat;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_l.png);
+
+}
+
+.button-center-center{
+	background-repeat: repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_bg.png);
+	text-align:center;
+	padding-left:-10;
+	color:#f0f0f0;
+	font-size:12px;
+}
+
+.button-center-right{
+	background-repeat: repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_r.png);
+}
+
+.button-bottom-left{
+	background-repeat: no-repeat;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_lb.png);
+}
+
+.button-bottom-center{
+	background-repeat: repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_b.png);
+}
+
+.button-bottom-right{
+	background-repeat: repeat-x;
+	background-image:url(../../app/theme/common/images/level1/toolface/cct_btns_n_rb.png);
+}
+.button-f{
+	hite-space:nowrap;
+	float:left;
+}
+.tableca{
+	float:left;
+	margin:3px;
+}
+.span_font {
+width:24px;
+padding-top:5px;
+font-family:"黑体";
+
+font-size:24px
+}
+
+.div2{
+	text-align:right;overflow:hidden;}
+
+.div2left {
+	float:left;
+	text-align:left;overflow:hidden;}
+	
+.div2right {
+	float:right;
+	text-align:right;overflow:hidden;}

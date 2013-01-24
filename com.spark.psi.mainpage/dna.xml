@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<dna-webapps>
+			<webapp webroot="html" alias="main" />
+		</dna-webapps>
+		<pages>
+			<page name="mainpage" class="com.spark.psi.mainpage.MainPage" />
+			<page name="showMessage" class="com.spark.psi.mainpage.MessageTipMain" />
+		</pages>
+		<ui-client-scripts>
+			<script name="SaaSMainPage" path="js/MainPage.js" />
+		</ui-client-scripts>
+	</publish>
+</dna>
+

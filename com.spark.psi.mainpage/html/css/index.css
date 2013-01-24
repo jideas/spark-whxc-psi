@@ -1,0 +1,640 @@
+html {
+    overflow: hidden;
+}
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #27374a;
+}
+.main_img {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    z-index: 1
+}
+
+.titleAreaUserHeadImage{
+    height: 35px;
+    background-repeat: no-repeat;
+}
+
+#logo_name{
+    color: white;
+    overflow: hidden;
+    font-family: '宋体';
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.backgroundDiv {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 54px;
+    background-repeat: repeat-x;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    background-image: url(../app/theme/blue/images/level1/index-top/top-bg01.gif);
+    
+}
+.titleAreaTable {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.titleAreaRight {
+    height: 54px;
+    width: 160px;
+    color: #c2d9e8;
+    overflow: hidden;
+}
+.logoArea {
+    width: 100%;
+    height: 54px;
+    background-repeat: repeat-x;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    background-image: url(../app/theme/blue/images/level1/index-top/top-bg01.gif);
+}
+.statusArea {
+    width: 100%;
+    height: 40px;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    z-index: 99997;
+    position: absolute;
+    background-image: url(../app/theme/blue/images/level1/index-footer/footer-bg01.gif);
+    bottom: 0
+}
+.statusArea1 {
+    position: absolute;
+    width: 3px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-image: url(../app/theme/common/images/level1/footer/footer-bg02.png);
+    left: 50px;
+}
+
+.statusAreaLeftTD{
+	width: 50px; 
+	text-align: center;
+}
+
+.statusAreaLeft {
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    background-repeat: no-repeat;
+    left: 10px;
+    cursor: pointer;
+    background-image: url(../app/theme/common/images/level1/footer/message-n.png);
+}
+.statusAreaLeft:hover {
+    background-image: url(../app/theme/common/images/level1/footer/message-h.png);
+}
+.note {
+    position: absolute;
+    width: 35px;
+    height: 40px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    left: 60px;
+    background-image: url(../app/theme/common/images/level1/footer/note-n.png);
+}
+.note:hover {
+    background-image: url(../app/theme/common/images/level1/footer/note-h.png);
+}
+
+.topContentText{
+    position: absolute;
+    left: 30px;
+    top: 1px !important;
+    top: 5px;
+    color: white;
+}
+
+.menuPage {
+    z-index: 99998;
+    position: absolute;
+    overflow: hidden;
+    width: 500px;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    bottom: -330px;
+    left: 50%;
+    margin-left: -250px;
+}
+
+.menutopleft {
+    width: 8px;
+    height: 25px;
+    background-image: url(../app/theme/blue/images/menu-all/menu-all-bjtop-l.png);
+}
+.menutopright {
+    width: 8px;
+    height: 25px;
+    overflow: hidden;
+    background-image: url(../app/theme/blue/images/menu-all/menu-all-bjtop-r.png);
+}
+.menutopcenter {
+    height: 25px;
+    overflow: hidden;
+    background-image: url(../app/theme/blue/images/menu-all/menu-all-bjtop-c.png);
+}
+.menutabright {
+    background-image: url(../app/theme/blue/images/menu-all/menua-TabFolderbj-r.png);
+}
+.menutableft {
+    background-image: url(../app/theme/blue/images/menu-all/menua-TabFolderbj-l.png);
+}
+.menutabcenter {
+    background-image: url(../app/theme/blue/images/menu-all/menua-TabFolderbj-c.png);
+    height: 27px;
+    overflow: hidden;
+}
+.tabfold {
+    background-image: url(../app/theme/blue/images/menu-all/menua-TabFolder-n.png);
+    width: 80px;
+    overflow: hidden;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    height: 27px;
+    float: left;
+}
+.tabTextn {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #cdd1d5;
+}
+.menutabcenterDiv {
+    float: left;
+    height: 27px;
+    width: 6px
+}
+
+.menutabcenterDivTabTextSale {
+	width: 30px;
+}
+
+.menubuttomleft {
+    background-image: url(../app/theme/blue/images/menu-all/menua-Windowbj-l.png);
+}
+.menubuttomright {
+    background-image: url(../app/theme/blue/images/menu-all/menua-Windowbj-r.png);
+}
+.menubuttomcenter {
+    background-image: url(../app/theme/blue/images/menu-all/menua-Windowbj-c.png);
+    height: 280px;
+    width: 484px;
+}
+.navigation1 {
+    z-index: 99999;
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    margin-left: -250px;
+    bottom: 0px;
+    width: 500px;
+    height: 63px;
+    white-space: nowrap;
+}
+.navigation1Left {
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-bg-l.png);
+    width: 30px;
+    height: 63px;
+    float: left;
+}
+.navigation1BeforeCenter {
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-bg-c.png);
+    overflow: hidden;
+    width: 189px;
+    white-space: nowrap;
+    height: 63px;
+    padding: 0;
+    float: left;
+    cursor: pointer;
+}
+.navigation1Center {
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-bg-c.png);
+    overflow: hidden;
+    width: 62px;
+    height: 63px;
+    white-space: nowrap;
+    cursor: pointer;
+    float: left;
+}
+.naviMenuBut {
+    background-position: center center;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    width: 52px;
+    height: 53px;
+    margin-top: 5px;
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-arrowNormal.png);
+}
+.navigation1AfterCenter {
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-bg-c.png);
+    overflow: hidden;
+    width: 189px;
+    white-space: nowrap;
+    height: 63px;
+    padding: 0;
+    float: left;
+    cursor: pointer;
+}
+.navigation1CenterImg {
+    position: absolute;
+    z-index: 99999;
+    width:70px;
+    text-align: center;
+    cursor: pointer;
+}
+.navigation1CenterImgTop {
+    width: 38px;
+    height: 38px;
+    margin-left: 15px !important;
+    margin-left: 0px;
+}
+.navigation1CenterImgText {
+    color: white;
+    top: 30px;
+    margin-left: 5px !important;
+    margin-left: 0px;
+}
+.navigation1Right {
+    background-image: url(../app/theme/blue/images/level1/index-menu/menu-bg-r.png);
+    width: 30px;
+    height: 63px;
+    float: left;
+}
+.bigImg {
+    position: absolute;
+    z-index: 2;
+    height: 100px;
+    width: 82px;
+    text-align: center;
+}
+.bigImgCenter {
+    z-index: 2;
+    background-image: url(../app/theme/blue/images/level1/index-fastmenu/fastMenu-btnNormal.png);
+    height: 82px;
+    width: 82px;
+}
+.bigImgTop {
+    display: none;
+    position: absolute;
+    z-index: 99998;
+    background-image: url(../app/theme/blue/images/level1/index-fastmenu/fastMenu-btnExit.png);
+    height: 15px;
+    width: 15px;
+    right: 0px;
+    top: -10px !important;
+    top: -13px;
+}
+.bigImgDivTop {
+    width: 60px;
+    height: 55px;
+    margin-top: 5px;
+    margin-left: 10px !important;
+    margin-left: 0px;
+}
+.bigImgDivText {
+    color: white;
+    text-align: center;
+    top: 55px;
+}
+.imgDiv {
+    z-index: 99998;
+    position: absolute;
+    width: 80px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+}
+.imgDivTop {
+    width: 38px;
+    height: 38px;
+    margin-left: 20px !important;
+    margin-left: 0px;
+}
+.imgDivText {
+    color: white;
+    top: 30px;
+}
+.statusAreaRight {
+    position: absolute;
+    right: 10px;
+    width: 80px;
+    height: 40px;
+    top: 5px;
+}
+.statusAreaRightCommButton {
+    height: 40px;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-image: url(../app/theme/common/images/level1/footer/System-arrowNormal.png);
+}
+.commonFuncPage {
+    z-index: 99996;
+    position: absolute;
+    overflow: hidden;
+    right: 20px;
+    bottom: -260px;
+    width: 124px;
+    height: 270px;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+.commonFuncTop {
+    width: 121px;
+    height: 24px;
+    background-image: url(../app/theme/common/images/level1/tool/System-bj-top.png);
+}
+.commonFuncCenter {
+    position: relative;
+    width: 121px;
+    height: 100%;
+    background-image: url(../app/theme/common/images/level1/tool/System-bj-center01.png);
+}
+.commonFuncCenterDiv {
+    height: 26px;
+    width: 115px;
+    float: left;
+    margin-left: 3px;
+    cursor: pointer;
+}
+.commonFuncCenterDivImg {
+    float: left;
+    margin-left: 13px;
+    margin-top: 1px;
+    background-repeat: no-repeat;
+}
+.commonFuncCenterDivText {
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px !important;
+    margin-top: 7px;
+    color: white;
+    cursor: pointer;
+}
+.commonFuncCenterSpace {
+    width: 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.moveframe {
+    position: absolute;
+    z-index: 99999;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.moveframeCenterbg {
+    float: left;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.moveframeBottombg {
+    float: left;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+#top {
+    cursor: pointer;
+}
+.hideDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 99995;
+    display: block;
+}
+.clock {
+    position: absolute;
+    z-index: 2;
+    width: 200px;
+    height: 200px;
+    top: 100px;
+    left: 10px;
+    background-color: transparent;
+    background-color: red;
+}
+/**监控配置，个性桌面*/
+.toolTopLeft {
+    width: 9px;
+    height: 38px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    background-image: url(../app/theme/common/window/cct_bgtop_l.png);
+}
+.toolTopRight {
+    width: 9px;
+    height: 38px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    background-image: url(../app/theme/common/window/cct_bgtop_r.png);
+}
+.toolTopCenter {
+    height: 38px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    background-image: url(../app/theme/common/window/cct_bgtop_c.png);
+}
+.centerLeft {
+    width: 9px;
+    float: left;
+    margin: 0;
+    background-image: url(../app/theme/common/window/cct_bgWindow_l.png);
+}
+.centerCenter {
+    float: left;
+    margin: 0;
+    background-image: url(../app/theme/common/window/cct_bgWindow_c.png);
+}
+.centerRight {
+    width: 9px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    background-image: url(../app/theme/common/window/cct_bgWindow_r.png);
+}
+.bottomLeft {
+    width: 9px;
+    height: 11px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: url(../app/theme/common/window/cct_bgFolder_l.png);
+}
+.bottomCenter {
+    height: 11px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: url(../app/theme/common/window/cct_bgFolder_c.png);
+}
+.bottomRight {
+    width: 9px;
+    height: 11px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: url(../app/theme/common/window/cct_bgFolder_r.png);
+}
+.saas_tool_window_close {
+    width: 20px;
+    height: 17px;
+    background-image: url(../app/theme/common/window/menu2-Exit-n.png);
+}
+.saas_tool_window_close_hover {
+    width: 20px;
+    height: 17px;
+    background-image: url(../app/theme/common/window/menu2-Exit-h.png);
+}
+.saas_tool_window_close_click {
+    width: 20px;
+    height: 17px;
+    background-image: url(../app/theme/common/window/menu2-Exit-c.png);
+}
+/****************随手记*********************************/
+.saas_tool_move_div_hide {
+    position: absolute;
+    z-index: 2;
+    width: 300px;
+    height: 300px;
+    top: 100px;
+    left: 10px;
+    background-color: transparent;
+}
+/*********top********************/
+/*左上*/
+.note_left_top {
+    width: 20px;
+    height: 40px;
+    float: left;
+    background-image: url(../app/note/images/note_lt.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+/*中上*/
+.note_center_top {
+    width: 230px;
+    height: 40px;
+    float: left;
+    background-image: url(../app/note/images/note_t.png);
+    background-repeat: no-repeat;
+    text-align: -moz-right !important;
+    text-align: right;
+    cursor: pointer;
+}
+/*右上*/
+.note_right_top {
+    width: 20px;
+    height: 40px;
+    float: left;
+    background-image: url(../app/note/images/note_rt.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+/*************close****************/ /*关闭*/
+.saas_note_close {
+    width: 16px;
+    height: 16px;
+    margin-top: 20px;
+    margin-right: 5px;
+    background-image: url(../app/note/images/note_close_n.png);
+    background-repeat: no-repeat;
+}
+/***********钟*************************/
+.clockmovediv {
+    position: absolute;
+    cursor: pointer;
+    width: 170px;
+    height: 170px;
+    z-index: 2;
+}
+
+.closegifon_clcok{
+    position:absolute;
+    cursor:pointer;
+    width: 15px;
+    height: 15px;
+    background-repeat:no-repeat;
+    background-image: url(../app/theme/blue/images/level1/index-fastmenu/fastMenu-btnExit.png);
+    z-index: 5;
+}
+
+/*****************消息提示小气泡***********************/
+.messageTipDiv{
+	position:absolute;
+	width:0px;
+	height:0px;
+	overflow:hidden;
+}
+
+.messageborder .messageleft{
+	width:4px;
+	height:38px;
+	float:left;
+	background-repeat:no-repeat;
+	background-image:url(../app/theme/common/message/message_left.png);
+}
+
+.messageborder .messagecenter{
+	height:38px;
+	float:left;
+	padding-top:12px;
+	color:#cccccc;
+	word-break: keep-all;
+	white-space:nowrap;
+	background-repeat:repeat-x;
+	background-image:url(../app/theme/common/message/message_center.png);
+}
+
+.messageborder .messageright{
+	width:4px;
+	height:38px;
+	float:left;
+	background-repeat:no-repeat;
+	background-image:url(../app/theme/common/message/message_right.png);
+}
+.messageborder .messagebottom{
+	width:22px;
+	height:12px;
+	position:absolute;
+	top:36px;
+	left:10px;
+	clear:both;
+	z-index:10;
+	background-repeat:no-repeat;
+	background-image:url(../app/theme/common/message/message_bottom.png);
+}
+
+.messageTipDiv .span1{
+	margin:3px;
+	padding:3px;
+}
+.messageTipDiv .span2{
+	margin:3px;
+	padding:3px;
+	TEXT-DECORATION:none
+}
+.messageTipDiv .span3{
+	margin:3px;
+	padding:3px;
+}
+
+

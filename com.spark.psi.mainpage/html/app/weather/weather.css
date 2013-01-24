@@ -1,0 +1,38 @@
+.divimg {
+	width: 100%;
+	height: 10px;
+	background-image: url("images/w_line.png");
+	background-repeat:repeat-x;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+.dintext{
+	width: 100%;
+	height: 20px;
+	font-size: 13px;
+	color: #b8bbbb;
+	text-align: right;
+}
+
+.dintext a{
+	color: #b8bbbb;
+	text-decoration:none;
+}
+
+.dintext a:hover{
+	text-decoration:underline;
+}
+
+.divcontext{
+	margin-left: 15px;
+	margin-top: 10px;
+}
+
+.iframeclass{
+	position: absolute;
+	top: -100px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+}
