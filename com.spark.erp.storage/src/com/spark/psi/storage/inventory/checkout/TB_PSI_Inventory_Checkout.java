@@ -1,0 +1,135 @@
+package com.spark.psi.storage.inventory.checkout;
+
+import com.jiuqi.dna.core.def.table.TableDeclarator;
+import com.jiuqi.dna.core.type.TypeFactory;
+import com.jiuqi.dna.core.def.table.TableFieldDefine;
+import com.jiuqi.dna.core.def.table.TableFieldDeclare;
+
+public final class TB_PSI_Inventory_Checkout extends TableDeclarator {
+
+	public static final String TABLE_NAME ="PSI_Inventory_Checkout";
+
+	public final TableFieldDefine f_sheetNo;
+	public final TableFieldDefine f_checkoutType;
+	public final TableFieldDefine f_partnerId;
+	public final TableFieldDefine f_partnerName;
+	public final TableFieldDefine f_partnerCode;
+	public final TableFieldDefine f_namePY;
+	public final TableFieldDefine f_partnerShortName;
+	public final TableFieldDefine f_relaBillsId;
+	public final TableFieldDefine f_relaBillsNo;
+	public final TableFieldDefine f_storeId;
+	public final TableFieldDefine f_storeName;
+	public final TableFieldDefine f_storeNamePY;
+	public final TableFieldDefine f_goodsFrom;
+	public final TableFieldDefine f_goodsUse;
+	public final TableFieldDefine f_takePerson;
+	public final TableFieldDefine f_takeUnit;
+	public final TableFieldDefine f_vouchersNo;
+	public final TableFieldDefine f_remark;
+	public final TableFieldDefine f_amount;
+	public final TableFieldDefine f_receiptedAmount;
+	public final TableFieldDefine f_receiptedFlag;
+	public final TableFieldDefine f_checkoutDate;
+	public final TableFieldDefine f_checkoutPerson;
+	public final TableFieldDefine f_checkoutPersonName;
+	public final TableFieldDefine f_deptId;
+	public final TableFieldDefine f_deptName;
+	public final TableFieldDefine f_isReceipting;
+	public final TableFieldDefine f_creatorId;
+	public final TableFieldDefine f_creator;
+
+	public static final String FN_sheetNo ="sheetNo";
+	public static final String FN_checkoutType ="checkoutType";
+	public static final String FN_partnerId ="partnerId";
+	public static final String FN_partnerName ="partnerName";
+	public static final String FN_partnerCode ="partnerCode";
+	public static final String FN_namePY ="namePY";
+	public static final String FN_partnerShortName ="partnerShortName";
+	public static final String FN_relaBillsId ="relaBillsId";
+	public static final String FN_relaBillsNo ="relaBillsNo";
+	public static final String FN_storeId ="storeId";
+	public static final String FN_storeName ="storeName";
+	public static final String FN_storeNamePY ="storeNamePY";
+	public static final String FN_goodsFrom ="goodsFrom";
+	public static final String FN_goodsUse ="goodsUse";
+	public static final String FN_takePerson ="takePerson";
+	public static final String FN_takeUnit ="takeUnit";
+	public static final String FN_vouchersNo ="vouchersNo";
+	public static final String FN_remark ="remark";
+	public static final String FN_amount ="amount";
+	public static final String FN_receiptedAmount ="receiptedAmount";
+	public static final String FN_receiptedFlag ="receiptedFlag";
+	public static final String FN_checkoutDate ="checkoutDate";
+	public static final String FN_checkoutPerson ="checkoutPerson";
+	public static final String FN_checkoutPersonName ="checkoutPersonName";
+	public static final String FN_deptId ="deptId";
+	public static final String FN_deptName ="deptName";
+	public static final String FN_isReceipting ="isReceipting";
+	public static final String FN_creatorId ="creatorId";
+	public static final String FN_creator ="creator";
+
+	//不可调用该构造方法.当前类只能由框架实例化.
+	private TB_PSI_Inventory_Checkout() {
+		super(TABLE_NAME);
+		this.table.setTitle("出库单");
+		TableFieldDeclare field;
+		this.f_sheetNo = field = this.table.newField(FN_sheetNo, TypeFactory.VARCHAR(30));
+		field.setTitle("出库单号");
+		this.f_checkoutType = field = this.table.newField(FN_checkoutType, TypeFactory.CHAR(2));
+		field.setTitle("出库类型");
+		this.f_partnerId = field = this.table.newField(FN_partnerId, TypeFactory.GUID);
+		field.setTitle("供应商/客户recid");
+		this.f_partnerName = field = this.table.newField(FN_partnerName, TypeFactory.NVARCHAR(100));
+		field.setTitle("供应商/客户名称");
+		this.f_partnerCode = this.table.newField(FN_partnerCode, TypeFactory.NVARCHAR(30));
+		this.f_namePY = field = this.table.newField(FN_namePY, TypeFactory.NVARCHAR(30));
+		field.setTitle("拼音");
+		this.f_partnerShortName = field = this.table.newField(FN_partnerShortName, TypeFactory.NVARCHAR(30));
+		field.setTitle("简称");
+		this.f_relaBillsId = field = this.table.newField(FN_relaBillsId, TypeFactory.GUID);
+		field.setTitle("相关单据recid");
+		this.f_relaBillsNo = field = this.table.newField(FN_relaBillsNo, TypeFactory.NVARCHAR(30));
+		field.setTitle("相关单据编号");
+		this.f_storeId = field = this.table.newField(FN_storeId, TypeFactory.GUID);
+		field.setTitle("仓库recid");
+		this.f_storeName = field = this.table.newField(FN_storeName, TypeFactory.NVARCHAR(100));
+		field.setTitle("仓库名称");
+		this.f_storeNamePY = field = this.table.newField(FN_storeNamePY, TypeFactory.NVARCHAR(50));
+		field.setTitle("拼音");
+		this.f_goodsFrom = field = this.table.newField(FN_goodsFrom, TypeFactory.NVARCHAR(500));
+		field.setTitle("物品来源");
+		this.f_goodsUse = field = this.table.newField(FN_goodsUse, TypeFactory.NVARCHAR(100));
+		field.setTitle("物品用途");
+		this.f_takePerson = field = this.table.newField(FN_takePerson, TypeFactory.NVARCHAR(30));
+		field.setTitle("提货人");
+		this.f_takeUnit = field = this.table.newField(FN_takeUnit, TypeFactory.NVARCHAR(100));
+		field.setTitle("提货单位");
+		this.f_vouchersNo = field = this.table.newField(FN_vouchersNo, TypeFactory.NVARCHAR(50));
+		field.setTitle("凭证号");
+		this.f_remark = field = this.table.newField(FN_remark, TypeFactory.NVARCHAR(1000));
+		field.setTitle("备注");
+		this.f_amount = field = this.table.newField(FN_amount, TypeFactory.NUMERIC(17,2));
+		field.setTitle("出库金额");
+		this.f_receiptedAmount = field = this.table.newField(FN_receiptedAmount, TypeFactory.NUMERIC(17,2));
+		field.setTitle("已收款金额");
+		this.f_receiptedFlag = field = this.table.newField(FN_receiptedFlag, TypeFactory.CHAR(2));
+		field.setTitle("收款状态");
+		this.f_checkoutDate = field = this.table.newField(FN_checkoutDate, TypeFactory.DATE);
+		field.setTitle("出库日期");
+		this.f_checkoutPerson = field = this.table.newField(FN_checkoutPerson, TypeFactory.GUID);
+		field.setTitle("确认出库人");
+		this.f_checkoutPersonName = field = this.table.newField(FN_checkoutPersonName, TypeFactory.NVARCHAR(30));
+		field.setTitle("确认出库人");
+		this.f_deptId = field = this.table.newField(FN_deptId, TypeFactory.GUID);
+		field.setTitle("部门recid");
+		this.f_deptName = this.table.newField(FN_deptName, TypeFactory.NVARCHAR(50));
+		this.f_isReceipting = field = this.table.newField(FN_isReceipting, TypeFactory.BOOLEAN);
+		field.setTitle("是否关联收款单");
+		this.f_creatorId = field = this.table.newField(FN_creatorId, TypeFactory.GUID);
+		field.setTitle("创建人");
+		this.f_creator = field = this.table.newField(FN_creator, TypeFactory.NVARCHAR(30));
+		field.setTitle("创建人");
+	}
+
+}

@@ -1,0 +1,135 @@
+package com.spark.psi.storage.purchase;
+
+import com.jiuqi.dna.core.def.table.TableDeclarator;
+import com.jiuqi.dna.core.type.TypeFactory;
+import com.jiuqi.dna.core.def.table.TableFieldDefine;
+import com.jiuqi.dna.core.def.table.TableFieldDeclare;
+
+public final class TB_PSI_Purchase_Order_CREATE extends TableDeclarator {
+
+	public static final String TABLE_NAME ="PSI_Purchase_Order_CREATE";
+
+	public final TableFieldDefine f_tenantsGuid;
+	public final TableFieldDefine f_goodsGuid;
+	public final TableFieldDefine f_goodsNo;
+	public final TableFieldDefine f_goodsName;
+	public final TableFieldDefine f_goodsAttr;
+	public final TableFieldDefine f_goodsCountDigit;
+	public final TableFieldDefine f_unit;
+	public final TableFieldDefine f_price;
+	public final TableFieldDefine f_buyNum;
+	public final TableFieldDefine f_storeGuid;
+	public final TableFieldDefine f_storeName;
+	public final TableFieldDefine f_createGuid;
+	public final TableFieldDefine f_createPerson;
+	public final TableFieldDefine f_createDate;
+	public final TableFieldDefine f_cuspGUid;
+	public final TableFieldDefine f_cuspName;
+	public final TableFieldDefine f_cuspFullName;
+	public final TableFieldDefine f_cuspFullNamePY;
+	public final TableFieldDefine f_cuspFax;
+	public final TableFieldDefine f_linkmanGuid;
+	public final TableFieldDefine f_linkman;
+	public final TableFieldDefine f_linkmanTel;
+	public final TableFieldDefine f_consigneeGuid;
+	public final TableFieldDefine f_consignee;
+	public final TableFieldDefine f_consigneeTel;
+	public final TableFieldDefine f_address;
+	public final TableFieldDefine f_provPrice;
+	public final TableFieldDefine f_buyCause;
+
+	public static final String FN_tenantsGuid ="tenantsGuid";
+	public static final String FN_goodsGuid ="goodsGuid";
+	public static final String FN_goodsNo ="goodsNo";
+	public static final String FN_goodsName ="goodsName";
+	public static final String FN_goodsAttr ="goodsAttr";
+	public static final String FN_goodsCountDigit ="goodsCountDigit";
+	public static final String FN_unit ="unit";
+	public static final String FN_price ="price";
+	public static final String FN_buyNum ="buyNum";
+	public static final String FN_storeGuid ="storeGuid";
+	public static final String FN_storeName ="storeName";
+	public static final String FN_createGuid ="createGuid";
+	public static final String FN_createPerson ="createPerson";
+	public static final String FN_createDate ="createDate";
+	public static final String FN_cuspGUid ="cuspGUid";
+	public static final String FN_cuspName ="cuspName";
+	public static final String FN_cuspFullName ="cuspFullName";
+	public static final String FN_cuspFullNamePY ="cuspFullNamePY";
+	public static final String FN_cuspFax ="cuspFax";
+	public static final String FN_linkmanGuid ="linkmanGuid";
+	public static final String FN_linkman ="linkman";
+	public static final String FN_linkmanTel ="linkmanTel";
+	public static final String FN_consigneeGuid ="consigneeGuid";
+	public static final String FN_consignee ="consignee";
+	public static final String FN_consigneeTel ="consigneeTel";
+	public static final String FN_address ="address";
+	public static final String FN_provPrice ="provPrice";
+	public static final String FN_buyCause ="buyCause";
+
+	//不可调用该构造方法.当前类只能由框架实例化.
+	private TB_PSI_Purchase_Order_CREATE() {
+		super(TABLE_NAME);
+		this.table.setTitle("采购清单");
+		this.table.setCategory("业务主体");
+		TableFieldDeclare field;
+		this.f_tenantsGuid = field = this.table.newField(FN_tenantsGuid, TypeFactory.GUID);
+		field.setTitle("租户编号");
+		this.f_goodsGuid = field = this.table.newField(FN_goodsGuid, TypeFactory.GUID);
+		field.setTitle("商品规格GUID");
+		this.f_goodsNo = field = this.table.newField(FN_goodsNo, TypeFactory.NVARCHAR(30));
+		field.setTitle("商品条码");
+		this.f_goodsName = field = this.table.newField(FN_goodsName, TypeFactory.NVARCHAR(50));
+		field.setTitle("商品名称");
+		this.f_goodsAttr = field = this.table.newField(FN_goodsAttr, TypeFactory.NVARCHAR(100));
+		field.setTitle("商品属性");
+		this.f_goodsCountDigit = field = this.table.newField(FN_goodsCountDigit, TypeFactory.INT);
+		field.setTitle("商品小数位数");
+		this.f_unit = field = this.table.newField(FN_unit, TypeFactory.NVARCHAR(12));
+		field.setTitle("单位");
+		this.f_price = field = this.table.newField(FN_price, TypeFactory.NUMERIC(17,2));
+		field.setTitle("单价");
+		this.f_buyNum = field = this.table.newField(FN_buyNum, TypeFactory.NUMERIC(17,5));
+		field.setTitle("采购数量");
+		this.f_storeGuid = field = this.table.newField(FN_storeGuid, TypeFactory.GUID);
+		field.setTitle("对应仓库编号");
+		this.f_storeName = field = this.table.newField(FN_storeName, TypeFactory.NVARCHAR(50));
+		field.setTitle("仓库名称");
+		this.f_createGuid = field = this.table.newField(FN_createGuid, TypeFactory.GUID);
+		field.setTitle("制单人GUID");
+		this.f_createPerson = field = this.table.newField(FN_createPerson, TypeFactory.NVARCHAR(40));
+		field.setTitle("制单人");
+		this.f_createDate = field = this.table.newField(FN_createDate, TypeFactory.DATE);
+		field.setTitle("制单日期");
+		this.f_cuspGUid = field = this.table.newField(FN_cuspGUid, TypeFactory.GUID);
+		field.setTitle("供应商GUID");
+		this.f_cuspName = field = this.table.newField(FN_cuspName, TypeFactory.NVARCHAR(20));
+		field.setTitle("供应商名称");
+		this.f_cuspFullName = field = this.table.newField(FN_cuspFullName, TypeFactory.NVARCHAR(100));
+		field.setTitle("供应商全称");
+		this.f_cuspFullNamePY = field = this.table.newField(FN_cuspFullNamePY, TypeFactory.NVARCHAR(50));
+		field.setTitle("供应商全称拼音");
+		this.f_cuspFax = field = this.table.newField(FN_cuspFax, TypeFactory.NVARCHAR(20));
+		field.setTitle("供应商传真");
+		this.f_linkmanGuid = field = this.table.newField(FN_linkmanGuid, TypeFactory.GUID);
+		field.setTitle("联系人GUID");
+		this.f_linkman = field = this.table.newField(FN_linkman, TypeFactory.NVARCHAR(40));
+		field.setTitle("联系人");
+		this.f_linkmanTel = field = this.table.newField(FN_linkmanTel, TypeFactory.NVARCHAR(20));
+		field.setTitle("联系人电话");
+		this.f_consigneeGuid = field = this.table.newField(FN_consigneeGuid, TypeFactory.GUID);
+		field.setTitle("收货人Guid");
+		this.f_consignee = field = this.table.newField(FN_consignee, TypeFactory.NVARCHAR(40));
+		field.setTitle("收货人");
+		this.f_consigneeTel = field = this.table.newField(FN_consigneeTel, TypeFactory.NVARCHAR(20));
+		field.setTitle("收货人电话");
+		this.f_address = field = this.table.newField(FN_address, TypeFactory.NVARCHAR(200));
+		field.setTitle("收货地址");
+		this.f_provPrice = field = this.table.newField(FN_provPrice, TypeFactory.NUMERIC(17,2));
+		field.setTitle("上次采购单价");
+		this.f_buyCause = field = this.table.newField(FN_buyCause, TypeFactory.NVARCHAR(1000));
+		field.setTitle("采购原因");
+		this.table.newIndex("SA_BUY_CREATE_INDEX",f_tenantsGuid,f_createGuid);
+	}
+
+}

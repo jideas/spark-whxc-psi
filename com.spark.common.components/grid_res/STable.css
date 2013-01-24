@@ -1,0 +1,57 @@
+body{
+    background-color: white;
+}
+
+
+td{
+	border:solid #78a9bf;
+	border-width:0px 1px 1px 0px;
+	text-overflow: ellipsis;
+	table-layout: fixed;
+	word-break : break-all; 
+	overflow:hidden;
+}
+
+table{
+	border:solid #78a9bf;
+	border-width:0px 0px 0px 0px;
+	font-size: 12px;
+	table-layout: fixed;
+	vertical-align:middle;
+}
+
+#title_table img{
+	position: absolute;
+	margin: 1px;
+}
+
+a{
+	text-decoration: none;
+	color: #0059af;
+}
+
+#title_table td{
+	background-image:url(/saas_grid/img/tablehead-bg.png);
+	text-align: center;
+	
+}
+
+div{
+	padding-left: 5px;
+	padding-right: 5px;
+ 	overflow:hidden; 
+ 	text-overflow:ellipsis; 
+ 	white-space:nowrap;
+}
+
+div font {
+	font-size: 12px;
+	padding-left: 0px;
+	
+}
+
+.tdCenter {
+	text-align: center;
+}
+
+
