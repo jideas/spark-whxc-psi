@@ -1,0 +1,16 @@
+define orm Orm_ReportLossItemDet(@reportLossItemId guid not null)
+	mapping com.spark.psi.inventory.internal.entity.ReportLossItemDet
+begin
+	select 
+		t."count" as "count",
+		t."produceDate" as "produceDate",
+		t."reportLossItemId" as "reportLossItemId",
+		t."sheetId" as "sheetId",
+		t."shelfId" as "shelfId",
+		t.shelfNo as "shelfNo",
+		t."stockId" as "stockId",
+		t."tiersNo" as "tiersNo",
+		t."RECID" as "id"
+	from PSI_INVENTORY_REPORTLOSS_SHELF as t
+	where t.reportLossItemId = @reportLossItemId
+end

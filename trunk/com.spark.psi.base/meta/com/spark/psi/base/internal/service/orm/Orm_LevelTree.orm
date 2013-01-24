@@ -1,0 +1,11 @@
+define orm Orm_LevelTree(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.LevelTree
+begin
+	select 
+		t."RECID" as "RECID",
+		t."PATH" as "path",
+		t."STAUTS" as "stauts",
+		t.tenantId as tenantId
+	from SA_CORE_TREE as t
+	where t.RECID = @id
+end

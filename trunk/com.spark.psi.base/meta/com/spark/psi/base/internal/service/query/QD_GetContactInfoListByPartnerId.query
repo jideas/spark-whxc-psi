@@ -1,0 +1,29 @@
+define query "QD_GetContactInfoListByPartnerId"(@partnerId guid,@type string)
+begin
+	select 
+		t."name"             as name, 
+		t."sex"              as sexCode, 
+		t."nickname"         as nickName, 
+		t."mobile"           as mobileNumber, 
+		t."phone"            as landLineNumber, 
+		t."email"            as email, 
+		t."department"       as department, 
+		t."job"              as position, 
+		t."qq"               as qqNumber, 
+		t."msn"              as msnNumber, 
+		t."aliim"            as wwNumber, 
+		t."birth"            as birth, 
+		t."fav"              as hobbies,  
+		t."comments"         as memo, 
+		t."cusproGuid"       as partnerId,  
+		t."province"         as province, 
+		t."city"             as city, 
+		t."district"          as district, 
+		t."address"    as    address, 
+		t."postCode"         as postCode,
+		t.recid  as recid,
+		t."main"             as main,
+		t.company as company,
+		t."lastDate"         as "lastDate" 
+	from "SA_CONTACKBOOK" as "t" where t.cusproGuid = @partnerId and t."type" = @type order by t.lastDate, t.main desc
+end 

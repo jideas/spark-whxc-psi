@@ -1,0 +1,29 @@
+define orm Orm_JointSettlement(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.jointSettlement.JointSettlementEntity
+begin
+	select 
+		t.RECID as id,
+		t."adjustAmount" as "adjustAmount",
+		t."amount" as "amount",
+		t."beginDate" as "beginDate",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."endDate" as "endDate",
+		t."molingAmount" as "molingAmount",
+		t."namePY" as "namePY",
+		t."paidAmount" as "paidAmount",
+		t."percentageAmount" as "percentageAmount",
+		t."salesAmount" as "salesAmount",
+		t."sheetNo" as "sheetNo",
+		t."shortName" as "shortName",
+		t."status" as "status",
+		t."supplierId" as "supplierId",
+		t."supplierName" as "supplierName",
+		t."supplierNo" as "supplierNo",
+		t.recordIds as recordIds,
+		t.remark as remark,
+		t.denyReason as denyReason
+	from PSI_Joint_Settlement as t
+	where t.RECID = @id
+end

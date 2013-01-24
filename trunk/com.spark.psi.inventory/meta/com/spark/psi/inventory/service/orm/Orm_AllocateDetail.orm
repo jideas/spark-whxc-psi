@@ -1,0 +1,20 @@
+define orm Orm_AllocateDetail(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.AllocateInventoryItem
+begin
+	select 
+		t."ableCount" as "ableCount",
+		t."allocateCount" as "allocateCount",
+		t."allocateId" as "allocateId",
+		t."createDate" as "createDate",
+		t."creatorId" as "creatorId",
+		t."stockCode" as "stockCode",
+		t."stockId" as "stockId",
+		t."stockName" as "stockName",
+		t."stockNo" as "stockNo",
+		t."stockSpec" as "stockSpec",
+		t.stockScale as "stockScale",
+		t.RECID as "id",
+		t."unit" as "unit"
+	from PSI_Inventory_Allocate_Det as t
+	where t.RECID = @id
+end

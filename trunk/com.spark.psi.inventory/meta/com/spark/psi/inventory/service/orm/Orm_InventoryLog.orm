@@ -1,0 +1,28 @@
+define orm Orm_InventoryLog(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.InventoryLogEntity
+begin
+	select 
+		t.RECID as id,
+		t.storeId as storeId,
+		t.stockId as stockId,
+		t.name as name,
+		t.properties as properties,
+		t.unit as unit,
+		t.categoryId as categoryId,
+		t.code as code,
+		t.stockNo as stockNo,
+		t.orderId as orderId,
+		t.orderNo as orderNo,
+		t.logType as logType,
+		t.instoCount as instoCount,
+		t.instoAmount as instoAmount,
+		t."scale" as "scale",
+		t.outstoCount as outstoCount,
+		t.outstoAmount as outstoAmount,
+		t.createPerson as createPerson,
+		t.createdDate as createdDate,
+		t.inventoryType as inventoryType
+
+	from PSI_Inventory_Log as t
+	where t.RECID = @id
+end

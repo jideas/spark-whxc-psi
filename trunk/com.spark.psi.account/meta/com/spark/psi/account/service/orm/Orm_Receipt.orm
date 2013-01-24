@@ -1,0 +1,23 @@
+define orm "Orm_Receipt"(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.receipt.ReceiptEntity
+begin
+	select 
+		t.RECID as id,
+		t.receiptsNo as receiptsNo,
+		t.partnerName as partnerName,
+		t.partnerId as partnerId,
+		t.receiptMode as receiptMode,
+		t.reason as reason,
+		t.receiptDate as receiptDate,
+		t.status as status,
+		t.amount as amount,
+		t.receiptedAmount as receiptedAmount,
+		t.remark as remark,
+		t.creatorId as creatorId,
+		t.creator as creator,
+		t.createDate as createDate,
+		t.receiptType as receiptType
+			
+		from PSI_ACCOUNT_Receipts as t
+	where t.RECID = @id
+end

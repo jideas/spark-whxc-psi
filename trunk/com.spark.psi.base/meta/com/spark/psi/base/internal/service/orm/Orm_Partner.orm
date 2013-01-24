@@ -1,0 +1,37 @@
+define orm "Orm_Partner"(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.PartnerOrmEntity
+begin
+	select 
+		t."RECID"             as  id,
+		t."tenantsGuid"       as  tenantId,
+		t."cusproName"        as  name,
+		t."cusproShortName"   as  shortName,
+		t."cusproType"        as  partnerType,
+		t."cusproSour"        as  developType,
+		t."industy"           as  industyType,
+		t."scale"             as  scaleType, 
+		t."account"           as  bankAccountNumber,
+		t."cusproBank"        as  bankName,
+		t."accountHolder"     as  bankAccountName,
+		t."creditline"        as  creditAmount,
+		t."workTel"           as  workPhoneNumber,
+		t."fax"               as  faxNumber,
+		t."province"          as  province, 
+		t."city"              as  city, 
+		t."address"           as  district,
+		t.addressDetail       as  address,
+		t."taxationNo"        as  taxationNumber,
+		t."netAddress"        as  website,
+		t."remark"            as  memo,
+		t."postCode"          as  postCode,
+		t."accountPeriod"     as  creditDay, 
+		t."accountRemind"     as  warnningDay,  
+		t."createPerson"      as  createPerson,
+		t."createDate"        as  createDate,
+		t."cusproGrd"         as  partnerGrd,
+		t."busPerson"         as  busPerson,
+		t.isReflag as used
+		
+	from SA_CUSPROVIDER_INFO as t 
+	where t.RECID = @id
+end

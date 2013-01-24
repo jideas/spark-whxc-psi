@@ -1,0 +1,6 @@
+define query QD_GetStoreSalesEmployeeListByTenantId(@tenantId guid,@type string)
+begin
+	select t.employeeGuid as "employeeGuid",
+		t.storeGuid as storeGuid
+	from "SA_STORE_EMPLOYEE" as "t" where t.tenantsGuid = @tenantId and t.employeeType = @type 
+end

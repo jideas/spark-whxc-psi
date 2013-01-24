@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="PayReason">
+	<item code="01" name="采购付款"/>
+	<item code="02" name="销售退款"/>
+	<item code="03" name="预付款"/>
+	<item code="04" name="押金退还"/>
+</content>

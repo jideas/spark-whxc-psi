@@ -1,0 +1,7 @@
+define query QD_GetContactListByPartnerId(@partnerId guid,@type string)
+begin
+	select 
+	t."RECID"            as id 
+	from SA_CONTACKBOOK as t 
+	where t.cusproGuid = @partnerId and t."type" = @type
+end

@@ -1,0 +1,19 @@
+define orm Orm_PaymentItemBySheetId(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.pay.PaymentItemEntity
+begin
+	select 
+	    t.RECID as id,
+		t."amount" as "amount",
+		t."askAmount" as "askAmount",
+		t."checkinDate" as "checkinDate",
+		t."checkinSheetId" as "checkinSheetId",
+		t."molingAmount" as "molingAmount",
+		t."paidAmount" as "paidAmount",
+		t."payingAmount" as "payingAmount",
+		t."paymentId" as "paymentId",
+		t."relevantBillId" as "relevantBillId",
+		t."relevantBillNo" as "relevantBillNo",
+		t."sheetNo" as "sheetNo"
+	from PSI_ACCOUNT_Payment_Det as t
+	where t.paymentId = @id
+end

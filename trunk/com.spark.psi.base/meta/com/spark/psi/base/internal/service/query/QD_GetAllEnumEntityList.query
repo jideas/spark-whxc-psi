@@ -1,0 +1,9 @@
+define query QD_GetAllEnumEntityList()
+begin
+	select 
+		t.typeName as typeName,
+		t.code as code,
+		t.codeName as codeName,
+		t.parentcode as parentCode
+	from "sa_dictionary_list" as "t" order by t.recid asc
+end

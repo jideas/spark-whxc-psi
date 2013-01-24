@@ -1,0 +1,19 @@
+define orm Orm_Company(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.CompanyOrmEntity
+begin
+	select 
+		t."address" as "address",
+		t."area" as "district",
+		t."city" as "city",
+		t."companyName" as "companyName",
+		t."companyShortName" as "companyShortName",
+		t."fax" as "faxNumber",
+		t."phone" as "landLineNumber",
+		t."postcode" as "postcode",
+		t."province" as "province",
+		t."RECID" as "id",
+		t."systemName" as "systemName",
+		t."logo" as logo
+	from SA_CLIENT_COMPANYINFO as t
+	where t.RECID = @id
+end

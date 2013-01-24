@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="ReceiptReason">
+	<item code="01" name="销售收款"/>
+	<item code="02" name="采购退款"/>
+	<item code="03" name="预收款"/> 
+</content>

@@ -1,0 +1,27 @@
+define orm Orm_Store_Check(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.CheckInventory
+begin
+	select 
+		t."checkDeficient" as "checkDeficient",
+		t."checkObj" as "checkObj",
+		t."checkOrdNo" as "checkOrdNo",
+		t."checkOrdState" as "checkOrdState",
+		t."checkPerson" as "checkPerson",
+		t."checkProfit" as "checkProfit",
+		t."createDate" as "createDate",
+		t."createPerson" as "createPerson",
+		t."deptGuid" as "deptGuid",
+		t."endDate" as "endDate",
+		t."markName" as "markName",
+		t."markPerson" as "markPerson",
+		t."RECID" as "recid",
+		t."remark" as "remark",
+		t."startDate" as "startDate",
+		t."storeGuid" as "storeGuid",
+		t."storeName" as "storeName",
+		t."storePY" as "storePY",
+		t."storeState" as "StoreStatus",
+		t."tenantsGuid" as "tenantsGuid"
+	from SA_STORE_CHECK as t
+	where t.RECID = @id
+end

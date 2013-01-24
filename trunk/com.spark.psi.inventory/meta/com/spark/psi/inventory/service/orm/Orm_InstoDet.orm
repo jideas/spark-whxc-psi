@@ -1,0 +1,21 @@
+define orm Orm_InstoDet(@id guid not null)
+	mapping com.spark.psi.inventory.intf.entity.instorage.mod.InstorageItem
+begin
+	select 
+		t."RECID" as "id",
+		t."amount" as "amount",
+		t."checkinCount" as "checkinCount",
+		t.planCount as "count",
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsSpec" as "goodsSpec",
+		t."inspectCount" as "inspectCount",
+		t."price" as "price",
+		t."scale" as "scale",
+		t."sheetId" as "sheetId",
+		t."unit" as "unit"
+	from PSI_Inventory_Checkining_Det as t
+	where t.RECID = @id
+end

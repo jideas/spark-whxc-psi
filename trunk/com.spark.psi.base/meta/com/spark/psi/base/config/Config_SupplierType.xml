@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="SupplierType">
+	<item code="01" name="材料供应商"/>
+	<item code="02" name="商品供应商"/>
+	<item code="03" name="包装供应商"/>
+	<item code="04" name="综合供应商"/> 
+</content>

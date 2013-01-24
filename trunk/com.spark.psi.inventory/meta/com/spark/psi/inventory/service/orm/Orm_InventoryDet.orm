@@ -1,0 +1,16 @@
+define orm Orm_InventoryDet(@id guid not null)
+	mapping com.spark.psi.inventory.service.resource.InventoryDetEntity
+begin
+	select 
+	    t.RECID as id,
+		t."count" as "count",
+		t."inventoryId" as "inventoryId",
+		t."produceDate" as "produceDate",
+		t."shelfId" as "shelfId",
+		t."shelfNo" as "shelfNo",
+		t."stockId" as "stockId",
+		t."storeId" as "storeId",
+		t."tiersNo" as "tiersNo"
+	from PSI_Inventory_Det as t
+	where t.RECID = @id
+end

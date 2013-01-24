@@ -1,0 +1,11 @@
+define orm Orm_Shelf(@id guid not null)
+	mapping com.spark.psi.base.publicimpl.ShelfItemImpl
+begin
+	select 
+		t.RECID as id,
+		t."shelfNo" as "shelfNo",
+		t."storeId" as "storeId",
+		t."tiersCount" as "tiersCount"
+	from PSI_Base_Shelf as t
+	where t.RECID = @id
+end

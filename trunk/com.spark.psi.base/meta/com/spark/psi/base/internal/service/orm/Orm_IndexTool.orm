@@ -1,0 +1,12 @@
+define orm Orm_IndexTool(@userid guid not null,@name string not null)
+	mapping com.spark.psi.base.publicimpl.IndexToolImpl
+begin
+	select 
+		t."RECID" as "recid",
+		t."name" as "name",
+		t.x as x,
+		t.y as y,
+		t.userid as userid
+	from SA_COMM_INDEX_TOOL as t
+	where t.userid = @userid and t.name like '%'+@name+'%'
+end

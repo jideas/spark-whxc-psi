@@ -1,0 +1,14 @@
+define query QD_GetChildOf(@rec guid)
+begin
+	select
+		t.RECID as "RECID",
+		t.STAUTS as stauts
+	from
+		SA_CORE_TREE as s  
+		join SA_CORE_TREE as t on 
+			t.PATH > s.PATH
+			and t.PATH < s.PATH || bytes'ff'   
+			and len(t.PATH) = len(s.PATH) + 34
+	where
+		s.RECID = @rec
+end

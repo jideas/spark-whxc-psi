@@ -1,0 +1,9 @@
+define orm "Orm_Note"(@id guid not null)
+	mapping com.spark.psi.base.publicimpl.NoteImpl
+begin
+	select 
+		t."noteText" as "noteText",
+		t."RECID" as "recid"
+	from SA_COMM_NOTE as t
+	where t."RECID" = @id  
+end

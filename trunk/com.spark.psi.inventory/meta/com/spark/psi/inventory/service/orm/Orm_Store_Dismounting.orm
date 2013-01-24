@@ -1,0 +1,19 @@
+define orm Orm_Store_Dismounting(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.Dismounting
+begin
+	select 
+		t."RECID" as "RECID",
+		t."createDate" as "createDate",
+		t."createPerson" as "createPerson",
+		t."deptGuid" as "deptGuid",
+		t."dismDate" as "dismDate",
+		t."dismOrdNo" as "dismOrdNo",
+		t."markName" as "markName",
+		t."markPerson" as "markPerson",
+		t."storeGuid" as "storeGuid",
+		t."storeName" as "storeName",
+		t."storePY" as "storePY",
+		t."tenantsGuid" as "tenantsGuid"
+	from SA_STORE_DISMOUNT as t
+	where t.RECID = @id
+end

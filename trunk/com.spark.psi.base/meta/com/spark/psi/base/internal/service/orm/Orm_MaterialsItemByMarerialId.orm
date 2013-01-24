@@ -1,0 +1,40 @@
+define orm Orm_MaterialsItemByMarerialId(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.MaterialsItemOrmEntity
+begin
+	select 
+	t.RECID as id,
+	t.materialCode as materialCode,
+	t.materialNo as materialNo,
+	t.materialName as materialName,
+	t.namePY as namePY,
+	t.categoryId as categoryId,
+	t.spec as spec,
+	t."scale" as "scale",
+	t.inventoryStrategy as inventoryStrategy,
+	t.materialUnit as materialUnit,
+	t.avgBuyPrice as avgBuyPrice,
+	t.totalStoreUpper as totalStoreUpper,
+	t.totalStoreFlore as totalStoreFlore,
+	t.totalStoreAmount as totalStoreAmount,
+	t.shelfLife as shelfLife,
+	t.warningDay as warningDay,
+	t.salePrice as salePrice,
+	t.standardPrice as standardPrice,
+	t.planPrice as planPrice,
+	t.status as status,
+	t.remark as remark,
+	t.canDelete as canDelete,
+	t.refFlag as refFlag,
+	t.createDate as createDate,
+	t.lastModifyDate as lastModifyDate,
+	t.lastModifyPerson as lastModifyPerson,
+	t.warningType as warningType,
+	t.materialProperties as materialProperties,
+	t.creatorId as creatorId,
+	t.creator as creator,
+	t.materialId as materialId,
+	t.lossRate as lossRate,
+	t.recentPurchasePrice as  recentPurchasePrice
+	from PSI_Base_MaterialItem as t
+	where t.materialId = @id
+end

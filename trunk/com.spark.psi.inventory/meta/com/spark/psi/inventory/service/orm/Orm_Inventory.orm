@@ -1,0 +1,29 @@
+define orm Orm_Inventory(@id guid not null)
+	mapping com.spark.psi.inventory.service.resource.InventoryEntity
+begin
+	select 
+		t."RECID" as id,
+		t."storeId" as storeId,
+		t."stockId" as stockId,
+		t."initCount" as initCount,
+		t."initAmount" as initAmount,
+		t."initCost" as initCost,
+		t."name" as name,
+		t."code" as code,
+		t."stockNo" as stockNo,
+		t."count" as "count",
+		t."amount" as amount,
+		t."unit" as unit,
+		t."spec" as spec,
+		t."onWayCount" as onWayCount,
+		t."toDeliverCount" as toDeliverCount,
+		t."upperLimitCount" as upperLimitCount,
+		t."lowerLimitCount" as lowerLimitCount,
+		t."upperLimitAmount" as upperLimitAmount,
+		t."inventoryType" as inventoryType,
+		t."lockedCount" as lockedCount,
+		t."properties" as properties
+
+	from PSI_Inventory as t
+	where t.RECID = @id
+end

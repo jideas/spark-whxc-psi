@@ -1,0 +1,39 @@
+define orm "Orm_Contack"(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.ContactOrmEntity
+begin
+	select 
+	t."RECID"            as id,  
+	t."tenantsGUID"      as tenantId, 
+	t."name"             as name, 
+	t."namePY"           as namePy,  
+	t."main"             as main,  
+	t."sex"              as sexCode, 
+	t."nickname"         as nickName, 
+	t."mobile"           as mobileNumber, 
+	t."phone"            as landLineNumber, 
+	t."email"            as email, 
+	t."company"          as companyName, 
+	t."companyPY"        as companyPy,  
+	t."department"       as department, 
+	t."job"              as position, 
+	t."jobPY"            as postionPy, 
+	t."qq"               as qqNumber, 
+	t."msn"              as msnNumber, 
+	t."aliim"            as wwNumber, 
+	t."birth"            as birth, 
+	t."fav"              as hobbies,  
+	t."comments"         as memo, 
+	t."type"             as "type", 
+	t."createPersonGUID" as createPersonId, 
+	t."createPerson"     as creaetPerson, 
+	t."createDate"       as createDate, 
+	t."cusproGuid"       as partnerId,  
+	t."province"         as province, 
+	t."city"             as city, 
+	t."district"          as district, 
+	t."address"    as    address, 
+	t."postCode"         as postCode,
+	t."lastDate"   as lastDate
+	from SA_CONTACKBOOK as t 
+	where t.RECID = @id
+end

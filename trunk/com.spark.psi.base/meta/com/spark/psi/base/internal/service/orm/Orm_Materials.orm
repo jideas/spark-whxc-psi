@@ -1,0 +1,28 @@
+define orm Orm_Materials(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.MaterialsOrmEntity
+begin
+	select 
+	    t.RECID as id,
+		t.materialCode as materialCode,
+		t.materialName as materialName,
+		t.categoryId as categoryId,
+		t.remark as remark,
+		t.canDelete as canDelete,
+		t.refFlag as refFlag,
+		t.inventoryWarningType as inventoryWarningType,
+		t.createDate as createDate,
+		t.lastModifyDate as lastModifyDate,
+		t.lastModifyPerson as lastModifyPerson,
+		t.creatorId as creatorId,
+		t.creator as creator,
+		t.namePY as namePY,
+		t.status as status,
+		t.shelfLife as shelfLife,
+		t.warningDay as warningDay,
+		t.isJointVenture as isJointVenture,
+		t.supplierId as supplierId,
+		t.percentage as percentage
+		
+	from PSI_Base_Material as t 
+	where t.RECID = @id 
+end

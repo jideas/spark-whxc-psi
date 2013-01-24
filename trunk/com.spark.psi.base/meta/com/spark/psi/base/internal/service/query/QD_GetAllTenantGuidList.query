@@ -1,0 +1,5 @@
+define query QD_GetAllTenantGuidList()
+begin
+	select t.recid as "recid"
+	from sa_tenants as "t"
+end

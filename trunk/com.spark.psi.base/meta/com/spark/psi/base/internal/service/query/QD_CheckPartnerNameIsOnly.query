@@ -1,0 +1,6 @@
+define query QD_CheckPartnerNameIsOnly(@tenantId guid,@type string,@name string,@shortName string,@id guid)
+begin
+	
+	select count(0) as "count" 
+	from "SA_CUSPROVIDER_INFO" as "t" where t.recid <> @id and t.tenantsGuid = @tenantId and t.cusproType = @type and (t.cusproName = @name or t.cusproShortName = @shortName)
+end

@@ -1,0 +1,9 @@
+define orm Orm_OutstoDet(@id guid not null)
+	mapping com.spark.psi.inventory.intf.entity.outstorage.mod.OutstorageItem
+begin
+	select 
+		t."RECID" as "RECID",
+		t."createDate" as "createDate"
+	from PSI_Inventory_Checkouting_Det as t
+	where t.RECID = @id
+end

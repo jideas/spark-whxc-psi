@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="CustomerPricePolicy">
+	<item code="01" name="后付款客户"/>
+	<item code="02" name="先付款客户"/> 
+</content>

@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SaaS门户公开接口
+Bundle-SymbolicName: com.spark.portal.publish
+Bundle-Version: 1.0.0
+Bundle-Vendor: 久其
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
