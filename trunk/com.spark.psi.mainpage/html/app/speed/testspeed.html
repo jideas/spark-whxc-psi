@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+	<meta  http-equiv ="X-UA-Compatible"  content ="IE=EmulateIE7" />
+	<script type="text/javascript" src="../common/jquery.js"></script>
+	</head>
+	<body style="margin:0;padding:0;width:100%;height:0%;background-color:transparent;" unselectable="on" onselectstart="return false" style="-moz-user-select:none;" oncontextmenu=self.event.returnValue=false>
+		<script>
+			var alldiv=$("body");
+			var div=$("<div>").css("margin","25px 13px 25px 13px").css("height","30px");
+			var text=$("<div>").css("float","left")
+							   .css("color","#bbbbbb")
+							   .css("height","12px")
+							   .css("margin-top","8px")
+							   .css("font-size","12px").html("µ±Ç°ÍøËÙ£º");
+			var good    =$("<div>",{"class":"speedFlag"}).css("float","left").attr("id","good");
+			var normal  =$("<div>",{"class":"speedFlag"}).css("float","left").attr("id","normal");
+			var bad		=$("<div>",{"class":"speedFlag"}).css("float","left").attr("id","bad");
+			
+			var button  =$("<div>").attr("id","speedbtn").html("&nbsp;")
+						   .css("background","cetner cetner")
+						   .css("background-image","url('image/net_speed_button_n.png')")
+						   .css("width","67px")
+						   .css("height","29px")
+						   .css("margin-left","10px")
+						   .css("float","left");
+			button.click(function(){
+				//window.fresh();
+				window.location.reload();
+			});
+			button.mousedown(function(){
+				$(this).css("background-image","url('image/net_speed_button_c.png')")
+			});
+			button.mouseup(function(){
+				$(this).css("background-image","url('image/net_speed_button_h.png')")
+			});
+			button.hover(function(){
+				$(this).css("background-image","url('image/net_speed_button_h.png')")
+			},function(){
+				$(this).css("background-image","url('image/net_speed_button_n.png')")
+			});
+			div.append(text);
+			div.append(good);
+			div.append(normal);
+			div.append(bad);
+			div.append(button);
+			alldiv.append(div);
+			$(".speedFlag").css("background","cetner cetner")
+						   .css("background-image","url('image/net_speed_gray.png')")
+						   .css("margin","2px 4px 4px 4px")
+						   .css("width","22px")
+						   .css("display","block")
+						   .css("height","22px").html("&nbsp;");
+						   
+						   
+		   alldiv.append($("<iframe id='saas_speediframe' name='saas_speediframe' frameborder=0 framespacing=0 allowtransparency='true' src='/saasspeed' width='100%' height='0%' style='display:none;'></iframe>"));
+		
+		
+			function initUI(speed){
+				//alert(speed)
+				//var speed=0; 
+				var good=40;//KB/s
+				var bad=20;//KB/s
+				if(speed>=good){
+					$(".speedFlag").css("background","cetner cetner")
+						   .css("background-image","url('image/net_speed_gray.png')");
+					$("#good").css("background-image","url('image/net_speed_green.png')");
+				}else if(speed<good&&speed>bad){
+					$(".speedFlag").css("background","cetner cetner")
+						   .css("background-image","url('image/net_speed_gray.png')");
+					$("#normal").css("background-image","url('image/net_speed_yellow.png')");
+				}else {
+					$(".speedFlag").css("background","cetner cetner")
+						   .css("background-image","url('image/net_speed_gray.png')");
+					$("#bad").css("background-image","url('image/net_speed_red.png')");
+				}
+			}
+		</script>
+	</body>
+</html>

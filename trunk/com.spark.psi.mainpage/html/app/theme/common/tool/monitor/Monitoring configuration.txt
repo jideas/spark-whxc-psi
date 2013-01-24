@@ -1,0 +1,14 @@
+Monitoring configuration(监控配置)
+
+标题文字大小14px，加粗，#dddede
+其他文字大小12px，#c2c2c2，“显示/不显示”文字颜色#93aadf
+
+上下边距18
+左右边距12
+行间距10
+列间距16
+botton上左边距6、分割线（Mon_con_botton_cutline.png）
+		与指示灯（Mon_con_shows_shut.png/Mon_con_shows_open.png）
+		间距3、指示灯与文字间距3
+
+

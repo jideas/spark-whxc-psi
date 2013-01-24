@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+	<meta  http-equiv ="X-UA-Compatible"  content ="IE=EmulateIE7" />
+	<script type="text/javascript" src="swfobject.js"></script>
+	</head>
+	<body style="width:95%;height:95%;background-color:transparent;padding:0;margin:0;">
+		<div id="flashcontent"  style="background-color:transparent;">
+		</div>
+		<script type="text/javascript">
+			//这里使用了一个插件,用于使得导入的flash文件能够在各种浏览器上面都能使用
+			var so = new SWFObject("clock102.swf", "mymovie", "150", "150", "7", "transparent");
+		 	
+		 	so.addParam("wmode", "transparent");
+		   	so.write("flashcontent");
+		</script>
+	</body>
+</html>

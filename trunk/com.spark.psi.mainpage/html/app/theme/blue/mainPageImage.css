@@ -1,0 +1,558 @@
+.logoArea{
+	 background-image:url(images/level1/index-top/top-bg01.png);
+}
+.shadowstyle {
+	 background-image:url(images/level1/index-top/top-bg02.png);
+}
+.statusArea{
+	 background-image:url(images/level1/footer/footer-bg01.png);
+}
+
+.secondsepline{
+	background-image:url(images/level2/navigation/menu2-bg_center-line.png);
+}
+.funcLevel1Background{
+	background-image:url(images/level1/index-fastmenu/fastMenu-btnNormal.png);
+}
+.closegifon{
+	background-image:url(images/level1/index-fastmenu/fastMenu-btnExit.png);
+}
+.titleAreaLeft{
+	 background-image:url(images/level1/index-top/top-logo.png);
+}
+.navigation1Left{
+	background-image:url(images/level1/index-menu/menu-bg-l.png);
+}
+.navigation1Center{
+	background-image:url(images/level1/index-menu/menu-bg-c.png);
+}
+.navigation1BeforeCenter{
+	background-image:url(images/level1/index-menu/menu-bg-c.png);
+}
+.navigation1AfterCenter{ 
+	background-image:url(images/level1/index-menu/menu-bg-c.png);
+}
+.navigation1Right{
+	background-image:url(images/level1/index-menu/menu-bg-r.png);
+}
+.statusAreaLeft{
+	 background-image:url(../common/images/level1/footer/message-n.png);
+}
+
+.statusAreaLeft-h{
+	 background-image:url(../common/images/level1/footer/message-h.png);
+}
+
+.statusAreaScreen{
+	 background-image:url(../common/images/level1/footer/fullscreen-n.png);
+
+}
+.statusAreaScreen-h{
+	 background-image:url(../common/images/level1/footer/fullscreen-h.png);
+
+}
+.statusArea1{
+	 background-image:url(../common/images/level1/footer/footer-bg02.png);
+}
+.statusArea3{
+	 background-image:url(../common/images/level1/footer/footer-bg02.png);
+}
+
+.statusAreaRight{
+	background-image:url(../common/images/level1/footer/System-arrowNormal.png);
+}
+
+.statusAreaRightClick{
+	background-image:url(../common/images/level1/footer/System-arrowClick.png);
+}
+
+.titleAreaUserHeadImage{
+}
+
+.titleAreaUserfullScreen{
+	background-image:url(images/level1/index-top/top-fullscreen.png);
+}
+
+
+.menutopleft{
+	 background-image:url(images/menu-all/menu-all-bjtop-l.png);
+}
+.menutopright{
+	 background-image:url(images/menu-all/menu-all-bjtop-r.png);
+}
+.menutopcenter{
+ 	 background-image:url(images/menu-all/menu-all-bjtop-c.png);
+}
+.menutabcenter{
+	background-image:url(images/menu-all/menua-TabFolderbj-c.png);
+}
+
+
+.tabfold1{
+	background-image:url(images/menu-all/menua-TabFolder-n.png);
+}
+.tabfold12{
+	background-image:url(images/menu-all/menua-TabFolder-h.png);
+}
+
+.tabfold2{
+	background-image:url(images/menu-all/menua-TabFolder-n.png);
+}
+.tabfold22{
+	background-image:url(images/menu-all/menua-TabFolder-h.png);
+}
+.tabfold3{
+	background-image:url(images/menu-all/menua-TabFolder-n.png);
+}
+.tabfold32{
+	background-image:url(images/menu-all/menua-TabFolder-h.png);
+}
+
+.tabfold4{
+	background-image:url(images/menu-all/menua-TabFolder-n.png);
+}
+.tabfold42{
+	background-image:url(images/menu-all/menua-TabFolder-h.png);
+}
+.tabfold5{
+	background-image:url(images/menu-all/menua-TabFolder-n.png);
+}
+.tabfold52{
+	background-image:url(images/menu-all/menua-TabFolder-h.png);
+}
+.menubuttomleft{
+	 background-image:url(images/menu-all/menua-Windowbj-l.png);	 
+}
+.menubuttomright{
+	 background-image:url(images/menu-all/menua-Windowbj-r.png);
+}
+.menutableft{
+	 background-image:url(images/menu-all/menua-TabFolderbj-l.png);	 
+}
+.menutabright{
+	 background-image:url(images/menu-all/menua-TabFolderbj-r.png);
+}
+.menubuttomcenter{
+	background-image:url(images/menu-all/menua-Windowbj-c.png);
+}
+
+.seperator{
+	background-image:url(../common/images/level1/tool/System-bj-line.png);
+}
+
+.commonfunon{
+	background-image:url(../common/images/level1/tool/System-bj-h.png);
+}
+.commfunoff{
+}
+.commonFuncTop{
+	background-image:url(../common/images/level1/tool/System-bj-top.png);
+}
+.commonFuncCenter{
+	background-image:url(../common/images/level1/tool/System-bj-center01.png);
+}
+.commonFuncBottom{
+	background-image:url(../common/images/level1/tool/System-bj-center02.png);
+}
+
+.windowLeftTop{
+	  background-image:url(images/level2/window/MTitlebg-left.png);
+}
+.windowTop{
+	  background-image:url(images/level2/window/MTitlebg-center.png);
+}
+.windowRightTop{
+	  background-image:url(images/level2/window/MTitlebg-right.png);
+}
+
+.windowTabLeft{
+	  background-image:url(images/level2/window/MTabsbg-left.png);
+}
+.windowTabCenter{
+	   background-image:url(images/level2/window/MTabsbg-center.png);
+}
+.windowTabRight{
+	  background-image:url(images/level2/window/MTabsbg-right.png);
+}
+
+.windowLeft1{
+	  background-image:url(images/level2/window/MpageCenterbg-left.png);
+}
+.windowRight1{
+	  background-image:url(images/level2/window/MpageCenterbg-right.png);
+}
+.windowLeftBottom1{
+	  background-image:url(images/level2/window/MFooterbg-left.png);
+}
+.windowBottom1{
+	  background-image:url(images/level2/window/MFooterbg-center.png);
+}
+.windowRightBottom1{
+	  background-image:url(images/level2/window/MFooterbg-right.png);
+}
+.windowClose{
+	  background-image:url(images/level2/window/menu2-Exit-n.png);
+}
+
+.windowCloseh{
+	  background-image:url(images/level2/window/menu2-Exit-h.png);
+}
+.windowClosec{
+	  background-image:url(images/level2/window/menu2-Exit-c.png);
+}
+.windowExpand{
+	  background-image:url(images/level2/window/menu2-expand-n.png);
+}
+.windowExpand_e{
+	  background-image:url(images/level2/window/menu2-restore-n.png);
+}
+.windowExpandh{
+	  background-image:url(images/level2/window/menu2-expand-h.png);
+}
+.windowExpandh_e{
+	  background-image:url(images/level2/window/menu2-restore-h.png);
+}
+.windowExpandc{
+	  background-image:url(images/level2/window/menu2-expand-c.png);
+}
+.windowExpandc_e{
+	  background-image:url(images/level2/window/menu2-restore-c.png);
+}
+.flod-l-n{
+	background-image:url(images/level2/window/menu2-jiantou-l-n.png);
+	
+}
+.flod-l-h{
+	background-image:url(images/level2/window/menu2-jiantou-l-h.png)
+}
+.flod-r-n{
+	background-image:url(images/level2/window/menu2-jiantou-r-n.png)
+}
+.flod-r-h{
+	background-image:url(images/level2/window/menu2-jiantou-r-h.png)
+}
+
+.asisLeftTop{
+	 background-image:url(images/level2/window/MTitlebg-left.gif);
+}
+
+.asisTop{
+	  background-image:url(images/level2/window/MTitlebg-center.gif);	  
+}
+
+.asisRightTop{
+	  background-image:url(images/level2/window/MTitlebg-right.gif);
+}
+.asisLeft{
+	  background-image:url(images/level2/window/MpageCenterbg-left.gif);
+}
+.asisCenter{
+}
+.asisRight{
+	  background-image:url(images/level2/window/MpageCenterbg-right.gif);
+}
+.asisLeftBottom{
+	  background-image:url(images/level2/window/MFooterbg-left.gif);
+}
+.asisBottom{
+	  background-image:url(images/level2/window/MFooterbg-center.gif);
+}
+.asisRightBottom{
+	  background-image:url(images/level2/window/MFooterbg-right.gif);
+}
+.navigation2Top{
+	background-image:url(images/level2/navigation/menu2-bg_top.png);
+}
+.navigation2sarrow{
+	background-image:url(images/level2/navigation/menu2-bg_center.png);
+}
+.navigation2Center{
+	background-image:url(images/level2/navigation/menu2-bg_center.png);
+}
+.navigation2Bottom{
+	background-image:url(images/level2/navigation/menu2-bg_bottom.png);
+}
+.naviMenuBut{
+	background-image: url(images/level1/index-menu/menu-arrowNormal.png);
+}
+.naviMenuBut2{
+	background-image: url(images/level1/index-menu/menu-arrowOver.png);
+}
+.statusAreaRightArrow{
+	background-image: url(../common/images/level1/footer/xiaoxiyi.jpg);
+}
+.email{
+	background-image: url(../common/images/level1/footer/email-n.png);
+}
+.email-h{
+	background-image: url(../common/images/level1/footer/email-h.png);
+}
+.im{
+	background-image: url(../common/images/level1/footer/IM-n.png);
+}
+.im-h{
+	background-image: url(../common/images/level1/footer/IM-h.png);
+}
+.note{
+	background-image: url(../common/images/level1/footer/note-n.png);
+}
+
+.note-h{
+	background-repeat:no-repeat;
+	background-image: url(../common/images/level1/footer/note-h.png);
+}
+
+.closegifon_clcok{
+	background-image:url(images/level1/index-fastmenu/fastMenu-btnExit.png);
+}
+
+.saas_tool_window_close{
+	background-image:url(../common/window/menu2-Exit-n.png);
+}
+.saas_tool_window_close_hover{
+	background-image:url(../common/window/menu2-Exit-h.png);
+}
+.saas_tool_window_close_click{
+	background-image:url(../common/window/menu2-Exit-c.png);
+}
+
+.toolTopLeft{
+	background-image:url(../common/window/cct_bgtop_l.png);
+}
+.toolTopRight{
+	background-image:url(../common/window/cct_bgtop_r.png);
+}
+.toolTopCenter{
+	background-image:url(../common/window/cct_bgtop_c.png);
+}
+.centerLeft{
+	background-image:url(../common/window/cct_bgWindow_l.png);
+}
+.centerCenter{
+	background-image:url(../common/window/cct_bgWindow_c.png);
+}
+.centerRight{
+	background-image:url(../common/window/cct_bgWindow_r.png);
+}
+.bottomLeft{
+	background-image:url(../common/window/cct_bgFolder_l.png);
+}
+.bottomCenter{
+	background-image:url(../common/window/cct_bgFolder_c.png);
+}
+.bottomRight{
+	background-image:url(../common/window/cct_bgFolder_r.png);
+}
+.saas_tool_window_bg{
+	background-image:url(../common/window/indexbg.png);
+}
+.saas_tool_window_bg_noline{
+	background-image:url(../common/window/indexbg_noline.png);
+}
+.tool_title_bg{
+	background-image:url(../common/window/title_bg.png);
+}
+.tool_title_flag{
+	background-image:url(../common/window/title_flag.png);
+}
+.saas_sort_border{
+	background-image:url(../common/sort/sortborder.png);
+}
+.saas_sort_border_hover{
+	background-image:url(../common/sort/sortborder_h.png);
+}
+.saas_sortflag{
+	background-image:url(../common/sort/sortFlag.png);
+}
+.saas_theme_type{
+	background-image:url(../common/window/theme_type_bg.png);
+}
+.saas_theme_type_flag{
+	background-image:url(../common/window/theme_type_flag.png);
+}
+.saas_theme_border{
+	background-image:url(../common/window/themeborder.png);
+}
+.saas_theme_border_hover{
+	background-image:url(../common/window/themeborder_h.png);
+}
+.saas_themeFlageIcon{
+	background-image:url(../common/window/themeimageflag.png);
+}
+.messageborder .messageleft{
+	background-image:url(../common/message/message_left.png);
+}
+.messageborder .messagecenter{
+	background-image:url(../common/message/message_center.png);
+}
+.messageborder .messageright{
+	background-image:url(../common/message/message_right.png);
+}
+.messageborder .messagebottom{
+	background-image:url(../common/message/message_bottom.png);
+}
+.min_tool_top_left{
+    background-image:url("../common/images/level1/toolface/cct_bgtop_l.png");
+}
+.min_tool_top_right{
+    background-image:url("../common/images/level1/toolface/cct_bgtop_r.png");
+}
+.min_tool_top_center{
+    background-image:url("../common/images/level1/toolface/cct_bgtop_c.png");
+}
+
+.min_tool_bottom_left{
+    background-image:url("../common/images/level1/toolface/cct_bgFolder_l.png");
+}
+.min_tool_bottom_right{
+    background-image:url("../common/images/level1/toolface/cct_bgFolder_r.png");
+}
+.min_tool_bottom_center{
+    background-image:url("../common/images/level1/toolface/cct_bgFolder_c.png");
+}
+
+.min_tool_center_left{
+    background-image:url("../common/images/level1/toolface/cct_bgWindow_l.png");
+}
+.min_tool_center_center{
+    background-image:url("../common/images/level1/toolface/cct_bgWindow_c.png");
+}
+.min_tool_center_right{
+    background-image:url("../common/images/level1/toolface/cct_bgWindow_r.png");
+}
+.saas_monitor_div_left{
+    background-image:url("../common/monitor/Mon_con_botton_left.png");
+}
+.saas_monitor_div_right{
+    background-image:url("../common/monitor/Mon_con_botton_right.png");
+}
+.saas_monitor_div_center{
+    background-image:url("../common/monitor/Mon_con_botton_center.png");
+}
+
+.saas_monitor_icon_notread{
+    background-image:url("../common/monitor/notread.png");
+}
+.saas_monitor_icon_waitCheck{
+    background-image:url("../common/monitor/waitCheck.png");
+}
+.saas_monitor_icon_waitSale{
+    background-image:url("../common/monitor/waitSale.png");
+}
+.saas_monitor_icon_waitSureIn{
+    background-image:url("../common/monitor/waitSureIn.png");
+}
+.saas_monitor_icon_waitSureOut{
+    background-image:url("../common/monitor/waitSureOut.png");
+}
+.saas_monitor_icon_busWarning{
+    background-image:url("../common/monitor/busWarning.png");
+}
+.saas_monitor_icon_storeWarning{
+    background-image:url("../common/monitor/storeWarning.png");
+}
+.saas_monitor_icon_CreditWarning{
+    background-image:url("../common/monitor/CreditWarning.png");
+}
+.saas_monitor_icon_financeWarning{
+    background-image:url("../common/monitor/financeWarning.png");
+}
+.saas_monitor_icon_ImpDateWarning{
+    background-image:url("../common/monitor/ImpDateWarning.png");
+}
+
+
+.saas_monitor_text_notread{
+    background-image:url("../common/monitor/monitor_text_notread.png");
+}
+.saas_monitor_text_waitCheck{
+    background-image:url("../common/monitor/monitor_text_waitCheck.png");
+}
+.saas_monitor_text_waitSale{
+    background-image:url("../common/monitor/monitor_text_waitSale.png");
+}
+.saas_monitor_text_waitSureIn{
+    background-image:url("../common/monitor/monitor_text_waitSureIn.png");
+}
+.saas_monitor_text_waitSureOut{
+    background-image:url("../common/monitor/monitor_text_waitSureOut.png");
+}
+.saas_monitor_text_busWarning{
+    background-image:url("../common/monitor/monitor_text_busWarning.png");
+}
+.saas_monitor_text_storeWarning{
+    background-image:url("../common/monitor/monitor_text_storeWarning.png");
+}
+.saas_monitor_text_CreditWarning{
+    background-image:url("../common/monitor/monitor_text_CreditWarning.png");
+}
+.saas_monitor_text_financeWarning{
+    background-image:url("../common/monitor/monitor_text_financeWarning.png");
+}
+.saas_monitor_text_ImpDateWarning{
+    background-image:url("../common/monitor/monitor_text_ImpDateWarning.png");
+}
+.saasMonitorItem_count{
+	background-image:url(../common/monitor/monitor_count_bg.png);
+}
+.saas_monitor_count_border div{
+	background-image:url(../common/monitor/monitor_count_number.png);
+}
+.saasMonitorItem_close_n{
+	background-image:url(../common/monitor/monitor_close_n.png);
+}
+.saasMonitorItem_close_h{
+	background-image:url(../common/monitor/monitor_close_h.png);
+}
+
+.saas_monitor_count_0{
+	background-image:url(../common/monitor/0.png);
+}
+.saas_monitor_count_1{
+	background-image:url(../common/monitor/1.png);
+}
+.saas_monitor_count_2{
+	background-image:url(../common/monitor/2.png);
+}
+.saas_monitor_count_3{
+	background-image:url(../common/monitor/3.png);
+}
+.saas_monitor_count_4{
+	background-image:url(../common/monitor/4.png);
+}
+.saas_monitor_count_5{
+	background-image:url(../common/monitor/5.png);
+}
+.saas_monitor_count_6{
+	background-image:url(../common/monitor/6.png);
+}
+.saas_monitor_count_7{
+	background-image:url(../common/monitor/7.png);
+}
+.saas_monitor_count_8{
+	background-image:url(../common/monitor/8.png);
+}
+.saas_monitor_count_9{
+	background-image:url(../common/monitor/9.png);
+}
+
+
+.saas_monitor_spit{
+    background-image:url("../common/monitor/Mon_con_botton_cutline.png");
+}
+.saas_monitor_div_opt_open{
+    background-image:url("../common/monitor/Mon_con_shows_open.png");
+}
+.saas_monitor_div_opt_shut{
+    background-image:url("../common/monitor/Mon_con_shows_shut.png");
+}
+
+.saasMonitorItemLeft{
+    background-image:url("../common/monitor/monitor_show_left.png");
+}
+.saasMonitorItemRight{
+    background-image:url("../common/monitor/monitor_show_right.png");
+}
+.saasMonitorItemCenter{
+    background-image:url("../common/monitor/monitor_show_center.png");
+}

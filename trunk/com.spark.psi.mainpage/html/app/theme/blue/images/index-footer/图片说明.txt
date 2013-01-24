@@ -1,0 +1,7 @@
+文件名称			透明度		坐标
+/*首页*/
+footer-bg01.gif 		90%
+footer-bg02.gif			100%
+
+System-arrowNormal.gif		100%		w：-15	h：4
+（注：此图片坐标w是以右边为原点取值，h是以footer-bg01.gif图片高度为起点取值）

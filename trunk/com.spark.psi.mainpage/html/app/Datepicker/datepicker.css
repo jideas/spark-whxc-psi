@@ -1,0 +1,272 @@
+html{
+    overflow: hidden;
+}
+
+body{
+    overflow: hidden;
+}
+
+.datepicker_table{
+	width:100%;
+	height:180px;
+	font-size:12px;
+	font:"宋体";
+	color:#FFFFFF;
+	border-right:1px solid #29426e;
+	border-left:1px solid #29426e;
+	border-bottom:0px;
+	border-top:1px solid #29426e;
+}
+
+.datepicker_table_tr{
+	width:100%;
+	height:21px;
+}
+
+.datepicker_table_tr2{
+	width:100%;
+	height:26px;
+}
+
+.datepicker_table_td {
+	text-align:center;
+	border-right:0px;
+	border-left:0px;
+	border-bottom:1px solid #29426e;
+	border-top:0px;
+}
+
+.datepicker_table_td2 {
+	text-align:center;
+	border-right:1px solid #29426e;
+	border-left:0px;
+	border-bottom:1px solid #29426e;
+	border-top:0px;
+	width:30px;
+	height:26px;
+	cursor:pointer;
+}
+
+.datepicker_table_td3 {
+	text-align:center;
+	border-right:0px;
+	border-left:0px;
+	border-bottom:1px solid #29426e;
+	border-top:0px;
+	width:30px;
+	height:26px;
+	cursor:pointer;
+}
+
+.datepicker {
+white-space:nowrap;
+overflow:hidden;
+}
+
+.datepicker_top_left{
+float:left;
+height:30px;
+cursor:pointer;
+
+}
+
+.datepicker_top_right{
+float:left;
+height:30px;
+width:50%;
+}
+
+.divtopright1{
+font-family:"宋体";
+font-size:12px;
+color:#FFFFFF;
+width:150px;
+}
+
+.divtopright2{
+font-family:"宋体";
+font-size:12px;
+color:#8aa6d1;
+width:150px;
+}
+
+.fontdiv{
+float:left;
+margin-top:5px;
+margin-left:5px;
+float:left;
+}
+
+
+.button-top-left-datepicker{
+	background-repeat:  repeat-x;
+	background-image:url(images/datebtn_n_lt.png);
+}
+
+.button-top-center-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_t.png);
+}
+
+.button-top-right-datepicker{
+	
+	background-repeat:  repeat-x;
+	background-image:url(images/datebtn_n_rt.png);
+}
+
+.button-center-left-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_l.png);
+
+}
+
+.button-center-center-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_bg.png);
+	font-size:12px;
+	color:#8aa6d1;
+	text-align:center;
+}
+
+.button-center-right-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_r.png);
+}
+
+.button-bottom-left-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_lb.png);
+}
+
+.button-bottom-center-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_b.png);
+}
+
+.button-bottom-right-datepicker{
+	background-repeat: repeat-x;
+	background-image:url(images/datebtn_n_rb.png);
+}
+.button-f-datepicker{
+	hite-space:nowrap;
+	float:left;
+}
+.tableca-datepicker{
+	float:right;
+	cursor:pointer;
+}
+
+.mousediv{
+position:absolute;
+z-index:3;
+display:none;
+background-color:#bfd5e4;
+width:50px;
+border:1px  #8aa6d1 solid;
+}
+
+.mousediv2{
+text-align:center;
+background-color:#506a96;
+
+font-size:12px;
+color:#FFFFFF;
+cursor:pointer;}
+
+.datepicker-cilck{
+position:absolute;
+overflow:hidden;
+white-space:nowrap;
+width:83px;
+}
+
+.datepicker-cilck-left{
+float:left;
+width:3px;
+background-repeat: repeat-x;
+background-image:url(images/date_notes_left.png);
+height:30px;
+}
+
+.datepicker-cilck-center{
+float:left;
+width:72px;
+text-align:center;
+padding:2px;
+background-repeat: repeat-x;
+background-image:url(images/date_notes_center.png);
+font-size:12px;
+font-family:"宋体";
+height:30px;
+}
+
+.datepicker-cilck-right{
+float:left;
+width:3px;
+background-repeat: repeat-x;
+background-image:url(images/date_notes_right.png);
+height:30px;
+}
+
+.datepicker-click-divtop{
+position:absolute;
+margin-left:10px;
+width:12px;
+height:7px;
+overflow:hidden;
+  background-repeat: no-repeat;
+background-image:url(images/date_notes_arrowup.png);
+}
+
+
+.date_month_before,.date_month_before_hover{
+  margin-top:23px;
+}
+.date_month_after,.date_month_after_hover{
+  margin-top:23px;
+}
+.date_year_before,.date_month_before{
+  width:6px;
+  height:11px;
+  float:left;
+  background-repeat: no-repeat;
+  background-image:url(images/date_arrow_bigup_n.png);
+}
+.date_year_before_hover,.date_month_before_hover{
+  width:6px;
+  height:11px;
+  float:left;
+  background-repeat: no-repeat;
+  background-image:url(images/date_arrow_bigup_h.png);
+}
+.date_year_after,.date_month_after{
+  width:6px;
+  height:11px;
+  float:left;
+  background-repeat: no-repeat;
+  background-image:url(images/date_arrow_bigdown_n.png);
+}
+.date_year_after_hover,.date_month_after_hover{
+  width:6px;
+  height:11px;
+  float:left;
+  margin-top:23px;
+  background-repeat: no-repeat;
+  background-image:url(images/date_arrow_bigdown_h.png);
+}
+.date_year_after_hover,.date_year_after{
+	margin-left:2px;
+}
+
+.date_monthDiv{
+  width:30%;
+  font-family:"Tahoma";
+  font-size:35px;
+  color:#f5fbff;
+  text-align:center;
+  float:left;
+  height:30px;
+  width:40px;
+  margin:0px 2px 0px 2px;
+
+}

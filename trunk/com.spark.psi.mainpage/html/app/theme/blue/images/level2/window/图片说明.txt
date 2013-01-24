@@ -1,0 +1,19 @@
+文件名称			透明度
+/*二级*/
+MTitlebg-left.gif		80%
+MTitlebg-center.gif		80%
+MTitlebg-right.gif		80%
+
+MpageCenterbg-left.gif		30%
+MpageCenterbg-right.gif		30%
+
+MFooterbg-left.gif		30%
+MFooterbg-center.gif		30%
+MFooterbg-right.gif		30%
+
+menu2-jiantoubg.gif		40%
+
+menu2-Exit.gif			90%
+
+——文字样式——
+MTitle-pic20x24-1a.gif 图后文字大小：14px；文字颜色：#d5d6d6

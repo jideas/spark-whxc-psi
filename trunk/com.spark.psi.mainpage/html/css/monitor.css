@@ -1,0 +1,178 @@
+/**¼à¿ØÅäÖÃ  */
+.monitorDiv{
+    border-style: solid;
+    border-width: 1px;
+    border-color:#263A5B;
+    width: 100%;
+    height: 100%;
+}
+
+.monitorContent{
+    color: white;
+    float: left;
+    width: 200px;
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 12px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.monitorContentLeft{
+    background-image: url(../app/theme/common/tool/monitor/Mon_con_botton_left.png);
+    width: 5px;
+    height: 100%;
+    float: left;
+}
+
+.monitorContentCenter{
+    background-image: url(../app/theme/common/tool/monitor/Mon_con_botton_center.png);
+    width: 190px;
+    height: 100%;
+    float: left;
+}
+
+.monitorContentRight{
+    background-image: url(../app/theme/common/tool/monitor/Mon_con_botton_right.png);
+    width: 5px;
+    height: 100%;
+    float: left;
+}
+
+.center_div_left{
+    float: left;
+    height: 100%;
+    width: 100px;
+    padding-top: 12px;
+}
+
+.center_div_left img{
+	float: left;
+    vertical-align: middle;
+}
+
+#center_div_left_text{
+	float: left;
+	font-size: 12px;
+	color:#C5C4C5;
+}
+
+.center_div_right{
+    height: 100%;
+    width: 80px;
+    padding-left: 2px;
+    float:right;
+}
+
+.center_div_cutline{
+    float: left;
+    height:100%;
+    background-image: url(../app/theme/common/tool/monitor/Mon_con_botton_cutline.png);
+    width: 2px;
+    padding-left: 10px;
+    background-repeat: no-repeat;
+}
+
+.divimg{
+    float: left;
+    padding-top: 6px;
+    width: 80px;
+    height: 100%;
+    color: #92B5ED;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.divimg img{
+	float: left;
+    vertical-align: middle;
+}
+
+.divimg font{
+	float: left;
+	font-size: 12px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+/********************¼à¿ØÆ÷*******************************/
+.monitorUnit {
+    width: 100%;
+    height: 100%;
+}
+
+.monitorUnitContent {
+    color: white;
+    width: 100%;
+    height: 47px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-top: 12px;
+    margin-left: 12px;
+}
+
+.monitorUnitContentLeft{
+    background-image: url(../app/theme/common/tool/monitor/monitor_show_left.png);
+    width: 7px;
+    height: 100%;
+    float: left;
+    background-repeat: no-repeat;
+}
+
+.monitorUnitContentCenter{
+    background-image: url(../app/theme/common/tool/monitor/monitor_show_center.png);
+    width: 195px;
+    height: 100%;
+    float: left;
+}
+
+.monitorUnitContentRight{
+    background-image: url(../app/theme/common/tool/monitor/monitor_show_right.png);
+    width: 7px;
+    height: 100%;
+    float: left;
+    background-repeat: no-repeat;
+}
+
+.monitorUnitCenterDivLeft{
+    float: left;
+    padding-top: 8px;
+}
+
+.monitorUnitCenterDivLeft img{
+    vertical-align: middle;
+    width: 100px;
+}
+
+.monitorUnitCenterDivRight{
+    float:right;
+    height: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 80px;
+    background-image: url(../app/theme/common/tool/monitor/monitor_count_bg.png);
+}
+
+.Number{
+    float: left;
+    width: 20px;
+    height: 26px;
+    background-image: url(../app/theme/common/tool/monitor/monitor_count_number.png);
+    margin-top: 12px;
+    margin-left: 4px;
+}
+
+.closeimg{
+	position: absolute;
+	margin-top: 4px;
+}
+
+#monitorCutline{
+	width: 1px;
+	height: 100%;
+	position: absolute;
+	margin-left: 105px !important;
+	margin-left: 3px;
+}
