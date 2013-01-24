@@ -1,0 +1,19 @@
+define query "QD_GetAllContactResourceList"()
+begin
+	select 
+	t."RECID"            as id,  
+	t."name"             as name, 
+	t."mobile"           as mobileNumber, 
+	t."phone"            as landLineNumber,  
+	t."cusproGuid"       as partnerId,  
+	t."province"         as province, 
+	t."department"       as department,
+	t."city"             as city, 
+	t."district"         as district, 
+	t."address"          as  address, 
+	t."postCode"         as postCode,
+	t."type"             as "type",
+	t.email as email,
+	t.lastDate as "lastDate" 
+	from SA_CONTACKBOOK as t 
+end

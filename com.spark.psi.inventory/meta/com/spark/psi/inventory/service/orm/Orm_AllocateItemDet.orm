@@ -1,0 +1,19 @@
+define orm Orm_AllocateItemDet(@allocateItemId guid not null)
+	mapping com.spark.psi.inventory.internal.entity.AllocateItemDet
+begin
+	select 
+		t."allocateItemId" as "allocateItemId",
+		t."count" as "count",
+		t."produceDate" as "produceDate",
+		t."sheetId" as "sheetId",
+		t."shelfId" as "shelfId",
+		t."shelfNo" as "shelfNo",
+		t."stockId" as "stockId",
+		t."storeId" as "storeId",
+		t."stockName" as "stockName",
+		t."tiersNo" as "tiersNo",
+		t."RECID" as "id"
+	from PSI_Inventory_Allocate_Shelf as t
+	where t.allocateItemId = @allocateItemId
+	
+end

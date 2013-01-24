@@ -1,0 +1,11 @@
+define query QD_GetAllDepartmentList(@r guid)
+begin
+	select 
+		t."RECID" as "recid",
+		t."name" as "name",
+		t."parent" as "parent",
+		t."vaild" as "vaild",
+		t."dtype" as "dtype",
+		t.tenantsrecid as tenantId
+	from SA_PERSONNEL_DEPT AS t where t.tenantsrecid = @r  order by t.rtime asc
+end

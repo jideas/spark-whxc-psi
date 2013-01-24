@@ -1,0 +1,20 @@
+define orm Orm_PaymentLog(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.pay.PaymentLogEntity
+begin
+	select 
+		t.RECID as id,
+		t."amount" as "amount",
+		t."checkinDate" as "checkinDate",
+		t."checkinSheetId" as "checkinSheetId",
+		t."molingAmount" as "molingAmount",
+		t."payDate" as "payDate",
+		t."payPersonId" as "payPersonId",
+		t."payPersonName" as "payPersonName",
+		t."paymentId" as "paymentId",
+		t."paymentNo" as "paymentNo",
+		t."relevantBillId" as "relevantBillId",
+		t."relevantBillNo" as "relevantBillNo",
+		t."sheetNo" as "sheetNo"
+	from PSI_ACCOUNT_Payment_Log as t
+	where t.RECID = @id
+end

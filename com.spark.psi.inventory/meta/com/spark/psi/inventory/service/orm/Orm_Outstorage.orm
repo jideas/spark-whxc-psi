@@ -1,0 +1,32 @@
+define orm Orm_Outstorage(@id guid not null)
+	mapping com.spark.psi.inventory.intf.entity.outstorage.mod.Outstorage
+begin
+	select 
+		t."RECID" as "RECID",
+		t."billsAmount" as "billsAmount",
+		t."billsCount" as "billsCount",
+		t."checkoutDate" as "checkoutDate",
+		t."checkoutString" as "checkoutString",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."isStoped" as "isStoped",
+		t."namePY" as "namePY",
+		t."partnerId" as "partnerId",
+		t."partnerName" as "partnerName",
+		t."partnerShortName" as "partnerShortName",
+		t."relaBillsId" as "relaBillsId",
+		t."relaBillsNo" as "relaBillsNo",
+		t."remark" as "remark",
+		t."status" as "status",
+		t."stopReason" as "stopReason",
+		t."storeId" as "storeId",
+		t."storeName" as "storeName",
+		t."storeNamePY" as "storeNamePY",
+		t."sheetType" as "sheetType",
+		t."partnerCode" as "partnerCode",
+		t."creatorDeptId" as "creatorDeptId",
+		t."deptName" as "deptName"
+	from PSI_Inventory_Checkouting as t
+	where t.RECID = @id
+end

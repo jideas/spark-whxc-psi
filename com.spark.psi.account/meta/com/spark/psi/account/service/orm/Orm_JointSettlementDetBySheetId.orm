@@ -1,0 +1,21 @@
+define orm Orm_JointSettlementDetBySheetId(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.jointSettlement.JointSettlementDetEntity
+begin
+	select 
+	
+		t.RECID as id,
+		t."amount" as "amount",
+		t."count" as "count",
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsPrice" as "goodsPrice",
+		t."goodsSpec" as "goodsSpec",
+		t."goodsUnit" as "goodsUnit",
+		t."percentage" as "percentage",
+		t."sheetId" as "sheetId",
+		t.percentageAmount as percentageAmount
+	from PSI_Joint_Settlement_Det as t
+	where t.sheetId = @id
+end

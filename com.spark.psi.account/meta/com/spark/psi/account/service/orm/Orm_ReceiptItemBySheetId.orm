@@ -1,0 +1,18 @@
+define orm Orm_ReceiptItemBySheetId(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.receipt.ReceiptItemEntity
+begin
+	select 
+		t.RECID as id,
+		t."amount" as "amount",
+		t."checkoutDate" as "checkoutDate",
+		t."checkoutSheetId" as "checkoutSheetId",
+		t."molingAmount" as "molingAmount",
+		t."receiptedAmount" as "receiptedAmount",
+		t."receiptsId" as "receiptsId",
+		t."relevantBillId" as "relevantBillId",
+		t."relevantBillNo" as "relevantBillNo",
+		t."sheetNo" as "sheetNo"
+		
+	from PSI_ACCOUNT_Receipts_Det as t
+	where t.receiptsId = @id
+end

@@ -1,0 +1,38 @@
+define orm Orm_GoodsItem(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.GoodsItemOrmEntity
+begin
+	select 
+	t.RECID as id,
+	t.goodsCode as goodsCode,
+	t.goodsNo as goodsNo,
+	t.goodsName as goodsName,
+	t.namePY as namePY,
+	t.categoryId as categoryId,
+	t.spec as spec,
+	t."scale" as "scale",
+	t.needProduce as needProduce,
+	t.inventoryStrategy as inventoryStrategy,
+	t.goodsUnit as goodsUnit,
+	t.avgCost as avgCost,
+	t.standardCost as standardCost,
+	t.assessCost as assessCost,
+	t.shelfLife as shelfLife,
+	t.warningDay as warningDay,
+	t.salePrice as salePrice,
+	t.originalPrice as originalPrice,
+	t.lossRate as lossRate,
+	t.status as status,
+	t.canDelete as canDelete,
+	t.refFlag as refFlag,
+	t.createDate as createDate,
+	t.lastModifyDate as lastModifyDate,
+	t.lastModifyPerson as lastModifyPerson,
+	t.goodsProperties as goodsProperties,
+	t.bomId as bomId,
+	t.creatorId as creatorId,
+	t.creator as creator,
+	t.goodsId as goodsId,
+	t.serialNumber as serialNumber
+	from PSI_Base_GoodsItem as t
+	where t.RECID = @id 
+end

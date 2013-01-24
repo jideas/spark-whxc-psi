@@ -1,0 +1,25 @@
+define orm Orm_Employee(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.EmployeeOrmEntity
+begin
+	select 
+		t."birthday" as "birthday",
+		t."createdate" as "createDate", 
+		t."createperson" as "createPerson",
+		t."departmentid" as "departmentId",
+		t."duty" as "position",
+		t."email" as "email",
+		t."empimg" as "logo",
+		t."empname" as "name",
+		t."idnum" as "idNumber",
+		t."mobilephone" as "mobileNumber",
+		t."RECID" as "id",
+		t."tenantsGuid" as "tenantId",
+		t.rolestatue as empState,
+		t.roles as roles,
+		t.phone as landLineNumber,
+		t.style as style,
+		t.pyempname as pyName,
+		t.pyduty as pyDuty
+	from sa_em_employee as t 
+	where t.RECID = @id
+end

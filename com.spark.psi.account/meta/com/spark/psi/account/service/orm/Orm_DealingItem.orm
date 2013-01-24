@@ -1,0 +1,20 @@
+define orm Orm_DealingItem(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.dealing.DealingItem
+begin
+	select 
+		t."balance" as "balance",
+		t."billsId" as "billsId",
+		t."billsNo" as "billsNo",
+		t."billsType" as "billsType",
+		t."createDate" as "createDate",
+		t."partnerId" as "partnerId",
+		t."planAmount" as "planAmount",
+		t."realAmount" as "realAmount",
+		t."receiptType" as "receiptType",
+		t."RECID" as "id",
+		t."remark" as "remark",
+		t."accountBillsId" as "accountBillsId",
+		t."accountBillsNo" as "accountBillsNo"
+	from PSI_ACCOUNT_DEAL as t
+	where t.RECID = @id
+end

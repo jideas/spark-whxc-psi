@@ -1,0 +1,17 @@
+define orm Orm_RetailReceipt(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.receipt.RetailReceipt
+begin
+	select 
+		t."RECID" as "RECID",
+		t."deptGuid" as "deptGuid",
+		t."receiptDate" as "receiptDate",
+		t."retailGuid" as "retailGuid",
+		t."saleEmpGuid" as "saleEmpGuid",
+		t."saleEmpName" as "saleEmpName",
+		t."shouldCardCount" as "shouldCardCount",
+		t."shouldCardMoney" as "shouldCardMoney",
+		t."shouldMoney" as "shouldMoney",
+		t."tenantsGuid" as "tenantsGuid"
+	from SA_FINANCE_RECEIPT_RETAIL as t
+	where t.RECID = @id
+end

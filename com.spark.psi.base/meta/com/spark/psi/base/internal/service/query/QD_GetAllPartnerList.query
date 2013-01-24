@@ -1,0 +1,19 @@
+define query QD_GetAllPartnerList()
+begin
+	select 
+		t.RECID as recid,
+		t.cusproName as cusproName,
+		t.cusproShortName as cusproShortName,
+		t.fax as fax,
+		t.creditline as creditline, 
+		t.cusproType as cusproType,
+		t.busPerson as busPerson,
+		t.province as province,
+		t.city as city,
+		t.addressDetail as address	,
+		t.accountPeriod as accountPeriod,
+		t.accountRemind as accountRemind, 
+		t.isReflag as isReflag 	 ,
+		t.cusproGrd as cusproGrd 
+	from "SA_CUSPROVIDER_INFO" as "t"
+end

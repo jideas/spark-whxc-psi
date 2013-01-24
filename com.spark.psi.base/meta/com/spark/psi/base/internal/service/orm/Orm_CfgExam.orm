@@ -1,0 +1,14 @@
+define orm Orm_CfgExam(@tenantsGuid guid not null,@modeid string not null)
+	mapping com.spark.psi.base.internal.entity.CfgExam
+begin
+	select 
+		t."isOpenExam" as "isOpenExam", 
+		t."maxAmount" as "maxAmount",
+		t."modeid" as "modeid",
+		t."RECID" as "recid",
+		t."tenantsGuid" as "tenantsGuid",
+		t."updatePerson" as "updatePerson",
+		t."updateDate" as "updateDate" 
+	from SA_CFG_EXAM as t
+	where t.tenantsGuid = @tenantsGuid and t.modeid = @modeid
+end

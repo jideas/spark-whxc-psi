@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="CustomerType">
+	<item code="01" name="普通客户"/>
+</content>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="SupplierCooperation">
+	<item code="01" name="自营"/>
+	<item code="02" name="联营"/>
+	<item code="03" name="代销"/>
+</content>

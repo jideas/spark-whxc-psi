@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<services>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckoutSheetDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckOutPublishService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckOutInternalService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.AllocateInventoryService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StoreCheckService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StoreCheckDetService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StoreDismountingService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StoreDisMountingDetService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.InstoDetailDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.InstorageDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.InInfoService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.instorage.InsertService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StorageService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.StoStreamService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.InsertService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.OutInfoService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.OutstorageDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.OutstoDetailDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.pub.InventoryModuleQueryService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.pub.InventoryModuleService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.pub.InventoryPublishService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.resource.InventoryResourceService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.resource.InventoryDetResourceService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.internal.service.ReportLossDao" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.checkout.CheckOutSheetPublishService" />
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.instorage.InsertSheetService"/>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.instorage.dao.CheckInSheetDao"/>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.instorage.CheckInSheetPublishService"/>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.checkout.AccountCheckOutOrInListener"/>
+		</services>
+		<orms>
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_AllocateDetail" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_AllocateInfo" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_AllocateItemDet" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_InstoDet" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Instorage" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_InventoryLog" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_OutstoDet" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Outstorage" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Store_Check_Det" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Store_Check" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Store_Dismounting_Det" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Store_Dismounting" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_Inventory" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_InventoryDet" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_ReportLoss" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_ReportLossItem" />
+			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_ReportLossItemDet" />
+		</orms>
+		<commands> 
+		</commands>
+		<querys>
+		</querys>
+		<tables />
+		<ui-entrys />
+		<pages />
+		<ui-stylesheets />
+		<portlets />
+	</publish>
+</dna>  

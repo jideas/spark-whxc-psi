@@ -1,0 +1,88 @@
+package com.spark.psi.inventory.internal.entity;
+
+import com.jiuqi.dna.core.type.GUID;
+
+public class ReportLossItemDet {
+	private GUID id;
+	private GUID shelfId;
+	private int shelfNo;
+	private int tiersNo;
+	private GUID stockId;
+	private double count;
+	private long produceDate;
+	private GUID reportLossItemId;
+	private GUID sheetId;
+
+	public GUID getId() {
+		return id;
+	}
+
+	public void setId(GUID id) {
+		this.id = id;
+	}
+
+	public GUID getShelfId() {
+		return shelfId;
+	}
+
+	public void setShelfId(GUID shelfId) {
+		this.shelfId = shelfId;
+	}
+
+	public int getShelfNo() {
+		return shelfNo;
+	}
+
+	public void setShelfNo(int shelfNo) {
+		this.shelfNo = shelfNo;
+	}
+
+	public int getTiersNo() {
+		return tiersNo;
+	}
+
+	public void setTiersNo(int tiersNo) {
+		this.tiersNo = tiersNo;
+	}
+
+	public GUID getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(GUID stockId) {
+		this.stockId = stockId;
+	}
+
+	public double getCount() {
+		return count;
+	}
+
+	public void setCount(double count) {
+		this.count = count;
+	}
+
+	public long getProduceDate() {
+		return produceDate;
+	}
+
+	public void setProduceDate(long produceDate) {
+		this.produceDate = produceDate;
+	}
+
+	public GUID getReportLossItemId() {
+		return reportLossItemId;
+	}
+
+	public void setReportLossItemId(GUID reportLossItemId) {
+		this.reportLossItemId = reportLossItemId;
+	}
+
+	public GUID getSheetId() {
+		return sheetId;
+	}
+
+	public void setSheetId(GUID sheetId) {
+		this.sheetId = sheetId;
+	}
+
+}

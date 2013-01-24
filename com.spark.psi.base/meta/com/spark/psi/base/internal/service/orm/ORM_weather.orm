@@ -1,0 +1,10 @@
+define orm ORM_weather(@user_id guid not null)
+	mapping com.spark.psi.base.publicimpl.WeatherImpl
+begin
+	select 
+		t."city_name" as "city_name",
+		t."RECID" as "recid",
+		t."city_order" as "city_order"
+	from SA_COMM_WEATHER as t
+	where t.RECID = @user_id
+end

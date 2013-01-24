@@ -1,0 +1,12 @@
+define orm Orm_NoticeDept(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.NoticeDept
+begin
+	select 
+		t."RECID" as "RECID",
+		t."deptGuid" as "deptGuid",
+		t."deptName" as "deptName",
+		t."noticeGuid" as "noticeGuid",
+		t."tenantsGuid" as "tenantsGuid"
+	from SA_NOTICE_DEPT as t
+	where t.RECID = @id
+end

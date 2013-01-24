@@ -1,0 +1,17 @@
+define orm Orm_JointVentureLog(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.JointVentureLogOrmEntity
+begin
+	select 
+		t.RECID as id,
+		t."beginDate" as "beginDate",
+		t."endDate" as "endDate",
+		t."materialCode" as "materialCode",
+		t."materialId" as "materialId",
+		t."materialName" as "materialName",
+		t."materialNo" as "materialNo",
+		t."materialUnit" as "materialUnit",
+		t."percentage" as "percentage",
+		t."supplierId" as "supplierId"
+	from PSI_Materials_Joint_Log as t
+	where t.RECID = @id
+end

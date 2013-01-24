@@ -1,0 +1,5 @@
+define query QD_GetAllGoodsCatgoryList()
+begin
+	select count(*) as "count"
+	from "SA_GOODS_TYPE" as "t"
+end

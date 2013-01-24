@@ -1,0 +1,26 @@
+define orm Orm_Store(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.ormentity.StoreOrmEntity
+begin
+	select 
+	t.RECID as id,
+	t.RECVER as recver,
+	t.storeNo as storeNo,
+	t.storeName as storeName,
+	t.namePY as namePY,
+	t.consignee as consignee,
+	t.mobileNo as mobileNo,
+	t.province as province,
+	t.city as city,
+	t.town as town,
+	t.address as address,
+	t.postCode as postCode,
+	t.shelfCount as shelfCount,
+	t.defaultTiersCount as defaultTiersCount,
+	t.status as status,
+	t.storeType as storeType,
+	t.createDate as createDate,
+	t.creatorId as creatorId,
+	t.creator as creator
+	from PSI_Base_Store as t
+	where t.RECID = @id
+end

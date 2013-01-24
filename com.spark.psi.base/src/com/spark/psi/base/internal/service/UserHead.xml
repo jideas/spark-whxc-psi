@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<user-head>
+	<head-type name="default">
+		<head src="head_man_01_b" isDefault="true" />
+		<head src="head_man_02_b" />
+		<head src="head_man_03_b" />
+		<head src="head_man_04_b" />
+		<head src="head_man_05_b" />
+		<head src="head_man_06_b" />
+		<head src="head_man_07_b" />
+		<head src="head_woman_01_b" />
+		<head src="head_woman_02_b" />
+		<head src="head_woman_03_b" />
+		<head src="head_woman_04_b" />
+		<head src="head_woman_05_b" />
+		<head src="head_woman_06_b" />
+		<head src="head_woman_07_b" />
+	</head-type>
+	
+</user-head>

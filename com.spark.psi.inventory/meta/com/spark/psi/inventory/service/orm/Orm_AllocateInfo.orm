@@ -1,0 +1,32 @@
+define orm Orm_AllocateInfo(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.AllocateInventory
+begin
+	select 
+		t."allocSheetNo" as "allocSheetNo",
+		t."allocateInDate" as "allocateInDate",
+		t."allocateInPerson" as "allocateInPerson",
+		t."allocateInPersonName" as "allocateInPersonName",
+		t."allocateInStoreId" as "allocateInStoreId",
+		t."allocateInStoreName" as "allocateInStoreName",
+		t."allocateOutDate" as "allocateOutDate",
+		t."allocateOutPerson" as "allocateOutPerson",
+		t."allocateOutPersonName" as "allocateOutPersonName",
+		t."allocateOutStoreId" as "allocateOutStoreId",
+		t."allocateOutStoreName" as "allocateOutStoreName",
+		t."allocateReason" as "allocateReason",
+		t."applyDate" as "applyDate",
+		t."approveDate" as "approveDate",
+		t."approvePerson" as "approvePerson",
+		t."approvePersonId" as "approvePersonId",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."creatorPY" as "creatorPY",
+		t."deptId" as "deptId",
+		t."rejectReason" as "rejectReason",
+		t."RECID" as "id",
+		t."status" as "status"
+		
+	from PSI_Inventory_Allocate as t
+	where t.RECID = @id
+end

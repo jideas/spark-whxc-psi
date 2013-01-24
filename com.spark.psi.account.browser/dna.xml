@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<ui-client-scripts>
+			<script name="AccountClient" path="js/AccountClient.js" />
+		</ui-client-scripts>	
+		<!-- 页面列表，用于开发和测试 -->
+		<saas-pages>
+			<page space="psi/account" name="BalanceInit" title="往来初始化页面"
+				processor="com.spark.psi.account.browser.balance.BalanceInitProcessor"
+				render="com.spark.psi.account.browser.balance.BalanceInitRender" />
+			<page space="psi/account" name="CustomerBalanceListPage" title="客户往来列表页面*"
+				processor="com.spark.psi.account.browser.balance.CustomerBalanceListProcessor"
+				render="com.spark.psi.account.browser.balance.CustomerBalanceListRender" />
+			<page space="psi/account" name="SupplierBalanceListPage" title="供应商往来列表页面*"
+				processor="com.spark.psi.account.browser.balance.SupplierBalanceListProcessor"
+				render="com.spark.psi.account.browser.balance.SupplierBalanceListRender" />
+			<page space="psi/account" name="CustomerDealingsListPage" title="客户往来明细页面*"
+				processor="com.spark.psi.account.browser.balance.CustomerDealingsListProcessor"
+				render="com.spark.psi.account.browser.balance.CustomerDealingsListRender" />
+			<page space="psi/account" name="SupplierDealingsListPage" title="供应商往来明细页面*"
+				processor="com.spark.psi.account.browser.balance.SupplierDealingsListProcessor"
+				render="com.spark.psi.account.browser.balance.SupplierDealingsListRender" />
+			<page space="psi/account" name="客户往来调整页面"
+				processor="com.spark.psi.account.browser.balance.CustomerBalanceAdjustProcessor"
+				render="com.spark.psi.account.browser.balance.CustomerBalanceAdjustRender" />
+			<page space="psi/account" name="供应商往来调整页面"
+				processor="com.spark.psi.account.browser.balance.SupplierBalanceAdjustProcessor"
+				render="com.spark.psi.account.browser.balance.SupplierBalanceAdjustRender" />
+
+			<page space="psi/account" name="InvoiceListPage" title="开票记录列表页面*"
+				processor="com.spark.psi.account.browser.invoice.InvoiceListProcessor"
+				render="com.spark.psi.account.browser.invoice.InvoiceListRender" />
+			<page space="psi/account" name="NewInvoicePage" title="新建开票列表页面"
+				processor="com.spark.psi.account.browser.invoice.NewInvoiceProcessor"
+				render="com.spark.psi.account.browser.invoice.NewInvoiceRender" />
+
+			<page space="psi/account" name="SubmittingPaymentListPage" title="待提交"
+				processor="com.spark.psi.account.browser.payment.SubmittingPaymentListProcessor"
+				render="com.spark.psi.account.browser.payment.SubmittingPaymentListRender" />
+			<page space="psi/account" name="SubmittedPaymentListPage" title="待审核"
+				processor="com.spark.psi.account.browser.payment.SubmittedPaymentListProcessor"
+				render="com.spark.psi.account.browser.payment.SubmittedPaymentListRender" />
+			<page space="psi/account" name="PayingListPage" title="应付情况列表页面*"
+				processor="com.spark.psi.account.browser.payment.PayingListProcessor"
+				render="com.spark.psi.account.browser.payment.PayingListRender" />
+			<page space="psi/account" name="PaymentListPage" title="付款记录"
+				processor="com.spark.psi.account.browser.payment.PaymentListProcessor"
+				render="com.spark.psi.account.browser.payment.PaymentListRender" />
+			<!-- page space="psi/account" name="新增付款页面（已选择付款对象）"
+				processor="com.spark.psi.account.browser.payment.NewPaymentProcessor"
+				render="com.spark.psi.account.browser.payment.NewPaymentRender" / -->
+			<page space="psi/account" name="NewPayment2Page" title="新增付款页面（选择付款对象）"
+				processor="com.spark.psi.account.browser.payment.NewPayment2Processor"
+				render="com.spark.psi.account.browser.payment.NewPayment2Render" />
+			<page space="psi/account" name="付款记录搜索高级对话框页面"
+				processor="com.spark.psi.account.browser.payment.AdvanceSearchConditionProcessor"
+				render="com.spark.psi.account.browser.payment.AdvanceSearchConditionRender" />
+
+
+			<page space="psi/account" name="SubmittingReceiptListPage" title="待提交"
+				processor="com.spark.psi.account.browser.receipt.SubmittingReceiptListProcessor"
+				render="com.spark.psi.account.browser.receipt.SubmittingReceiptListRender" />
+			<!-- page space="psi/account" name="NewReceipt2Page" title="新增收款页面（选择收款对象）"
+				processor="com.spark.psi.account.browser.receipt.NewReceipt2Processor"
+				render="com.spark.psi.account.browser.receipt.NewReceipt2Render" / -->
+			<page space="psi/account" name="ReceiptsListPage" title="进行中"
+				processor="com.spark.psi.account.browser.receipt.ReceiptsListProcessor"
+				render="com.spark.psi.account.browser.receipt.ReceiptsListRender" />
+			<page space="psi/account" name="ReceiptLogListPage" title="收款记录"
+				processor="com.spark.psi.account.browser.receipt.ReceiptLogListProcessor"
+				render="com.spark.psi.account.browser.receipt.ReceiptLogListRender" />
+			
+			<page space="psi/account" name="SubmittingJointPay" title="待提交"
+				processor="com.spark.psi.account.browser.joint.SubmittingJointPayListProcessor"
+				render="com.spark.psi.account.browser.joint.SubmittingJointPayListRender" />
+			<page space="psi/account" name="SubmittedJointPay" title="待审批"
+				processor="com.spark.psi.account.browser.joint.SubmittedJointPayListProcessor"
+				render="com.spark.psi.account.browser.joint.SubmittedJointPayListRender" />
+			<page space="psi/account" name="PayingJointPay" title="进行中"
+				processor="com.spark.psi.account.browser.joint.PayingJointPayListProcessor"
+				render="com.spark.psi.account.browser.joint.PayingJointPayListRender" />
+			<page space="psi/account" name="FinishedJointPay" title="结算记录"
+				processor="com.spark.psi.account.browser.joint.FinishedJoinPayListProcessor"
+				render="com.spark.psi.account.browser.joint.FinishedJoinPayListRender" />
+
+		</saas-pages>
+	</publish>
+</dna>

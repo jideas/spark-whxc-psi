@@ -1,0 +1,24 @@
+define orm Orm_Store_Check_Det(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.CheckInventoryItem
+begin
+	select 
+		t."carryCount" as "carryCount",
+		t."checkOrdGuid" as "checkOrdGuid",
+		t."createDate" as "createDate",
+		t."createPerson" as "createPerson",
+		t."goodsAttr" as "goodsAttr",
+		t."goodsGuid" as "goodsGuid",
+		t."goodsName" as "goodsName",
+		t."goodsItemNo" as "goodsItemNo",
+		t."goodsItemCode" as "goodsItemCode",
+		t."goodsScale" as "goodsScale",
+		t."goodsTypeGuid" as "goodsTypeGuid",
+		t."newGoods" as "newGoods",
+		t."realCount" as "realCount",
+		t."RECID" as "recid",
+		t."remark" as "remark",
+		t."tenantsGuid" as "tenantsGuid",
+		t."unit" as "unit"
+	from SA_STORE_CHECK_DET as t
+	where t.RECID = @id
+end

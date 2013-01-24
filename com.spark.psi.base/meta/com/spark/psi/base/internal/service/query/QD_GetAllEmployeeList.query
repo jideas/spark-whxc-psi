@@ -1,0 +1,20 @@
+define query QD_GetAllEmployeeList()
+begin
+	select 
+		t."RECID" as "recid",
+		t."empname" as "empname",
+		t."birthday" as "birthday",
+		t."departmentid" as "departmentid",
+		t."email" as "email",
+		t."idnum" as "idnum",
+		t."mobilephone" as "mobilephone",
+		t."duty" as "duty",
+		t."roles" as "roles",
+		t."rolestatue" as "rolestatue",
+		t."tenantsGuid" as "tenantsGuid",
+		t.createDate as createDate,
+		t.empimg as empimg,
+		t.phone as phone,
+		t.style as style
+	from  "sa_em_employee" as "t",sa_psi_tenant as "b" where t.tenantsGuid = b.recid 
+end

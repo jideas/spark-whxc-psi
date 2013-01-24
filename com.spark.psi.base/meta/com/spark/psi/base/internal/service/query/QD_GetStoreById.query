@@ -1,0 +1,21 @@
+define query QD_GetStoreById(@id guid)
+begin
+	select 
+		t.storeName        as name       ,
+		t.status  as storeStatus ,
+		t.province    as province   ,
+		t.city        as city       ,
+		t.town     as country    ,
+		t.address     as address    ,
+		t.postCode    as postCode   , 
+		t.mobileNo      as mobile     ,
+		t.consignee   as consignee  ,
+		t.RECID as id		,
+		t.RECVER as recver,
+		t.creatorId as createPerson,
+		t.storeNo as storeNo,
+		t.shelfCount as shelfCount,
+		t.defaultTiersCount as defaultTiersCount,
+		t.storeType as storeType
+	from "PSI_Base_Store" as "t"  where t.RECID = @id
+end

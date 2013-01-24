@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<servlets>
+		<servlet space="saas/porta" path="/yuerduo/*"
+			class="com.jiuqi.dna.ui.launch.http.SystemEntryServlet" />
+	</servlets>
+	<publish>
+		<ui-entrys>
+			<uientry name="yuerduo"
+				class="com.spark.psi.base.browser.internal.PSIMainEntry" />
+		</ui-entrys>
+
+		<pages>
+			<page space="psi/base" name="PSI_ConfigMainPage"
+				class="com.spark.psi.base.browser.config.ConfigMainPage" />
+			<page space="psi/base" name="PSI_DepartmentTreePage"
+				class="com.spark.psi.base.browser.config.DepartmentTreePage" />
+		</pages>
+		<ui-client-scripts>
+			<script name="PSIBase" path="js/PSIBase.js" />
+			<script name="PSIWizard" path="js/PSIWizard.js" />
+		</ui-client-scripts>
+
+		<!-- 页面列表，用于开发和测试 -->
+		<saas-pages>
+			<!--启动配置-->
+			<page space="psi/base" name="WelcomePage" title="欢迎页面"
+				processor="com.spark.psi.base.browser.start.WelcomeProcessor"
+				render="com.spark.psi.base.browser.start.WelcomeRender" />
+			<page space="psi/base" name="EditUserPage" title="编辑用户"
+				processor="com.spark.psi.base.browser.start.EditUserProcessor"
+				render="com.spark.psi.base.browser.start.EditUserRender" />
+			<page space="psi/base" name="EditStorePage" title="编辑仓库"
+				processor="com.spark.psi.base.browser.start.EditStoreProcessor"
+				render="com.spark.psi.base.browser.start.EditStoreRender" />
+			<page space="psi/base" name="ConfigurationWizardPage" title="配置向导"
+				processor="com.spark.psi.base.browser.start.ConfigurationWizardProcessor"
+				render="com.spark.psi.base.browser.start.ConfigurationWizardRender" />
+			<page space="psi/base" name="QuickConfigurationPage" title="快速配置"
+				processor="com.spark.psi.base.browser.start.QuickConfigurationProcessor"
+				render="com.spark.psi.base.browser.start.QuickConfigurationRender" />
+			<page space="psi/base" name="QuickSetUserPage" title="快速设置用户"
+				processor="com.spark.psi.base.browser.start.QuickSetUserProcessor"
+				render="com.spark.psi.base.browser.start.QuickSetUserRender" />
+			<page space="psi/base" name="QuickSetStorePage" title="快速设置仓库"
+				processor="com.spark.psi.base.browser.start.QuickSetStoreProcessor"
+				render="com.spark.psi.base.browser.start.QuickSetStoreRender" />
+			<page space="psi/base" name="CompanyInfoStepPage" title="配置企业信息"
+				processor="com.spark.psi.base.browser.start.WizardCompanyInfoStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardCompanyInfoStepRender" />
+			<page space="psi/base" name="DepartmentInfoStepPage" title="配置部门信息"      
+				processor="com.spark.psi.base.browser.start.WizardDepartmentInfoStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardDepartmentInfoStepRender" />
+			<page space="psi/base" name="EmployeeInfoStepPage" title="配置员工和用户"
+				processor="com.spark.psi.base.browser.start.WizardEmployeeInfoStepProcessor" 
+				render="com.spark.psi.base.browser.start.WizardEmployeeInfoStepRender" />
+			<page space="psi/base" name="CustomerInfoStepPage" title="批量添加客户"
+				processor="com.spark.psi.base.browser.start.WizardCustomerInfoStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardCustomerInfoStepRender" />
+			<page space="psi/base" name="ProviderInfoStepPage" title="批量添加供应商"
+				processor="com.spark.psi.base.browser.start.WizardProviderInfoStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardProviderInfoStepRender" />
+			<page space="psi/base" name="GoodsTypeStepPage" title="配置商品分类"
+				processor="com.spark.psi.base.browser.start.WizardGoodsCategoryStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardGoodsCategoryStepRender" />
+			<page space="psi/base" name="GoodsInfoStepPage" title="批量添加商品"
+				processor="com.spark.psi.base.browser.start.WizardAddGoodsStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardAddGoodsStepRender" />
+			<page space="psi/base" name="StorageInfoStepPage" title="配置公司仓库"
+				processor="com.spark.psi.base.browser.start.WizardStoreInfoStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardStoreInfoStepRender" />
+			<page space="psi/base" name="StartSystemStepPage" title="启用系统"
+				processor="com.spark.psi.base.browser.start.WizardStartSystemStepProcessor"
+				render="com.spark.psi.base.browser.start.WizardStartSystemStepRender" />
+
+
+
+			<page space="psi/base" name="EmployeeManagePage" title="员工管理页面"
+				processor="com.spark.psi.base.browser.config.EmployeeManageProcessor"
+				render="com.spark.psi.base.browser.config.EmployeeManageRender" />
+			<page space="psi/base" name="CompanyConfigPage" title="企业信息配置页面"
+				processor="com.spark.psi.base.browser.config.CompanyConfigProcessor"
+				render="com.spark.psi.base.browser.config.CompanyConfigRender" />
+			<page space="psi/base" name="UserConfigPage" title="个人信息配置页面"
+				processor="com.spark.psi.base.browser.config.UserConfigProcessor"
+				render="com.spark.psi.base.browser.config.UserConfigRender" />
+			<page space="psi/base" name="SalesmanCreditConfigPage" title="授权配置页面"
+				processor="com.spark.psi.base.browser.config.SalesmanCreditConfigProcessor"
+				render="com.spark.psi.base.browser.config.SalesmanCreditConfigRender" />
+			<page space="psi/base" name="ApprovalConfigPage" title="审批配置页面"
+				processor="com.spark.psi.base.browser.config.ApprovalConfigProcessor"
+				render="com.spark.psi.base.browser.config.ApprovalConfigRender" />
+			<page space="psi/base" name="ApprovalLogListPage" title="审批记录列表*"
+				processor="com.spark.psi.base.browser.approval.ApprovalLogListProcessor"
+				render="com.spark.psi.base.browser.approval.ApprovalLogListRender" />
+
+
+			<page space="psi/base/customer" name="B2BCustomerListPage"
+				title="授权客户列表页面*"
+				processor="com.spark.psi.base.browser.customer.B2BCustomerListProcessor"
+				render="com.spark.psi.base.browser.customer.B2BCustomerListRender" />
+			<page space="psi/base/customer" name="客户授权明细页面"
+				processor="com.spark.psi.base.browser.customer.CustomerAuthorizingDetailProcessor"
+				render="com.spark.psi.base.browser.customer.CustomerAuthorizingDetailRender" />
+			<page space="psi/base/customer" name="客户信用额度调整"
+				processor="com.spark.psi.base.browser.customer.CustomerCreditAdjustProcessor"
+				render="com.spark.psi.base.browser.customer.CustomerCreditAdjustRender" />
+			<page space="psi/base/customer" name="CustomerInvoiceListPage"
+				title="客户的开票记录页面*"
+				processor="com.spark.psi.base.browser.customer.CustomerInvoiceListProcessor"
+				render="com.spark.psi.base.browser.customer.CustomerInvoiceListRender" />
+			<page space="psi/base/customer" name="FormalCustomerListPage"
+				title="正式客户列表页面*"
+				processor="com.spark.psi.base.browser.customer.FormalCustomerListProcessor"
+				render="com.spark.psi.base.browser.customer.FormalCustomerListRender" />
+			<page space="psi/base/customer" name="正式客户高级搜索页面"
+				processor="com.spark.psi.base.browser.customer.FormalCustomerSearchProcessor"
+				render="com.spark.psi.base.browser.customer.FormalCustomerSearchRender" />
+			<page space="psi/base/customer" name="PotentialCustomerListPage"
+				title="潜在客户列表页面*"
+				processor="com.spark.psi.base.browser.customer.PotentialCustomerListProcessor"
+				render="com.spark.psi.base.browser.customer.PotentialCustomerListRender" />
+			<page space="psi/base/customer" name="潜在客户高级搜索页面"
+				processor="com.spark.psi.base.browser.customer.PotentialCustomerSearchProcessor"
+				render="com.spark.psi.base.browser.customer.PotentialCustomerSearchRender" />
+			<page space="psi/base/customer" name="NewCustomerPage" title="新建客户页面"
+				processor="com.spark.psi.base.browser.customer.NewCustomerProcessor"
+				render="com.spark.psi.base.browser.customer.NewCustomerRender" />
+			<page space="psi/base/customer" name="快速新建客户页面"
+				processor="com.spark.psi.base.browser.customer.NewCustomer2Processor"
+				render="com.spark.psi.base.browser.customer.NewCustomer2Render" />
+
+			<page space="psi/base/customer" name="销售人员选择界面"
+				processor="com.spark.psi.base.browser.customer.SalesmanSelectProcessor"
+				render="com.spark.psi.base.browser.customer.SalesmanSelectRender" />
+			<page space="psi/base/customer" name="联系人编辑界面"
+				processor="com.spark.psi.base.browser.customer.NewContactProcessor"
+				render="com.spark.psi.base.browser.customer.NewContactRender" />
+
+
+			<page space="psi/base/supplier" name="SupplierListPage" title="供应商列表页面*"
+				processor="com.spark.psi.base.browser.supplier.SupplierListProcessor"
+				render="com.spark.psi.base.browser.supplier.SupplierListRender" />
+			<page space="psi/base/supplier" name="供应商高级搜索页面"
+				processor="com.spark.psi.base.browser.supplier.SupplierSearchProcessor"
+				render="com.spark.psi.base.browser.supplier.SupplierSearchRender" />
+			<page space="psi/base/supplier" name="NewSupplierPage" title="新建供应商页面"
+				processor="com.spark.psi.base.browser.supplier.NewSupplierProcessor"
+				render="com.spark.psi.base.browser.supplier.NewSupplierRender" />
+
+			<page space="psi/base/supplier" name="指定供应商的授权商品列表页面*"
+				processor="com.spark.psi.base.browser.supplier.AuthorizedGoodsListProcessor"
+				render="com.spark.psi.base.browser.supplier.AuthorizedGoodsListRender" />
+			<page space="psi/base/supplier" name="快速新增供应商"
+				processor="com.spark.psi.base.browser.supplier.NewSupplier2Processor"
+				render="com.spark.psi.base.browser.supplier.NewSupplier2Render" />
+
+			<page space="psi/base/goods" name="B2BGoodsListPage" title="所有授权商品列表页面*"
+				processor="com.spark.psi.base.browser.goods.B2BGoodsListProcessor"
+				render="com.spark.psi.base.browser.goods.B2BGoodsListRender" />
+			<page space="psi/base/goods" name="GoodsCategoryEditPage" title="商品分类编辑页面"
+				processor="com.spark.psi.base.browser.goods.GoodsCategoryEditProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsCategoryEditRender" />
+			<page space="psi/base/goods" name="商品分类列表页面"
+				processor="com.spark.psi.base.browser.goods.GoodsCategoryListProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsCategoryListRender" />
+			<page space="psi/base/goods" name="指定商品库存情况页面"
+				processor="com.spark.psi.base.browser.goods.GoodsInventoryListProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsInventoryListRender" />
+			<page space="psi/base/goods" name="指定商品采购情况页面*"
+				processor="com.spark.psi.base.browser.goods.GoodsPurchaseSummaryProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsPurchaseSummaryRender" />
+			<page space="psi/base/goods" name="指定商品销售情况页面*"
+				processor="com.spark.psi.base.browser.goods.GoodsSalesSummaryProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsSalesSummaryRender" />
+			<page space="psi/base/goods" name="商品选择页面"
+				processor="com.spark.psi.base.browser.goods.GoodsSelectProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsSelectRender" />
+			<page space="psi/base/goods" name="OnSaleGoodsListPage" title="在售商品列表页面"
+				processor="com.spark.psi.base.browser.goods.OnSaleGoodsListProcessor"
+				render="com.spark.psi.base.browser.goods.OnSaleGoodsListRender" />
+			<page space="psi/base/goods" name="JointGoodsListPage" title="联营商品列表页面"
+				processor="com.spark.psi.base.browser.goods.JointGoodsListProcessor"
+				render="com.spark.psi.base.browser.goods.JointGoodsListRender" />
+			<page space="psi/base/goods" name="OffSaleGoodsListPage" title="停售售商品列表页面"
+				processor="com.spark.psi.base.browser.goods.OffSaleGoodsListProcessor"
+				render="com.spark.psi.base.browser.goods.OffSaleGoodsListRender" />
+			<!-- page space="psi/base/goods" name="商品编辑页面(单一规格)"
+				processor="com.spark.psi.base.browser.goods.GoodsItemDetailProcessor"
+				render="com.spark.psi.base.browser.goods.GoodsItemDetailRender" />
+			<page space="psi/base/goods" name="商品编辑页面(多规格)"
+				processor="com.spark.psi.base.browser.goods.GoodsItemDetail2Processor"
+				render="com.spark.psi.base.browser.goods.GoodsItemDetail2Render" /-->
+
+			<page space="psi/base/material" name="OnSaleMaterialListPage" title="在售材料列表页面"
+				processor="com.spark.psi.base.browser.material.OnSaleMaterialListProcessor"
+				render="com.spark.psi.base.browser.material.OnSaleMaterialListRender" />
+			<page space="psi/base/material" name="JointMaterialListPage" title="联营材料列表页面"
+				processor="com.spark.psi.base.browser.material.JointMaterialListProcessor"
+				render="com.spark.psi.base.browser.material.JointMaterialListRender" />
+			<page space="psi/base/material" name="OffSaleMaterialListPage" title="停售材料列表页面"
+				processor="com.spark.psi.base.browser.material.OffSaleMaterialListProcessor"
+				render="com.spark.psi.base.browser.material.OffSaleMaterialListRender" />
+			<page space="psi/base/material" name="MaterialListEditPage" title="材分类管理页面"
+				processor="com.spark.psi.base.browser.material.MaterialCategoryEditProcessor"
+				render="com.spark.psi.base.browser.material.MaterialCategoryEditRender" />
+
+			<page space="psi/base" name="StoreListPage" title="仓库列表页面*"
+				processor="com.spark.psi.base.browser.store.StoreListProcessor"
+				render="com.spark.psi.base.browser.store.StoreListRender" />
+			<page space="psi/base" name="StoreEditPage" title="仓库编辑页面"
+				processor="com.spark.psi.base.browser.store.StoreEditProcessor"
+				render="com.spark.psi.base.browser.store.StoreEditRender" />
+
+			<!--通讯录-->
+			<page space="psi/base" name="AllContactListPage" title="所有联系人列表页面*"
+				processor="com.spark.psi.base.browser.contact.AllContactListProcessor"
+				render="com.spark.psi.base.browser.contact.AllContactListRender" />
+			<page space="psi/base" name="PersonalContactListPage" title="个人联系人列表页面*"
+				processor="com.spark.psi.base.browser.contact.PersonalContactListProcessor"
+				render="com.spark.psi.base.browser.contact.PersonalContactListRender" />
+			<page space="psi/base" name="CustomerContactListPage" title="客户联系人列表页面*"
+				processor="com.spark.psi.base.browser.contact.CustomerContactListProcessor"
+				render="com.spark.psi.base.browser.contact.CustomerContactListRender" />
+			<page space="psi/base" name="SupplierContactListPage" title="供应商联系人列表页面*"
+				processor="com.spark.psi.base.browser.contact.SupplierContactListProcessor"
+				render="com.spark.psi.base.browser.contact.SupplierContactListRender" />
+			<page space="psi/base" name="ColleagueContactListPage" title="同事联系人列表页面*"
+				processor="com.spark.psi.base.browser.contact.ColleagueContactListProcessor"
+				render="com.spark.psi.base.browser.contact.ColleagueContactListRender" />
+			<page space="psi/base" name="ContactEditPage" title="联系人编辑页面" 
+				processor="com.spark.psi.base.browser.contact.ContactEditProcessor"
+				render="com.spark.psi.base.browser.contact.ContactEditRender" />
+			<page space="psi/base" name="发送短信页面"
+				processor="com.spark.psi.base.browser.contact.SendSMSProcessor"
+				render="com.spark.psi.base.browser.contact.SendSMSRender" />
+
+			<!--公告-->
+			<page space="psi/base" name="PublishingNoticeListPage" title="未发布公告列表页面*"
+				processor="com.spark.psi.base.browser.notice.PublishingNoticeListProcessor"
+				render="com.spark.psi.base.browser.notice.PublishingNoticeListRender" />
+			<page space="psi/base" name="PublishedNoticeListPage" title="已发布公告列表页面*"
+				processor="com.spark.psi.base.browser.notice.PublishedNoticeListProcessor"
+				render="com.spark.psi.base.browser.notice.PublishedNoticeListRender" />
+			<page space="psi/base" name="HistoryNoticeListPage" title="历史公告列表页面*"
+				processor="com.spark.psi.base.browser.notice.HistoryNoticeListProcessor"
+				render="com.spark.psi.base.browser.notice.HistoryNoticeListRender" />
+			<page space="psi/base" name="addNoticePage" title="新建公告列表页面"
+				processor="com.spark.psi.base.browser.notice.NewNoticeProcessor"
+				render="com.spark.psi.base.browser.notice.NewNoticeRender" />
+			<page space="psi/base" name="noticeInfoPage" title="查看公告页面"
+				processor="com.spark.psi.base.browser.notice.NoticeViewProcessor"
+				render="com.spark.psi.base.browser.notice.NoticeViewRender" />
+
+			<page space="psi/base" name="客户收货地址页面"
+				processor="com.spark.psi.base.browser.customer.CustomerDeliveryAddressProcessor"
+				render="com.spark.psi.base.browser.customer.CustomerDeliveryAddressRender" />
+			<page space="psi/base" title="用户没有销售仓库提醒界面" name="NotFoundStoreAlterWindow"
+				processor="com.spark.psi.base.browser.store.NotFoundStoreAlterWindowProcessor"
+				render="com.spark.psi.base.browser.store.NotFoundStoreAlterWindowRender" />
+
+			<page space="psi/base" title="编辑站点" name="EditStationPage"
+				processor="com.spark.psi.base.browser.station.EditStationProcessor"
+				render="com.spark.psi.base.browser.station.EditStationRender" />
+			<page space="psi/base" title="站点列表" name="StationListPage"
+				processor="com.spark.psi.base.browser.station.StationListProcessor"
+				render="com.spark.psi.base.browser.station.StationListRender" />
+
+			<page space="psi/base" title="商品列表" name="BOM_GOODSLIST" 
+					processor="com.spark.psi.base.browser.bom.BOM_MainListProcessor" 
+					render="com.spark.psi.base.browser.bom.BOM_MainListRender"></page>
+			<page space="psi/base" title="待提交BOM" name="BOM_SUBMITINGLIST" 
+					processor="com.spark.psi.base.browser.bom.BOM_SubmitingListProcessor" 
+					render="com.spark.psi.base.browser.bom.BOM_SubmitingListRender"></page>
+			<page space="psi/base" title="待审批BOM" name="BOM_APPROVINGLIST" 
+					processor="com.spark.psi.base.browser.bom.BOM_ApprovingListProcessor" 
+					render="com.spark.psi.base.browser.bom.BOM_ApprovingListRender"></page>
+
+
+			<page space="psi/base" title="短信设置" name="PSI_PhoneMsgConfigPage" 
+					processor="com.spark.psi.base.browser.config.PhoneMsgConfigProcessor" 
+					render="com.spark.psi.base.browser.config.PhoneMsgConfigRender"></page>
+
+		</saas-pages>
+	</publish>
+</dna>

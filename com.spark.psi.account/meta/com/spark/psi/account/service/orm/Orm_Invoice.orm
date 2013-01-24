@@ -1,0 +1,28 @@
+define orm Orm_Invoice(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.invoice.Invoice
+	
+begin
+	select 
+		t."RECID" as "RECID",
+		t."createDate" as "createDate",
+		t."createPerson" as "createPerson",
+		t."cusDeptGuid" as "cusDeptGuid",
+		t."cusproFullName" as "cusproFullName",
+		t."cusproFullNamePY" as "cusproFullNamePY",
+		t."cusproGuid" as "cusproGuid",
+		t."cusproName" as "cusproName",
+		t."cusproNamePY" as "cusproNamePY",
+		t."deptGuid" as "deptGuid",
+		t."invalidDate" as "invalidDate",
+		t."invalidPerson" as "invalidPerson",
+		t."invalidReason" as "invalidReason",
+		t."invoAmount" as "invoAmount",
+		t."invoCode" as "invoCode",
+		t."invoDate" as "invoDate",
+		t."invoPerson" as "invoPerson",
+		t."invoPersonName" as "invoPersonName",
+		t."invoType" as "invoType",
+		t."isInvalided" as "isInvalided"
+	from SA_FINANCE_INVOICE as t
+	where t.RECID = @id
+end

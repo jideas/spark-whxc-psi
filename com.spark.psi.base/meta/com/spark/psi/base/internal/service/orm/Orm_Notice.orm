@@ -1,0 +1,21 @@
+define orm Orm_Notice(@id guid not null)
+	mapping com.spark.psi.base.internal.entity.NoticeImpl
+begin
+	select 
+		t."RECID" as "RECID",
+		t."cancelTime" as "cancelTime",
+		t."createGuid" as "createGuid",
+		t."createPerson" as "createPerson",
+		t."createTime" as "createTime",
+		t."deptGuid" as "deptGuid",
+		t."deptNameStr" as "deptNameStr",
+		t."isTop" as "isTop",
+		t."noticeContent" as "noticeContent",
+		t."noticeState" as "noticeStatus",
+		t."noticeTitle" as "noticeTitle",
+		t."noticeTitlePY" as "noticeTitlePY",
+		t."publishTime" as "publishTime",
+		t."tenantsGuid" as "tenantsGuid"
+	from SA_NOTICE as t 
+	where t.RECID = @id 
+end

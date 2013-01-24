@@ -1,0 +1,15 @@
+define orm Orm_Dealing(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.dealing.Dealing
+begin
+	select 
+		t."amount" as "amount", 
+		t."initAmount" as "initAmount",
+		t."type" as "type",
+		t."RECID" as "id",
+		t."partnerId" as "partnerId",
+		t."partnerName" as "partnerName",
+		t."namePY" as "namePY",
+		t."partnerShortName" as "partnerShortName"
+	from PSI_ACCOUNT_DEALING as t
+	where t.RECID = @id
+end

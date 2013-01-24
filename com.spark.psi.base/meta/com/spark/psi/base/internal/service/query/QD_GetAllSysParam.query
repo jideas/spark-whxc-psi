@@ -1,0 +1,9 @@
+define query QD_GetAllSysParam()
+begin
+	select 
+		t."key" as "key",
+		t."value" as "value",  
+		t."tenantsGuid" as "tenantsGuid",
+		t."RECID" as "recid" 
+	from SA_TENANTS_SYS_PARAM as t 
+end

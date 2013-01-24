@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<services>
+			<service space="psi_account" class="com.spark.psi.account.service.dealing.DelingDao"/>
+			<service space="psi_account" class="com.spark.psi.account.service.invoice.InvoiceService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.pay.PaymentPublishService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.pub.AccountModuleService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.pub.AccountPubService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.receipt.RetailReceiptService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.pub.AccountModuleQueryService"/>
+
+			<service space="psi_account" class="com.spark.psi.account.service.receipt.ReceiptPublishService"/>
+			<service space="psi_account" class="com.spark.psi.account.service.jointSettlement.JointSettlementPublishService"/>
+			
+		</services>
+		<orms>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_Dealing"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_DealingItem"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_Invoice"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_PayMent"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_PaymentItem"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_PaymentItemBySheetId"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_PaymentLog"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_PaymentLogBySheetId"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_Receipt"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_ReceiptItem"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_ReceiptItemBySheetId"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_ReceiptLog"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_ReceiptLogBySheetId"/>
+			
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_RetailReceipt"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_RetailReceiptAll"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_JointSettlementDetBySheetId"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_JointSettlementDet"/>
+			<orm space="psi_account" class="com.spark.psi.account.service.orm.Orm_JointSettlement"/>
+
+		</orms>
+		<commands>
+			<!-- command space="dna/core" class="com.jiuqi.dna.core.XXCommand" -->
+		</commands>
+		<querys>
+			<!-- query space="dna/core" class="com.jiuqi.dna.core.XXQuery" -->
+		</querys>
+		<ui-entrys>
+			<!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
+				</uientry-->
+		</ui-entrys>
+		<pages>
+			<!--page space="mydemo" name="testtemplate" class="com.jiuqi.dna.ui.template.launch.TemplatePage" /-->
+		</pages>
+		<ui-stylesheets>
+			<!-- stylesheet name="stylesheet" title="stylesheet" path="com/jiuqi/dna/ui/demo/stylesheet.css" -->
+		</ui-stylesheets>
+		<portlets>
+			<!-- portlet name="portlet" class="com.jiuqi.dna.ui.XXPortlet" -->
+		</portlets>
+	</publish>
+</dna>
+

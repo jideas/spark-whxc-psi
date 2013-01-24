@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<services>
+			<service space="psi_base" class="com.spark.psi.base.phoneMessage.service.PhoneMessageService"/>
+			<service space="psi_base" class="com.spark.psi.base.phoneMessage.service.PhoneMsgPublishService"/>
+			<service space="psi_base" class="com.spark.b2c.base.supplier.joint.service.JointRecordService"/>
+			<service space="psi_base" class="com.spark.psi.base.internal.service.dictionary.DictionaryService"/>
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ApprovalInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ApprovalModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ApprovalPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.BaseInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.BaseModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.BasePublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.DepartmentInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.DepartmentModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.DepartmentPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.EmployeeInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.EmployeeModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.EmployeePublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.FormConfigModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.GoodsCategoryResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.GoodsItemResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.GoodsModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.GoodsPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.GoodsResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.material.internal.service.MaterialsCategoryResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.material.internal.service.MaterialsItemResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.material.internal.service.MaterialsModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.material.internal.service.MaterialsPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.material.internal.service.MaterialsResourceService" />
+
+			<service space="psi_base" class="com.spark.psi.base.internal.service.LoginService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.PartnerInternalERPService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.PartnerModuleERPService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SupplierPublishERPService"/>
+			<service space="psi_base" class="com.spark.psi.base.internal.service.CustomerPublishERPService"/>
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ProductService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ContactPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ContactInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.StoreInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.StoreModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.StorePublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.TenantModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.TenantResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.TenantPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.EnumResourceService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.LevelTreeService" />
+			<!--
+			<service space="psi_base" class="com.spark.psi.base.internal.service.RemoteServiceInvokerService" /> -->
+			<service space="psi_base" class="com.spark.psi.base.internal.service.FunctionPositionService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.CompanyPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.UserHeadService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SerialNumberService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.NoticePublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.NoticeModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.NoticeDeptService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.PlanTaskService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SalesManCreditInternalService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SalesManCreditPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SalesManCreditModuleService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.ApprovalLogPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.TenantsSysParamService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.SendMsgService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.TenantsSysParamPublishService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.WeatherService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.NoteService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.MonitorService" />
+			<service space="psi_base" class="com.spark.psi.base.internal.service.IndexToolServer" />
+			<service space="psi_base" class="com.spark.psi.base.station.service.StationService"/>
+			<service space="psi_base" class="com.spark.psi.base.internal.service.bom.BomPublishService"></service>
+
+			<service space="psi_base" class="com.spark.b2c.base.supplier.joint.service.JointLogService"/>
+
+		</services>
+		<orms>
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_CfgExam" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Store" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Employee" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_TenantsSysParam" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_StoreEmployee" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_StoreEmployeeByEmpId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Contack" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Partner" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_LevelTree" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_FunctionPosition" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_FunctionPositionByFunidAndUserId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Company" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_GoodsItem" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Goods" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_SerialNumber" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_SerialNumberByTenantAndType" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Notice" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_NoticeDept" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_SalesManCredit" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_SalesManCreditByUserId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.ORM_weather" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Note" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Monitor" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_IndexTool" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_ApprovalRecord" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_GoodsTraderLogByGoodsId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_GoodsTraderLogByGoodsItemIdAndPartnerId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllTenant" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetTenantById" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Shelf" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_ShelfItemByStoreId" />
+			<!--Materials-->
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_MaterialsItem" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_MaterialsItemByMarerialId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_Materials" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_MaterialsTraderLogByMaterialsId" />
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_MaterialsTraderLogByMaterialsItemIdAndPartnerId" />
+
+
+			<!--JointVenture-->
+			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_JointVentureLog" />
+
+
+		</orms>
+		<commands />
+		<querys>
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllDepartmentList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllEmployeeList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllCfgExam" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllPartnerList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllStoreList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetStoreById" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetStoreEmployeeListByStoreId" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetStoreSalesEmployeeListByTenantId" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetStoreEmployeeListByType" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllTenantGuidList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllSysParam" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetEmployeeById" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetPartnerById" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetContactListByPartnerId" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetContactInfoListByPartnerId" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllEnumEntityList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetAllContactResourceList" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetContactPersonResourceById" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetChildOf" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_GetContactBookInfoById" />
+			<query space="psi_base" class="com.spark.psi.base.internal.service.query.QD_CheckPartnerNameIsOnly" />
+		</querys>
+		<tables>
+			<table space="psi_base" class="com.spark.psi.base.storage.organization.TB_sa_em_employee" />
+			<table space="psi_base" class="com.spark.psi.base.storage.store.TB_SA_STORE_INFO" />
+			<table space="psi_base" class="com.spark.psi.base.storage.partner.TB_SA_CUSPROVIDER_INFO" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_CFG_EXAM" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_INFO" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_PROPERTY" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_TYPE_PROJECT" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_TYPE_PROPERTY" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_TYPE_TONGJI" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_BUY_SALE_MEMORY" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TableGoodsTraderLog" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_TENANTS_SYS_PARAM" />
+			<table space="psi_base" class="com.spark.psi.base.storage.base.TB_SA_SerialNumber" />
+			<table space="psi_base" class="com.spark.psi.base.storage.function.TableFunctionPosition" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_CLIENT_COMPANYINFO" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_SALE_CREDIT" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_EXAM_LIST" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_TENANT" />
+			<table space="psi_base" class="com.spark.psi.base.storage.base.TB_SA_CORE_TREE" />
+			<table space="psi_base" class="com.spark.psi.base.storage.base.TB_sa_dictionary_list" />
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TB_SA_GOODS_TYPE" />
+			<table space="psi_base" class="com.spark.psi.base.storage.notice.TB_SA_NOTICE_DEPT" />
+			<table space="psi_base" class="com.spark.psi.base.storage.notice.TB_SA_NOTICE" />
+			<table space="psi_base" class="com.spark.psi.base.storage.organization.TB_SA_PERSONNEL_DEPT" />
+			<table space="psi_base" class="com.spark.psi.base.storage.partner.TB_SA_CONTACKBOOK" />
+			<table space="psi_base" class="com.spark.psi.base.storage.store.TB_SA_STORE_EMPLOYEE" />
+			<table space="psi_base" class="com.spark.psi.base.storage.tenant.TB_SA_TENANTS" />
+			<!--Materials-->
+			<table space="psi_base" class="com.spark.psi.base.storage.goods.TableMaterialsTraderLog" />
+
+		</tables>
+		<ui-entrys />
+		<pages />
+		<ui-stylesheets />
+		<portlets />
+	</publish>
+	<servlets />
+</dna>
+

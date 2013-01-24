@@ -1,0 +1,10 @@
+define orm Orm_Monitor(@id guid not null)
+	mapping com.spark.psi.base.publicimpl.MonitorImpl
+begin
+	select 
+		t."monitors" as "monitors",
+		t."RECID" as "recid"
+	from SA_COMM_MONITOR as t
+	where t."RECID" = @id  
+end
+

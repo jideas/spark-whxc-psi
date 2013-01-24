@@ -1,0 +1,7 @@
+define query QD_GetStoreEmployeeListByStoreId(@type string,@storeId guid)
+begin
+	select 
+		t.storeGuid as storeGuid,
+		t.employeeGuid as employeeGuid
+	from "SA_STORE_EMPLOYEE" as "t" where t.employeeType = @type and t.storeGuid = @storeId
+end

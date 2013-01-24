@@ -1,0 +1,11 @@
+define orm Orm_StoreEmployee(@tenantId guid,@type string)
+	mapping com.spark.psi.base.internal.entity.StoreEmployee
+begin
+	select 
+		t."employeeGuid" as "employeeGuid",
+		t."employeeType" as "employeeType",
+		t."RECID" as "recid",
+		t."storeGuid" as "storeGuid",
+		t.tenantsGuid as tenantId		
+	from SA_STORE_EMPLOYEE as t where t.tenantsGuid = @tenantId and t.employeeType = @type 
+end

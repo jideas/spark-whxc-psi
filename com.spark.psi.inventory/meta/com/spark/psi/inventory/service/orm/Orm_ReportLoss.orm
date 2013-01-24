@@ -1,0 +1,22 @@
+define orm Orm_ReportLoss(@id guid not null)
+	mapping com.spark.psi.inventory.internal.entity.ReportLoss
+begin
+	select 
+		t."applyDate" as "applyDate",
+		t."approvalDate" as "approvalDate",
+		t."approvalPersonId" as "approvalPersonId",
+		t."approvalPersonName" as "approvalPersonName",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."RECID" as "id",
+		t."rejectReason" as "rejectReason",
+		t."remark" as "remark",
+		t."reportType" as "reportType",
+		t."sheetNo" as "sheetNo",
+		t."status" as "status",
+		t."storeId" as "storeId",
+		t."storeName" as "storeName"
+	from PSI_Inventory_ReportLoss as t
+	where t.RECID = @id
+end

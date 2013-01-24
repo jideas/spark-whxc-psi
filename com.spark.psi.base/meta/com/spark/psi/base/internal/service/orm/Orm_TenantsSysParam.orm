@@ -1,0 +1,11 @@
+define orm Orm_TenantsSysParam(@tenantsGuid guid not null,@key string not null)
+	mapping com.spark.psi.base.internal.entity.TenantSysParam
+begin
+	select 
+		t."key" as "key",
+		t."value" as "yes",  
+		t."tenantsGuid" as "tenantId",
+		t.recid as id
+	from SA_TENANTS_SYS_PARAM as t 
+	where t.tenantsGuid = @tenantsGuid and t."key" = @key
+end

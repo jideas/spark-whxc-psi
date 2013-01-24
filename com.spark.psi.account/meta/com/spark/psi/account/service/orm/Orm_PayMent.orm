@@ -1,0 +1,25 @@
+define orm "Orm_PayMent"(@id guid not null)
+	mapping com.spark.psi.account.intf.entity.pay.PaymentEntity
+begin
+	select 
+		t.RECID as id,
+		t.paymentNo as paymentNo,
+		t.partnerName as partnerName,
+		t.partnerId as partnerId,
+		t.paymentType as paymentType,
+		t.denyReason as denyReason,
+		t.payDate as payDate,
+		t.status as status,
+		t.amount as amount,
+		t.paidAmount as paidAmount,
+		t.remark as remark,
+		t.approvePerson as approvePerson,
+		t.approvePersonName as approvePersonName,
+		t.approveDate as approveDate,
+		t.creatorId as creatorId,
+		t.creator as creator,
+		t.createDate as createDate,
+		t.dealingsWay as dealingsWay
+	from PSI_ACCOUNT_Payment as t
+	where t.RECID = @id
+end

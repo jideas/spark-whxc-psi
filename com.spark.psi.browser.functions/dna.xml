@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<!-- 系统功能 -->
+		<saas-functions>
+
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.OnlineReturnManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.ConfigManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.UserConfigFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.CustomerMangeFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.SupplierManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.GoodsManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.MaterialManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.StoreManageFunction" />
+			<!-- <function space="psi/functions"
+				class="com.spark.psi.browser.functions.ApprovalManageFunction" /> -->
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.ContactManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.NoticeManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.StationManageFunction" />
+
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.PurchaseManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.SalesManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.OnlineOrderManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.ProduceManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.DeliveryManagerFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.DeliverTicketManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.DistributeManageFunction" />
+			<!-- function space="psi/functions"
+				class="com.spark.psi.browser.functions.RetailManageFunction" / -->
+			<!-- function space="psi/functions"
+				class="com.spark.psi.browser.functions.PromotionManageFunction" / -->
+
+
+			<!-- function space="psi/functions"
+				class="com.spark.psi.browser.functions.GoodsRefactorFunction" / -->
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryAllocateFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryCheckinFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryCheckoutFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryCountFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryQueryFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InventoryReportLossFunction" />
+
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.BalanceManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.ReceiptManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.PaymentManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.InvoiceManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.JointSettlementFunction" />
+
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.GoodsBomManageFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.ReportFunction" />
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.QueryMangeFunction" />
+			<!--
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.RealGoodsSalesManageFunction" />
+-->
+		</saas-functions>
+	</publish>
+</dna>
