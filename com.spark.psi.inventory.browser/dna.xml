@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<ui-client-scripts>
+			<script name="InventoryClient" path="js/InventoryClient.js" />
+		</ui-client-scripts>
+
+		<!-- 页面列表，用于开发和测试 -->
+		<saas-pages>
+			<page space="psi/inventory" name="PSI_ChangeCostPage"
+				title="调整成本"
+				processor="com.spark.psi.inventory.browser.query.ChangeCostPageProcessor"
+				render="com.spark.psi.inventory.browser.query.ChangeCostPageRender" />
+			<page space="psi/inventory" name="SubmitingAllocateSheetListPage"
+				title="待提交的库存调拨单列表*"
+				processor="com.spark.psi.inventory.browser.allocate.SubmitingAllocateSheetListProcessor"
+				render="com.spark.psi.inventory.browser.allocate.SubmitingAllocateSheetListRender" />
+			<page space="psi/inventory" name="ApprovalingAllocateSheetListPage"
+				title="待审批的库存调拨单列表*"
+				processor="com.spark.psi.inventory.browser.allocate.ApprovalingAllocateSheetListProcessor"
+				render="com.spark.psi.inventory.browser.allocate.ApprovalingAllocateSheetListRender" />
+			<page space="psi/inventory" name="ProcessingAllocateSheetListPage"
+				title="库存调拨单跟踪列表*"
+				processor="com.spark.psi.inventory.browser.allocate.ProcessingAllocateSheetListProcessor"
+				render="com.spark.psi.inventory.browser.allocate.ProcessingAllocateSheetListRender" />
+			<page space="psi/inventory" name="ProcessedAllocateSheetListPage"
+				title="已完成的库存调拨单列表*"
+				processor="com.spark.psi.inventory.browser.allocate.ProcessedAllocateSheetListProcessor"
+				render="com.spark.psi.inventory.browser.allocate.ProcessedAllocateSheetListRender" />
+			<page space="psi/inventory" name="库存调拨单明细页面"
+				processor="com.spark.psi.inventory.browser.allocate.AllocateSheetDetailProcessor"
+				render="com.spark.psi.inventory.browser.allocate.AllocateSheetDetailRender" />
+			<page space="psi/inventory" title="新增或编辑调拔单" name="EditAllocateSheetPage"
+				processor="com.spark.psi.inventory.browser.allocate.EditAllocateSheetProcesser"
+				render="com.spark.psi.inventory.browser.allocate.EditAllocateSheetRender" />
+			<page space="psi/inventory" title="待审批调拔单" name="ApprovalingSheetDetailPage"
+				processor="com.spark.psi.inventory.browser.allocate.ApprovalingSheetDetailProcesser"
+				render="com.spark.psi.inventory.browser.allocate.ApprovalingSheetDetailRender" />
+			<page space="psi/inventory" title="进行中调拔单" name="ProcessingSheetDetailPage"
+				processor="com.spark.psi.inventory.browser.allocate.ProcessingSheetDetailProcessor"
+				render="com.spark.psi.inventory.browser.allocate.ProcessingSheetDetailRender" />
+			<page space="psi/inventory" title="已完成调拔单" name="AllocateSheetDetailBasePage"
+				processor="com.spark.psi.inventory.browser.allocate.AllocateSheetDetailBaseProcessor"
+				render="com.spark.psi.inventory.browser.allocate.AllocateSheetDetailBaseRender" />
+
+			<page space="psi/inventory" name="CheckingInDetailPage" title="入库单明细页面"
+				processor="com.spark.psi.inventory.browser.checkin.CheckingInDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkin.CheckingInDetailRender" />
+			<page space="psi/inventory" name="KitCheckingInDetailPage"
+				title="其他物品入库明细页面"
+				processor="com.spark.psi.inventory.browser.checkin.KitCheckingInDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkin.KitCheckingInDetailRender" />
+			<page space="psi/inventory" name="ProcessedCheckingInListPage"
+				title="入库记录页面*"
+				processor="com.spark.psi.inventory.browser.checkin.ProcessedCheckingInListProcessor"
+				render="com.spark.psi.inventory.browser.checkin.ProcessedCheckingInListRender" />
+			<page space="psi/inventory" name="PurchaseCheckingInListPage"
+				title="采购入库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkin.PurchaseCheckingInListProcessor"
+				render="com.spark.psi.inventory.browser.checkin.PurchaseCheckingInListRender" />
+			<page space="psi/inventory" name="RealGoodsCheckingInListPage"
+				title="成品入库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkin.GoodsProcessedCheckingInListProcessor"
+				render="com.spark.psi.inventory.browser.checkin.GoodsProcessedCheckingInListRender" />
+			<page space="psi/inventory" name="SalesReturnCheckingInListPage"
+				title="销售退货入库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkin.SalesReturnCheckingInListProcessor"
+				render="com.spark.psi.inventory.browser.checkin.SalesReturnCheckingInListRender" />
+
+
+			<page space="psi/inventory" name="CheckingOutDetailPage" title="出库单明细页面"
+				processor="com.spark.psi.inventory.browser.checkout.CheckingOutDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkout.CheckingOutDetailRender" />
+			<page space="psi/inventory" name="KitCheckingOutDetailPage"
+				title="其他物品出库明细页面"
+				processor="com.spark.psi.inventory.browser.checkout.KitCheckingOutDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkout.KitCheckingOutDetailRender" />
+			<page space="psi/inventory" name="ProcessedCheckingOutListPage"
+				title="出库记录页面*"
+				processor="com.spark.psi.inventory.browser.checkout.ProcessedCheckingOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.ProcessedCheckingOutListRender" />
+			<page space="psi/inventory" name="SalesCheckingOutListPage"
+				title="销售出库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkout.SalesCheckingOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.SalesCheckingOutListRender" />
+			<page space="psi/inventory" name="MaterialsCheckingOutListPage"
+				title="材料出库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkout.MaterialsCheckingOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.MaterialsCheckingOutListRender" />
+			<page space="psi/inventory" name="RealGoodsCheckOutListPage"
+				title="成品出库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkout.RealGoodsCheckOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.RealGoodsCheckOutListRender" />
+			<page space="psi/inventory" name="PurchaseReturnCheckingOutListPage"
+				title="采购退货入库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkout.PurchaseReturnCheckingOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.PurchaseReturnCheckingOutListRender" />
+			<page space="psi/inventory" name="确认出库页面"
+				processor="com.spark.psi.inventory.browser.checkout.CheckOutProcessor"
+				render="com.spark.psi.inventory.browser.checkout.CheckOutRender" />
+
+			<!-- 库存报损 -->
+			<page space="psi/inventory" name="SubmittingReportLossListPage"
+				title="待提交报损单列表页面"
+				processor="com.spark.psi.inventory.browser.loss.SubmittingReportLossListProcessor"
+				render="com.spark.psi.inventory.browser.loss.SubmittingReportLossListRender" />
+			<page space="psi/inventory" name="SubmittedReportLossListPage"
+				title="待审批报损单列表页面"
+				processor="com.spark.psi.inventory.browser.loss.SubmittedReportLossListProcessor"
+				render="com.spark.psi.inventory.browser.loss.SubmittedReportLossListRender" />
+			<page space="psi/inventory" name="FinishedReportLossListPage"
+				title="已完成报损单列表页面"
+				processor="com.spark.psi.inventory.browser.loss.FinishedReportLossListProcessor"
+				render="com.spark.psi.inventory.browser.loss.FinishedReportLossListRender" />
+
+			<page space="psi/inventory" name="InventoryCountSheetListPage"
+				title="库存盘点单列表页面*"
+				processor="com.spark.psi.inventory.browser.count.InventoryCountSheetListProcessor"
+				render="com.spark.psi.inventory.browser.count.InventoryCountSheetListRender" />
+			<page space="psi/inventory" name="InitStoreGoodsListPage" title="初始化商品库存页面"
+				processor="com.spark.psi.inventory.browser.init.InitStoreGoodsListProcessor"
+				render="com.spark.psi.inventory.browser.init.InitStoreGoodsListRender" />
+			<page space="psi/inventory" name="InitStoreKitListPage" title="初始化其他物品页面"
+				processor="com.spark.psi.inventory.browser.init.InitStoreKitListProcessor"
+				render="com.spark.psi.inventory.browser.init.InitStoreKitListRender" />
+
+			<page space="psi/inventory" name="MaterialsInventoryQueryPage"
+				title="材料库存查询*"
+				processor="com.spark.psi.inventory.browser.query.MaterialsInventoryQueryProcessor"
+				render="com.spark.psi.inventory.browser.query.MaterialsInventoryQueryRender" />
+			<page space="psi/inventory" name="GoodsInventoryQueryPage"
+				title="商品库存查询*"
+				processor="com.spark.psi.inventory.browser.query.GoodsInventoryQueryProcessor"
+				render="com.spark.psi.inventory.browser.query.GoodsInventoryQueryRender" />
+			<page space="psi/inventory" name="KitInventoryQueryPage" title="其他库存查询*"
+				processor="com.spark.psi.inventory.browser.query.KitInventoryQueryProcessor"
+				render="com.spark.psi.inventory.browser.query.KitInventoryQueryRender" />
+			<page space="psi/inventory" name="InventoryLogQueryPage" title="材料库存流水"
+				processor="com.spark.psi.inventory.browser.query.InventoryLogQueryProcessor"
+				render="com.spark.psi.inventory.browser.query.InventoryLogQueryRender" />
+			<page space="psi/inventory" name="GoodsInventoryLog" title="商品库存流水"
+				processor="com.spark.psi.inventory.browser.query.GoodsInventoryLogProcessor"
+				render="com.spark.psi.inventory.browser.query.GoodsInventoryLogRender" />
+			<page space="psi/inventory" name="InventoryBookQueryPage" title="材料库存台帐查询"
+				processor="com.spark.psi.inventory.browser.query.InventoryBookQueryProcessor"
+				render="com.spark.psi.inventory.browser.query.InventoryBookQueryRender" />
+			<page space="psi/inventory" name="GoodsInventoryBookQuery" title="商品库存台帐查询"
+				processor="com.spark.psi.inventory.browser.query.GoodsInventoryBookProcessor"
+				render="com.spark.psi.inventory.browser.query.GoodsInventoryBookRender" />
+			<page space="psi/inventory" name="调整成本页面"
+				processor="com.spark.psi.inventory.browser.query.AdjustGoodsCostProcessor"
+				render="com.spark.psi.inventory.browser.query.AdjustGoodsCostRender" />
+		</saas-pages>
+	</publish>
+</dna>
