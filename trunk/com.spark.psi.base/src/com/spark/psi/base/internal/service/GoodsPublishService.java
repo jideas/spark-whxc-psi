@@ -1164,17 +1164,18 @@ public class GoodsPublishService extends Service {
 			}
 			// update cms_goods同步更新网站对应商品的销售价格
 			StringBuffer updateCmsSql = new StringBuffer("define update modifyCmsGoods(");
-			updateCmsSql.append("@RECID guid,@realPrice double)");
+			updateCmsSql.append("@RECID guid,@realPrice double, @goodsname string)");
 			updateCmsSql.append(" begin");
 			updateCmsSql.append(" update cms_goods ").append("  as a");
 			updateCmsSql.append(" set realPrice=@realPrice");
+			updateCmsSql.append(", goodsName=@goodsname");
 			if (GoodsStatus.STOP_SALE.getCode().equals(entity.getStatus())) {
 				updateCmsSql.append(", isPublished=false ");
 			}
 			updateCmsSql.append(" where a.recid=@RECID");
 			updateCmsSql.append(" end");
 			DBCommand dbc3 = context.prepareStatement(updateCmsSql);
-			dbc3.setArgumentValues(entity.getId(), entity.getSalePrice());
+			dbc3.setArgumentValues(entity.getId(), entity.getSalePrice(), entity.getGoodsName());
 			dbc3.executeUpdate();
 		}
 	}
