@@ -48,6 +48,11 @@
     <field dbtable="CMS_GOODS" name="publishPersonId" name-db="publishPersonId" type="guid" primary-key="false" keep-valid="false" author="" title="发布人ID" description="" ID="D523FD92B37237D34EBEC36D62844B99" />
     <field dbtable="CMS_GOODS" name="publishPersonName" name-db="publishPersonName" type="varchar(30)" primary-key="false" keep-valid="false" author="" title="发布人名称" description="" ID="7C7EF56F4C4A54728A54B50FCE11DAAF" />
     <field dbtable="CMS_GOODS" name="publishDate" name-db="publishDate" type="date" primary-key="false" keep-valid="false" author="" title="发布日期" description="" ID="D2464062FF6B87EAAC64FC9E6DCB785A" />
+    <field dbtable="CMS_GOODS" name="isPromotion" name-db="isPromotion" type="boolean" primary-key="false" keep-valid="false" author="" title="是否有促销" description="" ID="8EA1C9150E97B4ED124639819D28A609">
+      <default>
+        <const type="boolean" value="false" />
+      </default>
+    </field>
   </fields>
   <indexs />
   <hierarchies />
