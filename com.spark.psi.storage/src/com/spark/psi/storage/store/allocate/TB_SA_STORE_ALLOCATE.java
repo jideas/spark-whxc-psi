@@ -1,0 +1,137 @@
+package com.spark.psi.storage.store.allocate;
+
+import com.jiuqi.dna.core.def.table.TableDeclarator;
+import com.jiuqi.dna.core.type.TypeFactory;
+import com.jiuqi.dna.core.def.table.TableFieldDefine;
+import com.jiuqi.dna.core.def.table.TableFieldDeclare;
+
+public final class TB_SA_STORE_ALLOCATE extends TableDeclarator {
+
+	public static final String TABLE_NAME ="SA_STORE_ALLOCATE";
+
+	public final TableFieldDefine f_tenantsGuid;
+	public final TableFieldDefine f_allocOrdNo;
+	public final TableFieldDefine f_applyDate;
+	public final TableFieldDefine f_dealState;
+	public final TableFieldDefine f_allocateOutStoreGuid;
+	public final TableFieldDefine f_allocateOutStoreName;
+	public final TableFieldDefine f_allocateInStoreGuid;
+	public final TableFieldDefine f_allocateInStoreName;
+	public final TableFieldDefine f_outExaminePerson;
+	public final TableFieldDefine f_outExaminePersonName;
+	public final TableFieldDefine f_outExamineDate;
+	public final TableFieldDefine f_inExaminePerson;
+	public final TableFieldDefine f_inExaminePersonName;
+	public final TableFieldDefine f_inExamineDate;
+	public final TableFieldDefine f_isOutExamine;
+	public final TableFieldDefine f_isInExamine;
+	public final TableFieldDefine f_allocateOutPerson;
+	public final TableFieldDefine f_allocateOutPersonName;
+	public final TableFieldDefine f_allocateOutDate;
+	public final TableFieldDefine f_allocateInPerson;
+	public final TableFieldDefine f_allocateInPersonName;
+	public final TableFieldDefine f_allocateInDate;
+	public final TableFieldDefine f_allocateReason;
+	public final TableFieldDefine f_rejectReason;
+	public final TableFieldDefine f_createPerson;
+	public final TableFieldDefine f_createDepartment;
+	public final TableFieldDefine f_createPersonName;
+	public final TableFieldDefine f_createPersonNamePY;
+	public final TableFieldDefine f_createDate;
+
+	public static final String FN_tenantsGuid ="tenantsGuid";
+	public static final String FN_allocOrdNo ="allocOrdNo";
+	public static final String FN_applyDate ="applyDate";
+	public static final String FN_dealState ="dealState";
+	public static final String FN_allocateOutStoreGuid ="allocateOutStoreGuid";
+	public static final String FN_allocateOutStoreName ="allocateOutStoreName";
+	public static final String FN_allocateInStoreGuid ="allocateInStoreGuid";
+	public static final String FN_allocateInStoreName ="allocateInStoreName";
+	public static final String FN_outExaminePerson ="outExaminePerson";
+	public static final String FN_outExaminePersonName ="outExaminePersonName";
+	public static final String FN_outExamineDate ="outExamineDate";
+	public static final String FN_inExaminePerson ="inExaminePerson";
+	public static final String FN_inExaminePersonName ="inExaminePersonName";
+	public static final String FN_inExamineDate ="inExamineDate";
+	public static final String FN_isOutExamine ="isOutExamine";
+	public static final String FN_isInExamine ="isInExamine";
+	public static final String FN_allocateOutPerson ="allocateOutPerson";
+	public static final String FN_allocateOutPersonName ="allocateOutPersonName";
+	public static final String FN_allocateOutDate ="allocateOutDate";
+	public static final String FN_allocateInPerson ="allocateInPerson";
+	public static final String FN_allocateInPersonName ="allocateInPersonName";
+	public static final String FN_allocateInDate ="allocateInDate";
+	public static final String FN_allocateReason ="allocateReason";
+	public static final String FN_rejectReason ="rejectReason";
+	public static final String FN_createPerson ="createPerson";
+	public static final String FN_createDepartment ="createDepartment";
+	public static final String FN_createPersonName ="createPersonName";
+	public static final String FN_createPersonNamePY ="createPersonNamePY";
+	public static final String FN_createDate ="createDate";
+
+	//不可调用该构造方法.当前类只能由框架实例化.
+	private TB_SA_STORE_ALLOCATE() {
+		super(TABLE_NAME);
+		TableFieldDeclare field;
+		this.f_tenantsGuid = field = this.table.newField(FN_tenantsGuid, TypeFactory.GUID);
+		field.setTitle("租户编号");
+		this.f_allocOrdNo = field = this.table.newField(FN_allocOrdNo, TypeFactory.VARCHAR(20));
+		field.setTitle("调拨单号");
+		this.f_applyDate = field = this.table.newField(FN_applyDate, TypeFactory.DATE);
+		field.setTitle("申请日期");
+		this.f_dealState = field = this.table.newField(FN_dealState, TypeFactory.CHAR(2));
+		field.setTitle("处理状态");
+		this.f_allocateOutStoreGuid = field = this.table.newField(FN_allocateOutStoreGuid, TypeFactory.GUID);
+		field.setTitle("调出库GUID");
+		this.f_allocateOutStoreName = field = this.table.newField(FN_allocateOutStoreName, TypeFactory.VARCHAR(50));
+		field.setTitle("调出仓库名称");
+		this.f_allocateInStoreGuid = field = this.table.newField(FN_allocateInStoreGuid, TypeFactory.GUID);
+		field.setTitle("调入库GUID");
+		this.f_allocateInStoreName = field = this.table.newField(FN_allocateInStoreName, TypeFactory.VARCHAR(50));
+		field.setTitle("调入仓库名称");
+		this.f_outExaminePerson = field = this.table.newField(FN_outExaminePerson, TypeFactory.GUID);
+		field.setTitle("调出审核人GUID");
+		this.f_outExaminePersonName = field = this.table.newField(FN_outExaminePersonName, TypeFactory.VARCHAR(10));
+		field.setTitle("调出审核人名称");
+		this.f_outExamineDate = field = this.table.newField(FN_outExamineDate, TypeFactory.DATE);
+		field.setTitle("调出审核日期");
+		this.f_inExaminePerson = field = this.table.newField(FN_inExaminePerson, TypeFactory.GUID);
+		field.setTitle("调入审核人GUID");
+		this.f_inExaminePersonName = field = this.table.newField(FN_inExaminePersonName, TypeFactory.VARCHAR(10));
+		field.setTitle("调入审核人名称");
+		this.f_inExamineDate = field = this.table.newField(FN_inExamineDate, TypeFactory.DATE);
+		field.setTitle("调入审核日期");
+		this.f_isOutExamine = field = this.table.newField(FN_isOutExamine, TypeFactory.BOOLEAN);
+		field.setTitle("调出审核");
+		this.f_isInExamine = field = this.table.newField(FN_isInExamine, TypeFactory.BOOLEAN);
+		field.setTitle("调入审核");
+		this.f_allocateOutPerson = field = this.table.newField(FN_allocateOutPerson, TypeFactory.GUID);
+		field.setTitle("确认调出人GUID");
+		this.f_allocateOutPersonName = field = this.table.newField(FN_allocateOutPersonName, TypeFactory.VARCHAR(10));
+		field.setTitle("确认调出人名称");
+		this.f_allocateOutDate = field = this.table.newField(FN_allocateOutDate, TypeFactory.DATE);
+		field.setTitle("确认调出日期");
+		this.f_allocateInPerson = field = this.table.newField(FN_allocateInPerson, TypeFactory.GUID);
+		field.setTitle("确认调入人GUID");
+		this.f_allocateInPersonName = field = this.table.newField(FN_allocateInPersonName, TypeFactory.VARCHAR(10));
+		field.setTitle("确认调入人名称");
+		this.f_allocateInDate = field = this.table.newField(FN_allocateInDate, TypeFactory.DATE);
+		field.setTitle("确认调入日期");
+		this.f_allocateReason = field = this.table.newField(FN_allocateReason, TypeFactory.VARCHAR(1000));
+		field.setTitle("调拨原因");
+		this.f_rejectReason = field = this.table.newField(FN_rejectReason, TypeFactory.VARCHAR(1000));
+		field.setTitle("退回原因");
+		this.f_createPerson = field = this.table.newField(FN_createPerson, TypeFactory.GUID);
+		field.setTitle("创建人GUID");
+		this.f_createDepartment = field = this.table.newField(FN_createDepartment, TypeFactory.GUID);
+		field.setTitle("所属部门");
+		this.f_createPersonName = field = this.table.newField(FN_createPersonName, TypeFactory.VARCHAR(10));
+		field.setTitle("创建人姓名");
+		this.f_createPersonNamePY = field = this.table.newField(FN_createPersonNamePY, TypeFactory.VARCHAR(10));
+		field.setTitle("创建人拼音");
+		this.f_createDate = field = this.table.newField(FN_createDate, TypeFactory.DATE);
+		field.setTitle("创建日期");
+		this.table.newIndex("index_1",f_tenantsGuid,f_RECID);
+	}
+
+}

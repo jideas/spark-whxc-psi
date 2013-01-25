@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: UACService
+Bundle-SymbolicName: com.spark.uac.service
+Bundle-Version: 1.0.0
+Bundle-Vendor: JIUQI
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.jiuqi.dna.core;bundle-version="3.0.1",
+ com.spark.uac.publish;bundle-version="1.0.0",
+ com.spark.common.utils;bundle-version="1.0.0",
+ org.dom4j;bundle-version="1.6.1",
+ com.spark.oms.publish;bundle-version="1.0.0"

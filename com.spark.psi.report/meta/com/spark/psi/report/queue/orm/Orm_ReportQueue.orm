@@ -1,0 +1,13 @@
+define orm Orm_ReportQueue(@id guid not null)
+	mapping com.spark.psi.report.entity.ReportQueue
+begin
+	select 
+		t."RECID" as "RECID",
+		t."attributeXml" as "attributeXml",
+		t."currTime" as "currTime",
+		t."eventClass" as "eventClass",
+		t."tenantId" as "tenantId",
+		t."userId" as "userId"
+	from SA_SAAS_REPORT_QUEUE as t
+	where t.RECID = @id
+end

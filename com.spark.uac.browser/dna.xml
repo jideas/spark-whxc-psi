@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+
+		<commands>
+			<!-- command space="dna/core" class="com.jiuqi.dna.core.XXCommand" -->
+		</commands>
+		
+		<querys>
+			<!-- query space="dna/core" class="com.jiuqi.dna.core.XXQuery" -->
+		</querys>
+
+		<ui-stylesheets>
+			<!-- stylesheet name="stylesheet" title="stylesheet" path="com/jiuqi/dna/ui/demo/stylesheet.css" -->
+		</ui-stylesheets>
+		
+		<portlets>
+			<!-- portlet name="portlet" class="com.jiuqi.dna.ui.XXPortlet" -->
+		</portlets>
+		<pages>
+			<page space="saas/uac" name="UAC_LoginPage" class="com.spark.uac.browser.UACLoginPage" />
+		</pages>
+		<ui-entrys>
+			<uientry name="" class="com.spark.uac.browser.UACEntry" />
+		</ui-entrys>
+		<ui-client-scripts>
+			<script name="UACLogin" path="js/Login.js" />
+		</ui-client-scripts>
+	</publish>
+	<servlets>
+		<servlet space="saas/uac" path="//*"
+			class="com.jiuqi.dna.ui.launch.http.SystemEntryServlet" />
+		<servlet space="saas/uac" path="/validate"
+			class="com.spark.uac.browser.CredentialValidateServlet" />
+	</servlets>
+</dna>

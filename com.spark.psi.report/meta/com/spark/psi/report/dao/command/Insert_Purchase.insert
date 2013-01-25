@@ -1,0 +1,43 @@
+define insert Insert_Purchase(@recid guid not null
+,@tenantId  guid not null
+,@cusProGuid guid not null
+,@dateNo int not null
+,@monthNo int not null
+,@quarter int not null
+,@yearNo int not null
+,@ordAmount double not null
+,@outstoAmount double not null
+,@receiptAmount double not null
+,@deductionAmount double not null
+,@rtnAmount double not null 
+,@createDate date not null
+)
+begin
+	insert into "SA_REPORT_PURCHASE_DATE" (RECID
+,tenantId
+,cusProGuid
+,dateNo
+,monthNo
+,quarter
+,yearNo
+,ordAmount
+,outstoAmount
+,receiptAmount
+,deductionAmount
+,rtnAmount,
+createDate
+)
+values(@recid
+,@tenantId
+,@cusProGuid
+,@dateNo
+,@monthNo
+,@quarter
+,@yearNo
+,@ordAmount
+,@outstoAmount
+,@receiptAmount
+,@deductionAmount
+,@rtnAmount ,
+@createDate)
+end

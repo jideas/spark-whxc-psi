@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Publish
+Bundle-SymbolicName: com.spark.uac.publish
+Bundle-Version: 1.0.0
+Bundle-Vendor: JIUQI
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: com.jiuqi.dna.core;bundle-version="3.0.1"
+Export-Package: com.spark.uac.publish,
+ com.spark.uac.publish.entity,
+ com.spark.uac.publish.key,
+ com.spark.uac.publish.task

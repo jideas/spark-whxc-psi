@@ -1,0 +1,134 @@
+package com.spark.psi.storage.account.payment;
+
+import com.jiuqi.dna.core.def.table.TableDeclarator;
+import com.jiuqi.dna.core.type.TypeFactory;
+import com.jiuqi.dna.core.def.table.TableFieldDefine;
+import com.jiuqi.dna.core.def.table.TableFieldDeclare;
+import com.jiuqi.dna.core.def.exp.ConstExpression;
+
+public final class TB_SA_FINANCE_PAY_RECORD extends TableDeclarator {
+
+	public static final String TABLE_NAME ="SA_FINANCE_PAY_RECORD";
+
+	public final TableFieldDefine f_payBillNo;
+	public final TableFieldDefine f_tenantsGuid;
+	public final TableFieldDefine f_payDate;
+	public final TableFieldDefine f_payObjectGuid;
+	public final TableFieldDefine f_payObject;
+	public final TableFieldDefine f_payObjectShort;
+	public final TableFieldDefine f_payType;
+	public final TableFieldDefine f_payTypeName;
+	public final TableFieldDefine f_payWay;
+	public final TableFieldDefine f_payWayName;
+	public final TableFieldDefine f_payMoney;
+	public final TableFieldDefine f_payerGuid;
+	public final TableFieldDefine f_payer;
+	public final TableFieldDefine f_inStoragePerson;
+	public final TableFieldDefine f_affirmPersonName;
+	public final TableFieldDefine f_affirmDate;
+	public final TableFieldDefine f_remark;
+	public final TableFieldDefine f_deptGuid;
+	public final TableFieldDefine f_payObjectPY;
+	public final TableFieldDefine f_payObjectShortPY;
+	public final TableFieldDefine f_payTypeNamePY;
+	public final TableFieldDefine f_payWayNamePY;
+	public final TableFieldDefine f_payerPY;
+	public final TableFieldDefine f_inStoragePersonPY;
+	public final TableFieldDefine f_isSureReturn;
+	public final TableFieldDefine f_quarter;
+	public final TableFieldDefine f_remonth;
+
+	public static final String FN_payBillNo ="payBillNo";
+	public static final String FN_tenantsGuid ="tenantsGuid";
+	public static final String FN_payDate ="payDate";
+	public static final String FN_payObjectGuid ="payObjectGuid";
+	public static final String FN_payObject ="payObject";
+	public static final String FN_payObjectShort ="payObjectShort";
+	public static final String FN_payType ="payType";
+	public static final String FN_payTypeName ="payTypeName";
+	public static final String FN_payWay ="payWay";
+	public static final String FN_payWayName ="payWayName";
+	public static final String FN_payMoney ="payMoney";
+	public static final String FN_payerGuid ="payerGuid";
+	public static final String FN_payer ="payer";
+	public static final String FN_inStoragePerson ="inStoragePerson";
+	public static final String FN_affirmPersonName ="affirmPersonName";
+	public static final String FN_affirmDate ="affirmDate";
+	public static final String FN_remark ="remark";
+	public static final String FN_deptGuid ="deptGuid";
+	public static final String FN_payObjectPY ="payObjectPY";
+	public static final String FN_payObjectShortPY ="payObjectShortPY";
+	public static final String FN_payTypeNamePY ="payTypeNamePY";
+	public static final String FN_payWayNamePY ="payWayNamePY";
+	public static final String FN_payerPY ="payerPY";
+	public static final String FN_inStoragePersonPY ="inStoragePersonPY";
+	public static final String FN_isSureReturn ="isSureReturn";
+	public static final String FN_quarter ="quarter";
+	public static final String FN_remonth ="remonth";
+
+	//不可调用该构造方法.当前类只能由框架实例化.
+	private TB_SA_FINANCE_PAY_RECORD() {
+		super(TABLE_NAME);
+		this.table.setDescription("付款纪录信息表");
+		this.table.setTitle("付款纪录信息表");
+		this.table.setCategory("业务主体");
+		TableFieldDeclare field;
+		this.f_payBillNo = field = this.table.newField(FN_payBillNo, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款单编号");
+		this.f_tenantsGuid = field = this.table.newField(FN_tenantsGuid, TypeFactory.GUID);
+		field.setTitle("租户编号");
+		this.f_payDate = field = this.table.newField(FN_payDate, TypeFactory.DATE);
+		field.setTitle("付款日期");
+		this.f_payObjectGuid = field = this.table.newField(FN_payObjectGuid, TypeFactory.GUID);
+		field.setTitle("付款对象编号");
+		this.f_payObject = field = this.table.newField(FN_payObject, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款对象名称");
+		this.f_payObjectShort = field = this.table.newField(FN_payObjectShort, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款对象简称");
+		this.f_payType = field = this.table.newField(FN_payType, TypeFactory.CHAR(2));
+		field.setTitle("付款类型");
+		this.f_payTypeName = field = this.table.newField(FN_payTypeName, TypeFactory.NVARCHAR(10));
+		field.setTitle("付款类型名称");
+		this.f_payWay = field = this.table.newField(FN_payWay, TypeFactory.CHAR(2));
+		field.setTitle("付款方式");
+		this.f_payWayName = field = this.table.newField(FN_payWayName, TypeFactory.NVARCHAR(10));
+		field.setTitle("付款方式名称");
+		this.f_payMoney = field = this.table.newField(FN_payMoney, TypeFactory.NUMERIC(17,2));
+		field.setTitle("付款金额");
+		this.f_payerGuid = field = this.table.newField(FN_payerGuid, TypeFactory.GUID);
+		field.setTitle("付款人编号");
+		this.f_payer = field = this.table.newField(FN_payer, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款人");
+		this.f_inStoragePerson = field = this.table.newField(FN_inStoragePerson, TypeFactory.NVARCHAR(20));
+		field.setTitle("入库人");
+		this.f_affirmPersonName = field = this.table.newField(FN_affirmPersonName, TypeFactory.NVARCHAR(30));
+		field.setTitle("确认人");
+		this.f_affirmDate = field = this.table.newField(FN_affirmDate, TypeFactory.DATE);
+		field.setTitle("确认日期");
+		this.f_remark = field = this.table.newField(FN_remark, TypeFactory.NVARCHAR(1000));
+		field.setTitle("备注");
+		this.f_deptGuid = field = this.table.newField(FN_deptGuid, TypeFactory.GUID);
+		field.setTitle("部门编号");
+		this.f_payObjectPY = field = this.table.newField(FN_payObjectPY, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款对象名称拼音");
+		this.f_payObjectShortPY = field = this.table.newField(FN_payObjectShortPY, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款对象简称拼音");
+		this.f_payTypeNamePY = field = this.table.newField(FN_payTypeNamePY, TypeFactory.NVARCHAR(10));
+		field.setTitle("付款类型名称拼音");
+		this.f_payWayNamePY = field = this.table.newField(FN_payWayNamePY, TypeFactory.NVARCHAR(10));
+		field.setTitle("付款方式名称拼音");
+		this.f_payerPY = field = this.table.newField(FN_payerPY, TypeFactory.NVARCHAR(20));
+		field.setTitle("付款人拼音");
+		this.f_inStoragePersonPY = field = this.table.newField(FN_inStoragePersonPY, TypeFactory.NVARCHAR(20));
+		field.setTitle("入库人拼音");
+		this.f_isSureReturn = field = this.table.newField(FN_isSureReturn, TypeFactory.BOOLEAN);
+		field.setTitle("是否确认退款");
+		field.setDefault(ConstExpression.builder.expOf(false));
+		this.f_quarter = field = this.table.newField(FN_quarter, TypeFactory.INT);
+		field.setTitle("季度");
+		this.f_remonth = field = this.table.newField(FN_remonth, TypeFactory.INT);
+		field.setTitle("月份");
+		this.table.newIndex("IDX_PAY_RECORD",f_tenantsGuid);
+	}
+
+}
