@@ -149,8 +149,14 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		columns[1] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
 		columns[2] = new PrintColumn("单价", PrintColumn.PRICE_COLUMN_WIDTH, JWT.CENTER);
 		//columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
+//		String tableTitle0 = "客户：" + item.getRealName();
+//		String tableTitle1 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
 		String tableTitle0 = "客户：" + item.getRealName();
-		String tableTitle1 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
+		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
+		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle4 = "收货地址：" + item.getAddress();
+		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
 		String summaryInfo = "";
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
@@ -159,7 +165,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			totalAmount += oItem.getAmount();
 		}
 		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount);
-		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), tableTitle0, tableTitle1);
+		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5);
 		entity.setSummaryInfo(summaryInfo);
 		entity.setLabelProvider(new SLabelProvider() {
 			

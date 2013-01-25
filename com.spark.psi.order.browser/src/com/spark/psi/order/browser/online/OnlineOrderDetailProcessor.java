@@ -74,7 +74,11 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 		columns[2] = new PrintColumn("单价", PrintColumn.PRICE_COLUMN_WIDTH, JWT.CENTER);
 		//columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
 		String tableTitle0 = "客户：" + orderInfo.getRealName();
-		String tableTitle1 = "下单时间：" + DateUtil.dateFromat(orderInfo.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle1 = "联系电话：" + orderInfo.getConsigneeTel();
+		String tableTitle2 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
+		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(orderInfo.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle4 = "收货地址：" + orderInfo.getAddress();
+		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
 		String summaryInfo = "";
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
@@ -83,7 +87,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 			totalAmount += item.getAmount();
 		}
 		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
-		FormPrintEntity fpe = new FormPrintEntity("网上订单", columns, orderInfo.getItems(), tableTitle0, tableTitle1);
+		FormPrintEntity fpe = new FormPrintEntity("网上订单", columns, orderInfo.getItems(), tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5);
 		fpe.setSummaryInfo(summaryInfo);
 		fpe.setLabelProvider(new SLabelProvider() {
 			
