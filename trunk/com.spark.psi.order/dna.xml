@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<services>
+			<service space="psi_order" class="com.spark.psi.order.onlinereturn.service.OnlineReturnDao" />
+			<service space="psi_order" class="com.spark.psi.order.onlinereturn.service.OnlineReturnPublishService" />
+
+
+			<!-- service space="dna/core" class="com.jiuqi.dna.core.XXService" -->
+			<service space="psi_order" class="com.spark.order.internal.service.OrderInternalService" />
+			<service space="psi_order" class="com.spark.order.internal.service.OrderModuleService" />
+			<service space="psi_order" class="com.spark.order.internal.service.OrderPublishService" />
+			<!--Purchase-->
+			<service space="psi_order" class="com.spark.order.purchase.service.BuyOrderService" />
+			<service space="psi_order" class="com.spark.order.purchase.service.BuyOrdDetService" />
+			<service space="psi_order" class="com.spark.order.purchase.service.BuyCancelService" />
+			<service space="psi_order" class="com.spark.order.purchase.service.BuyCancelDetService" />
+			<!--Purchase2-->
+			<service space="psi_order" class="com.spark.order.purchase.service.PurchaseGoodsService" />
+			<!--Sales-->
+			<service space="psi_order" class="com.spark.order.sales.service.SaleOrderService" />
+			<service space="psi_order" class="com.spark.order.sales.service.SaleOrdDetService" />
+			<service space="psi_order" class="com.spark.order.sales.service.SaleCancelService" />
+			<service space="psi_order" class="com.spark.order.sales.service.SaleCancelDetService" />
+			<!--Sales2-->
+			<service space="psi_order" class="com.spark.order.sales2.SalesOrderService2" />
+			<service space="psi_order" class="com.spark.order.sales2.SalesOrderItemService2" />
+			<service space="psi_order" class="com.spark.order.sales2.SalesReturnService2" />
+			<service space="psi_order" class="com.spark.order.sales2.SalesReturnItemService2" />
+			<!--Promotion2-->
+			<service space="psi_order" class="com.spark.order.promotion.service.PromotionService2" />
+			<service space="psi_order" class="com.spark.order.promotion.service.PromotionDelService2" />
+			<!--OTHER-->
+			<service space="psi_order" class="com.spark.order.service.BillsInfoService" />
+			<service space="psi_order" class="com.spark.order.service.BillsForCusProService" />
+			<!--<service space="psi_order" class="com.spark.order.service.DirectStorageService" />
+      <service space="psi_order" class="com.spark.order.service.OnLineService" />-->
+			<service space="psi_order" class="com.spark.customer.AlreadyUseCreditService" />
+
+
+
+
+			<service space="psi_order" class="com.spark.order.internal.service.OrderPublishService0709" />
+			<!-- 	OnlineOrder -->
+			<service space="spark" class="com.spark.onlineorder.intf.publish.service.OnlineOrderPublishService" />
+			<!-- ProduceOrder -->
+			<service space="spark" class="com.spark.produceorder.intf.publish.service.ProduceOrderPublishService" />
+			<!-- Deliver -->
+			<service space="spark" class="com.spark.deliver.intf.publish.service.DeliverPublishService" />
+			<!-- DeliverTicket -->
+			<service space="spark" class="com.spark.deliverticket.intf.publish.service.DeliverTicketPublishService" />
+
+
+		</services>
+		<orms>
+			<!-- orm space="dna/core" class="com.jiuqi.dna.core.XXORM" -->
+			<!--Purchase-->
+			<!-- <orm space="psi_order" class="com.spark.psi.order.purchase.direct.Orm_directStorage" />
+      <orm space="psi_order" class="com.spark.psi.order.purchase.direct.Orm_directStorageBySale" />
+      <orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyGoodsInfo" />-->
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyCancel" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyCancelDet" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyCancelDetByBillsGuid" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOldInfo_Cusp" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOldInfo" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOrder" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOrderDet" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOrderNewPage" />
+			<orm space="psi_order" class="com.spark.psi.order.purchase.ORM_BuyOrdeByStoreAndGoods" />
+			<!--Purchase2-->
+			<orm space="psi_order" class="com.spark.psi.order.storage.purchase.Orm_PurchaseGoods" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.purchase.Orm_PurchaseGoodsDirect" />
+			<!--Sales-->
+			<orm space="psi_order" class="com.spark.psi.order.sales.ORM_SaleCancel" />
+			<orm space="psi_order" class="com.spark.psi.order.sales.ORM_SaleCancelDet" />
+			<orm space="psi_order" class="com.spark.psi.order.sales.ORM_SaleCancelDetByBillsGuid" />
+			<orm space="psi_order" class="com.spark.psi.order.sales.ORM_SaleOrder" />
+			<orm space="psi_order" class="com.spark.psi.order.sales.ORM_SaleOrderDet" />
+			<!--Sales2-->
+			<orm space="psi_order" class="com.spark.psi.order.storage.sales.Orm_SalesOrder2" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.sales.Orm_SalesOrderItem2" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.sales.Orm_SalesReturn2" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.sales.Orm_SalesReturnItem2" />
+			<!--Promotion
+      <orm space="psi_order" class="com.spark.psi.order.sales.promotion.orm.Orm_Promotion" />
+      <orm space="psi_order" class="com.spark.psi.order.sales.promotion.orm.Orm_PromotionDel" />
+      -->
+			<!--Promotion2-->
+			<orm space="psi_order" class="com.spark.psi.order.storage.Orm_Promotion2" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.Orm_PromotionDel2" />
+			<orm space="psi_order" class="com.spark.psi.order.storage.Orm_Promotion2ByGoods" />
+			<!--OTHER-->
+			<orm space="psi_order" class="com.spark.psi.order.storage.ORM_AlreadyUseCredit" />
+			<!-- 	OnlineOrder -->
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceFinishedLog" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceGoodsDet" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceMaterialDet" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceOrder" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceFinishedLogByOrderId" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceGoodsDetByOrderId" />
+			<orm space="psi_order" class="com.spark.psi.order.produceorder.ORM_ProduceMaterialDetByOrderId" />
+
+			<orm space="psi_order" class="com.spark.psi.order.onlineorder.ORM_OnlineOrder" />
+			<orm space="psi_order" class="com.spark.psi.order.onlineorder.ORM_OnlineOrderDetByOrderId" />
+			<orm space="psi_order" class="com.spark.psi.order.onlineorder.ORM_OnlineOrderDet" />
+			<orm space="psi_order" class="com.spark.psi.order.onlineorder.ORM_OnlineOrderLog" />
+			<orm space="psi_order" class="com.spark.psi.order.onlineorder.ORM_OnlineOrderLogByOrderId" />
+			<orm space="psi_order" class="com.spark.psi.order.deliverticket.ORM_DeliverTicket" />
+			<orm space="psi_order" class="com.spark.psi.order.deliverticket.ORM_DeliverTicketDet" />
+			<orm space="psi_order" class="com.spark.psi.order.deliverticket.ORM_DeliverTicketDetByTicketId" />
+
+			<orm space="psi_order" class="com.spark.psi.order.deliver.ORM_Deliver" />
+			<orm space="psi_order" class="com.spark.psi.order.deliver.ORM_DeliverDet" />
+			<orm space="psi_order" class="com.spark.psi.order.deliver.ORM_DeliverDetByDeliverId" />
+
+		</orms>
+		<commands>
+			<!-- command space="dna/core" class="com.jiuqi.dna.core.XXCommand" -->
+			<!--Purchase-->
+			<!--Sales-->
+			<!--Promotion
+      <command space="psi_order" class="com.spark.psi.order.sales.promotion.command.UD_PromotionStat" />
+      -->
+			<!--Retail-->
+		</commands>
+		<querys>
+			<!-- query space="dna/core" class="com.jiuqi.dna.core.XXQuery" -->
+			<!--Purchase-->
+			<!--Sales-->
+			<!--Promotion
+      <query space="psi_order" class="com.spark.psi.order.sales.promotion.query.QD_PromotionByGoods" />
+      -->
+			<!--Retail-->
+		</querys>
+		<tables>
+			<!--table space="dna/core" class="com.jiuqi.dna.core.impl.TD_BundleBin" /-->
+			<table space="psi_order" class="com.spark.psi.order.storage.TB_SA_SALE_AlreadyUseCredit" />
+			<table space="psi_order" class="com.spark.psi.order.storage.TB_SA_GOODS_Promotion" />
+			<table space="psi_order" class="com.spark.psi.order.storage.TB_SA_GOODS_PromotionDel" />
+			<table space="psi_order" class="com.spark.psi.order.storage.purchase.TB_SA_PURCHASE_GOODS" />
+			<table space="psi_order" class="com.spark.psi.order.storage.purchase.TB_SA_PURCHASE_GOODS_Direct" />
+			<table space="psi_order" class="com.spark.psi.order.storage.sales.TB_SA_SALES_ORDER" />
+			<table space="psi_order" class="com.spark.psi.order.storage.sales.TB_SA_SALES_ORDER_ITEM" />
+			<table space="psi_order" class="com.spark.psi.order.storage.sales.TB_SA_SALES_RETURN" />
+			<table space="psi_order" class="com.spark.psi.order.storage.sales.TB_SA_SALES_RETURN_ITEM" />
+		</tables>
+		<ui-entrys>
+			<!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
+				</uientry-->
+		</ui-entrys>
+		<pages>
+			<!--page space="mydemo" name="testtemplate" class="com.jiuqi.dna.ui.template.launch.TemplatePage" /-->
+		</pages>
+		<ui-stylesheets>
+			<!-- stylesheet name="stylesheet" title="stylesheet" path="com/jiuqi/dna/ui/demo/stylesheet.css" -->
+		</ui-stylesheets>
+		<portlets>
+			<!-- portlet name="portlet" class="com.jiuqi.dna.ui.XXPortlet" -->
+		</portlets>
+	</publish>
+</dna>
+

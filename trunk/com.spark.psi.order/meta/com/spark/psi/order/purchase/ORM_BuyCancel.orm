@@ -1,0 +1,31 @@
+define orm ORM_BuyCancel(@id guid not null)
+	mapping "com.spark.order.purchase.intf.entity.PurchaseCancel"
+begin
+	select 
+		t."consignee" as "consignee",
+		t."linkman" as "linkman",
+		t."partnerId" as "partnerId",
+		t."partnerName" as "partnerName",
+		t."shortName" as "partnerShortName",
+		t."partnerNamePY" as "partnerNamePY",
+		t."storeId" as "storeId",
+		t."storeName" as "storeName",
+		t."RECID" as "RECID",
+		t."address" as "address",
+		t."approveStr" as "approveStr",
+		t."billsNo" as "billsNo",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."deptId" as "deptId",
+		t."finishedDate" as "finishedDate",
+		t."isStoped" as "isStoped",
+		t."rejectReason" as "rejectReason",
+		t."remark" as "remark",
+		t."status" as "status",
+		t."stopReason" as "stopReason",
+		t."totalAmount" as "totalAmount",
+		t."billType" as "billType"
+	from PSI_Purchase_Return as t
+	where t.RECID = @id
+end

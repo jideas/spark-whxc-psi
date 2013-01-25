@@ -1,0 +1,28 @@
+define orm "Orm_PromotionDel2"(@id guid not null)
+	mapping "com.spark.order.promotion.intf.Promotion2"
+begin
+	select 
+		t."approvalDate" as "approvalDate",
+		t."beginDate" as "beginDate",
+		t."countDecimal" as "countDecimal",
+		t."deptId" as "deptId",
+		t."endDate" as "endDate",
+		t."goodsItemId" as "goodsItemId",
+		t."goodsName" as "goodsName",
+		t."goodsNamePY" as "goodsNamePY",
+		t."goodsProperties" as "goodsProperties",
+		t."price_goods" as "price_goods",
+		t."price_promotion" as "price_promotion",
+		t."promotionCause" as "promotionCause",
+		t."promotionCount" as "promotionCount",
+		t."returnCause" as "returnCause",
+		t."saledCount" as "saledCount",
+		t."state" as "status",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."RECID" as "recid",
+		t."tenantsId" as "tenantsId"
+	from SA_GOODS_PromotionDel as t
+	where t.RECID = @id
+end

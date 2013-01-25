@@ -1,0 +1,19 @@
+define orm ORM_SaleCancelDetByBillsGuid(@id guid not null)
+	mapping "com.spark.order.sales.intf.entity.SaleCancelItem"
+begin
+	select 
+		t."RECID" as "RECID",
+		t."amount" as "amount",
+		t."billsId" as "billsId",
+		t."count" as "count", 
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsSpec" as "goodsSpec",
+		t."price" as "price",
+		t."goodsScale" as "scale", 
+		t."unit" as "unit"
+	from PSI_Sales_Return_Det as t
+	where t.billsId = @id order by t.storeId
+end

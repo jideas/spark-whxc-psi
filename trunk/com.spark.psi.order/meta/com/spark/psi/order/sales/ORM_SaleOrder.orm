@@ -1,0 +1,21 @@
+define orm ORM_SaleOrder()
+	mapping "com.spark.order.sales.intf.entity.SaleOrderInfo"
+begin
+	select 
+		t."linkman" as "linkman",
+		t."partnerId" as "partnerId",
+		t."partnerName" as "partnerName",
+		t."shortName" as "partnerShortName",
+		t."partnerNamePY" as "partnerNamePY", 
+		t."RECID" as "RECID",  
+		t."billsNo" as "billsNo",
+		t."createDate" as "createDate", 
+		t."creatorId" as "creatorId", 
+		t."isStoped" as "isStoped",
+		t."rejectReason" as "rejectReason",
+		t."remark" as "remark",
+		t."status" as "status",
+		t."stopReason" as "stopReason",
+		t."totalAmount" as "totalAmount",t."billType" as "billType",t."isAllot" as "isAllot"
+	from PSI_Sales_Order as t 
+end

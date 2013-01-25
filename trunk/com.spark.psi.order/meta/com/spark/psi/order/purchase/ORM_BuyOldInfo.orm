@@ -1,0 +1,20 @@
+define orm ORM_BuyOldInfo(@tenants guid, @goods guid, @store guid)
+	mapping "com.spark.order.purchase.intf.entity.PurchaseLatelyInfo"
+begin
+	select 
+		t."address" as "address",
+		t."consignee" as "consignee",
+		 
+		t."status" as "status",
+		 
+		t."billsNo" as "billsNo",
+		t."createDate" as "createDate",
+	 
+		t."isStoped" as "isStoped",
+		t."linkman" as "linkman", 
+		t."remark" as "remark", 
+		t."totalAmount" as "totalAmount" 
+	from PSI_Purchase_Order as t join PSI_Purchase_Det AS d on t.RECID = d.billsId
+	 and d.goodsId = @goods
+	order by t.createDate desc
+end

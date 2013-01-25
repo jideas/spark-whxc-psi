@@ -1,0 +1,37 @@
+define orm "ORM_OnlineOrder"(@id guid not null)
+	mapping com.spark.onlineorder.intf.entity.OnlineOrderEntity
+begin
+	select 
+		t."RECID" as "id",
+		t."address" as "address",
+		t."arrivedConfirm" as "arrivedConfirm",
+		t."arrivedConfirmDate" as "arrivedConfirmDate",
+		t."arrivedConfirmId" as "arrivedConfirmId",
+		t."billsNo" as "billsNo",
+		t."consignedDate" as "consignedDate",
+		t."consignee" as "consignee",
+		t."consigneeTel" as "consigneeTel",
+		t."consignor" as "consignor",
+		t."consignorId" as "consignorId",
+		t."createDate" as "createDate",
+		t."deliverDate" as "deliverDate",
+		t."deliverPerson" as "deliverPerson",
+		t."deliverPersonId" as "deliverPersonId",
+		t."deliveryeDate" as "deliveryeDate",
+		t."disAmount" as "disAmount",
+		t."memberId" as "memberId",
+		t."noVerificationReason" as "noVerificationReason",
+		t."realName" as "realName",
+		t."remark" as "remark",
+		t."stationId" as "stationId",
+		t."stationName" as "stationName",
+		t."status" as "status",
+		t."totalAmount" as "totalAmount",
+		t."type" as "type",
+		t."verificationCode" as "verificationCode",
+		t.returnFlag as returnFlag,
+		t.toDoor as isToDoor,
+		t."vantages" as "vantages"
+	from ERP_Sales_OnlineOrder as t
+	where t.RECID = @id
+end
