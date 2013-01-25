@@ -41,6 +41,7 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 	public final TableFieldDefine f_publishPersonId;
 	public final TableFieldDefine f_publishPersonName;
 	public final TableFieldDefine f_publishDate;
+	public final TableFieldDefine f_isPromotion;
 
 	public static final String FN_goodsCode ="goodsCode";
 	public static final String FN_goodsNo ="goodsNo";
@@ -73,6 +74,7 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 	public static final String FN_publishPersonId ="publishPersonId";
 	public static final String FN_publishPersonName ="publishPersonName";
 	public static final String FN_publishDate ="publishDate";
+	public static final String FN_isPromotion ="isPromotion";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_CMS_GOODS() {
@@ -146,6 +148,9 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 		field.setTitle("发布人名称");
 		this.f_publishDate = field = this.table.newField(FN_publishDate, TypeFactory.DATE);
 		field.setTitle("发布日期");
+		this.f_isPromotion = field = this.table.newField(FN_isPromotion, TypeFactory.BOOLEAN);
+		field.setTitle("是否有促销");
+		field.setDefault(ConstExpression.builder.expOf(false));
 	}
 
 }
