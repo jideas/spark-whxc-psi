@@ -1,0 +1,25 @@
+define orm Orm_SalesOrderItem2(@tenantsId guid, @orderId guid)
+	mapping "com.spark.order.sales2.SalesOrderItem2"
+begin
+	select 
+		t."disAmount" as "disAmount",
+		t."discount" as "discount",
+		t."promotionId" as "promotionId",
+		t."amount" as "amount",
+		t."countDecimal" as "countDecimal",
+		t."goodsItemId" as "goodsItemId",
+		t."goodsName" as "goodsName",
+ 		t."goodsCode" as "goodsCode",
+		t."goodsProperties" as "goodsProperties",
+		t."goodsUnit" as "goodsUnit",
+		t."orderId" as "orderId",
+		t."price" as "price", 
+		t."num" as "num", 
+		t."createDate" as "createDate", 
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."RECID" as "recid",
+		t."tenantsId" as "tenantsId"
+	from SA_SALES_ORDER_ITEM as t
+	where t.tenantsId = @tenantsId and t.orderId = @orderId
+end 

@@ -1,0 +1,24 @@
+define orm ORM_DeliverTicket(@id guid not null)
+	mapping com.spark.deliverticket.intf.entity.DeliverTicketEntity
+begin
+	select 
+		t."RECID" as id,
+		t."address" as "address",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."disAmount" as "disAmount",
+		t."memberId" as "memberId",
+		t."memberRealName" as "memberRealName",
+		t."mobilePhone" as "mobilePhone",
+		t."onlineOrderId" as "onlineOrderId",
+		t."onlineOrderNo" as "onlineOrderNo",
+		t."remark" as "remark",
+		t."sheetNo" as "sheetNo",
+		t."stationId" as "stationId",
+		t."stationName" as "stationName",
+		t."totalAmount" as "totalAmount",
+		t."deliverTicketType" as "deliverTicketType"
+	from PSI_Deliver_Ticket as t
+	where t.RECID = @id
+end

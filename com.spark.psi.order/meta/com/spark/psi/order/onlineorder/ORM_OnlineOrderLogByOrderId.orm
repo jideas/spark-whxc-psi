@@ -1,0 +1,12 @@
+define orm ORM_OnlineOrderLogByOrderId(@id guid not null)
+	mapping com.spark.onlineorder.intf.entity.OnlineOrderLogEntity
+begin
+	select 
+		t.RECID as id,
+		t."billsId" as "billsId",
+		t."message" as "message",
+		t."operator" as "operator",
+		t."processingTime" as "processingTime"
+	from ERP_Sales_OnlineOrder_Log as t
+	where t.billsId = @id
+end

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+	<publish>
+		<ui-client-scripts>
+			<script name="OrderClient" path="js/OrderClient.js" />
+		</ui-client-scripts>
+
+		<!-- 页面列表，用于开发和测试 -->
+		<saas-pages>
+			<!-- 网上订单 -->
+			<page space="psi/order/onlinereturn" name="EffectedOnlineReturnListPage"
+				title="待提交"
+				processor="com.spark.psi.order.browser.onlinereturn.SubmitingOnlineReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.onlinereturn.SubmitingOnlineReturnSheetListRender" />
+			<page space="psi/order/onlinereturn" name="ApprovingOnlineReturnListPage"
+				title="待审批"
+				processor="com.spark.psi.order.browser.onlinereturn.ApprovingOnlineReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.onlinereturn.ApprovingOnlineReturnSheetListRender" />
+			<page space="psi/order/onlinereturn" name="DeliveringOnlineReturnListPage"
+				title="进行中"
+				processor="com.spark.psi.order.browser.onlinereturn.ProcessingOnlineReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.onlinereturn.ProcessingOnlineReturnSheetListRender" />
+			<page space="psi/order/onlinereturn" name="FinishedOnlineReturnListPage"
+				title="退货记录"
+				processor="com.spark.psi.order.browser.onlinereturn.FinishedOnlineReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.onlinereturn.FinishedOnlineReturnSheetListRender" />
+
+
+
+
+
+			<!--未完交易、已完交易-->
+			<page space="psi/base/customer" name="客户已完成交易列表页面*"
+				processor="com.spark.psi.order.browser.trading.CustomerProcessedOrderListProcessor"
+				render="com.spark.psi.order.browser.trading.CustomerProcessedOrderListRender" />
+			<page space="psi/base/customer" name="客户未完成交易列表页面*"
+				processor="com.spark.psi.order.browser.trading.CustomerProcessingOrderListProcessor"
+				render="com.spark.psi.order.browser.trading.CustomerProcessingOrderListRender" />
+			<page space="psi/base/supplier" name="供应商已完成交易列表页面*"
+				processor="com.spark.psi.order.browser.trading.SupplierProcessedOrderListProcessor"
+				render="com.spark.psi.order.browser.trading.SupplierProcessedOrderListRender" />
+			<page space="psi/base/supplier" name="供应商未完成交易列表页面*"
+				processor="com.spark.psi.order.browser.trading.SupplierProcessingOrderListProcessor"
+				render="com.spark.psi.order.browser.trading.SupplierProcessingOrderListRender" />
+
+			<!-- 网上订单 -->
+			<page space="psi/order/online" name="EffectedOnlineOrderListPage"
+				title="新订单"
+				processor="com.spark.psi.order.browser.online.EffectedOnlineOrderListProcessor"
+				render="com.spark.psi.order.browser.online.EffectedOnlineOrderListRender" />
+			<page space="psi/order/online" name="BookingGoodsListPage"
+				title="预定商品"
+				processor="com.spark.psi.order.browser.online.BookingGoodsListProcessor"
+				render="com.spark.psi.order.browser.online.BookingGoodsListRender" />
+			<page space="psi/order/online" name="PickingOnlineOrderListPage"
+				title="拣货中"
+				processor="com.spark.psi.order.browser.online.PickingOnlineOrderListProcessor"
+				render="com.spark.psi.order.browser.online.PickingOnlineOrderListRender" />
+			<page space="psi/order/online" name="DeliveringOnlineOrderListPage" 
+				title="配送中"
+				processor="com.spark.psi.order.browser.online.DeliveringOnlinOrderListProcessor"
+				render="com.spark.psi.order.browser.online.DeliveringOnlinOrderListRender" />
+			<page space="psi/order/online" name="ArrivaledOnlineOrderListPage" 
+				title="已到货"
+				processor="com.spark.psi.order.browser.online.ArrivaledOnlineOrderListProcessor"
+				render="com.spark.psi.order.browser.online.ArrivaledOnlineOrderListRender" />
+			<page space="psi/order/online" name="FinishedOnlineOrderListPage" 
+				title="已完成"
+				processor="com.spark.psi.order.browser.online.FinishedOnlineOrderListProcessor"
+				render="com.spark.psi.order.browser.online.FinishedOnlineOrderListRender" />
+			<!-- 生产单 -->
+			<page space="psi/order/produce" name="SubmitingProduceOrderListPage"
+				title="新订单"
+				processor="com.spark.psi.order.browser.produce.SubmitingProduceOrderListProcessor"
+				render="com.spark.psi.order.browser.produce.SubmitingProduceOrderListRender" />
+			<page space="psi/order/produce" name="SubmitedProduceOrderListPage"
+				title="待审批"
+				processor="com.spark.psi.order.browser.produce.SubmitedProduceOrderListProcessor"
+				render="com.spark.psi.order.browser.produce.SubmitedProduceOrderListRender" />
+			<page space="psi/order/produce" name="ProducingProduceOrderListPage"
+				title="加工中"
+				processor="com.spark.psi.order.browser.produce.ProducingProduceOrderListProcessor"
+				render="com.spark.psi.order.browser.produce.ProducingProduceOrderListRender" />
+			<page space="psi/order/produce" name="FinishedProduceOrderListPage"
+				title="已完成"
+				processor="com.spark.psi.order.browser.produce.FinishedProduceOrderListProcessor"
+				render="com.spark.psi.order.browser.produce.FinishedProduceOrderListRender" />
+
+			<!-- 配送单 -->
+			<page space="psi/order/delivery" name="UnDeliverListPage"
+				title="待配送"
+				processor="com.spark.psi.order.browser.delivery.UnDeliverListPageProcessor"
+				render="com.spark.psi.order.browser.delivery.UnDeliverListPageRender" />
+			<page space="psi/order/delivery" name="DeliveryingListPage"
+				title="配送中"
+				processor="com.spark.psi.order.browser.delivery.DeliveryingListPageProcessor"
+				render="com.spark.psi.order.browser.delivery.DeliveryingListPageRender" />
+			<page space="psi/order/delivery" name="ArrivedDeliverListPage"
+				title="已到货"
+				processor="com.spark.psi.order.browser.delivery.ArrivedDeliverListPageProcessor"
+				render="com.spark.psi.order.browser.delivery.ArrivedDeliverListPageRender" />
+			<page space="psi/order/delivery" name="ExceptionDeliverListPage"
+				title="异常"
+				processor="com.spark.psi.order.browser.delivery.ExceptionDeliverListPageProcessor"
+				render="com.spark.psi.order.browser.delivery.ExceptionDeliverListPageRender" />
+
+			<!-- 发货单 -->
+			<page space="psi/order/deliveryTicket" name="DeliverTicketListPage"
+				title="发货单"
+				processor="com.spark.psi.order.browser.deliverticket.DeliverTicketListProcessor"
+				render="com.spark.psi.order.browser.deliverticket.DeliverTicketListRender" />
+
+			<!-- 销售 -->
+			<page space="psi/order/sales" name="SubmitingSalesOrderListPage"
+				title="待提交的销售订单列表*"
+				processor="com.spark.psi.order.browser.sales.SubmitingSalesOrderListProcessor"
+				render="com.spark.psi.order.browser.sales.SubmitingSalesOrderListRender" />
+			<page space="psi/order/sales" name="SubmitingSalesReturnSheetListPage"
+				title="待提交的销售退货单列表*"
+				processor="com.spark.psi.order.browser.sales.SubmitingSalesReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.sales.SubmitingSalesReturnSheetListRender" />
+			<page space="psi/order/sales" name="ApprovalingSalesOrderListPage"
+				title="待审核销售订单列表*"
+				processor="com.spark.psi.order.browser.sales.ApprovalingSalesOrderListProcessor"
+				render="com.spark.psi.order.browser.sales.ApprovalingSalesOrderListRender" />
+			<page space="psi/order/sales" name="ProcessingSalesOrderListPage"
+				title="所有待处理的销售订单列表*"
+				processor="com.spark.psi.order.browser.sales.ProcessingSalesOrderListProcessor"
+				render="com.spark.psi.order.browser.sales.ProcessingSalesOrderListRender" />
+			<page space="psi/order/sales" name="ProcessedSalesOrderListPage"
+				title="处理完成销售订单列表*"
+				processor="com.spark.psi.order.browser.sales.ProcessedSalesOrderListProcessor"
+				render="com.spark.psi.order.browser.sales.ProcessedSalesOrderListRender" />
+			<page space="psi/order/sales" name="SalesOrderDetailPage" title="销售订单明细页面"
+				processor="com.spark.psi.order.browser.sales.SalesOrderDetailProcessor"
+				render="com.spark.psi.order.browser.sales.SalesOrderDetailRender" />
+			<page space="psi/order/sales" name="SalesReturnSheetDetailPage" title="销售退货明细页面"
+				processor="com.spark.psi.order.browser.sales.SalesReturnSheetDetailProcessor"
+				render="com.spark.psi.order.browser.sales.SalesReturnSheetDetailRender" />
+			<page space="psi/order/sales" name="销售订单出库情况"
+				processor="com.spark.psi.order.browser.sales.SalesOrderCheckOutLogProcessor"
+				render="com.spark.psi.order.browser.sales.SalesOrderCheckOutLogRender" />
+
+			<!-- 采购 -->
+			<page space="psi/order/purchase" name="PurchaseListJumpPage"
+				title="采购新建跳转页面"
+				processor="com.spark.psi.order.browser.purchase.PurchaseListCreatePageProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseListCreatePageRender" />
+			<page space="psi/order/purchase" name="PurchasingGoodsListPage"
+				title="采购需求清单列表"
+				processor="com.spark.psi.order.browser.purchase.PurchasingGoodsListProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchasingGoodsListRender" />
+			<page space="psi/order/purchase" name="SubmitingPurchaseOrderListPage"
+				title="待提交的采购订单列表*"
+				processor="com.spark.psi.order.browser.purchase.SubmitingPurchaseOrderListProcessor"
+				render="com.spark.psi.order.browser.purchase.SubmitingPurchaseOrderListRender" />
+			<page space="psi/order/purchase" name="SubmitingPurchaseReturnSheetListPage"
+				title="待提交的采购退货单列表*"
+				processor="com.spark.psi.order.browser.purchase.SubmitingPurchaseReturnSheetListProcessor"
+				render="com.spark.psi.order.browser.purchase.SubmitingPurchaseReturnSheetListRender" />
+			<page space="psi/order/purchase" name="ApprovalingPurchaseOrderListPage"
+				title="待审核采购订单列表*"
+				processor="com.spark.psi.order.browser.purchase.ApprovalingPurchaseOrderListProcessor"
+				render="com.spark.psi.order.browser.purchase.ApprovalingPurchaseOrderListRender" />
+			<page space="psi/order/purchase" name="ProcessingPurchaseOrderListPage"
+				title="所有待处理的采购订单列表*"
+				processor="com.spark.psi.order.browser.purchase.ProcessingPurchaseOrderListProcessor"
+				render="com.spark.psi.order.browser.purchase.ProcessingPurchaseOrderListRender" />
+			<page space="psi/order/purchase" name="ProcessedPurchaseOrderListPage"
+				title="处理完成采购订单列表*"
+				processor="com.spark.psi.order.browser.purchase.ProcessedPurchaseOrderListProcessor"
+				render="com.spark.psi.order.browser.purchase.ProcessedPurchaseOrderListRender" />
+			<page space="psi/order/purchase" name="PurchaseOrderDetailPage" title="采购订单明细页面"
+				processor="com.spark.psi.order.browser.purchase.PurchaseOrderDetailProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseOrderDetailRender" />
+			<page space="psi/order/purchase" name="PurchaseReturnSheetDetailPage" title="采购退货明细页面"
+				processor="com.spark.psi.order.browser.purchase.PurchaseReturnSheetDetailProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseReturnSheetDetailRender" />
+			<page space="psi/order/purchase" name="采购订单入库情况"
+				processor="com.spark.psi.order.browser.purchase.PurchaseCheckInLogProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseCheckInLogRender" />
+			<page space="psi/order/purchase" name="生成采购订单页面"
+				processor="com.spark.psi.order.browser.purchase.GeneratePurchaseOrderProcessor"
+				render="com.spark.psi.order.browser.purchase.GeneratePurchaseOrderRender" />
+			<page space="psi/order/purchase" name="从预警库存中选择采购商品"
+				processor="com.spark.psi.order.browser.purchase.SelectPurchaseWarningGoodsProcessor"
+				render="com.spark.psi.order.browser.purchase.SelectPurchaseWarningGoodsRender" />
+			<page space="psi/order/purchase" name="采购原因"
+				processor="com.spark.psi.order.browser.purchase.PurchaseReasonProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseReasonRender" />
+
+			<!-- 销售配货 -->
+			<page space="psi/order/sales" name="DistributingSalesOrderListPage"
+				title="待配货销售订单列表*"
+				processor="com.spark.psi.order.browser.distribute.DistributingSalesOrderListProcessor"
+				render="com.spark.psi.order.browser.distribute.DistributingSalesOrderListRender" />
+			<page space="psi/order/sales" name="DistributeSalesOrderPage" title="销售配货页面"
+				processor="com.spark.psi.order.browser.distribute.DistributeSalesOrderProcessor"
+				render="com.spark.psi.order.browser.distribute.DistributeSalesOrderRender" />
+		</saas-pages>
+	</publish>
+</dna>

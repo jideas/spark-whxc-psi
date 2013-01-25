@@ -1,0 +1,31 @@
+define orm "ORM_BuyOrderNewPage"(@tenants guid,@userid guid, @state1 guid, @state2 guid)
+	mapping "com.spark.order.purchase.intf.entity.PurchaseOrderInfo"
+begin
+	select 
+		t."consignee" as "consignee",
+		t."linkman" as "linkman",
+		t."partnerId" as "partnerId",
+		t."partnerName" as "partnerName",
+		t."shortName" as "partnerShortName",
+		t."partnerNamePY" as "partnerNamePY",
+		t."storeId" as "storeId",
+		t."storeName" as "storeName",
+		t."RECID" as "RECID",
+		t."address" as "address",
+		t."approveStr" as "approveStr",
+		t."billsNo" as "billsNo",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."deptId" as "deptId",
+		t."finishedDate" as "finishedDate",
+		t."isStoped" as "isStoped",
+		t."rejectReason" as "rejectReason",
+		t."remark" as "remark",
+		t."status" as "status",
+		t."stopReason" as "stopReason",
+		t."totalAmount" as "totalAmount"
+	from PSI_Purchase_Order as t
+	where t.creatorId = @userid and 
+		(t.status = @state1 or t.status = @state2)
+end

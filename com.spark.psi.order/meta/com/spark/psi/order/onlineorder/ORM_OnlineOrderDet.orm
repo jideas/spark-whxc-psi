@@ -1,0 +1,22 @@
+define orm ORM_OnlineOrderDet(@id guid not null)
+	mapping com.spark.onlineorder.intf.entity.OnlineOrderDetEntity
+begin
+	select 
+		t."RECID" as id,
+		t."amount" as "amount",
+		t."billsId" as "billsId",
+		t."count" as "count",
+		t."disAmount" as "disAmount",
+		t."discount" as "discount",
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsScale" as "goodsScale",
+		t."goodsSpec" as "goodsSpec",
+		t."price" as "price",
+		t."promotionId" as "promotionId",
+		t."unit" as "unit"
+	from ERP_Sales_OnlineOrder_Det as t
+	where t.RECID = @id
+end
