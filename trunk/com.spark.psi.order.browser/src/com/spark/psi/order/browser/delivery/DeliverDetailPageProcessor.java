@@ -165,7 +165,9 @@ public class DeliverDetailPageProcessor extends AbstractFormProcessor {
 				columns[3] = new PrintColumn("数量", 100, JWT.RIGHT);
 				columns[4] = new PrintColumn("会员", 100, JWT.CENTER);
 				columns[5] = new PrintColumn("金额", 100, JWT.RIGHT);
-				String tableTitle0 = "门店：" + deliverInfo.getStationName() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "地址：" + deliverInfo.getAddress();
+				String tableTitle0 = "单据编号：" + deliverInfo.getSheetNo() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门店：" + deliverInfo.getStationName() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+						+ "地址：" + deliverInfo.getAddress()
+						+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配送时间：";
 //				String tableTitle1 = "地址：" + deliverInfo.getAddress();
 //				String tableTitle2 = "包装箱数：" + deliverInfo.getDeliveredPackageCount();
 				FormPrintEntity fpe = new FormPrintEntity("配送单", columns, getShowItems(), tableTitle0);

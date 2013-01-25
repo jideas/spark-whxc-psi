@@ -59,6 +59,25 @@ public class DeliverPrintContentProvider implements PrintContentProvider {
 			buffer.append("</tr> \n");
 		}
 		buffer.append("</table> \n");
+		buffer.append("<table> \n");
+		buffer.append("<tr> \n");
+		buffer.append("<td width='100px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>白联：留存</font></td> \n");
+		buffer.append("<td width='100px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>红联：财务</font></td> \n");
+		buffer.append("<td width='100px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>黄联：仓库</font></td> \n");
+		buffer.append("<td width='100px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>蓝联：配货</font></td> \n");
+		buffer.append("<td width='120px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>绿联：站点签字</font></td> \n");
+		buffer.append("<td width='100px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>周转箱：</font></td> \n");
+		buffer.append("</tr> \n");
+		buffer.append("</table> \n");
+		buffer.append("<table> \n");
+		buffer.append("<tr> \n");
+		buffer.append("<td width='150px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>发货人：</font></td> \n");
+		buffer.append("<td width='150px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>配货人：</font></td> \n");
+		buffer.append("<td width='150px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>配送人：</font></td> \n");
+		buffer.append("<td width='150px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>站点接收人：</font></td> \n");
+		buffer.append("<td width='150px'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>到达时间：</font></td> \n");
+		buffer.append("</tr> \n");
+		buffer.append("</table> \n");
 		return buffer.toString();
 	}
 
@@ -73,7 +92,7 @@ public class DeliverPrintContentProvider implements PrintContentProvider {
 	}
 	
 	public int getHeight() {
-		int height = FORM_TITLE_HEIGHT + 30;
+		int height = FORM_TITLE_HEIGHT + 30 + 60;
 		height += COMMON_ROW_HEIGHT * printEntity.getTableTitles().length;
 		height += TABLE_ROW_HEIGHT * printEntity.getDatas().length + TABLE_ROW_HEIGHT; // 表格内容+表头
 		height *= 2.85;
