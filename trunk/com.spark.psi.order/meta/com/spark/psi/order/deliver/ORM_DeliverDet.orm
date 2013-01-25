@@ -1,0 +1,13 @@
+define orm ORM_DeliverDet(@id guid not null)
+	mapping com.spark.deliver.intf.entity.DeliverDetEntity
+begin
+	select 
+		t."RECID" as id,
+		t."deliverSheetId" as "deliverSheetId",
+		t."memberRealName" as "memberRealName",
+		t."onlineOrderId" as "onlineOrderId",
+		t."onlineOrderNo" as "onlineOrderNo",
+		t."orderAmount" as "orderAmount"
+	from PSI_Deliver_Det as t
+	where t.RECID = @id
+end

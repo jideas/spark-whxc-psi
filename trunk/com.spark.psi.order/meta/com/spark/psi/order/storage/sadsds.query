@@ -1,0 +1,156 @@
+define query sadsds(
+@tenantsGuid guid
+,@cusPGuid guid
+,@createGuid guid,@submitState string,@rebutState string,@examState string,@noStoreState string,@partStoreState string,@allStoreState string,@noConsignment string,@yesConsignment string) 
+begin 
+ select 
+ t.recid as recid, 
+ t.tenantsGuid as tenantsGuid, 
+ t.billsNo as billsNo, 
+ t.cuspGuid as cuspGuid, 
+ t.cuspName as cuspName, 
+ t.cuspFullName as cuspFullName, 
+ t.cuspFullNamePY as cuspFullNamePY, 
+ t.cuspFax as cuspFax, 
+ t.consigneeGuid as consigneeGuid, 
+ t.consignee as consignee, 
+ t.consigneeTel as consigneeTel, 
+ t.linkmanGuid as linkmanGuid, 
+ t.linkman as linkman, 
+ t.linkmanTel as linkmanTel, 
+ t.address as address, 
+ t.rebutCause as rebutCause, 
+ t.stopCause as stopCause, 
+ t.remark as remark, 
+ t.totalAmount as totalAmount, 
+ t."type" as "type", 
+ t.createGuid as createGuid, 
+ t.createPerson as createPerson, 
+ t.createDate as createDate, 
+ t.state as state, 
+ t.isStoped as isStoped, 
+ t.examin as examin, 
+ t.goodsTotalCount as goodsTotalCount, 
+ t.goodsOkCount as goodsOkCount, 
+ t.defOne as defOne, 
+ t.defTwo as defTwo, 
+ t.defThree as defThree, 
+ t.defFour as defFour, 
+ t.defFive as defFive, 
+ t.defSix as defSix, 
+ t.defSeven as defSeven, 
+ t.defEight as defEight, 
+ t.defNine as defNine, 
+ t.defTen as defTen, 
+ t.payDate as payDate, 
+ t.deptGuid as deptGuid 
+ from(  select 
+ t.RECID as recid, 
+ t.tenantsGuid as tenantsGuid, 
+ t.billsNo as billsNo, 
+ t.cuspGuid as cuspGuid, 
+ t.cuspName as cuspName, 
+ t.cuspFullName as cuspFullName, 
+ t.cuspFullNamePY as cuspFullNamePY, 
+ t.cuspFax as cuspFax, 
+ t.consigneeGuid as consigneeGuid, 
+ t.consignee as consignee, 
+ t.consigneeTel as consigneeTel, 
+ t.linkmanGuid as linkmanGuid, 
+ t.linkman as linkman, 
+ t.linkmanTel as linkmanTel, 
+ t.address as address, 
+ t.rebutCause as rebutCause, 
+ t.stopCause as stopCause, 
+ t.remark as remark, 
+ t.totalAmount as totalAmount, 
+ t."type" as "type", 
+ t.createGuid as createGuid, 
+ t.createPerson as createPerson, 
+ t.createDate as createDate, 
+ t.state as state, 
+ t.isStoped as isStoped, 
+ t.examin as examin, 
+ t.goodsTotalCount as goodsTotalCount, 
+ t.goodsOkCount as goodsOkCount, 
+ t.defOne as defOne, 
+ t.defTwo as defTwo, 
+ t.defThree as defThree, 
+ t.defFour as defFour, 
+ t.defFive as defFive, 
+ t.defSix as defSix, 
+ t.defSeven as defSeven, 
+ t.defEight as defEight, 
+ t.defNine as defNine, 
+ t.defTen as defTen, 
+ t.payDate as payDate, 
+ t.deptGuid as deptGuid 
+ from 
+PSI_Sales_Return as t 
+ where  t.tenantsGuid=@tenantsGuid
+ and t.cuspGuid=@cusPGuid
+ and ((t.createGuid=@createGuid  and (t.state=@submitState or 
+ t.state=@rebutState)) 
+ or (t.state=@examState and t.isStoped=false) 
+ or (t.state=@noStoreState and t.isStoped=false) 
+ or (t.state=@partStoreState and t.isStoped=false) 
+ or (t.state=@allStoreState and t.isStoped=false) 
+ or t.state=@noConsignment
+ or t.state=@yesConsignment
+ ) 
+ union all  select 
+ t.RECID as recid, 
+ t.tenantsGuid as tenantsGuid, 
+ t.billsNo as billsNo, 
+ t.cuspGuid as cuspGuid, 
+ t.cuspName as cuspName, 
+ t.cuspFullName as cuspFullName, 
+ t.cuspFullNamePY as cuspFullNamePY, 
+ t.cuspFax as cuspFax, 
+ t.consigneeGuid as consigneeGuid, 
+ t.consignee as consignee, 
+ t.consigneeTel as consigneeTel, 
+ t.linkmanGuid as linkmanGuid, 
+ t.linkman as linkman, 
+ t.linkmanTel as linkmanTel, 
+ t.address as address, 
+ t.rebutCause as rebutCause, 
+ t.stopCause as stopCause, 
+ t.remark as remark, 
+ t.totalAmount as totalAmount, 
+ t."type" as "type", 
+ t.createGuid as createGuid, 
+ t.createPerson as createPerson, 
+ t.createDate as createDate, 
+ t.state as state,  
+ t.isStoped as isStoped, 
+ t.examin as examin, 
+ t.goodsTotalCount as goodsTotalCount, 
+ t.goodsOkCount as goodsOkCount, 
+ t.defOne as defOne, 
+ t.defTwo as defTwo, 
+ t.defThree as defThree, 
+ t.defFour as defFour, 
+ t.defFive as defFive, 
+ t.defSix as defSix, 
+ t.defSeven as defSeven, 
+ t.defEight as defEight, 
+ t.defNine as defNine, 
+ t.defTen as defTen, 
+ t.payDate as payDate, 
+ t.deptGuid as deptGuid 
+ from 
+PSI_Sales_Order as t 
+ where  t.tenantsGuid=@tenantsGuid
+ and t.cuspGuid=@cusPGuid
+ and ((t.createGuid=@createGuid  and (t.state=@submitState or 
+ t.state=@rebutState)) 
+ or (t.state=@examState and t.isStoped=false) 
+ or (t.state=@noStoreState and t.isStoped=false) 
+ or (t.state=@partStoreState and t.isStoped=false) 
+ or (t.state=@allStoreState and t.isStoped=false) 
+ or t.state=@noConsignment
+ or t.state=@yesConsignment
+ ) 
+ ) as t  order by t.payDate desc
+  end
