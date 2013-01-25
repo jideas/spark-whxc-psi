@@ -32,7 +32,10 @@ public class PSIPrinter {
 		// intOrient,intPageWidth,intPageHeight,strPageName
 		buffer.append("LODOP.SET_PRINT_PAGESIZE(1, " + contentProvider.getWidth() + ", " + contentProvider.getHeight() + ", ''); \n");
 		// intTop,intLeft,intWidth,intHeight,strHtml
-		buffer.append("LODOP.ADD_PRINT_HTM(0,0," + contentProvider.getWidth() + "," + contentProvider.getHeight() + ",document.getElementById(\"content\").innerHTML); \n");
+//		buffer.append("LODOP.ADD_PRINT_HTML(0,0," + contentProvider.getWidth() + ",90,\"<img border='0' src='/psi_print/print_logo.jpg' width='270' height='74' />\");");
+		buffer.append("LODOP.ADD_PRINT_HTM(-20,0," + contentProvider.getWidth() + "," + contentProvider.getHeight() + ",document.getElementById(\"content\").innerHTML); \n");
+		
+		//buffer.append("LODOP.ADD_PRINT_HTM(30,0," + contentProvider.getWidth() + "," + contentProvider.getHeight() + ",\"" + info.toString() + "\"); \n");
 
 		if(isNeedPreview()) {
 			buffer.append("	LODOP.PREVIEW(); \n");
@@ -43,7 +46,7 @@ public class PSIPrinter {
 		buffer.append("</script> \n");
 		buffer.append("</head><body onload='nodeClick()' style='padding: 0;'> \n");
 		buffer.append("<div id='content' style='margin-top: 0; padding-top:0;'> \n");
-		buffer.append(contentProvider.getContentHtml() + "\n");
+		buffer.append(contentProvider.getContentHtml() + " <br/>\n");
 		buffer.append("</div> \n");
 		buffer.append("<input type=\"button\" value=\"Test\" onclick=\"nodeClick()\" /> \n");
 		buffer.append("</body></html>");
