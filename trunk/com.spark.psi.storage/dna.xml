@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+  <publish>
+    <services>
+      <!-- service space="dna/core" class="com.jiuqi.dna.core.XXService" -->
+    </services>
+    <orms>
+      <!-- orm space="dna/core" class="com.jiuqi.dna.core.XXORM" -->
+    </orms>
+    <commands>
+      <!-- command space="dna/core" class="com.jiuqi.dna.core.XXCommand" -->
+    </commands>
+    <querys>
+      <!-- query space="dna/core" class="com.jiuqi.dna.core.XXQuery" -->
+    </querys>
+    <tables>
+      <!--table space="dna/core" class="com.jiuqi.dna.core.impl.TD_BundleBin" /-->
+      <table space="SAAS" class="com.spark.psi.storage.account.receipt.TB_SA_FINANCE_RECEIPT_RECORD" />
+      <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_AUTHOR_GOODTEMPLETE" />
+      <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPRECORD" />
+      <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPSTAT" />
+      <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPTEMPLATE" />  
+      <table space="SAAS" class="com.spark.psi.storage.store.check.TB_SA_STORE_CHECK" />   
+      <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_NOTE" />
+      <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_WEATHER" />
+      <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_MONITOR" />
+      <table space="SAAS" class="com.spark.psi.storage.store.storage.TB_SA_STORE_DIRECT" /> 
+      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT" /> 
+      <table space="SAAS" class="com.spark.psi.storage.store.allocate.TB_SA_STORE_ALLOCATE" />
+      <table space="SAAS" class="com.spark.psi.storage.store.check.TB_SA_STORE_CHECK_DET" />
+      <table space="SAAS" class="com.spark.psi.storage.store.allocate.TB_SA_STORE_ALLOCATE_DET" /> 
+      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT_DET" /> 
+      <table space="SAAS" class="com.spark.psi.storage.report.store.TB_sa_report_sto_stream" /> 
+      <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_INDEX_TOOL" />
+      <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_AUTHOR_GOODS" />
+      <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_SALE_SENDADDERS" />
+      <table space="SAAS" class="com.spark.psi.storage.contactbook.TB_SA_IMPORTANTDATE" />
+      <table space="SAAS" class="com.spark.psi.storage.account.receipt.TB_SA_FINANCE_RECEIPT_RETAIL" />
+      <table space="SAAS" class="com.spark.psi.storage.account.payment.TB_SA_FINANCE_PAY_RECORD" />
+      <table space="SAAS" class="com.spark.psi.storage.account.invoice.TB_SA_FINANCE_INVOICE" />
+      <table space="SAAS" class="com.spark.psi.storage.account.cusdeal.TB_SA_FINANCE_CUSDEAL_DEAL" />
+      <table space="SAAS" class="com.spark.psi.storage.account.cusdeal.TB_SA_ACCOUNT_DEALING" />
+      <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory" />
+      <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory_Det" />
+    </tables>
+    <ui-entrys>
+      <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
+				</uientry-->
+    </ui-entrys>
+    <pages>
+      <!--page space="mydemo" name="testtemplate" class="com.jiuqi.dna.ui.template.launch.TemplatePage" /-->
+    </pages>
+    <ui-stylesheets>
+      <!-- stylesheet name="stylesheet" title="stylesheet" path="com/jiuqi/dna/ui/demo/stylesheet.css" -->
+    </ui-stylesheets>
+    <portlets>
+      <!-- portlet name="portlet" class="com.jiuqi.dna.ui.XXPortlet" -->
+    </portlets>
+  </publish>
+</dna>
+

@@ -1,0 +1,20 @@
+define update Update_Purchase( 
+@tenantId  guid not null
+,@cusProGuid guid not null
+,@dateNo int not null  
+,@ordAmount double not null
+,@outstoAmount double not null
+,@receiptAmount double not null
+,@deductionAmount double not null
+,@rtnAmount double not null )
+begin
+	update "SA_REPORT_PURCHASE_DATE" as t
+		set ordAmount = t.ordAmount+@ordAmount,
+		outstoAmount = t.outstoAmount+@outstoAmount,
+		receiptAmount = t.receiptAmount+@receiptAmount,
+		deductionAmount = t.deductionAmount+@deductionAmount,
+		rtnAmount = t.rtnAmount+@rtnAmount
+		where t.dateNo = @dateNo 
+		and t.tenantId = @tenantId
+		and t.cusProGuid = @cusProGuid 
+end

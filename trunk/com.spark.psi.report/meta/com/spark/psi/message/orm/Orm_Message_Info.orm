@@ -1,0 +1,14 @@
+define orm Orm_Message_Info(@id guid not null)
+	mapping com.spark.psi.message.entity.SMessageInfo
+begin
+	select 
+		t."RECID" as "RECID",
+		t."messageType" as "messageType",
+		t."relaObjId" as "relaObjId",
+		t."stringValue1" as "stringValue1",
+		t."stringValue2" as "stringValue2",
+		t."stringValue3" as "stringValue3",
+		t."templateCode" as "templateCode" 
+	from SA_MESSAGE_INFO as t
+	where t.RECID = @id
+end

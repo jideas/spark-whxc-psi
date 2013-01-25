@@ -1,0 +1,13 @@
+define orm Orm_Message_Mapping(@id guid not null)
+	mapping com.spark.psi.message.entity.SMessageMapping
+begin
+	select 
+		t."RECID" as "RECID",
+		t."endTime" as "endTime",
+		t."messageId" as "messageId",
+		t."messageType" as "messageType",
+		t."startTime" as "startTime", 
+		t."userId" as "userId"
+	from SA_MESSAGE_MAPPING as t
+	where t.RECID = @id
+end

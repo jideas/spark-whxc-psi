@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dna>
+  <publish>
+    <services>
+      <!-- service space="dna/core" class="com.jiuqi.dna.core.XXService" -->
+      <service space="SAAS" class="com.spark.psi.report.queue.TaskQueueManager" />
+      <service space="SAAS" class="com.spark.psi.report.eventlistener.OrderListener" />
+      <service space="SAAS" class="com.spark.psi.report.eventlistener.InventoryListener" />
+      <service space="SAAS" class="com.spark.psi.report.eventlistener.BaseListener" />
+      <service space="SAAS" class="com.spark.psi.report.eventlistener.AccountListener" />
+      <service space="SAAS" class="com.spark.psi.report.queue.QueueRunService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportCustomerCountService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportGoodsPurchaseService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportGoodsSalesService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportInventoryService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportPurchaseService" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.ReportSalesService" />
+      <service space="SAAS" class="com.spark.psi.report.service.provider.ReportCommonProvider" />
+      <service space="SAAS" class="com.spark.psi.report.service.screen.ReportScreenService" />
+      <service space="SAAS" class="com.spark.psi.report.eventlistener.PlanTaskExecuteListener" />
+      <service space="SAAS" class="com.spark.psi.report.basedate.StatusControlListener" />
+      <service space="SAAS" class="com.spark.psi.report.basedate.DateControlListener" />
+      <service space="SAAS" class="com.spark.psi.report.service.provider.SpecialProvider" />
+      <service space="SAAS" class="com.spark.psi.report.basedate.ApprovalLogListener" />
+      <service space="SAAS" class="com.spark.psi.report.service.provider.book.InventoryBookProvider" />
+      <service space="SAAS" class="com.spark.psi.report.dao.service.SalesMonitorService" />
+      <service space="SAAS" class="com.spark.psi.message.handles.SMessageSpecialService" />
+      <service space="SAAS" class="com.spark.psi.message.handles.MessageService" />
+      <service space="SAAS" class="com.spark.psi.message.provider.SMessageProvider" />
+    </services>
+    <orms>
+      <orm space="SAAS" class="com.spark.psi.report.queue.orm.Orm_ReportQueue" />
+      <orm space="SAAS" class="com.spark.psi.report.storage.monitor.ORMSalesTargetByPK" />
+      <orm space="SAAS" class="com.spark.psi.report.storage.monitor.ORMSalesTargetByYear" />
+      <orm space="SAAS" class="com.spark.psi.message.orm.Orm_Message_Info" />
+      <orm space="SAAS" class="com.spark.psi.message.orm.Orm_Message_Mapping" />
+    </orms>
+    <commands>
+      <!--
+			<command space="SAAS" class="com.spark.psi.report.dao.command.Update_Sales"/>
+			<command space="SAAS" class="com.spark.psi.report.dao.command.Insert_Sales"/> -->
+      <command space="SAAS" class="com.spark.psi.report.dao.command.Update_Purchase" />
+      <command space="SAAS" class="com.spark.psi.report.dao.command.Insert_Purchase" />
+    </commands>
+    <tables>
+      <!--table space="report" class="" /-->
+      <table space="SAAS" class="com.spark.psi.report.storage.order.TB_SA_REPORT_PURCHASE_DATE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.order.TB_SA_REPORT_DEPT_SALES_DATE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.goods.TB_SA_REPORT_GOODS_BUY_DATE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.monitor.TB_SA_SALE_TARGET" />
+      <table space="SAAS" class="com.spark.psi.message.storage.TB_SA_MESSAGE_INFO" />
+      <table space="SAAS" class="com.spark.psi.message.storage.TB_SA_MESSAGE_SET" />
+      <table space="SAAS" class="com.spark.psi.report.storage.queue.TB_SA_SAAS_REPORT_QUEUE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.partner.TB_SA_REPORT_CUSTOMER_COUNT" />
+      <table space="SAAS" class="com.spark.psi.report.storage.order.TB_SA_REPORT_SALES_DATE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.inventory.TB_sa_report_sto_stdbook" />
+      <table space="SAAS" class="com.spark.psi.report.storage.goods.TB_SA_REPORT_GOODS_SALE_DATE" />
+      <table space="SAAS" class="com.spark.psi.report.storage.common.TB_SA_REPORT_SCREEN" />
+      <table space="SAAS" class="com.spark.psi.message.storage.TB_SA_MESSAGE_MAPPING" />
+    </tables>
+  </publish>
+</dna>
+
