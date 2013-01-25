@@ -1,0 +1,24 @@
+define orm Orm_SalesReturnItem2(@tenantsId guid, @orderId guid)
+	mapping "com.spark.order.sales2.SalesReturnItem2"
+begin
+	select 
+		t."storeId" as "storeId",
+		t."storeName" as "storeName",
+		t."amount" as "amount",
+		t."countDecimal" as "countDecimal",
+		t."goodsCode" as "goodsCode",
+		t."goodsItemId" as "goodsItemId",
+		t."goodsName" as "goodsName",
+		t."goodsProperties" as "goodsProperties",
+		t."goodsUnit" as "goodsUnit",
+		t."num" as "num",
+		t."orderId" as "orderId",
+		t."price" as "price",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."RECID" as "recid",
+		t."tenantsId" as "tenantsId"
+	from SA_SALES_RETURN_ITEM as t
+	where t.tenantsId = @tenantsId and t.orderId = @orderId 
+end

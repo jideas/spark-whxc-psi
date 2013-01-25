@@ -1,0 +1,22 @@
+define orm ORM_ProduceFinishedLog(@id guid not null)
+	mapping com.spark.produceorder.intf.entity.ProduceFinishedLogEntity
+begin
+	select 
+		t."RECID" as id,
+		t."billsId" as "billsId",
+		t."bomId" as "bomId",
+		t."count" as "count",
+		t."createDate" as "createDate",
+		t."creator" as "creator",
+		t."creatorId" as "creatorId",
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsScale" as "goodsScale",
+		t."goodsSpec" as "goodsSpec",
+		t."thistimeCount" as "thistimeCount",
+		t."unit" as "unit"
+	from PSI_Produce_FinishedLog as t
+	where t.RECID = @id
+end

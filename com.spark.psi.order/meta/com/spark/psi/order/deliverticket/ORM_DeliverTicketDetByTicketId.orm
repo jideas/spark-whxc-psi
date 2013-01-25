@@ -1,0 +1,21 @@
+define orm ORM_DeliverTicketDetByTicketId(@id guid not null)
+	mapping com.spark.deliverticket.intf.entity.DeliverTicketDetEntity
+begin
+	select 
+		t."RECID" as id,
+		t."amount" as "amount",
+		t."count" as "count",
+		t."disAmount" as "disAmount",
+		t."disRate" as "disRate",
+		t."goodsCode" as "goodsCode",
+		t."goodsId" as "goodsId",
+		t."goodsName" as "goodsName",
+		t."goodsNo" as "goodsNo",
+		t."goodsScale" as "goodsScale",
+		t."goodsSpec" as "goodsSpec",
+		t."price" as "price",
+		t."ticketId" as "ticketId",
+		t."unit" as "unit"
+	from PSI_DeliverTicket_Det as t
+	where t.ticketId = @id
+end
