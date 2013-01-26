@@ -11,7 +11,7 @@ public class OnlineCommon {
 		 PageController pc = new PageController(AdvanceSearchPageProcessor.class, AdvanceSearchPageRender.class);
 		 PageControllerInstance pci = new PageControllerInstance(pc);
 		 WindowStyle windowStyle = new WindowStyle(JWT.MODAL | JWT.CLOSE);
-		 windowStyle.setSize(390, 200);
+		 windowStyle.setSize(390, 230);
 		 MsgRequest request = new MsgRequest(pci, "¸ß¼¶ËÑË÷", windowStyle);
 		 return request;
 	}

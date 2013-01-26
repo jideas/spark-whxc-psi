@@ -1,6 +1,7 @@
 package com.spark.psi.order.browser.online;
 
 import com.jiuqi.dna.ui.common.constants.JWT;
+import com.jiuqi.dna.ui.custom.combo.LWComboList;
 import com.jiuqi.dna.ui.wt.layouts.GridData;
 import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Button;
@@ -11,13 +12,13 @@ import com.spark.common.components.controls.text.SDatePicker;
 import com.spark.common.components.pages.BaseFormPageRender;
 
 public class AdvanceSearchPageRender extends BaseFormPageRender {
-	public static final String ID_Text_BillsNo = "Text_BillsNo";
-	public static final String ID_Text_RealName = "Text_RealName";
-	public static final String ID_Text_StationName = "Text_StationName";
-	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
-	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
-	public static final String ID_Date_DeliveryeDateBegin = "Date_DeliveryeDateBegin";
-	public static final String ID_Date_DeliveryeDateEnd = "Date_DeliveryeDateEnd";
+//	public static final String ID_Text_BillsNo = "Text_BillsNo";
+//	public static final String ID_Text_RealName = "Text_RealName";
+//	public static final String ID_Text_StationName = "Text_StationName";
+//	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
+//	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
+//	public static final String ID_Date_DeliveryeDateBegin = "Date_DeliveryeDateBegin";
+//	public static final String ID_Date_DeliveryeDateEnd = "Date_DeliveryeDateEnd";
 	@Override
 	protected void renderButton(Composite buttonArea) {
 		Button button = new Button(buttonArea, JWT.APPEARANCE3);
@@ -78,6 +79,12 @@ public class AdvanceSearchPageRender extends BaseFormPageRender {
 		new Label(formArea).setText("至");
 		date = new SDatePicker(formArea);
 		date.setID(AdvanceSearchPageProcessor.ID_Date_DeliveryeDateEnd);
+		
+		label = new Label(formArea);
+		label.setText("交货时间：");
+		label.setLayoutData(gdLabel);
+		LWComboList timeList = new LWComboList(formArea, JWT.APPEARANCE3);
+		timeList.setID(AdvanceSearchPageProcessor.ID_List_DeliveryeTime);
 	}
 
 	@Override
