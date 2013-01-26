@@ -2,7 +2,7 @@ package com.spark.psi.base.browser;
 
 public class PrintColumn {
 	
-	public static int NAME_COLUMN_WIDTH   = 80;
+	public static int NAME_COLUMN_WIDTH   = 150;
 	public static int PRICE_COLUMN_WIDTH  = 50;
 	public static int COUNT_COLUMN_WIDTH  = 40;
 	public static int AMOUNT_COLUMN_WIDTH = 50;
