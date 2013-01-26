@@ -104,7 +104,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 					}
 					return item.getGoodsName();
 				case 1:
-					return DoubleUtil.getRoundStr(item.getCount());
+					return DoubleUtil.getRoundStr(item.getCount(), 0);
 				case 2:
 					return DoubleUtil.getRoundStr(item.getPrice());
 //				case 3:
