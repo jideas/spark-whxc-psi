@@ -87,6 +87,7 @@ public class GetOnlineOrderListKey extends LimitKey{
 		private long createDateEnd;
 		private long deliveryeDateBegin;
 		private long deliveryeDateEnd;
+		private String deliverTime;
 		public String getBillsNo() {
 			return billsNo;
 		}
@@ -129,6 +130,13 @@ public class GetOnlineOrderListKey extends LimitKey{
 		public void setDeliveryeDateEnd(long deliveryeDateEnd) {
 			this.deliveryeDateEnd = deliveryeDateEnd;
 		}
+		public String getDeliverTime() {
+			return deliverTime;
+		}
+		public void setDeliverTime(String deliverTime) {
+			this.deliverTime = deliverTime;
+		}
+		
 	}
 	public static enum SortField{
 		/** ¶©µ¥±àºÅ*/
