@@ -14,6 +14,8 @@ import com.spark.common.components.SendMessageType;
 import com.spark.common.components.db.ERPTableNames;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
+import com.spark.common.utils.character.StringHelper;
+import com.spark.common.utils.date.DateUtil;
 import com.spark.common.utils.dnasql.QuerySqlBuilder;
 import com.spark.onlineorder.intf.entity.OnlineOrderDetEntity;
 import com.spark.onlineorder.intf.entity.OnlineOrderEntity;
@@ -113,7 +115,17 @@ public final class OnlineOrderUtil {
 		}
 		RecordSet rs = db.executeQueryLimit(key.getOffset(), key.getCount());
 		while (rs.next()) {
-			list.add(fillOnlineOrder(context, rs));
+			OnlineOrderItem item = fillOnlineOrder(context, rs);
+			if (key.getAdvanceValues() != null && StringHelper.isNotEmpty(key.getAdvanceValues().getDeliverTime())) {
+				// 判断取货时间点
+				String dDateStr = DateUtil.dateFromat(item.getDeliveryeDate(), "HH:mm");
+				if (key.getAdvanceValues().getDeliverTime().equals(dDateStr)) {
+					list.add(item);
+				}
+			} else {
+				list.add(item);
+			}
+			
 		}
 		return list;
 	}
