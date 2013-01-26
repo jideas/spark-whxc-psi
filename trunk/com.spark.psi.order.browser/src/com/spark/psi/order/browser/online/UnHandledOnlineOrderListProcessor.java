@@ -192,6 +192,7 @@ public abstract class UnHandledOnlineOrderListProcessor<Item> extends OnlinOrder
 			av.setDeliveryeDateEnd(advanceCondition.getDeliveryeDateEnd());
 			av.setRealName(advanceCondition.getRealName());
 			av.setStationName(advanceCondition.getStationName());
+			av.setDeliverTime(advanceCondition.getDeliverTime());
 			key.setAdvanceValues(av);
 		} else {
 			key.setSearchText(search.getText());
