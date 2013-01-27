@@ -1,6 +1,7 @@
 package com.spark.psi.order.browser.online;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -145,43 +146,67 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 	}
 	
 	private FormPrintEntity getPrintEntityByOnineItem(OnlineOrderItem item) {
-		PrintColumn[] columns = new PrintColumn[3];
+		PrintColumn[] columns = new PrintColumn[4];
 		columns[0] = new PrintColumn("商品名称", PrintColumn.NAME_COLUMN_WIDTH, JWT.LEFT);
-		columns[1] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
-		columns[2] = new PrintColumn("单价", PrintColumn.PRICE_COLUMN_WIDTH, JWT.CENTER);
-		//columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
+		columns[1] = new PrintColumn("规格", PrintColumn.SPEC_COLUMN_WIDTH, JWT.CENTER);
+		columns[2] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
+		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
 //		String tableTitle0 = "客户：" + item.getRealName();
-//		String tableTitle1 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-		String tableTitle0 = "客户：" + item.getRealName();
-		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
-		String memberBalance  = null;
-		if (null != memberAccount) {
-			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元"; 
-			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
-		}
-		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
-		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
-		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-		String tableTitle4 = "站点：" + item.getStationName();
-		String tableTitle5 = "收货地址：" + item.getAddress();
-		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
-		String[] titles = null;
-		if (memberBalance == null) {
-			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-		} else {
-			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-		}
-		
-		String summaryInfo = "";
+//		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
+//		String memberBalance  = null;
+//		if (null != memberAccount) {
+//			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元"; 
+//			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
+//		}
+//		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
+//		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
+//		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+//		String tableTitle4 = "站点：" + item.getStationName();
+//		String tableTitle5 = "收货地址：" + item.getAddress();
+//		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+//		String[] titles = null;
+//		if (memberBalance == null) {
+//			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+//		} else {
+//			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+//		}
+		String tableTitle0 = "服务站点：" + item.getStationName();
+		String tableTitle1 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
+		String tableTitle2 = "收货人：" + item.getConsignee();
+		String tableTitle3 = "联系电话：" + item.getConsigneeTel();
+		String tableTitle4 = "收货地址：" + item.getAddress();
+		String[] titles = {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4};
+//		double totalCount = 0.0;
+//		double totalAmount = 0.0;
+//		for (OnlineOrderInfoItem oItem : item.getItems()) {
+//			totalCount += oItem.getCount();
+//			totalAmount += oItem.getAmount();
+//		}
+//		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount);
+//		String summaryInfo = "";
+//		商品数：2           件数：3             合计：20.00
+//		账户余额：1,558.90    
+//		可用积分：800
+//		打印日期：2013-01-27
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
 		for (OnlineOrderInfoItem oItem : item.getItems()) {
 			totalCount += oItem.getCount();
 			totalAmount += oItem.getAmount();
 		}
-		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount);
+		String summaryInfo = "";
+		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
+		List<String> footerList = new ArrayList<String>();
+		footerList.add(summaryInfo);
+		if (null != memberAccount) {
+			footerList.add("帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元");
+			footerList.add("剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0));
+		}
+		footerList.add("打印日期：" + DateUtil.dateFromat(new Date().getTime()));
 		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), titles);
-		entity.setSummaryInfo(summaryInfo);
+//		entity.setSummaryInfo(summaryInfo);
+		entity.setTableFooters(footerList.toArray(new String[0]));
 		entity.setLabelProvider(new SLabelProvider() {
 			
 			public String getToolTipText(Object element, int columnIndex) {
@@ -192,14 +217,16 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 				OnlineOrderInfoItem item = (OnlineOrderInfoItem)element;
 				switch(columnIndex) {
 				case 0:
-					if (item.getGoodsName().length() > 12) {
-						return item.getGoodsName().substring(0, 12);
-					}
+//					if (item.getGoodsName().length() > 12) {
+//						return item.getGoodsName().substring(0, 12);
+//					}
 					return item.getGoodsName();
 				case 1:
-					return DoubleUtil.getRoundStr(item.getCount());
+					return item.getGoodsSpec();
 				case 2:
-					return DoubleUtil.getRoundStr(item.getPrice());
+					return DoubleUtil.getRoundStr(item.getCount(), 0);
+				case 3:
+					return DoubleUtil.getRoundStr(item.getAmount());
 				}
 				return null;
 			}
