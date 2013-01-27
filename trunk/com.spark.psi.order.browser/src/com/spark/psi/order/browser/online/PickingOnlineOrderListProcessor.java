@@ -150,7 +150,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		columns[0] = new PrintColumn("商品名称", PrintColumn.NAME_COLUMN_WIDTH, JWT.LEFT);
 		columns[1] = new PrintColumn("规格", PrintColumn.SPEC_COLUMN_WIDTH, JWT.CENTER);
 		columns[2] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
-		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
+		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.LEFT);
 //		String tableTitle0 = "客户：" + item.getRealName();
 //		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
 //		String memberBalance  = null;
@@ -175,7 +175,8 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		String tableTitle2 = "收货人：" + item.getConsignee();
 		String tableTitle3 = "联系电话：" + item.getConsigneeTel();
 		String tableTitle4 = "收货地址：" + item.getAddress();
-		String[] titles = {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4};
+		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+		String[] titles = {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5};
 //		double totalCount = 0.0;
 //		double totalAmount = 0.0;
 //		for (OnlineOrderInfoItem oItem : item.getItems()) {
