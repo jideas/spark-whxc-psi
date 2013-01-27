@@ -71,7 +71,7 @@
 			<service space="psi_base" class="com.spark.psi.base.internal.service.bom.BomPublishService"></service>
 
 			<service space="psi_base" class="com.spark.b2c.base.supplier.joint.service.JointLogService"/>
-
+			<service space="psi_base" class="com.spark.b2c.base.member.service.MemberService"/>
 		</services>
 		<orms>
 			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_CfgExam" />
@@ -116,7 +116,7 @@
 			<!--JointVenture-->
 			<orm space="psi_base" class="com.spark.psi.base.internal.service.orm.Orm_JointVentureLog" />
 
-
+			<orm space="psi_base" class="com.spark.b2c.base.member.Orm_MemberAccount" />
 		</orms>
 		<commands />
 		<querys>
