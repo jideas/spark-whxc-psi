@@ -170,7 +170,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 //		} else {
 //			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
 //		}
-		String tableTitle0 = "服务站点：" + item.getStationName();
+		String tableTitle0 = "服务站点：<font size='3'><strong>" + item.getStationName() + "</strong></font>";
 		String tableTitle1 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
 		String tableTitle2 = "收货人：" + item.getConsignee();
 		String tableTitle3 = "联系电话：" + item.getConsigneeTel();
@@ -195,7 +195,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			totalAmount += oItem.getAmount();
 		}
 		String summaryInfo = "";
-		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
 		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
 		List<String> footerList = new ArrayList<String>();
 		footerList.add(summaryInfo);
