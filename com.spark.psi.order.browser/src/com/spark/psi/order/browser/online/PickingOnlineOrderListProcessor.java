@@ -157,7 +157,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		String memberBalance  = null;
 		if (null != memberAccount) {
 			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元"; 
-			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages());
+			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
 		}
 		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
 		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
