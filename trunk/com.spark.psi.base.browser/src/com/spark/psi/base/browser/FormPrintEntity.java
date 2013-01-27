@@ -30,7 +30,8 @@ public class FormPrintEntity {
 	private PrintColumn[] columns  = null;
 	private Object[] datas         = null;
 	private String[] tableTitles   = null;
-	private String summaryInfo     = null;
+	//private String summaryInfo     = null;
+	private String[] tableFooters  = null;
 	
 	private SLabelProvider labelProvider = null;
 	
@@ -98,14 +99,20 @@ public class FormPrintEntity {
 		this.spanProvider = spanProvider;
 	}
 
-	public String getSummaryInfo() {
-		return summaryInfo;
+//	public String getSummaryInfo() {
+//		return summaryInfo;
+//	}
+//
+//	public void setSummaryInfo(String summaryInfo) {
+//		this.summaryInfo = summaryInfo;
+//	}
+
+	public String[] getTableFooters() {
+		return tableFooters;
 	}
 
-	public void setSummaryInfo(String summaryInfo) {
-		this.summaryInfo = summaryInfo;
+	public void setTableFooters(String[] tableFooters) {
+		this.tableFooters = tableFooters;
 	}
-	
-	
 	
 }
