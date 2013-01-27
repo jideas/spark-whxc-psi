@@ -79,7 +79,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 		String memberBalance  = null;
 		if (null != memberAccount) {
 			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元";
-			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages());
+			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
 		}
 		String tableTitle1 = "联系电话：" + orderInfo.getConsigneeTel();
 		String tableTitle2 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
