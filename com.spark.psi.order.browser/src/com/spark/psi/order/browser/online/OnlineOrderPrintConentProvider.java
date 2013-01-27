@@ -24,7 +24,7 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 
 	private String getContentHtmlByEntity(FormPrintEntity entity) {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("<img border='0' src='/psi_print/print_logo.jpg' width='240' height='65' /><br/>");
+		buffer.append("<img border='0' src='/psi_print/print_logo.jpg' width='220' height='65' /><br/>");
 		for (String commonRow : entity.getTableTitles()) {
 			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>").append(commonRow).append("</font></span> \n <br/>");
 		}
@@ -51,7 +51,7 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 		//buffer.append("\n<hr/> \n");
 		buffer.append("\n<div style='height:1px;width: " + getWidth() + ";border-bottom: solid red 1px;'></div> \n");
 		for (String commonRow : entity.getTableFooters()) {
-			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>" + commonRow + "</font></span> <br/>\n");
+			buffer.append("<span width='" + 230 + "px' height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>" + commonRow + "</font></span> <br/>\n");
 		}
 		
 		buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>7号生活馆电子商务有限公司</font></span> \n <br/>");
