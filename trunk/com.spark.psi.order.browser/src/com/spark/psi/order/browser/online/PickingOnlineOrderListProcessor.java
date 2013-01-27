@@ -18,6 +18,7 @@ import com.jiuqi.dna.ui.wt.widgets.Browser;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
+import com.spark.b2c.publish.base.member.entity.MemberAccountInfo;
 import com.spark.common.components.controls.text.SSearchText2;
 import com.spark.common.components.pages.PageController;
 import com.spark.common.components.pages.PageControllerInstance;
@@ -152,11 +153,25 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 //		String tableTitle0 = "客户：" + item.getRealName();
 //		String tableTitle1 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
 		String tableTitle0 = "客户：" + item.getRealName();
+		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
+		String memberBalance  = null;
+		if (null != memberAccount) {
+			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元"; 
+			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages());
+		}
 		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
 		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
 		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-		String tableTitle4 = "收货地址：" + item.getAddress();
-		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle4 = "站点：" + item.getStationName();
+		String tableTitle5 = "收货地址：" + item.getAddress();
+		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+		String[] titles = null;
+		if (memberBalance == null) {
+			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		} else {
+			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		}
+		
 		String summaryInfo = "";
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
@@ -165,7 +180,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			totalAmount += oItem.getAmount();
 		}
 		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount);
-		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5);
+		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), titles);
 		entity.setSummaryInfo(summaryInfo);
 		entity.setLabelProvider(new SLabelProvider() {
 			

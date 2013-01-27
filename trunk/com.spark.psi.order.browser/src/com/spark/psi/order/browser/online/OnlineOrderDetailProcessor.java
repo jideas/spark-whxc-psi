@@ -20,6 +20,7 @@ import com.jiuqi.dna.ui.wt.widgets.Display;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.jiuqi.dna.ui.wt.widgets.Display.ExporterWithContext;
+import com.spark.b2c.publish.base.member.entity.MemberAccountInfo;
 import com.spark.common.components.pages.PageController;
 import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.table.SLabelProvider;
@@ -74,11 +75,24 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 		columns[2] = new PrintColumn("单价", PrintColumn.PRICE_COLUMN_WIDTH, JWT.CENTER);
 		//columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
 		String tableTitle0 = "客户：" + orderInfo.getRealName();
+		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
+		String memberBalance  = null;
+		if (null != memberAccount) {
+			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元";
+			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages());
+		}
 		String tableTitle1 = "联系电话：" + orderInfo.getConsigneeTel();
 		String tableTitle2 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
 		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(orderInfo.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-		String tableTitle4 = "收货地址：" + orderInfo.getAddress();
-		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+		String tableTitle4 = "站点：" + orderInfo.getStationName();
+		String tableTitle5 = "收货地址：" + orderInfo.getAddress();
+		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+		String[] titles = null;
+		if (memberBalance == null) {
+			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		} else {
+			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		}
 		String summaryInfo = "";
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
@@ -87,7 +101,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 			totalAmount += item.getAmount();
 		}
 		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
-		FormPrintEntity fpe = new FormPrintEntity("网上订单", columns, orderInfo.getItems(), tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5);
+		FormPrintEntity fpe = new FormPrintEntity("网上订单", columns, orderInfo.getItems(), titles);
 		fpe.setSummaryInfo(summaryInfo);
 		fpe.setLabelProvider(new SLabelProvider() {
 			
