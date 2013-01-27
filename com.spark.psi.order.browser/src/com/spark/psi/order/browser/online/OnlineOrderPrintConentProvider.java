@@ -24,7 +24,7 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 
 	private String getContentHtmlByEntity(FormPrintEntity entity) {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("<img border='0' src='/psi_print/print_logo.jpg' width='270' height='74' /><br/>");
+		buffer.append("<img border='0' src='/psi_print/print_logo.jpg' width='240' height='65' /><br/>");
 		for (String commonRow : entity.getTableTitles()) {
 			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>").append(commonRow).append("</font></span> \n <br/>");
 		}
@@ -50,7 +50,10 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 		buffer.append("</table> \n");
 		//buffer.append("\n<hr/> \n");
 		buffer.append("\n<div style='height:1px;width: " + getWidth() + ";border-bottom: solid red 1px;'></div> \n");
-		buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>" + entity.getSummaryInfo() + "</font></span> <br/>\n");
+		for (String commonRow : entity.getTableFooters()) {
+			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>" + commonRow + "</font></span> <br/>\n");
+		}
+		
 		buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>7号生活馆电子商务有限公司</font></span> \n <br/>");
 		buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>电话：4001-027-577</font></span> \n <br/>");
 		buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>地址：武汉市黄陂区武湖农场工业园</font></span> \n <br/>");
@@ -68,10 +71,11 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 	}
 	
 	public int getHeight() {
-		int height = printEntities.length * (30 + 90);
+		int height = printEntities.length * 90;
 		for (FormPrintEntity entity : printEntities) {
 			height += FormPrintEntity.FORM_TITLE_HEIGHT + 30;
 			height += FormPrintEntity.COMMON_ROW_HEIGHT * entity.getTableTitles().length;
+			height += FormPrintEntity.COMMON_ROW_HEIGHT * entity.getTableFooters().length;
 			height += FormPrintEntity.TABLE_ROW_HEIGHT * entity.getDatas().length + FormPrintEntity.TABLE_ROW_HEIGHT; // 表格内容+表头
 		}
 		height *= 2.85;

@@ -3,6 +3,7 @@ package com.spark.psi.order.browser.online;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jiuqi.dna.core.Context;
@@ -69,40 +70,58 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 
 	@Override
 	protected void printAction() {
-		PrintColumn[] columns = new PrintColumn[3];
+		PrintColumn[] columns = new PrintColumn[4];
 		columns[0] = new PrintColumn("商品名称", PrintColumn.NAME_COLUMN_WIDTH, JWT.LEFT);
-		columns[1] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
-		columns[2] = new PrintColumn("单价", PrintColumn.PRICE_COLUMN_WIDTH, JWT.CENTER);
-		//columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
-		String tableTitle0 = "客户：" + orderInfo.getRealName();
-		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
-		String memberBalance  = null;
-		if (null != memberAccount) {
-			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元";
-			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
-		}
-		String tableTitle1 = "联系电话：" + orderInfo.getConsigneeTel();
-		String tableTitle2 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
-		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(orderInfo.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-		String tableTitle4 = "站点：" + orderInfo.getStationName();
-		String tableTitle5 = "收货地址：" + orderInfo.getAddress();
-		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
-		String[] titles = null;
-		if (memberBalance == null) {
-			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-		} else {
-			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-		}
+		columns[1] = new PrintColumn("规格", PrintColumn.SPEC_COLUMN_WIDTH, JWT.CENTER);
+		columns[2] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
+		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.RIGHT);
+//		String tableTitle0 = "客户：" + orderInfo.getRealName();
+//		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
+//		String memberBalance  = null;
+//		if (null != memberAccount) {
+//			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元";
+//			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
+//		}
+//		String tableTitle1 = "联系电话：" + orderInfo.getConsigneeTel();
+//		String tableTitle2 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
+//		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(orderInfo.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
+//		String tableTitle4 = "站点：" + orderInfo.getStationName();
+//		String tableTitle5 = "收货地址：" + orderInfo.getAddress();
+//		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
+//		服务站点：xxx站（注意：xxx站的字体加大加粗）
+//		订单编号：
+//		收货人：（这里显示是收货人姓名，不是用户名）
+//		联系电话：
+//		收货地址：（注意这里是详细地址，地区+街道）
+		String tableTitle0 = "服务站点：" + orderInfo.getStationName();
+		String tableTitle1 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
+		String tableTitle2 = "收货人：" + orderInfo.getConsignee();
+		String tableTitle3 = "联系电话：" + orderInfo.getConsigneeTel();
+		String tableTitle4 = "收货地址：" + orderInfo.getAddress();
+		String[] titles = {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4};
 		String summaryInfo = "";
+//		商品数：2           件数：3             合计：20.00
+//		账户余额：1,558.90    
+//		可用积分：800
+//		打印日期：2013-01-27
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
 		for (OnlineOrderInfoItem item : orderInfo.getItems()) {
 			totalCount += item.getCount();
 			totalAmount += item.getAmount();
 		}
-		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		summaryInfo = "商品数：" + orderInfo.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
+		List<String> footerList = new ArrayList<String>();
+		footerList.add(summaryInfo);
+		if (null != memberAccount) {
+			footerList.add("帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元");
+			footerList.add("剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0));
+		}
+		footerList.add("打印日期：" + DateUtil.dateFromat(new Date().getTime()));
 		FormPrintEntity fpe = new FormPrintEntity("网上订单", columns, orderInfo.getItems(), titles);
-		fpe.setSummaryInfo(summaryInfo);
+		//fpe.setSummaryInfo(summaryInfo);
+		fpe.setTableFooters(footerList.toArray(new String[0]));
 		fpe.setLabelProvider(new SLabelProvider() {
 			
 			public String getToolTipText(Object element, int columnIndex) {
@@ -113,16 +132,17 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 				OnlineOrderInfoItem item = (OnlineOrderInfoItem)element;
 				switch(columnIndex) {
 				case 0:
-					if (item.getGoodsName().length() > 12) {
-						return item.getGoodsName().substring(0, 12);
-					}
+//					if (item.getGoodsName().length() > 12) {
+//						return item.getGoodsName().substring(0, 12);
+//					}
 					return item.getGoodsName();
 				case 1:
-					return DoubleUtil.getRoundStr(item.getCount(), 0);
+					return item.getGoodsSpec();
 				case 2:
-					return DoubleUtil.getRoundStr(item.getPrice());
-//				case 3:
-//					return DoubleUtil.getRoundStr(item.getAmount());
+					return DoubleUtil.getRoundStr(item.getCount(), 0);
+				case 3:
+					return DoubleUtil.getRoundStr(item.getAmount());
+//					return DoubleUtil.getRoundStr(1666.00);
 //				case 4:
 //					return DoubleUtil.getRoundStr(item.getAmount());
 				}
