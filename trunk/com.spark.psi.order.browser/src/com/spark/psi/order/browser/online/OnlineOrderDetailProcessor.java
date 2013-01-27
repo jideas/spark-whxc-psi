@@ -93,7 +93,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 //		收货人：（这里显示是收货人姓名，不是用户名）
 //		联系电话：
 //		收货地址：（注意这里是详细地址，地区+街道）
-		String tableTitle0 = "服务站点：" + orderInfo.getStationName();
+		String tableTitle0 = "服务站点：<font size='3'><strong>" + orderInfo.getStationName() + "</strong></font>";
 		String tableTitle1 = "订单编号：" + orderInfo.getBillsNo().split("WSDD")[1];
 		String tableTitle2 = "收货人：" + orderInfo.getConsignee();
 		String tableTitle3 = "联系电话：" + orderInfo.getConsigneeTel();
@@ -110,7 +110,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 			totalCount += item.getCount();
 			totalAmount += item.getAmount();
 		}
-		summaryInfo = "商品数：" + orderInfo.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		summaryInfo = "商品数：" + orderInfo.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
 		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
 		List<String> footerList = new ArrayList<String>();
 		footerList.add(summaryInfo);
