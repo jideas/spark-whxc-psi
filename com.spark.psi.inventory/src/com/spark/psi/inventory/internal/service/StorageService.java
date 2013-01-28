@@ -829,7 +829,7 @@ public class StorageService extends Service {
 	protected class CalculateAvgBuyPrice extends OneKeyResultProvider<Double, AverageInventoryCostKey> {
 		@Override
 		protected Double provide(Context context, AverageInventoryCostKey key) throws Throwable {
-			GetInventoryByStockIdKey iKey = new GetInventoryByStockIdKey(key.getGoodsItemId(), InventoryType.Materials);
+			GetInventoryByStockIdKey iKey = new GetInventoryByStockIdKey(key.getGoodsItemId(),key.getInventoryType());
 			List<Inventory> list = context.getList(Inventory.class, iKey);
 			double avgPrice = 0;
 			double amount = 0;
