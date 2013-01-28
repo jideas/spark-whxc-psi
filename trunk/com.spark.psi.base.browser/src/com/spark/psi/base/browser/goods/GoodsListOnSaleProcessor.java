@@ -2,15 +2,11 @@ package com.spark.psi.base.browser.goods;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.cxf.common.util.StringUtils;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.ui.wt.widgets.Display;
 import com.jiuqi.dna.ui.wt.widgets.Display.ExporterWithContext;
-import com.spark.common.components.table.STableColumn;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.excel.ExcelWriteHelperPoi;
 import com.spark.psi.publish.base.goods.entity.GoodsItemDetail;
@@ -40,7 +36,7 @@ public final class GoodsListOnSaleProcessor extends GoodsListProcessor {
 						GoodsItemDetail item = (GoodsItemDetail)element;
 						switch(columnIndex) {
 						case 0:
-							return item.getGoodsCode();
+							return item.getSerialNumber();
 						case 1:
 							return item.getGoodsNo();
 						case 2:
@@ -48,10 +44,8 @@ public final class GoodsListOnSaleProcessor extends GoodsListProcessor {
 						case 3:
 							return DoubleUtil.getRoundStr(item.getSalePrice());
 						case 4:
-							return item.getSerialNumber();
-						case 5:
 							return item.getShelfLife() + "";
-						case 6:
+						case 5:
 							return "1";
 						default:
 							return "";
@@ -61,7 +55,7 @@ public final class GoodsListOnSaleProcessor extends GoodsListProcessor {
 					@Override
 					protected String[] getHead() {
 //						String[] headerTitles = new String[7];
-//						headerTitles[0] = "编号";
+//						headerTitles[0] = "序号";
 //						headerTitles[1] = "条码";
 //						headerTitles[2] = "商品名称";
 //						headerTitles[3] = "单价";
