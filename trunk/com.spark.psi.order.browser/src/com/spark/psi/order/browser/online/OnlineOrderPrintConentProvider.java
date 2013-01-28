@@ -24,7 +24,7 @@ public class OnlineOrderPrintConentProvider implements PrintContentProvider {
 
 	private String getContentHtmlByEntity(FormPrintEntity entity) {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("<img border='0' src='/psi_print/print_logo.jpg' width='220' height='65' /><br/>");
+		buffer.append("<img border='0' src='/psi_print/print_logo1.jpg' width='220' height='65' /><br/>");
 		for (String commonRow : entity.getTableTitles()) {
 			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>").append(commonRow).append("</font></span> \n <br/>");
 		}

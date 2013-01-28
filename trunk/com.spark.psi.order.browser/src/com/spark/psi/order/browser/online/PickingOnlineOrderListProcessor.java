@@ -196,7 +196,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			totalAmount += oItem.getAmount();
 		}
 		String summaryInfo = "";
-		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;合计：" + DoubleUtil.getRoundStr(totalAmount); 
 		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
 		List<String> footerList = new ArrayList<String>();
 		footerList.add(summaryInfo);
