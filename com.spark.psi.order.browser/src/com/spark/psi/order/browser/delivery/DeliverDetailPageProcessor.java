@@ -160,9 +160,9 @@ public class DeliverDetailPageProcessor extends AbstractFormProcessor {
 				// TODO 打印
 				PrintColumn[] columns = new PrintColumn[6];
 				columns[0] = new PrintColumn("订单编号", 150, JWT.LEFT);
-				columns[1] = new PrintColumn("商品名称", 100, JWT.LEFT);
-				columns[2] = new PrintColumn("规格", 135, JWT.LEFT);
-				columns[3] = new PrintColumn("数量", 100, JWT.RIGHT);
+				columns[1] = new PrintColumn("商品名称", 200, JWT.LEFT);
+				columns[2] = new PrintColumn("规格", 70, JWT.LEFT);
+				columns[3] = new PrintColumn("数量", 60, JWT.RIGHT);
 				columns[4] = new PrintColumn("会员", 100, JWT.CENTER);
 				columns[5] = new PrintColumn("金额", 100, JWT.RIGHT);
 				String tableTitle0 = "单据编号：" + deliverInfo.getSheetNo() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门店：" + deliverInfo.getStationName() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
@@ -181,13 +181,13 @@ public class DeliverDetailPageProcessor extends AbstractFormProcessor {
 						DeliverDetailShowItem item = (DeliverDetailShowItem)element;
 						switch(columnIndex) {
 						case 0:
-							return item.getSheetNo();
+							return item.getSheetNo().split("WSDD")[1];
 						case 1:
 							return item.getGoodsName();
 						case 2:
 							return item.getGoodsSpec();
 						case 3:
-							return DoubleUtil.getRoundStr(item.getGoodsCount());
+							return DoubleUtil.getRoundStr(item.getGoodsCount(), 0);
 						case 4:
 							return item.getMemeberName();
 						case 5:
