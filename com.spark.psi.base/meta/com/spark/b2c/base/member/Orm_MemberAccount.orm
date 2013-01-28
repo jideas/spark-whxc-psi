@@ -1,0 +1,11 @@
+define orm Orm_MemberAccount(@id guid not null)
+	mapping com.spark.b2c.base.member.entity.MemberAccountInfoImpl
+begin
+	select 
+		t."moneyBalance" as "moneyBalance",
+		t."payPassword" as "payPassword",
+		t."RECID" as "recid",
+		t."vantages" as "vantages"
+	from CMS_MEMBER_ACCOUNT as t
+	where t.RECID = @id
+end
