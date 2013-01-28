@@ -111,7 +111,7 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 			totalCount += item.getCount();
 			totalAmount += item.getAmount();
 		}
-		summaryInfo = "商品数：" + orderInfo.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount); 
+		summaryInfo = "商品数：" + orderInfo.getItems().length + "&nbsp;&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;&nbsp;合计：12" + DoubleUtil.getRoundStr(totalAmount); 
 		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, orderInfo.getMemberId());
 		List<String> footerList = new ArrayList<String>();
 		footerList.add(summaryInfo);
