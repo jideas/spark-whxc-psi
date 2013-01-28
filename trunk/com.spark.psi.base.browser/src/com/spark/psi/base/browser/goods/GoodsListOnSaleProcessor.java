@@ -68,7 +68,7 @@ public final class GoodsListOnSaleProcessor extends GoodsListProcessor {
 					}
 					
 					protected int getColumnCount() {
-						return 7;
+						return 6;
 					}
 				};
 				writer.writeNormal(outputStream, "商品条目");
