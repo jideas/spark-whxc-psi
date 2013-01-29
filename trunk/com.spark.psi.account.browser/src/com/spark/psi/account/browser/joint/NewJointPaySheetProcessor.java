@@ -273,6 +273,11 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 			alert("请先选择供应商。");
 			return false;
 		}
+		
+		if (null == info || info.getItems().length < 1) {
+			alert("无销售记录，不能进行结算。");
+			return false;
+		}
 		double adjustAmount = 0.0;
 		String adjustAmountStr = adjustAmountText.getText();
 		if (StringUtils.isNotEmpty(adjustAmountStr)) {
