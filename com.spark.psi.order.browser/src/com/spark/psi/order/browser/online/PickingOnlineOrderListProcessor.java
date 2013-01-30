@@ -130,7 +130,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 				// 统计
 				PageController pc = new PageController(OnlineGoodsSummaryProcessor.class, OnlineGoodsSummaryRender.class);
 				PageControllerInstance pci = new PageControllerInstance(pc);
-				MsgRequest request = new MsgRequest(pci);
+				MsgRequest request = new MsgRequest(pci, "商品统计");
 				getContext().bubbleMessage(request);
 			}
 		});
