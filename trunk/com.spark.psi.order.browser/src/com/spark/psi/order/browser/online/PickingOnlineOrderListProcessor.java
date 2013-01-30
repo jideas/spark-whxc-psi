@@ -52,6 +52,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 	public static final String ID_Search_Advanced = "Search_Advanced";
 	public static final String ID_Button_Distribute = "Button_Distribute";
 	public static final String ID_Button_Print = "Button_Print";
+	public static final String ID_Button_Summary = "Button_Summary";
 	public static final String ID_Area_Hide = "Area_Hide";
 	
 	public static enum ColumnName {
@@ -82,12 +83,15 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		
 		final Button button = createControl(ID_Button_Distribute, Button.class);
 		final Button printbutton = createButtonControl(ID_Button_Print);
+		final Button summaryButton = createButtonControl(ID_Button_Summary);
 		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)) {
 			addDeliverAction(button);
 			addPrintAction(printbutton);
+			addSummaryAction(summaryButton);
 		} else {
 			button.dispose();
 			printbutton.dispose();
+			summaryButton.dispose();
 		}
 		
 		search = createControl(ID_Search, SSearchText2.class);
@@ -113,6 +117,20 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 						}
 					}
 				});
+				getContext().bubbleMessage(request);
+			}
+		});
+	}
+	
+	private void addSummaryAction(Button button) {
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Í³¼Æ
+				PageController pc = new PageController(OnlineGoodsSummaryProcessor.class, OnlineGoodsSummaryRender.class);
+				PageControllerInstance pci = new PageControllerInstance(pc);
+				MsgRequest request = new MsgRequest(pci);
 				getContext().bubbleMessage(request);
 			}
 		});

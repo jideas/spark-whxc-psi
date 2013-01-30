@@ -47,6 +47,10 @@ public class PickingOnlineOrderListRender extends PSIMultiItemListPageRender {
 		printButton.setText(" ´ò Ó¡ ");
 		printButton.setID(PickingOnlineOrderListProcessor.ID_Button_Print);
 		
+		Button summaryButton = new Button(footerRightArea, JWT.APPEARANCE3);
+		summaryButton.setText(" Í³ ¼Æ ");
+		summaryButton.setID(PickingOnlineOrderListProcessor.ID_Button_Summary);
+		
 		Composite hideArea = new Composite(footerRightArea);
 		GridData gdHide = new GridData();
 		gdHide.exclude = true;
