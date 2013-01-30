@@ -63,6 +63,12 @@ public final class OnlineOrderUtil {
 		if (CheckIsNull.isNotEmpty(key.getAdvanceValues()) && key.getAdvanceValues().getCreateDateEnd() > 0) {
 			sql.append("@createDateEnd date,");
 		}
+		if (CheckIsNull.isNotEmpty(key.getAdvanceValues()) && key.getAdvanceValues().getDeliveryeDateBegin()> 0) {
+			sql.append("@deliveryeDateBegin date,");
+		}
+		if (CheckIsNull.isNotEmpty(key.getAdvanceValues()) && key.getAdvanceValues().getDeliveryeDateEnd() > 0) {
+			sql.append("@deliveryeDateEnd date,");
+		}
 		sql.append("@temp string");
 		sql.append(")\n");
 		sql.append("begin\n");
@@ -109,6 +115,11 @@ public final class OnlineOrderUtil {
 			{
 				db.setArgumentValue(index++, key.getAdvanceValues().getCreateDateBegin());
 				db.setArgumentValue(index++, key.getAdvanceValues().getCreateDateEnd());
+			}
+			if(null!=key.getAdvanceValues() && key.getAdvanceValues().getDeliveryeDateBegin() > 0 && key.getAdvanceValues().getDeliveryeDateEnd() > 0)
+			{
+				db.setArgumentValue(index++, key.getAdvanceValues().getDeliveryeDateBegin());
+				db.setArgumentValue(index++, key.getAdvanceValues().getDeliveryeDateEnd());
 			}
 		} else if (null != key.getAdvanceValues()) {
 			db.setArgumentValues(key.getAdvanceValues().getCreateDateBegin(), key.getAdvanceValues().getCreateDateEnd());
@@ -170,11 +181,13 @@ public final class OnlineOrderUtil {
 				sql.append("and (t.createDate<").append("@createDateEnd").append(" or t.createDate=").append("@createDateEnd").append(")\n");
 			}
 			if (CheckIsNull.isNotEmpty(av.getDeliveryeDateBegin()) && av.getDeliveryeDateBegin() > 0) {
-				sql.append("and (t.deliveryeDate>").append(av.getDeliveryeDateBegin()).append(" or t.deliveryeDate=").append(
-						av.getDeliveryeDateBegin()).append(")\n");
+				//sql.append("and (t.deliveryeDate>").append(av.getDeliveryeDateBegin()).append(" or t.deliveryeDate=").append(
+//						av.getDeliveryeDateBegin()).append(")\n");
+				sql.append("and (t.deliveryeDate>").append("@deliveryeDateBegin").append(" or t.deliveryeDate=").append(
+						"@deliveryeDateBegin").append(")\n");
 			}
 			if (CheckIsNull.isNotEmpty(av.getDeliveryeDateEnd()) && av.getDeliveryeDateEnd() > 0) {
-				sql.append("and (t.deliveryeDate>").append(av.getDeliveryeDateEnd()).append(" or t.deliveryeDate=").append(av.getDeliveryeDateEnd())
+				sql.append("and (t.deliveryeDate<").append("@deliveryeDateEnd").append(" or t.deliveryeDate=").append("@deliveryeDateEnd")
 						.append(")\n");
 			}
 			sql.append(")\n");
