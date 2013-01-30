@@ -135,7 +135,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		key.setStationId(StringUtils.isEmpty(stationList.getList().getSeleted()) ? null : GUID.tryValueOf(stationList.getList().getSeleted()));
 		GetOnlineOrderListKey.AdvanceValues advance = key.new AdvanceValues();
 		advance.setDeliveryeDateBegin(dateBegin.getDate().getTime());
-		advance.setDeliveryeDateEnd(dateEnd.getDate().getTime());
+		advance.setDeliveryeDateEnd(DateUtil.getDayEndTime(dateEnd.getDate().getTime()));
 		advance.setDeliverTime(StringUtils.isEmpty(timeList.getList().getSeleted()) ? null : timeList.getList().getSeleted());
 		key.setAdvanceValues(advance);
 		ListEntity<OnlineOrderItem> listEntity = getContext().find(OnlineOrderListEntity.class, key);

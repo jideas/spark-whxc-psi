@@ -22,8 +22,8 @@ public class AdvanceSearchPageProcessor extends BaseFormPageProcessor {
 	public static final String ID_Text_BillsNo = "Text_BillsNo";
 	public static final String ID_Text_RealName = "Text_RealName";
 	public static final String ID_Text_StationName = "Text_StationName";
-	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
-	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
+//	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
+//	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
 	public static final String ID_Date_DeliveryeDateBegin = "Date_DeliveryeDateBegin";
 	public static final String ID_Date_DeliveryeDateEnd = "Date_DeliveryeDateEnd";
 	public static final String ID_List_DeliveryeTime = "List_DeliveryeTime";
@@ -35,14 +35,14 @@ public class AdvanceSearchPageProcessor extends BaseFormPageProcessor {
 		final Text sheetNoText = createTextControl(ID_Text_BillsNo);
 		final Text realNameText = createTextControl(ID_Text_RealName);
 		final Text stationNameText = createTextControl(ID_Text_StationName);
-		final SDatePicker createDateBegin = createControl(ID_Date_CreateDateBegin, SDatePicker.class);
-		final SDatePicker createDateEnd = createControl(ID_Date_CreateDateEnd, SDatePicker.class);
+//		final SDatePicker createDateBegin = createControl(ID_Date_CreateDateBegin, SDatePicker.class);
+//		final SDatePicker createDateEnd = createControl(ID_Date_CreateDateEnd, SDatePicker.class);
 		final SDatePicker deliveryeDateBegin = createControl(ID_Date_DeliveryeDateBegin, SDatePicker.class);
 		final SDatePicker deliveryeDateEnd = createControl(ID_Date_DeliveryeDateEnd, SDatePicker.class);
 		final LWComboList deliverTimeList = createControl(ID_List_DeliveryeTime, LWComboList.class);
 		final Button saveButton = createButtonControl(ID_Button_Confirm);
 		
-		createDateBegin.setDate(DateUtil.getThisMonth());
+//		createDateBegin.setDate(DateUtil.getThisMonth());
 		deliveryeDateBegin.setDate(DateUtil.getThisMonth());
 		TimeSource timeSource = new TimeSource();
 		deliverTimeList.getList().setSource(timeSource);
@@ -55,10 +55,10 @@ public class AdvanceSearchPageProcessor extends BaseFormPageProcessor {
 				if (!validateInput()) return;
 				AdvanceSearchCondition condition = new AdvanceSearchCondition();
 				condition.setBillsNo(sheetNoText.getText());
-				condition.setCreateDateBegin(createDateBegin.getDate().getTime());
-				condition.setCreateDateEnd(createDateEnd.getDate().getTime());
+//				condition.setCreateDateBegin(createDateBegin.getDate().getTime());
+//				condition.setCreateDateEnd(createDateEnd.getDate().getTime());
 				condition.setDeliveryeDateBegin(deliveryeDateBegin.getDate().getTime());
-				condition.setDeliveryeDateEnd(deliveryeDateEnd.getDate().getTime());
+				condition.setDeliveryeDateEnd(DateUtil.getDayEndTime(deliveryeDateEnd.getDate().getTime()));
 				condition.setRealName(realNameText.getText());
 				condition.setStationName(stationNameText.getText());
 //				String time = deliverTimeList.getList().getSeleted();
@@ -76,10 +76,10 @@ public class AdvanceSearchPageProcessor extends BaseFormPageProcessor {
 			}
 			
 			private boolean validateInput() {
-				if (createDateBegin.getDate().getTime() > createDateEnd.getDate().getTime()) {
-					alert("下单日期：开始日期不能晚于结束日期。");
-					return false;
-				}
+//				if (createDateBegin.getDate().getTime() > createDateEnd.getDate().getTime()) {
+//					alert("下单日期：开始日期不能晚于结束日期。");
+//					return false;
+//				}
 				if (deliveryeDateBegin.getDate().getTime() > deliveryeDateEnd.getDate().getTime()) {
 					alert("交货日期：开始日期不能晚于结束日期。");
 					return false;
