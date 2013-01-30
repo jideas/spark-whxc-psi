@@ -808,13 +808,13 @@ public class QueryService extends Service {
 				qb.addArgs("stationId", qb.guid, key.getStationId());
 				qb.addEquals("t.stationId", "@stationId");
 			}
-			if (key.getCreateDateBegin() > 0) {
-				qb.addArgs("cBegin", qb.DATE, key.getCreateDateBegin());
-				qb.addGreaterThan("t.createDate", "@cBegin");
+			if (key.getDeliverDateBegin() > 0) {
+				qb.addArgs("cBegin", qb.DATE, key.getDeliverDateBegin());
+				qb.addGreaterThan("t.consignedDate", "@cBegin");
 			}
 			if (key.getCreateDateEnd() > 0) {
 				qb.addArgs("cEnd", qb.DATE, key.getCreateDateEnd()+24*3600000-1);
-				qb.addLessThan("t.createDate", "@cEnd");
+				qb.addLessThan("t.consignedDate", "@cEnd");
 			}
 			if (null != key.getSearchText()) {
 				String searchText = key.getSearchText().trim();

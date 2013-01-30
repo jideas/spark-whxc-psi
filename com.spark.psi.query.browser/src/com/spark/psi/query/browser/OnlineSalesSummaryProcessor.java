@@ -175,9 +175,9 @@ public class OnlineSalesSummaryProcessor extends
 			if(null!=condtion)
 			{
 				if(condtion.getCreateDateBegin()>0)
-				key.setCreateDateBegin(condtion.getCreateDateBegin());
-				if(condtion.getCreateDateEnd()>0)
-				key.setCreateDateEnd(condtion.getCreateDateEnd());
+				key.setDeliverDateBegin(condtion.getCreateDateBegin());
+				if(condtion.getDeliverDateEnd()>0)
+				key.setCreateDateEnd(condtion.getDeliverDateEnd());
 				if(CheckIsNull.isNotEmpty(condtion.getCustomerName()))
 				key.setCustomerName(condtion.getCustomerName());
 				if(CheckIsNull.isNotEmpty(condtion.getGoodsCode()))

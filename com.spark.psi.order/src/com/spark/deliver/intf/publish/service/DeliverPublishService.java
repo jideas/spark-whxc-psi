@@ -1,6 +1,7 @@
 package com.spark.deliver.intf.publish.service;
 
 import java.util.List;
+
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.da.DBCommand;
 import com.jiuqi.dna.core.da.ORMAccessor;
@@ -18,6 +19,7 @@ import com.spark.psi.order.deliver.ORM_Deliver;
 import com.spark.psi.order.deliver.ORM_DeliverDet;
 import com.spark.psi.order.deliver.ORM_DeliverDetByDeliverId;
 import com.spark.psi.publish.DeliverStatus;
+import com.spark.psi.publish.base.station.entity.StationInfo;
 import com.spark.psi.publish.deliver.entity.DeliverInfo;
 import com.spark.psi.publish.deliver.entity.DeliverItem;
 import com.spark.psi.publish.deliver.entity.DeliverListEntity;
@@ -62,7 +64,11 @@ public class DeliverPublishService extends Service {
 			Login login = context.find(Login.class);
 			DeliverEntity d = new DeliverEntity();
 			GUID id = GUID.randomID();
-			d.setAddress(t.getAddress());
+			StationInfo si = context.find(StationInfo.class, t.getStationId());
+			if(null!=si)
+			{
+				d.setAddress(si.getAddress());
+			}
 			d.setCreateDate(System.currentTimeMillis());
 			d.setCreator(context.find(Employee.class, login.getEmployeeId()).getName());
 			d.setCreatorId(login.getEmployeeId());

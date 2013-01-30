@@ -2,8 +2,8 @@ package com.spark.psi.query.browser.util;
 
 public class OnlineSalesSearchCondition {
 
-	private long createDateBegin; // 下单日期
-	private long createDateEnd; // 下单日期
+	private long deliverDateBegin; // 发货日期
+	private long deliverDateEnd; // 发货日期
 	private String customerName;
 	private String goodsCode;// 商品编码
 	private String goodsNo;// 商品条码
@@ -27,16 +27,16 @@ public class OnlineSalesSearchCondition {
 		this.goodsName = goodsName;
 	}
 	public long getCreateDateBegin() {
-		return createDateBegin;
+		return deliverDateBegin;
 	}
-	public void setCreateDateBegin(long createDateBegin) {
-		this.createDateBegin = createDateBegin;
+	public void setDeliverDateBegin(long deliverDateBegin) {
+		this.deliverDateBegin = deliverDateBegin;
 	}
-	public long getCreateDateEnd() {
-		return createDateEnd;
+	public long getDeliverDateEnd() {
+		return deliverDateEnd;
 	}
-	public void setCreateDateEnd(long createDateEnd) {
-		this.createDateEnd = createDateEnd;
+	public void setDeliverDateEnd(long deliverDateEnd) {
+		this.deliverDateEnd = deliverDateEnd;
 	}
 	public String getCustomerName() {
 		return customerName;

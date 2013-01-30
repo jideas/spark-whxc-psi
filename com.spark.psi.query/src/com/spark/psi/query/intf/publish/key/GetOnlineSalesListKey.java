@@ -12,8 +12,8 @@ public class GetOnlineSalesListKey extends LimitKey {
 	private String goodsCode;// 商品编码
 	private String goodsNo;// 商品条码
 	private String goodsName;// 商品名称
-	private long createDateBegin; // 下单日期
-	private long createDateEnd; // 下单日期
+	private long deliverDateBegin; // 发货日期
+	private long deliverDateEnd; // 发货日期
 	private String customerName;
 	private GUID goodsCategoryId;
 	private GUID stationId;
@@ -42,20 +42,20 @@ public class GetOnlineSalesListKey extends LimitKey {
 		this.goodsName = goodsName;
 	}
 
-	public long getCreateDateBegin() {
-		return createDateBegin;
+	public long getDeliverDateBegin() {
+		return deliverDateBegin;
 	}
 
-	public void setCreateDateBegin(long createDateBegin) {
-		this.createDateBegin = createDateBegin;
+	public void setDeliverDateBegin(long deliverDateBegin) {
+		this.deliverDateBegin = deliverDateBegin;
 	}
 
 	public long getCreateDateEnd() {
-		return createDateEnd;
+		return deliverDateEnd;
 	}
 
 	public void setCreateDateEnd(long createDateEnd) {
-		this.createDateEnd = createDateEnd;
+		this.deliverDateEnd = createDateEnd;
 	}
 
 	public void setGoodsCategoryId(GUID goodsCategoryId) {

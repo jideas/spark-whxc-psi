@@ -96,7 +96,7 @@ public final class DeliverServiceUtil {
 				sql.append(" ").append(key.getSortType()).append("\n");
 			}
 		} else {
-			sql.append(" order by t.deliverDate asc \n");
+			sql.append(" order by t.stationName asc,t.deliverDate desc \n");
 		}
 		return sql;
 	}
