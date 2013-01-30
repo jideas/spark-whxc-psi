@@ -62,19 +62,19 @@ public class AdvanceSearchPageRender extends BaseFormPageRender {
 		text.setID(AdvanceSearchPageProcessor.ID_Text_StationName);
 		text.setLayoutData(gdOneRow);
 		
-		label = new Label(formArea);
-		label.setText("下单日期：");
-		label.setLayoutData(gdLabel);
-		SDatePicker date = new SDatePicker(formArea);
-		date.setID(AdvanceSearchPageProcessor.ID_Date_CreateDateBegin);
-		new Label(formArea).setText("至");
-		date = new SDatePicker(formArea);
-		date.setID(AdvanceSearchPageProcessor.ID_Date_CreateDateEnd);
+//		label = new Label(formArea);
+//		label.setText("下单日期：");
+//		label.setLayoutData(gdLabel);
+//		SDatePicker date = new SDatePicker(formArea);
+//		date.setID(AdvanceSearchPageProcessor.ID_Date_CreateDateBegin);
+//		new Label(formArea).setText("至");
+//		date = new SDatePicker(formArea);
+//		date.setID(AdvanceSearchPageProcessor.ID_Date_CreateDateEnd);
 		
 		label = new Label(formArea);
 		label.setText("交货日期：");
 		label.setLayoutData(gdLabel);
-		date = new SDatePicker(formArea);
+		SDatePicker date = new SDatePicker(formArea);
 		date.setID(AdvanceSearchPageProcessor.ID_Date_DeliveryeDateBegin);
 		new Label(formArea).setText("至");
 		date = new SDatePicker(formArea);
