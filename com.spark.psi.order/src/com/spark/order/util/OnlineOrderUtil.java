@@ -105,7 +105,7 @@ public final class OnlineOrderUtil {
 			{
 				db.setArgumentValue(index++, stationIds[i]);
 			}
-			if(null!=key.getAdvanceValues())
+			if(null!=key.getAdvanceValues() && key.getAdvanceValues().getCreateDateBegin() > 0 && key.getAdvanceValues().getCreateDateEnd() > 0)
 			{
 				db.setArgumentValue(index++, key.getAdvanceValues().getCreateDateBegin());
 				db.setArgumentValue(index++, key.getAdvanceValues().getCreateDateEnd());
