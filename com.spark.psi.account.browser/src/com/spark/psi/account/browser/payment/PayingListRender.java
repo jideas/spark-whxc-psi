@@ -30,13 +30,14 @@ public class PayingListRender extends PSIListPageRender {
 	
 	public STableColumn[] getColumns() {
 		
-		STableColumn[] columns = new STableColumn[6];
+		STableColumn[] columns = new STableColumn[7];
 		columns[0] = new STableColumn(PayingListProcessor.ColumnName.payDate.name(), 120, JWT.CENTER, "付款日期");
 		columns[1] = new STableColumn(PayingListProcessor.ColumnName.sheetNo.name(), 150, JWT.LEFT, "单据编号");
 		columns[2] = new STableColumn(PayingListProcessor.ColumnName.partnerName.name(), 120, JWT.LEFT, "付款对象");
 		columns[3] = new STableColumn(PayingListProcessor.ColumnName.payType.name(), 120, JWT.CENTER, "付款类型");
 		columns[4] = new STableColumn(PayingListProcessor.ColumnName.applyAmount.name(), 120, JWT.RIGHT, "申请金额");
-		columns[5] = new STableColumn(PayingListProcessor.ColumnName.applier.name(), 120, JWT.CENTER, "申请人");
+		columns[5] = new STableColumn("paidAmount", 120, JWT.RIGHT, "已收金额");
+		columns[6] = new STableColumn(PayingListProcessor.ColumnName.applier.name(), 120, JWT.CENTER, "申请人");
 		for (int index = 0; index < 5; index++) {
 			columns[index].setGrab(true);
 		}
@@ -69,6 +70,8 @@ public class PayingListRender extends PSIListPageRender {
 		case 4:
 			return DoubleUtil.getRoundStr(item.getAmount());
 		case 5:
+			return DoubleUtil.getRoundStr(item.getPaidAmount());
+		case 6:
 			return item.getCreator();
 		default:
 			return null;
@@ -89,6 +92,8 @@ public class PayingListRender extends PSIListPageRender {
 		case 4:
 			return DoubleUtil.getRoundStr(item.getAmount());
 		case 5:
+			return DoubleUtil.getRoundStr(item.getPaidAmount());
+		case 6:
 			return item.getCreator();
 		default:
 			return null;
