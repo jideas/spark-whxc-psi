@@ -704,7 +704,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 	public String getElementId(Object element) {
 		if (element instanceof PaymentInfoItem) {
 			PaymentInfoItem item = (PaymentInfoItem) element;
-			return item.getCheckinSheetId().toString();
+			return null == item.getCheckinSheetId() ? item.getId().toString() : item.getCheckinSheetId().toString();
 		} else if (element instanceof ReceiptingOrPayingItem) {
 			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem) element;
 			return item.getSheetId().toString();

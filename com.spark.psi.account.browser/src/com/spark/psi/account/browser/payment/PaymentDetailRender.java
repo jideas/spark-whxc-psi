@@ -89,9 +89,9 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 				Label label = new Label(baseInfoArea);
 				label.setText("付款日期：" + DateUtil.dateFromat(info.getPayDate()));
 				label = new Label(baseInfoArea);
-				label.setText("    付款类型：" + info.getPaymentType().getName());
+				label.setText("    付款类型：" + (null == info.getPaymentType() ? "缺失" : info.getPaymentType().getName()));
 				label = new Label(baseInfoArea);
-				label.setText("    付款方式：" + info.getDealingsWay().getName());
+				label.setText("    付款方式：" + (null == info.getDealingsWay() ? "缺失" : info.getDealingsWay().getName()));
 			}
 		} else if (row == 0 && column == 1) {
 			if (PaymentStatus.Paying == info.getStatus()
@@ -249,6 +249,7 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 				case 3:
 					return DoubleUtil.getRoundStr(item.getAmount());
 				case 4:
+					if (null == item.getCheckinSheetId()) return null;
 					LoadReceiptingInventorySheetKey key = new LoadReceiptingInventorySheetKey(item.getCheckinSheetId(), info.getPaymentType());
 					ReceiptingOrPayingItem rItem = getContext().find(ReceiptingOrPayingItem.class, key);
 					if (rItem == null) return null;
