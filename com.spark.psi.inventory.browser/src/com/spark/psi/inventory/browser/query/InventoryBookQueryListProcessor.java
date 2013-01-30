@@ -1,23 +1,27 @@
 package com.spark.psi.inventory.browser.query;
 
+import java.util.Date;
 import java.util.List;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
 import com.jiuqi.dna.core.type.GUID;
+import com.jiuqi.dna.ui.custom.combo.DatePicker;
 import com.jiuqi.dna.ui.custom.combo.LWComboList;
+import com.jiuqi.dna.ui.wt.events.ActionEvent;
+import com.jiuqi.dna.ui.wt.events.ActionListener;
 import com.jiuqi.dna.ui.wt.events.SelectionEvent;
 import com.jiuqi.dna.ui.wt.events.SelectionListener;
+import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.table.SSortDirection;
 import com.spark.common.components.table.STableStatus;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.StringHelper;
+import com.spark.common.utils.date.TimeTest;
 import com.spark.psi.base.browser.PSIGoodsListPageProcessor;
-import com.spark.psi.base.browser.QueryTermSource;
 import com.spark.psi.base.browser.StoreSource;
 import com.spark.psi.publish.InventoryType;
-import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
 import com.spark.psi.publish.StoreStatus;
 import com.spark.psi.publish.inventory.key.ReportInventoryBookKey;
@@ -27,14 +31,17 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 	// 过滤仓库下拉列表
 	public final static String ID_COMBOLIST_STORE = "ComboList_Store";
 	// 过滤日期下拉列表
-	public final static String ID_COMBOLIST_TERM = "ComboList_Term";
+	public final static String ID_COMBOLIST_TERM1 = "ComboList_Term1";
+	public final static String ID_COMBOLIST_TERM2 = "ComboList_Term2";
+	public final static String ID_COMBOLIST_TERM3 = "ComboList_Term_button";
 	// 商品数量
 	public final static String ID_LABEL_INVENTORYBOOK_COUNT = "Label_InventoryBook_Count";
 
 	//
 	private Label countLabel;
 	private LWComboList storeList;
-	private LWComboList termList;
+	private DatePicker termList1, termList2;
+	private Button dateoverBtn;
 
 	@Override
 	public void process(Situation situation) {
@@ -43,7 +50,8 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 
 		//
 		storeList = this.createControl(ID_COMBOLIST_STORE, LWComboList.class);
-		StoreSource storeSource = new StoreSource(StoreStatus.ENABLE, StoreStatus.ONCOUNTING, StoreStatus.STOP);
+		StoreSource storeSource = new StoreSource(StoreStatus.ENABLE,
+				StoreStatus.ONCOUNTING, StoreStatus.STOP);
 		storeSource.setShowAllStoreItem(true);
 		storeList.getList().setSource(storeSource);
 		storeList.getList().setInput(null);
@@ -58,33 +66,42 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 			}
 		});
 
-		//
-		termList = this.createControl(ID_COMBOLIST_TERM, LWComboList.class);
-		QueryTermSource termSource = new QueryTermSource();
-		termList.getList().setSource(termSource);
-		termList.getList().setInput(null);
+		// 
+		termList1 = this.createSDatePickerControl(ID_COMBOLIST_TERM1);
+		termList2 = this.createSDatePickerControl(ID_COMBOLIST_TERM2);
+
 		if (this.getArgument3() != null) {
-			termList.setSelection((String) this.getArgument3());
+			termList1.setDate((Date) this.getArgument3());
 		} else {
-			termList.setSelection(termSource.getFirstStoreId());
+			termList1.setDate(new Date(new TimeTest().getFirstDayOfMonth()));
 		}
-		termList.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
+		if (this.getArgument4() != null) {
+			termList2.setDate((Date) this.getArgument4());
+		} else {
+			termList2.setDate(new Date());
+		}
+		dateoverBtn = this.createButtonControl(ID_COMBOLIST_TERM3);
+		dateoverBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				table.render();
 			}
 		});
-		countLabel = this.createControl(ID_LABEL_INVENTORYBOOK_COUNT, Label.class);
+		countLabel = this.createControl(ID_LABEL_INVENTORYBOOK_COUNT,
+				Label.class);
 	}
 
 	@Override
-	protected Object[] getElements(Context context, String searchText, GUID categoryId, STableStatus tablestatus) {
-		//ReportInventoryBookKey key = new ReportInventoryBookKey(InventoryType.Materials, tablestatus.getBeginIndex(), tablestatus.getPageSize(), true);
-		ReportInventoryBookKey key = new ReportInventoryBookKey(InventoryType.Materials, 0, Integer.MAX_VALUE, false);
+	protected Object[] getElements(Context context, String searchText,
+			GUID categoryId, STableStatus tablestatus) {
+		// ReportInventoryBookKey key = new
+		// ReportInventoryBookKey(InventoryType.Materials,
+		// tablestatus.getBeginIndex(), tablestatus.getPageSize(), true);
+		ReportInventoryBookKey key = new ReportInventoryBookKey(
+				InventoryType.Materials, 0, Integer.MAX_VALUE, false);
 		key.setSearchKey(searchText);
 		key.setGoodsTypeId(categoryId);
-		QueryTerm queryTerm = context.find(QueryTerm.class, termList.getText());
-		key.setBeginTime(queryTerm.getStartTime());
-		key.setEndTime(queryTerm.getEndTime());
+		key.setBeginTime(this.termList1.getDate().getTime());
+		key.setEndTime(this.termList2.getDate().getTime());
 		if (CheckIsNull.isNotEmpty(storeList.getText())) {
 			GUID storeId = GUID.valueOf(storeList.getText());
 			if (!storeId.equals(GUID.emptyID)) {
@@ -93,7 +110,8 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 		}
 
 		if (CheckIsNull.isNotEmpty(tablestatus.getSortColumn())) {
-			key.setSortField(ReportInventoryBookKey.SortField.valueOf(tablestatus.getSortColumn()));
+			key.setSortField(ReportInventoryBookKey.SortField
+					.valueOf(tablestatus.getSortColumn()));
 			if (tablestatus.getSortDirection() == SSortDirection.ASC) {
 				key.setSortType(SortType.Asc);
 			} else {
@@ -134,13 +152,20 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 		this.storeList = storeList;
 	}
 
-	public LWComboList getTermList() {
-		return termList;
+	public DatePicker getTermList1() {
+		return termList1;
 	}
 
-	public void setTermList(LWComboList termList) {
-		this.termList = termList;
+	public void setTermList1(DatePicker termList1) {
+		this.termList1 = termList1;
 	}
-	
-	
+
+	public DatePicker getTermList2() {
+		return termList2;
+	}
+
+	public void setTermList2(DatePicker termList2) {
+		this.termList2 = termList2;
+	}
+
 }
