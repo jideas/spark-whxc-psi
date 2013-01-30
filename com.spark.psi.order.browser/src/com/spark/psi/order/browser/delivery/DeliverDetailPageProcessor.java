@@ -50,6 +50,8 @@ public class DeliverDetailPageProcessor extends AbstractFormProcessor {
 	public static final String ID_Text_PackageCount = "Text_PackageCount";
 	public static final String ID_Label_Status = "Label_Status";
 	public static final String ID_Label_OtherInfo = "Label_OtherInfo";
+	public static final String ID_Label_ExceptionReason = "Label_ExceptionReason";
+	public static final String ID_Label_HandleInfo = "Label_HandleInfo";
 	public static final String ID_Button_ConfirmDeliver = "Button_ConfirmDeliver";
 	public static final String ID_Button_Exception = "Button_Exception";
 	public static final String ID_Button_ConfrimArrive = "Button_ConfirmArrive";
@@ -115,6 +117,18 @@ public class DeliverDetailPageProcessor extends AbstractFormProcessor {
 		
 		addressLabel.setText(deliverInfo.getAddress());
 		statusLabel.setText(deliverInfo.getStatus().getName());
+		
+		if (DeliverStatus.Exception == deliverInfo.getStatus()) {
+			final Label label = createLabelControl(ID_Label_ExceptionReason);
+			label.setText(deliverInfo.getDescription());
+		}
+		if (DeliverStatus.Handled == deliverInfo.getStatus()) {
+			final Label label = createLabelControl(ID_Label_ExceptionReason);
+			label.setText(deliverInfo.getDescription());
+			
+			final Label handleInfoLabel = createLabelControl(ID_Label_HandleInfo);
+			handleInfoLabel.setText(deliverInfo.getFormula());
+		}
 	}
 	
 	private void addActions() {

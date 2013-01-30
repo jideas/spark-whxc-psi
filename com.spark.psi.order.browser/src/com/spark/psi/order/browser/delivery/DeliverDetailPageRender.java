@@ -3,8 +3,10 @@ package com.spark.psi.order.browser.delivery;
 import com.jiuqi.dna.core.situation.Situation;
 import com.jiuqi.dna.core.type.GUID;
 import com.jiuqi.dna.ui.common.constants.JWT;
+import com.jiuqi.dna.ui.wt.graphics.CBorder;
 import com.jiuqi.dna.ui.wt.graphics.Color;
 import com.jiuqi.dna.ui.wt.layouts.GridData;
+import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
@@ -17,6 +19,7 @@ import com.spark.common.components.table.STableColumn;
 import com.spark.common.components.table.STableStyle;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.psi.base.browser.AbstractFormRender;
+import com.spark.psi.publish.DeliverStatus;
 import com.spark.psi.publish.deliver.entity.DeliverInfo;
 
 public class DeliverDetailPageRender extends AbstractFormRender implements SSpanProvider {
@@ -38,6 +41,47 @@ public class DeliverDetailPageRender extends AbstractFormRender implements SSpan
 		table.setLabelProvider(new LabelProvider());
 		table.setSpanProvider(this);
 		table.setID(DeliverDetailPageProcessor.ID_Table);
+		
+		if (DeliverStatus.Exception.equals(deliverInfo.getStatus())
+				|| DeliverStatus.Handled.equals(deliverInfo.getStatus())) {
+			Composite remarkArea = new Composite(contentArea);
+			GridLayout glRemark = new GridLayout(2);
+			glRemark.marginTop = 5;
+			glRemark.marginBottom = 5;
+			glRemark.marginLeft = 10;
+			glRemark.marginRight = 10;
+			remarkArea.setLayout(glRemark);
+			remarkArea.setBackground(Color.COLOR_WHITE);
+			remarkArea.setBorder(new CBorder(1, JWT.BORDER_STYLE_SOLID, 0x78a9bf));
+			
+			GridData gdMemoMain = new GridData(GridData.FILL_HORIZONTAL);
+			gdMemoMain.heightHint = 60;
+			gdMemoMain.verticalIndent = 5;
+			remarkArea.setLayoutData(gdMemoMain);
+	
+			Label titleLabel = new Label(remarkArea);
+			titleLabel.setText("异常原因：");
+			titleLabel.setLayoutData(new GridData(GridData.GRAB_VERTICAL
+					| GridData.VERTICAL_ALIGN_BEGINNING
+					| GridData.HORIZONTAL_ALIGN_END));
+	
+			Label label = new Label(remarkArea, JWT.APPEARANCE3);
+			GridData gdMemo = new GridData(GridData.FILL_BOTH);
+			label.setLayoutData(gdMemo);
+			label.setID(DeliverDetailPageProcessor.ID_Label_ExceptionReason);
+			
+			if (DeliverStatus.Handled.equals(deliverInfo.getStatus())) {
+				titleLabel = new Label(remarkArea);
+				titleLabel.setText("处理方案：");
+				titleLabel.setLayoutData(new GridData(GridData.GRAB_VERTICAL
+						| GridData.VERTICAL_ALIGN_BEGINNING
+						| GridData.HORIZONTAL_ALIGN_END));
+				label = new Label(remarkArea);
+				GridData gdHandleInfo = new GridData(GridData.FILL_BOTH);
+				label.setLayoutData(gdHandleInfo);
+				label.setID(DeliverDetailPageProcessor.ID_Label_HandleInfo);
+			}
+		}
 	}
 
 	private STableColumn[] getColumns() {
@@ -167,8 +211,8 @@ public class DeliverDetailPageRender extends AbstractFormRender implements SSpan
 		switch(columnIndex) {
 		case 0:
 		case 4:
-//		case 5:
-//			return item.getRowSpan();
+		case 5:
+			return item.getRowSpan();
 		}
 		return 0;
 	}
@@ -179,8 +223,8 @@ public class DeliverDetailPageRender extends AbstractFormRender implements SSpan
 		switch(columnIndex) {
 		case 0:
 		case 4:
-//		case 5:
-//			return true;
+		case 5:
+			return true;
 		default:
 			return false;
 		}
