@@ -12,6 +12,8 @@ import com.jiuqi.dna.core.type.GUID;
 import com.jiuqi.dna.ui.custom.combo.LWComboList;
 import com.jiuqi.dna.ui.wt.events.ActionEvent;
 import com.jiuqi.dna.ui.wt.events.ActionListener;
+import com.jiuqi.dna.ui.wt.events.SelectionEvent;
+import com.jiuqi.dna.ui.wt.events.SelectionListener;
 import com.jiuqi.dna.ui.wt.provider.ListSourceAdapter;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.spark.common.components.controls.text.SDatePicker;
@@ -77,14 +79,13 @@ public class OnlineOrderForSelectListProcessor<Item> extends
 		StationProvider stationProvider = new StationProvider();
 		list.getList().setSource(stationProvider);
 		list.getList().setInput(null);
-		list.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+		list.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
 				String selectedStationId = list.getList().getSeleted();
 				stationId = StringUtils.isEmpty(selectedStationId) ? null : GUID.tryValueOf(selectedStationId);
 				table.render();
 			}
-		});
+		}); 
 		if (null == stationProvider.getFirstStationId()) {
 			alert("暂不能退货，没有可用站点。", new Runnable() {
 				
