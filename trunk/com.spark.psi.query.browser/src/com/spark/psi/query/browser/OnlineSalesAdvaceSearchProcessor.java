@@ -16,10 +16,10 @@ public class OnlineSalesAdvaceSearchProcessor extends BaseFormPageProcessor {
 	public static final String ID_Text_GoodsCode = "Text_GoodsCode";
 	public static final String ID_Text_GoodsNo = "Text_GoodsNo";
 	public static final String ID_Text_GoodsName = "Text_GoodsName";
-	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
-	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
-	public static final String ID_Date_DeliveryDateBegin = "Date_DeliveryDateBegin";
-	public static final String ID_Date_DeliveryDateEnd = "Date_DeliveryDateEnd";
+//	public static final String ID_Date_CreateDateBegin = "Date_CreateDateBegin";
+//	public static final String ID_Date_CreateDateEnd = "Date_CreateDateEnd";
+	public static final String ID_Date_DeliverDateBegin = "Date_DeliverDateBegin";
+	public static final String ID_Date_DeliverDateEnd = "Date_DeliverDateEnd";
 	public static final String ID_Button_Confirm = "Button_Confirm";
 	public static final String ID_Button_Cancel = "Button_Cancel";
 	@Override
@@ -29,8 +29,8 @@ public class OnlineSalesAdvaceSearchProcessor extends BaseFormPageProcessor {
 		final Text goodsCodeText = createTextControl(ID_Text_GoodsCode);
 		final Text goodsNoText = createTextControl(ID_Text_GoodsNo);
 		final Text goodsNameText = createTextControl(ID_Text_GoodsName);
-		final SDatePicker createDateBegin = createControl(ID_Date_CreateDateBegin, SDatePicker.class);
-		final SDatePicker createDateEnd = createControl(ID_Date_CreateDateEnd, SDatePicker.class);
+		final SDatePicker deliverDateBegin = createControl(ID_Date_DeliverDateBegin, SDatePicker.class);
+		final SDatePicker deliverDateEnd = createControl(ID_Date_DeliverDateEnd, SDatePicker.class);
 //		final SDatePicker deliveryDateBegin = createControl(ID_Date_DeliveryDateBegin, SDatePicker.class);
 //		final SDatePicker deliveryDateEnd = createControl(ID_Date_DeliveryDateEnd, SDatePicker.class);
 		
@@ -42,8 +42,8 @@ public class OnlineSalesAdvaceSearchProcessor extends BaseFormPageProcessor {
 				// 确定搜索
 				if (!validateInput()) return;
 				OnlineSalesSearchCondition condition = new OnlineSalesSearchCondition();
-				condition.setCreateDateBegin(createDateBegin.getDate().getTime());
-				condition.setCreateDateEnd(createDateEnd.getDate().getTime());
+				condition.setDeliverDateBegin(deliverDateBegin.getDate().getTime());
+				condition.setDeliverDateEnd(deliverDateEnd.getDate().getTime());
 				condition.setCustomerName(customerNameText.getText());
 				condition.setGoodsCode(goodsCodeText.getText());
 				condition.setGoodsName(goodsNameText.getText());
@@ -53,8 +53,8 @@ public class OnlineSalesAdvaceSearchProcessor extends BaseFormPageProcessor {
 			}
 			
 			private boolean validateInput() {
-				if (createDateBegin.getDate().getTime() > createDateEnd.getDate().getTime()) {
-					alert("下单日期：开始日期不能晚于结束日期。");
+				if (deliverDateBegin.getDate().getTime() > deliverDateEnd.getDate().getTime()) {
+					alert("发货日期：开始日期不能晚于结束日期。");
 					return false;
 				}
 //				if (deliveryDateBegin.getDate().getTime() > deliveryDateEnd.getDate().getTime()) {

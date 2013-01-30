@@ -16,11 +16,11 @@ public class OnlineSalesAdvaceSearchRender extends BaseFormPageRender {
 	protected void renderButton(Composite buttonArea) {
 		Button button = new Button(buttonArea, JWT.APPEARANCE3);
 		button.setText(" 确 定 ");
-		button.setID(SaleOrderAdvaceSearchProcessor.ID_Button_Confirm);
+		button.setID(OnlineSalesAdvaceSearchProcessor.ID_Button_Confirm);
 		
 		button = new Button(buttonArea, JWT.APPEARANCE3);
 		button.setText(" 取 消 ");
-		button.setID(SaleOrderAdvaceSearchProcessor.ID_Button_Cancel);
+		button.setID(OnlineSalesAdvaceSearchProcessor.ID_Button_Cancel);
 
 	}
 
@@ -39,54 +39,54 @@ public class OnlineSalesAdvaceSearchRender extends BaseFormPageRender {
 		label.setText("客户名称：");
 		label.setLayoutData(gdLabel);
 		Text text = new Text(formArea, JWT.APPEARANCE3);
-		text.setID(SaleOrderAdvaceSearchProcessor.ID_Text_CustomerName);
+		text.setID(OnlineSalesAdvaceSearchProcessor.ID_Text_CustomerName);
 		text.setLayoutData(gdOneRow);
 		
 //		label = new Label(formArea);
 //		label.setText("销售订单编号：");
 //		label.setLayoutData(gdLabel);
 //		text = new Text(formArea, JWT.APPEARANCE3);
-//		text.setID(SaleOrderAdvaceSearchProcessor.ID_Text_SheetNo);
+//		text.setID(OnlineSalesAdvaceSearchProcessor.ID_Text_SheetNo);
 //		text.setLayoutData(gdOneRow);
 //		
 		label = new Label(formArea);
 		label.setText("商品编号：");
 		label.setLayoutData(gdLabel);
 		text = new Text(formArea, JWT.APPEARANCE3);
-		text.setID(SaleOrderAdvaceSearchProcessor.ID_Text_GoodsCode);
+		text.setID(OnlineSalesAdvaceSearchProcessor.ID_Text_GoodsCode);
 		text.setLayoutData(gdOneRow);
 //		
 		label = new Label(formArea);
 		label.setText("商品条码：");
 		label.setLayoutData(gdLabel);
 		text = new Text(formArea, JWT.APPEARANCE3);
-		text.setID(SaleOrderAdvaceSearchProcessor.ID_Text_GoodsNo);
+		text.setID(OnlineSalesAdvaceSearchProcessor.ID_Text_GoodsNo);
 		text.setLayoutData(gdOneRow);
 //		
 		label = new Label(formArea);
 		label.setText("商品名称：");
 		label.setLayoutData(gdLabel);
 		text = new Text(formArea, JWT.APPEARANCE3);
-		text.setID(SaleOrderAdvaceSearchProcessor.ID_Text_GoodsName);
+		text.setID(OnlineSalesAdvaceSearchProcessor.ID_Text_GoodsName);
 		text.setLayoutData(gdOneRow);
 		
 		label = new Label(formArea);
-		label.setText("下单日期：");
+		label.setText("发货日期：");
 		label.setLayoutData(gdLabel);
 		SDatePicker date = new SDatePicker(formArea);
-		date.setID(SaleOrderAdvaceSearchProcessor.ID_Date_CreateDateBegin);
+		date.setID(OnlineSalesAdvaceSearchProcessor.ID_Date_DeliverDateBegin);
 		new Label(formArea).setText("至");
 		date = new SDatePicker(formArea);
-		date.setID(SaleOrderAdvaceSearchProcessor.ID_Date_CreateDateEnd);
+		date.setID(OnlineSalesAdvaceSearchProcessor.ID_Date_DeliverDateEnd);
 		
 //		label = new Label(formArea);
 //		label.setText("交货日期：");
 //		label.setLayoutData(gdLabel);
 //		date = new SDatePicker(formArea);
-//		date.setID(SaleOrderAdvaceSearchProcessor.ID_Date_DeliveryDateBegin);
+//		date.setID(OnlineSalesAdvaceSearchProcessor.ID_Date_DeliveryDateBegin);
 //		new Label(formArea).setText("至");
 //		date = new SDatePicker(formArea);
-//		date.setID(SaleOrderAdvaceSearchProcessor.ID_Date_DeliveryDateEnd);
+//		date.setID(OnlineSalesAdvaceSearchProcessor.ID_Date_DeliveryDateEnd);
 	}
 	@Override
 	protected boolean customizeFormLayout() {
