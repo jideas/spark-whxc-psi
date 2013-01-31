@@ -124,8 +124,6 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 	
 	private void addSummaryAction(Button button) {
 		button.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Í³¼Æ
 				PageController pc = new PageController(OnlineGoodsSummaryProcessor.class, OnlineGoodsSummaryRender.class);

@@ -60,15 +60,12 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		dateEnd = createControl(ID_Date_Begin, SDatePicker.class);
 		dateBegin.addSelectionListener(new SelectionListener() {
 			
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				table.render();
 			}
 		});
 		
 		dateEnd.addSelectionListener(new SelectionListener() {
-			
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				table.render();
 			}
@@ -81,8 +78,6 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		stationList.getList().setSource(stationProvider);
 		stationList.getList().setInput(null);
 		stationList.addSelectionListener(new SelectionListener() {
-			
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				table.render();
 				
@@ -95,8 +90,6 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		timeList.getList().setInput(null);
 		
 		timeList.addSelectionListener(new SelectionListener() {
-			
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				table.render();
 				
