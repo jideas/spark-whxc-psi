@@ -7,7 +7,7 @@
     <field dbtable="CMS_MEMBER_INFO" name="mobile" name-db="mobile" type="nvarchar(15)" primary-key="false" keep-valid="false" author="" title="手机号" description="" ID="046E906043C74285A61C3CFEEDD704AA" />
     <field dbtable="CMS_MEMBER_INFO" name="telephone" name-db="telephone" type="nvarchar(20)" primary-key="false" keep-valid="false" author="" title="电话" description="" ID="F45683F25880422A9776B7C75A5E909B" />
     <field dbtable="CMS_MEMBER_INFO" name="birthday" name-db="birthday" type="long" primary-key="false" keep-valid="false" author="" title="生日" description="" ID="BFC17D1EDF46CACFDBC08D91CC4E716F" />
-    <field dbtable="CMS_MEMBER_INFO" name="sex" name-db="sex" type="char(1)" primary-key="false" keep-valid="false" author="" title="性别" description="" ID="2C0245F7DCC38D611F4EA0B9C4F40089" />
+    <field dbtable="CMS_MEMBER_INFO" name="sex" name-db="sex" type="char(2)" primary-key="false" keep-valid="false" author="" title="性别" description="" ID="2C0245F7DCC38D611F4EA0B9C4F40089" />
     <field dbtable="CMS_MEMBER_INFO" name="province" name-db="province" type="nvarchar(12)" primary-key="false" keep-valid="false" author="" title="居住地省" description="" ID="878F292F450DC78056691364959B9E5B" />
     <field dbtable="CMS_MEMBER_INFO" name="city" name-db="city" type="nvarchar(12)" primary-key="false" keep-valid="false" author="" title="居住地市" description="" ID="3A2C6C4072E7E14C288B82BB9F658ECC" />
     <field dbtable="CMS_MEMBER_INFO" name="town" name-db="town" type="nvarchar(12)" primary-key="false" keep-valid="false" author="" title="居住地县" description="" ID="B14FF9B2E0C96A50F0222D2881348249" />

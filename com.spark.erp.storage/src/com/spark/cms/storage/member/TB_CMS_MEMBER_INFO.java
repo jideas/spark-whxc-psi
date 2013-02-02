@@ -57,7 +57,7 @@ public final class TB_CMS_MEMBER_INFO extends TableDeclarator {
 		field.setTitle("电话");
 		this.f_birthday = field = this.table.newField(FN_birthday, TypeFactory.LONG);
 		field.setTitle("生日");
-		this.f_sex = field = this.table.newField(FN_sex, TypeFactory.CHAR(1));
+		this.f_sex = field = this.table.newField(FN_sex, TypeFactory.CHAR(2));
 		field.setTitle("性别");
 		this.f_province = field = this.table.newField(FN_province, TypeFactory.NVARCHAR(12));
 		field.setTitle("居住地省");
