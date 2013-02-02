@@ -120,8 +120,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		
 		Button button = createButtonControl(ID_Button_Print);
 		button.addActionListener(new ActionListener() {
-			
-			@Override
+			 
 			public void actionPerformed(ActionEvent e) {
 				printAction();
 			}
@@ -155,12 +154,12 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		FormPrintEntity fpe = new FormPrintEntity("Õ¯…œ∂©µ•", columns, summaryList.toArray(new SummaryGoods[0]), tableTitle0);
 		fpe.setLabelProvider(new SLabelProvider() {
 			
-			@Override
+			
 			public String getToolTipText(Object element, int columnIndex) {
 				return null;
 			}
 			
-			@Override
+			
 			public String getText(Object element, int columnIndex) {
 				SummaryGoods item = (SummaryGoods)element;
 				switch(columnIndex) {
@@ -180,12 +179,12 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 				return null;
 			}
 			
-			@Override
+			
 			public Color getForeground(Object element, int columnIndex) {
 				return null;
 			}
 			
-			@Override
+			
 			public Color getBackground(Object element, int columnIndex) {
 				return null;
 			}
@@ -200,7 +199,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		hideArea.layout();
 	}
 	
-	@Override
+	
 	public Object[] getElements(Context context, STableStatus tablestatus) {
 //		if (StringUtils.isEmpty(stationList.getList().getSeleted())
 //				|| StringUtils.isEmpty(timeList.getList().getSeleted())) {
@@ -416,7 +415,7 @@ class PrintProvider implements PrintContentProvider {
 	public PrintProvider(FormPrintEntity printEntity) {
 		this.printEntity = printEntity;
 	}
-	@Override
+	
 	public String getContentHtml() {
 		StringBuffer buffer = new StringBuffer();
 		for (String commonRow : printEntity.getTableTitles()) {
