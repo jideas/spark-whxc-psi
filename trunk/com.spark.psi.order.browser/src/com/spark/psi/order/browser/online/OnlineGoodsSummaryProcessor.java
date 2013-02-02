@@ -108,7 +108,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 
 	@Override
 	protected String getExportFileTitle() {
-		return null;
+		return "拣货中-商品统计";
 	}
 
 	@Override
