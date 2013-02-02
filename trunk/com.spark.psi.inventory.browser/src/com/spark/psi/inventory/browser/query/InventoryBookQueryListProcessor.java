@@ -101,7 +101,7 @@ public class InventoryBookQueryListProcessor extends PSIGoodsListPageProcessor {
 		key.setSearchKey(searchText);
 		key.setGoodsTypeId(categoryId);
 		key.setBeginTime(this.termList1.getDate().getTime());
-		key.setEndTime(this.termList2.getDate().getTime());
+		key.setEndTime(this.termList2.getDate().getTime()+(24*3600000-1));
 		if (CheckIsNull.isNotEmpty(storeList.getText())) {
 			GUID storeId = GUID.valueOf(storeList.getText());
 			if (!storeId.equals(GUID.emptyID)) {

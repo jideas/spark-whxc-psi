@@ -730,7 +730,7 @@ public final class InventoryServiceUtil {
 		impl.setCheckedOutAmount(stoStream.getOutstoAmount());
 		impl.setCheckedOutCount(stoStream.getOutstoCount());
 		impl.setGoodsItemId(stoStream.getStockId());
-		impl.setGoodsItemCode(stoStream.getStockNo());
+		impl.setGoodsItemCode(stoStream.getCode());
 		impl.setGoodsItemName(stoStream.getName());
 		impl.setGoodsItemProperties(stoStream.getProperties());
 		impl.setGoodsItemUnit(stoStream.getUnit());

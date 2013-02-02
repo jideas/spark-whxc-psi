@@ -35,27 +35,26 @@ public class PhoneMsgPublishService extends Service {
 		if (null == config) {
 			UpdatePhoneMsgConfigTask task = new UpdatePhoneMsgConfigTask();
 			task.setActiving(false);
-			// task.setBalanceUrl("http://oa-sms.com/balance.action");
-			// task.setSubmitUrl("http://oa-sms.com/sendSms.action");
-			// task.setCompAccountKey("corpAccount");
-			// task.setCompAccount("yanshi");
-			// task.setUserNameKey("userAccount");
-			// task.setUserName("ceshi01");
-			// task.setPasswordKey("pwd");
-			// task.setPassword("123456");
-			// task.setPhoneNumberKey("mobile");
-			// task.setMsgContentKey("content");
-			task.setBalanceUrl("http://api.100866.net:8966/balance");
-			task.setSubmitUrl("http://api.100866.net:8966/submit");
-//			task.setCompAccountKey("corpAccount");
-//			task.setCompAccount("yanshi");
-			task.setUserNameKey("cpCode");
-			task.setUserName("wuhanxinchen2012");
-			task.setPasswordKey("cpPassword");
+			task.setBalanceUrl("http://oa-sms.com/balance.action");
+			task.setSubmitUrl("http://oa-sms.com/sendSms.action");
+			task.setCompAccountKey("corpAccount");
+			task.setCompAccount("qhshg");
+			task.setUserNameKey("userAccount");
+			task.setUserName("admin");
+			task.setPasswordKey("pwd");
 			task.setPassword("123456");
-			task.setPhoneNumberKey("userNumber");
-			task.setMsgContentKey("msgContent");
+			task.setPhoneNumberKey("mobile");
+			task.setMsgContentKey("content");
 			task.setSecretkey(realSecretKey);
+			// task.setBalanceUrl("http://api.100866.net:8966/balance");
+			// task.setSubmitUrl("http://api.100866.net:8966/submit");
+			// task.setUserNameKey("cpCode");
+			// task.setUserName("wuhanxinchen2012");
+			// task.setPasswordKey("cpPassword");
+			// task.setPassword("123456");
+			// task.setPhoneNumberKey("userNumber");
+			// task.setMsgContentKey("msgContent");
+			// task.setSecretkey(realSecretKey);
 			context.handle(task);
 		}
 	}
@@ -67,10 +66,12 @@ public class PhoneMsgPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class UpdatePhoneMsgConfigHandler extends SimpleTaskMethodHandler<UpdatePhoneMsgConfigTask> {
+	protected class UpdatePhoneMsgConfigHandler extends
+			SimpleTaskMethodHandler<UpdatePhoneMsgConfigTask> {
 
 		@Override
-		protected void handle(Context context, UpdatePhoneMsgConfigTask task) throws Throwable {
+		protected void handle(Context context, UpdatePhoneMsgConfigTask task)
+				throws Throwable {
 			GUID userId = context.find(Login.class).getEmployeeId();
 			String modfiyPerson = null;
 			if (null != userId) {
@@ -88,14 +89,22 @@ public class PhoneMsgPublishService extends Service {
 				ub.addColumn("submitUrl", ub.STRING, task.getSubmitUrl());
 				ub.addColumn("userNameKey", ub.STRING, task.getUserNameKey());
 				ub.addColumn("passwordKey", ub.STRING, task.getPasswordKey());
-				ub.addColumn("companyAccountKey", ub.STRING, task.getCompAccountKey());
-				ub.addColumn("companyAccount", ub.STRING, task.getCompAccount());
-				ub.addColumn("phoneNumberKey", ub.STRING, task.getPhoneNumberKey());
-				ub.addColumn("msgContentKey", ub.STRING, task.getMsgContentKey());
-				ub.addColumn("userName", ub.STRING, EncryptionUtil.encryptAES(task.getUserName(), task.getSecretkey()));
-				ub.addColumn("password", ub.STRING, EncryptionUtil.encryptAES(EncryptionUtil.encryptAES(task
-						.getPassword(), task.getSecretkey()), realSecretKey));
-				ub.addColumn("secretKey", ub.STRING, EncryptionUtil.encryptAES(task.getSecretkey(), realSecretKey));
+				ub.addColumn("companyAccountKey", ub.STRING, task
+						.getCompAccountKey());
+				ub
+						.addColumn("companyAccount", ub.STRING, task
+								.getCompAccount());
+				ub.addColumn("phoneNumberKey", ub.STRING, task
+						.getPhoneNumberKey());
+				ub.addColumn("msgContentKey", ub.STRING, task
+						.getMsgContentKey());
+				ub.addColumn("userName", ub.STRING, EncryptionUtil.encryptAES(
+						task.getUserName(), task.getSecretkey()));
+				ub.addColumn("password", ub.STRING, EncryptionUtil.encryptAES(
+						EncryptionUtil.encryptAES(task.getPassword(), task
+								.getSecretkey()), realSecretKey));
+				ub.addColumn("secretKey", ub.STRING, EncryptionUtil.encryptAES(
+						task.getSecretkey(), realSecretKey));
 				ub.addColumn("modfiyPerson", ub.STRING, modfiyPerson);
 				ub.addColumn("modfiyDate", ub.DATE, System.currentTimeMillis());
 				ub.execute();
@@ -110,14 +119,18 @@ public class PhoneMsgPublishService extends Service {
 			ub.addColumn("submitUrl", ub.STRING, task.getSubmitUrl());
 			ub.addColumn("userNameKey", ub.STRING, task.getUserNameKey());
 			ub.addColumn("passwordKey", ub.STRING, task.getPasswordKey());
-			ub.addColumn("companyAccountKey", ub.STRING, task.getCompAccountKey());
+			ub.addColumn("companyAccountKey", ub.STRING, task
+					.getCompAccountKey());
 			ub.addColumn("companyAccount", ub.STRING, task.getCompAccount());
 			ub.addColumn("phoneNumberKey", ub.STRING, task.getPhoneNumberKey());
 			ub.addColumn("msgContentKey", ub.STRING, task.getMsgContentKey());
-			ub.addColumn("userName", ub.STRING, EncryptionUtil.encryptAES(task.getUserName(), task.getSecretkey()));
-			ub.addColumn("password", ub.STRING, EncryptionUtil.encryptAES(EncryptionUtil.encryptAES(task.getPassword(),
-					task.getSecretkey()), realSecretKey));
-			ub.addColumn("secretKey", ub.STRING, EncryptionUtil.encryptAES(task.getSecretkey(), realSecretKey));
+			ub.addColumn("userName", ub.STRING, EncryptionUtil.encryptAES(task
+					.getUserName(), task.getSecretkey()));
+			ub.addColumn("password", ub.STRING, EncryptionUtil.encryptAES(
+					EncryptionUtil.encryptAES(task.getPassword(), task
+							.getSecretkey()), realSecretKey));
+			ub.addColumn("secretKey", ub.STRING, EncryptionUtil.encryptAES(task
+					.getSecretkey(), realSecretKey));
 			ub.addColumn("modfiyPerson", ub.STRING, modfiyPerson);
 			ub.addColumn("modfiyDate", ub.DATE, System.currentTimeMillis());
 			ub.addCondition("id", ub.guid, task.getId(), "t.RECID=@id");
@@ -133,7 +146,8 @@ public class PhoneMsgPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class LoadPhoneMsgConfigProvider extends ResultProvider<PhoneMessageConfig> {
+	protected class LoadPhoneMsgConfigProvider extends
+			ResultProvider<PhoneMessageConfig> {
 
 		@Override
 		protected PhoneMessageConfig provide(Context context) throws Throwable {
@@ -151,9 +165,11 @@ public class PhoneMsgPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class LoadConfigProvider extends OneKeyResultProvider<PhoneMessageConfig, Boolean> {
+	protected class LoadConfigProvider extends
+			OneKeyResultProvider<PhoneMessageConfig, Boolean> {
 		@Override
-		protected PhoneMessageConfig provide(Context context, Boolean key) throws Throwable {
+		protected PhoneMessageConfig provide(Context context, Boolean key)
+				throws Throwable {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addTable(ERPTableNames.Base.PhoneMsgConfig.getTableName(), "t");
 			qb.addColumn("t.RECID", "RECID");
@@ -189,11 +205,14 @@ public class PhoneMsgPublishService extends Service {
 				String username = rs.getFields().get(index++).getString();
 				String password = rs.getFields().get(index++).getString();
 
-				impl.setSecretkey(EncryptionUtil.decryptAES(secretKey, realSecretKey));
+				impl.setSecretkey(EncryptionUtil.decryptAES(secretKey,
+						realSecretKey));
 
-				impl.setUserName(EncryptionUtil.decryptAES(username, impl.getSecretkey()));
+				impl.setUserName(EncryptionUtil.decryptAES(username, impl
+						.getSecretkey()));
 				password = EncryptionUtil.decryptAES(password, realSecretKey);
-				impl.setPassword(EncryptionUtil.decryptAES(password, impl.getSecretkey()));
+				impl.setPassword(EncryptionUtil.decryptAES(password, impl
+						.getSecretkey()));
 				return impl;
 			}
 			return null;
@@ -207,10 +226,12 @@ public class PhoneMsgPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class LoadPhoneMsgActiveConfigProvider extends ResultProvider<PhoneMsgActiveConfig> {
+	protected class LoadPhoneMsgActiveConfigProvider extends
+			ResultProvider<PhoneMsgActiveConfig> {
 
 		@Override
-		protected PhoneMsgActiveConfig provide(Context context) throws Throwable {
+		protected PhoneMsgActiveConfig provide(Context context)
+				throws Throwable {
 			if (null == config) {
 				PhoneMsgPublishService.this.init(context);
 			}

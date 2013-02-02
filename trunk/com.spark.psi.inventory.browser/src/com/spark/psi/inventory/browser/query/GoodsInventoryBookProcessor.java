@@ -144,7 +144,7 @@ public class GoodsInventoryBookProcessor extends
 			key.setSearchKey(searchText);
 			key.setGoodsTypeId(categoryId);
 			key.setBeginTime(this.termList1.getDate().getTime());
-			key.setEndTime(this.termList2.getDate().getTime());
+			key.setEndTime(this.termList2.getDate().getTime()+(24*3600000-1));
 			key.setStoreId(Store.GoodsStoreId);
 			// if (CheckIsNull.isNotEmpty(storeList.getText())) {
 			// GUID storeId = GUID.valueOf(storeList.getText());
