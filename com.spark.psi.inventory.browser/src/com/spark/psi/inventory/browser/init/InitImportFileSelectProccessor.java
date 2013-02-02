@@ -119,6 +119,10 @@ public class InitImportFileSelectProccessor extends BaseFormPageProcessor {
 				return null;
 			}
 			
+			if (null == info.getItems() || info.getItems().length < 1) {
+				alert("编号为" + materialCode + "的材料出现异常，请与管理员联系");
+				return null;
+			}
 			InitInventoryItem inventoryItem = new InitInventoryItem();
 			inventoryItem.setStockId(info.getItems()[0].getId());
 			inventoryItem.setCode(info.getCode());
