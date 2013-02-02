@@ -57,7 +57,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		stationList = createControl(ID_List_Station, LWComboList.class);
 		timeList = createControl(ID_List_DelvierTime, LWComboList.class);
 		dateBegin = createControl(ID_Date_Begin, SDatePicker.class);
-		dateEnd = createControl(ID_Date_Begin, SDatePicker.class);
+		dateEnd = createControl(ID_Date_End, SDatePicker.class);
 		dateBegin.addSelectionListener(new SelectionListener() {
 			
 			public void widgetSelected(SelectionEvent e) {
