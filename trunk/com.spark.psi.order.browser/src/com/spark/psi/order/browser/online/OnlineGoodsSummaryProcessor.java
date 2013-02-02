@@ -142,9 +142,9 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 	
 	private void printAction() {
 		PrintColumn[] columns = new PrintColumn[6];
-		columns[0] = new PrintColumn("商品编号", 150, JWT.LEFT);
-		columns[1] = new PrintColumn("商品条码", 150, JWT.LEFT);
-		columns[2] = new PrintColumn("商品名称", 150, JWT.LEFT);
+		columns[0] = new PrintColumn("商品编号", 120, JWT.LEFT);
+		columns[1] = new PrintColumn("商品条码", 120, JWT.LEFT);
+		columns[2] = new PrintColumn("商品名称", 200, JWT.LEFT);
 		columns[3] = new PrintColumn("规格", 100, JWT.LEFT);
 		columns[4] = new PrintColumn("单价", 100, JWT.RIGHT);
 		columns[5] = new PrintColumn("数量", 80, JWT.RIGHT);
@@ -175,7 +175,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 				case 4:
 					return DoubleUtil.getRoundStr(item.getPrice());
 				case 5:
-					return DoubleUtil.getRoundStr(item.getCount());
+					return DoubleUtil.getRoundStr(item.getCount(), 0);
 				}
 				return null;
 			}
