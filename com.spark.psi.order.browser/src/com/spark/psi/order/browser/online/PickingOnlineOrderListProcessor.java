@@ -84,7 +84,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		final Button button = createControl(ID_Button_Distribute, Button.class);
 		final Button printbutton = createButtonControl(ID_Button_Print);
 		final Button summaryButton = createButtonControl(ID_Button_Summary);
-		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)) {
+		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)||loginInfo.hasAuth(Auth.Distribute)) {
 			addDeliverAction(button);
 			addPrintAction(printbutton);
 			addSummaryAction(summaryButton);

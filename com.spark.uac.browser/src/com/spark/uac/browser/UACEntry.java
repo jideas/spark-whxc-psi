@@ -6,7 +6,7 @@ import com.jiuqi.dna.ui.wt.widgets.Shell;
 public class UACEntry implements UIEntry {
 
 	public void createUI(String[] args, Shell shell) {
-		shell.setTitle("七号生活馆");
+		shell.setTitle("7号生活馆");
 		shell.showPage("UAC_LoginPage");
 
 	}

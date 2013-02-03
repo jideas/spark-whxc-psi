@@ -400,7 +400,7 @@ public final class OnlineOrderUtil {
 				entity.setMessage("您的订单已开始配送");
 				entity.setOperator(emp.getName());
 			} else if (UpdateOnlineOrderStatusTask.Method.Finish.equals(t.getMethod())) {
-				entity.setMessage("您的订单已完成，感谢您在七号生活馆购物，欢迎再次光临！");
+				entity.setMessage("您的订单已完成，感谢您在7号生活馆购物，欢迎再次光临！");
 				entity.setOperator(emp.getName());
 			} else if (UpdateOnlineOrderStatusTask.Method.Picking.equals(t.getMethod())) {
 				entity.setMessage("您的订单已开始拣货");

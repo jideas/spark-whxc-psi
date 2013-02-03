@@ -56,7 +56,7 @@ public class SendMsgService extends Service{
 			try{
 			Tenant tenant = context.find(Tenant.class,task.getTenantId());
 			RemoteServiceInvoker remote = context.newEfficientRemoteServiceInvoker(context.find(HostInfo.class,HostType.HOST_TYPE_OPERATION).getURL());
-			remote.handle(new SendMessageTask(task.getMobileNo(),task.getMsg()+"["+tenant.getTitle()+"][七号生活馆]"));
+			remote.handle(new SendMessageTask(task.getMobileNo(),task.getMsg()+"["+tenant.getTitle()+"][7号生活馆]"));
 	        System.out.println("发送短消息成功!");
 			}catch (Exception e) {
 				System.err.println("未启动运营平台，不能发送短信");
