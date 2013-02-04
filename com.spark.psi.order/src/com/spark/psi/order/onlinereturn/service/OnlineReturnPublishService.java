@@ -261,7 +261,7 @@ public class OnlineReturnPublishService extends Service {
 				qb.addEquals("t.status", "@status1");
 				break;
 			case Processing:
-				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)) {
+				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)&&!login.hasAuth(Auth.ProduceManager)) {
 					List<Employee> list = context.getList(Employee.class,
 							new GetChildrenDeptEmployeeListByAuthKey(user.getDepartmentId(), Auth.Sales));
 					List<String> params = new ArrayList<String>();
@@ -281,7 +281,7 @@ public class OnlineReturnPublishService extends Service {
 				qb.addCondition("(t.status = @status1)");
 				break;
 			case Finished:
-				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)) {
+				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)&&!login.hasAuth(Auth.ProduceManager)) {
 					List<Employee> list = context.getList(Employee.class,
 							new GetChildrenDeptEmployeeListByAuthKey(user.getDepartmentId(), Auth.Sales));
 					List<String> params = new ArrayList<String>();
