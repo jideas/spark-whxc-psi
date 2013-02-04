@@ -28,7 +28,9 @@ import com.spark.onlineorder.intf.publish.entity.TotalMaterialsItemImpl.GoodsIte
 import com.spark.psi.base.Employee;
 import com.spark.psi.base.Login;
 import com.spark.psi.base.key.GetInventoryByStockIdKey;
+import com.spark.psi.publish.Auth;
 import com.spark.psi.publish.InventoryType;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.OnlineOrderStatus;
 import com.spark.psi.publish.base.station.entity.StationItem;
 import com.spark.psi.publish.base.station.key.GetStationListKey;
@@ -147,6 +149,11 @@ public final class OnlineOrderUtil {
 		}
 
 		GetStationListKey sk = new GetStationListKey();
+		LoginInfo loginInfo = context.find(LoginInfo.class);
+		if(loginInfo.hasAuth(Auth.Distribute))
+		{
+			sk.setQueryAll(true);
+		}
 		List<StationItem> list = context.getList(StationItem.class, sk);
 
 		if (CheckIsNull.isNotEmpty(list)) {
