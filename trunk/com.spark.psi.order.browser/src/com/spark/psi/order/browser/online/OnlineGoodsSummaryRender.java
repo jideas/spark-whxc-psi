@@ -8,6 +8,7 @@ import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.controls.text.SDatePicker;
 import com.spark.common.components.table.STableColumn;
+import com.spark.common.components.table.STableStyle;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.psi.base.browser.PSIListPageRender;
 
@@ -64,6 +65,13 @@ public class OnlineGoodsSummaryRender extends PSIListPageRender {
 			columns[index].setGrab(true);
 		}
 		return columns;
+	}
+
+	@Override
+	public STableStyle getTableStyle() {
+		STableStyle sTableStyle = new STableStyle();
+		sTableStyle.setPageAble(false);
+		return sTableStyle;
 	}
 
 	@Override

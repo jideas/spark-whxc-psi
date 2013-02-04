@@ -44,7 +44,8 @@ import com.spark.psi.publish.onlineorder.entity.OnlineOrderListEntity;
 import com.spark.psi.publish.onlineorder.entity.OnlineOrderShowItem;
 import com.spark.psi.publish.onlineorder.key.GetOnlineOrderListKey;
 
-public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageProcessor<Item> {
+public class PickingOnlineOrderListProcessor<Item> extends
+		PSIMultiItemListPageProcessor<Item> {
 
 	public static final String ID_Label_Count = "Label_Count";
 	public static final String ID_Label_Amount = "Label_Amount";
@@ -54,61 +55,67 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 	public static final String ID_Button_Print = "Button_Print";
 	public static final String ID_Button_Summary = "Button_Summary";
 	public static final String ID_Area_Hide = "Area_Hide";
-	
+
 	public static enum ColumnName {
-		code, goodsName, properties, count, customerName, 
-		amount, bookingTime, deliveredTime, station,isToDoor
+		code, goodsName, properties, count, customerName, amount, bookingTime, deliveredTime, station, isToDoor
 	}
-	
-	private Label countLabel       =  null;
-	private Label amountLabel      =  null;
-	
-	private SSearchText2 search   = null;
-	private AdvanceSearchCondition advanceCondition  = null;
+
+	private Label countLabel = null;
+	private Label amountLabel = null;
+
+	private SSearchText2 search = null;
+	private AdvanceSearchCondition advanceCondition = null;
 	private List<OnlineOrderItem> orderList = new ArrayList<OnlineOrderItem>();
-	
-	private LoginInfo loginInfo    = null;
-	
-	
+
+	private LoginInfo loginInfo = null;
+
 	@Override
 	public void init(Situation context) {
 		super.init(context);
 		loginInfo = context.find(LoginInfo.class);
 	}
+
 	@Override
 	public void process(final Situation context) {
 		super.process(context);
 		countLabel = createControl(ID_Label_Count, Label.class);
 		amountLabel = createControl(ID_Label_Amount, Label.class);
-		
+
 		final Button button = createControl(ID_Button_Distribute, Button.class);
 		final Button printbutton = createButtonControl(ID_Button_Print);
 		final Button summaryButton = createButtonControl(ID_Button_Summary);
-		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)||loginInfo.hasAuth(Auth.Distribute)) {
+		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)) {
 			addDeliverAction(button);
 			addPrintAction(printbutton);
-			addSummaryAction(summaryButton);
+
 		} else {
 			button.dispose();
 			printbutton.dispose();
+
+		}
+		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_Deliver)
+				|| loginInfo.hasAuth(Auth.Distribute)) {
+			addSummaryAction(summaryButton);
+		} else {
 			summaryButton.dispose();
 		}
-		
+
 		search = createControl(ID_Search, SSearchText2.class);
 		search.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				advanceCondition = null;
 				table.render();
 			}
 		});
-		final Button advanceButton = createControl(ID_Search_Advanced, Button.class);
+		final Button advanceButton = createControl(ID_Search_Advanced,
+				Button.class);
 		advanceButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				MsgRequest request = OnlineCommon.createAdvanceRequest();
 				request.setResponseHandler(new ResponseHandler() {
-					
+
 					public void handle(Object returnValue, Object returnValue2,
 							Object returnValue3, Object returnValue4) {
 						if (null != returnValue) {
@@ -121,25 +128,28 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			}
 		});
 	}
-	
+
 	private void addSummaryAction(Button button) {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 统计
-				PageController pc = new PageController(OnlineGoodsSummaryProcessor.class, OnlineGoodsSummaryRender.class);
+				PageController pc = new PageController(
+						OnlineGoodsSummaryProcessor.class,
+						OnlineGoodsSummaryRender.class);
 				PageControllerInstance pci = new PageControllerInstance(pc);
 				MsgRequest request = new MsgRequest(pci, "商品统计");
 				getContext().bubbleMessage(request);
 			}
 		});
 	}
-	
+
 	private void addPrintAction(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 批量打印
-				if (null == table.getSelections() || table.getSelections().length < 1) {
+				if (null == table.getSelections()
+						|| table.getSelections().length < 1) {
 					alert("请先选择订单。");
 					return;
 				}
@@ -149,8 +159,10 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 					OnlineOrderItem item = selectedItems[itemIndex];
 					printEntities[itemIndex] = getPrintEntityByOnineItem(item);
 				}
-				Composite hideArea = createControl(ID_Area_Hide, Composite.class);
-				OnlineOrderPrintConentProvider printProvider = new OnlineOrderPrintConentProvider(printEntities);
+				Composite hideArea = createControl(ID_Area_Hide,
+						Composite.class);
+				OnlineOrderPrintConentProvider printProvider = new OnlineOrderPrintConentProvider(
+						printEntities);
 				PSIPrinter printer = new PSIPrinter(printProvider);
 				hideArea.clear();
 				Browser browser = new Browser(hideArea);
@@ -160,51 +172,70 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			}
 		});
 	}
-	
+
 	private FormPrintEntity getPrintEntityByOnineItem(OnlineOrderItem item) {
 		PrintColumn[] columns = new PrintColumn[4];
-		columns[0] = new PrintColumn("商品名称", PrintColumn.NAME_COLUMN_WIDTH, JWT.LEFT);
-		columns[1] = new PrintColumn("规格", PrintColumn.SPEC_COLUMN_WIDTH, JWT.CENTER);
-		columns[2] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH, JWT.CENTER);
-		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH, JWT.LEFT);
-//		String tableTitle0 = "客户：" + item.getRealName();
-//		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
-//		String memberBalance  = null;
-//		if (null != memberAccount) {
-//			memberBalance = "帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元"; 
-//			memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
-//		}
-//		String tableTitle1 = "联系电话：" + item.getConsigneeTel();
-//		String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
-//		String tableTitle3 = "下单时间：" + DateUtil.dateFromat(item.getCreateDate(), DateUtil.DATE_TIME_PATTERN);
-//		String tableTitle4 = "站点：" + item.getStationName();
-//		String tableTitle5 = "收货地址：" + item.getAddress();
-//		String tableTitle6 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
-//		String[] titles = null;
-//		if (memberBalance == null) {
-//			titles = new String[] {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-//		} else {
-//			titles = new String[] {tableTitle0, memberBalance, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
-//		}
-		String tableTitle0 = "服务站点：<font size='3'><strong>" + item.getStationName() + "</strong></font>";
+		columns[0] = new PrintColumn("商品名称", PrintColumn.NAME_COLUMN_WIDTH,
+				JWT.LEFT);
+		columns[1] = new PrintColumn("规格", PrintColumn.SPEC_COLUMN_WIDTH,
+				JWT.CENTER);
+		columns[2] = new PrintColumn("数量", PrintColumn.COUNT_COLUMN_WIDTH,
+				JWT.CENTER);
+		columns[3] = new PrintColumn("金额", PrintColumn.AMOUNT_COLUMN_WIDTH,
+				JWT.LEFT);
+		// String tableTitle0 = "客户：" + item.getRealName();
+		// MemberAccountInfo memberAccount =
+		// getContext().find(MemberAccountInfo.class, item.getMemberId());
+		// String memberBalance = null;
+		// if (null != memberAccount) {
+		// memberBalance = "帐户余额：" +
+		// DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元";
+		// memberBalance += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剩余积分：" +
+		// DoubleUtil.getRoundStr(memberAccount.getVantages(), 0);
+		// }
+		// String tableTitle1 = "联系电话：" + item.getConsigneeTel();
+		// String tableTitle2 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
+		// String tableTitle3 = "下单时间：" +
+		// DateUtil.dateFromat(item.getCreateDate(),
+		// DateUtil.DATE_TIME_PATTERN);
+		// String tableTitle4 = "站点：" + item.getStationName();
+		// String tableTitle5 = "收货地址：" + item.getAddress();
+		// String tableTitle6 = "收货日期：" +
+		// DateUtil.dateFromat(item.getDeliveryeDate(),
+		// DateUtil.DATE_TIME_PATTERN);
+		// String[] titles = null;
+		// if (memberBalance == null) {
+		// titles = new String[] {tableTitle0, tableTitle1, tableTitle2,
+		// tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		// } else {
+		// titles = new String[] {tableTitle0, memberBalance, tableTitle1,
+		// tableTitle2, tableTitle3, tableTitle4, tableTitle5, tableTitle6};
+		// }
+		String tableTitle0 = "服务站点：<font size='3'><strong>"
+				+ item.getStationName() + "</strong></font>";
 		String tableTitle1 = "订单编号：" + item.getBillsNo().split("WSDD")[1];
 		String tableTitle2 = "收货人：" + item.getConsignee();
 		String tableTitle3 = "联系电话：" + item.getConsigneeTel();
 		String tableTitle4 = "收货地址：" + item.getAddress();
-		String tableTitle5 = "收货日期：" + DateUtil.dateFromat(item.getDeliveryeDate(), DateUtil.DATE_TIME_PATTERN);
-		String[] titles = {tableTitle0, tableTitle1, tableTitle2, tableTitle3, tableTitle4, tableTitle5};
-//		double totalCount = 0.0;
-//		double totalAmount = 0.0;
-//		for (OnlineOrderInfoItem oItem : item.getItems()) {
-//			totalCount += oItem.getCount();
-//			totalAmount += oItem.getAmount();
-//		}
-//		summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" + DoubleUtil.getRoundStr(totalAmount);
-//		String summaryInfo = "";
-//		商品数：2           件数：3             合计：20.00
-//		账户余额：1,558.90    
-//		可用积分：800
-//		打印日期：2013-01-27
+		String tableTitle5 = "收货日期："
+				+ DateUtil.dateFromat(item.getDeliveryeDate(),
+						DateUtil.DATE_TIME_PATTERN);
+		String[] titles = { tableTitle0, tableTitle1, tableTitle2, tableTitle3,
+				tableTitle4, tableTitle5 };
+		// double totalCount = 0.0;
+		// double totalAmount = 0.0;
+		// for (OnlineOrderInfoItem oItem : item.getItems()) {
+		// totalCount += oItem.getCount();
+		// totalAmount += oItem.getAmount();
+		// }
+		// summaryInfo = "总件数：" + DoubleUtil.getRoundStr(totalCount) +
+		// "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：" +
+		// DoubleUtil.getRoundStr(totalAmount);
+		// String summaryInfo = "";
+		// 商品数：2 件数：3 合计：20.00
+		// 账户余额：1,558.90
+		// 可用积分：800
+		// 打印日期：2013-01-27
 		double totalCount = 0.0;
 		double totalAmount = 0.0;
 		for (OnlineOrderInfoItem oItem : item.getItems()) {
@@ -212,31 +243,39 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			totalAmount += oItem.getAmount();
 		}
 		String summaryInfo = "";
-		summaryInfo = "商品数：" + item.getItems().length + "&nbsp;&nbsp;&nbsp;总件数：" + DoubleUtil.getRoundStr(totalCount, 0) + "&nbsp;&nbsp;&nbsp;合计：" + DoubleUtil.getRoundStr(totalAmount); 
-		MemberAccountInfo memberAccount = getContext().find(MemberAccountInfo.class, item.getMemberId());
+		summaryInfo = "商品数：" + item.getItems().length
+				+ "&nbsp;&nbsp;&nbsp;总件数："
+				+ DoubleUtil.getRoundStr(totalCount, 0)
+				+ "&nbsp;&nbsp;&nbsp;合计：" + DoubleUtil.getRoundStr(totalAmount);
+		MemberAccountInfo memberAccount = getContext().find(
+				MemberAccountInfo.class, item.getMemberId());
 		List<String> footerList = new ArrayList<String>();
 		footerList.add(summaryInfo);
 		if (null != memberAccount) {
-			footerList.add("帐户余额：" + DoubleUtil.getRoundStr(memberAccount.getMoneyBalance()) + "元");
-			footerList.add("剩余积分：" + DoubleUtil.getRoundStr(memberAccount.getVantages(), 0));
+			footerList.add("帐户余额："
+					+ DoubleUtil.getRoundStr(memberAccount.getMoneyBalance())
+					+ "元");
+			footerList.add("剩余积分："
+					+ DoubleUtil.getRoundStr(memberAccount.getVantages(), 0));
 		}
 		footerList.add("打印日期：" + DateUtil.dateFromat(new Date().getTime()));
-		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item.getItems(), titles);
-//		entity.setSummaryInfo(summaryInfo);
+		FormPrintEntity entity = new FormPrintEntity("网上订单", columns, item
+				.getItems(), titles);
+		// entity.setSummaryInfo(summaryInfo);
 		entity.setTableFooters(footerList.toArray(new String[0]));
 		entity.setLabelProvider(new SLabelProvider() {
-			
+
 			public String getToolTipText(Object element, int columnIndex) {
 				return null;
 			}
-			
+
 			public String getText(Object element, int columnIndex) {
-				OnlineOrderInfoItem item = (OnlineOrderInfoItem)element;
-				switch(columnIndex) {
+				OnlineOrderInfoItem item = (OnlineOrderInfoItem) element;
+				switch (columnIndex) {
 				case 0:
-//					if (item.getGoodsName().length() > 12) {
-//						return item.getGoodsName().substring(0, 12);
-//					}
+					// if (item.getGoodsName().length() > 12) {
+					// return item.getGoodsName().substring(0, 12);
+					// }
 					return item.getGoodsName();
 				case 1:
 					return item.getGoodsSpec();
@@ -247,35 +286,37 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 				}
 				return null;
 			}
-			
+
 			public Color getForeground(Object element, int columnIndex) {
 				return null;
 			}
-			
+
 			public Color getBackground(Object element, int columnIndex) {
 				return null;
 			}
 		});
 		return entity;
 	}
-	
-	
+
 	private void addDeliverAction(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 配送
-				if (null == table.getSelections() || table.getSelections().length < 1) {
+				if (null == table.getSelections()
+						|| table.getSelections().length < 1) {
 					alert("请先选择订单。");
 					return;
 				}
 				OnlineOrderItem[] selectedItems = getSelectedItemList();
 				CreateDeliverItem[] cItems = getCreateDeliverItems(selectedItems);
-				PageController pc = new PageController(DeliverPageProcessor.class, DeliverPageRender.class);
-				PageControllerInstance pci = new PageControllerInstance(pc, cItems);
+				PageController pc = new PageController(
+						DeliverPageProcessor.class, DeliverPageRender.class);
+				PageControllerInstance pci = new PageControllerInstance(pc,
+						cItems);
 				MsgRequest request = new MsgRequest(pci, "生成配送单");
 				request.setResponseHandler(new ResponseHandler() {
-					
+
 					public void handle(Object returnValue, Object returnValue2,
 							Object returnValue3, Object returnValue4) {
 						table.render();
@@ -285,10 +326,10 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			}
 		});
 	}
-	
+
 	@Override
 	public String getElementId(Object element) {
-		OnlineOrderShowItem order = (OnlineOrderShowItem)element;
+		OnlineOrderShowItem order = (OnlineOrderShowItem) element;
 		return order.getId();
 	}
 
@@ -297,22 +338,26 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		initData();
 		countLabel.setText("" + orderList.size());
 		countLabel.setWidth(200);
-		amountLabel.setText("" + DoubleUtil.getRoundStr(getTotalAmount(orderList),2));
+		amountLabel.setText(""
+				+ DoubleUtil.getRoundStr(getTotalAmount(orderList), 2));
 		amountLabel.setWidth(200);
 		List<OnlineOrderShowItem> showItemList = getShowItemList(orderList);
 		return showItemList.toArray(new OnlineOrderShowItem[0]);
 	}
-	
+
 	@Override
 	public void actionPerformed(String rowId, String actionName,
 			String actionValue) {
 		if (Action.Detail.name().equals(actionName)) {
 			// 打开详情界面
-			PageController pc = new PageController(OnlineOrderDetailProcessor.class, OnlineOrderDetailRender.class);
-			PageControllerInstance pci = new PageControllerInstance(pc, GUID.tryValueOf(rowId));
+			PageController pc = new PageController(
+					OnlineOrderDetailProcessor.class,
+					OnlineOrderDetailRender.class);
+			PageControllerInstance pci = new PageControllerInstance(pc, GUID
+					.tryValueOf(rowId));
 			MsgRequest request = new MsgRequest(pci, "订单详情");
 			request.setResponseHandler(new ResponseHandler() {
-				
+
 				public void handle(Object returnValue, Object returnValue2,
 						Object returnValue3, Object returnValue4) {
 					table.render();
@@ -321,7 +366,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			getContext().bubbleMessage(request);
 		}
 	}
-	
+
 	private OnlineOrderItem[] getSelectedItemList() {
 		String[] rowIds = table.getSelections();
 		OnlineOrderItem[] items = new OnlineOrderItem[rowIds.length];
@@ -330,7 +375,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		}
 		return items;
 	}
-	
+
 	private OnlineOrderItem getOrderItemById(String id) {
 		for (OnlineOrderItem item : orderList) {
 			if (item.getId().toString().equals(id)) {
@@ -339,7 +384,7 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		}
 		return null;
 	}
-	
+
 	private CreateDeliverItem[] getCreateDeliverItems(OnlineOrderItem[] orders) {
 		Map<GUID, List<OnlineOrderItem>> stationOrders = new HashMap<GUID, List<OnlineOrderItem>>();
 		for (OnlineOrderItem item : orders) {
@@ -354,25 +399,27 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 		Iterator<GUID> it = stationOrders.keySet().iterator();
 		List<CreateDeliverItem> itemList = new ArrayList<CreateDeliverItem>();
 		CreateDeliverItem cItem = null;
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			GUID stationId = it.next();
 			cItem = new CreateDeliverItem(stationId);
-			cItem.setOrders(stationOrders.get(stationId).toArray(new OnlineOrderItem[0]));
+			cItem.setOrders(stationOrders.get(stationId).toArray(
+					new OnlineOrderItem[0]));
 			itemList.add(cItem);
 		}
 		return itemList.toArray(new CreateDeliverItem[0]);
 	}
-	
+
 	private double getTotalAmount(List<OnlineOrderItem> itemList) {
 		double totalAmount = 0;
 		for (OnlineOrderItem item : itemList) {
 			totalAmount += item.getTotalAmount();
 		}
-			
+
 		return totalAmount;
 	}
-	
-	private List<OnlineOrderShowItem> getShowItemList(List<OnlineOrderItem> itemList) {
+
+	private List<OnlineOrderShowItem> getShowItemList(
+			List<OnlineOrderItem> itemList) {
 		List<OnlineOrderShowItem> showItemList = new ArrayList<OnlineOrderShowItem>();
 		for (OnlineOrderItem item : itemList) {
 			OnlineOrderShowItem showItem = null;
@@ -397,21 +444,22 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 				showItem.setTotalAmount(item.getTotalAmount());
 				showItem.setConsignor(item.getDeliverPerson());
 				showItem.setToDoor(item.isToDoor());
-				
+
 				showItem.setGoodsName(infoItem.getGoodsName());
 				showItem.setGoodsSpec(infoItem.getGoodsSpec());
 				showItem.setCount(infoItem.getCount());
-				
+
 				showItemList.add(showItem);
-				
+
 				infoItemIndex++;
 			}
 		}
 		return showItemList;
 	}
-	
+
 	private void initData() {
-		GetOnlineOrderListKey key = new GetOnlineOrderListKey(0, Integer.MAX_VALUE, true);
+		GetOnlineOrderListKey key = new GetOnlineOrderListKey(0,
+				Integer.MAX_VALUE, true);
 		if (null != advanceCondition) {
 			key.setSearchText(null);
 			GetOnlineOrderListKey.AdvanceValues av = key.new AdvanceValues();
@@ -428,11 +476,13 @@ public class PickingOnlineOrderListProcessor<Item> extends PSIMultiItemListPageP
 			key.setSearchText(search.getText());
 		}
 		key.setStatus(OnlineOrderStatus.Picking);
-		ListEntity<OnlineOrderItem> listEntity = getContext().find(OnlineOrderListEntity.class, key);
+		ListEntity<OnlineOrderItem> listEntity = getContext().find(
+				OnlineOrderListEntity.class, key);
 		if (null != listEntity) {
 			orderList = listEntity.getItemList();
 		}
 	}
+
 	@Override
 	protected String getExportFileTitle() {
 		return "网上订单";
