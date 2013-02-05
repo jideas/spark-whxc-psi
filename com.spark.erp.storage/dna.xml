@@ -132,6 +132,9 @@
       <table space="SPARK" class="com.spark.cms.storage.base.TB_CMS_PAYINGBILLS" />
       <table space="spark/cms" class="com.spark.cms.storage.base.TB_CMS_IMAGE_INFO" />
       <table space="spark" class="com.spark.cms.storage.extra.TB_cms_question" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT_GOODS" />
+      <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT_MATERIAL" />
     </tables>
     <ui-entrys>
       <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
