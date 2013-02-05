@@ -2,6 +2,7 @@
 <dna>
 	<publish>
 		<services>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.split.GoodsSplitPublishService" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckoutSheetDao" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckOutPublishService" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckOutInternalService" />
