@@ -2,6 +2,7 @@
 <dna>
 	<publish>
 		<services>
+			<service space="psi_inventory" class="com.spark.psi.inventory.service.split.CheckInEventListener" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.split.GoodsSplitPublishService" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckoutSheetDao" />
 			<service space="psi_inventory" class="com.spark.psi.inventory.service.outstorage.CheckOutPublishService" />
@@ -52,7 +53,7 @@
 			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_ReportLossItem" />
 			<orm space="psi_inventory" class="com.spark.psi.inventory.service.orm.Orm_ReportLossItemDet" />
 		</orms>
-		<commands> 
+		<commands>
 		</commands>
 		<querys>
 		</querys>

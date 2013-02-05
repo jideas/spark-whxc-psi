@@ -40,6 +40,36 @@ public class InsertService extends Service {
 	}
 
 	/**
+	 * 生成成品拆分入库
+	 */
+	@Publish
+	protected class InsertOnebuyBillsService0 extends TaskMethodHandler<InstoAddTask, CheckingInType> {
+
+		protected InsertOnebuyBillsService0() {
+			super(CheckingInType.GoodsSplit);
+		}
+
+		@Override
+		protected void handle(Context context, InstoAddTask task) throws Throwable {
+			if (null == task.getEntity()) {
+				return;
+			}
+			fillEntity(context, task.getEntity(), CheckingInType.GoodsSplit.getCode());
+			task.getEntity().setStatus(CheckingInStatus.None.getCode());
+			InstorageTask it = new InstorageTask();
+			it.setInstorageEntity(task.getEntity());
+			context.handle(it, Method.INSERT);
+			addDetails(context, task.getEntity(), task.getDetailList());
+			// 采购在途
+			modfiyCountOnWay(context, task, false);
+
+			CheckingInEvent event = new CheckingInEvent();
+			event.setCheckInSheetId(task.getEntity().getRECID());
+			context.dispatch(event);
+		}
+	}
+
+	/**
 	 * 生成采购入库
 	 */
 	@Publish
@@ -53,7 +83,7 @@ public class InsertService extends Service {
 		protected void handle(Context context, InstoAddTask task) throws Throwable {
 			if (null == task.getEntity()) {
 				return;
-			} 
+			}
 			fillEntity(context, task.getEntity(), CheckingInType.Purchase.getCode());
 			task.getEntity().setStatus(CheckingInStatus.None.getCode());
 			InstorageTask it = new InstorageTask();
@@ -137,8 +167,8 @@ public class InsertService extends Service {
 	public void createPayBills(Context context, CheckInSheet sheet) {
 		long today = new Date().getTime();
 		CreatePaymentTask task = new CreatePaymentTask();
-		CreatePaymentTask.Item item = task.new Item(sheet.getRECID(), sheet.getSheetNo(), sheet.getRelaBillsId(), sheet.getRelaBillsNo(),
-				today, sheet.getAmount(), sheet.getAmount(), 0d);
+		CreatePaymentTask.Item item = task.new Item(sheet.getRECID(), sheet.getSheetNo(), sheet.getRelaBillsId(), sheet
+				.getRelaBillsNo(), today, sheet.getAmount(), sheet.getAmount(), 0d);
 		task.setId(context.newRECID());
 		task.setAmount(sheet.getAmount());
 		task.setPartnerId(sheet.getPartnerId());
@@ -146,7 +176,7 @@ public class InsertService extends Service {
 		task.setPayDate(today);
 		task.setPaymentType(PaymentType.PAY_CGFK.getCode());
 		task.setRemark(sheet.getRemark());
-		task.setItems(new Item[]{item});
+		task.setItems(new Item[] { item });
 		context.handle(task);
 	}
 

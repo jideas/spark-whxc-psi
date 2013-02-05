@@ -66,6 +66,10 @@
 				title="销售退货入库列表页面*"
 				processor="com.spark.psi.inventory.browser.checkin.SalesReturnCheckingInListProcessor"
 				render="com.spark.psi.inventory.browser.checkin.SalesReturnCheckingInListRender" />
+			<page space="psi/inventory" name="GoodsSplitCheckingInListPage"
+				title="成品拆分入库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkin.GoodsSplitCheckingInListProcessor"
+				render="com.spark.psi.inventory.browser.checkin.GoodsSplitCheckingInListRender" />
 
 
 			<page space="psi/inventory" name="CheckingOutDetailPage" title="出库单明细页面"

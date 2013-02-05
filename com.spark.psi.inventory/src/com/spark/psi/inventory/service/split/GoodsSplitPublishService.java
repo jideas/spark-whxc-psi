@@ -10,6 +10,8 @@ import com.jiuqi.dna.core.service.Service;
 import com.jiuqi.dna.core.type.GUID;
 import com.spark.common.components.db.ERPTableNames;
 import com.spark.common.utils.character.CheckIsNull;
+import com.spark.common.utils.character.DoubleUtil;
+import com.spark.common.utils.character.PinyinHelper;
 import com.spark.common.utils.dnasql.DeleteSqlBuilder;
 import com.spark.common.utils.dnasql.InsertSqlBuilder;
 import com.spark.common.utils.dnasql.QuerySqlBuilder;
@@ -19,10 +21,15 @@ import com.spark.psi.base.GoodsItem;
 import com.spark.psi.base.Login;
 import com.spark.psi.base.MaterialsItem;
 import com.spark.psi.base.SheetNumberType;
+import com.spark.psi.base.Store;
+import com.spark.psi.inventory.intf.entity.instorage.mod.Instorage;
+import com.spark.psi.inventory.intf.entity.instorage.mod.InstorageItem;
+import com.spark.psi.inventory.intf.task.instorage.InstoAddTask;
 import com.spark.psi.inventory.split.publish.GoodsSplitDet_GoodsImpl;
 import com.spark.psi.inventory.split.publish.GoodsSplitDet_MaterialImpl;
 import com.spark.psi.inventory.split.publish.GoodsSplitInfoImpl;
 import com.spark.psi.inventory.split.publish.GoodsSplitItemImpl;
+import com.spark.psi.publish.CheckingInType;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.SortType;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
@@ -32,9 +39,11 @@ import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 import com.spark.psi.publish.split.entity.GoodsSplitItem;
 import com.spark.psi.publish.split.key.GetGoodsSplitBillListKey;
 import com.spark.psi.publish.split.task.DeleteGoodsSplitBillTask;
+import com.spark.psi.publish.split.task.GoodsSplitDistributTask;
+import com.spark.psi.publish.split.task.GoodsSplitDistributeEntity;
+import com.spark.psi.publish.split.task.GoodsSplitTaskDet;
 import com.spark.psi.publish.split.task.UpdateGoodsSplitBillTask;
 import com.spark.psi.publish.split.task.UpdateGoodsSplitStatusTask;
-import com.spark.psi.publish.split.task.UpdateGoodsSplitBillTask.UpdateGoodsSplitBillTaskDet;
 
 public class GoodsSplitPublishService extends Service {
 
@@ -172,7 +181,7 @@ public class GoodsSplitPublishService extends Service {
 	}
 
 	/**
-	 * @author Jideas 主表详情
+	 * 主表详情
 	 */
 	@Publish
 	protected class FindGoodsSplitBill2 extends TwoKeyResultProvider<GoodsSplitInfo, GUID, Boolean> {
@@ -351,7 +360,7 @@ public class GoodsSplitPublishService extends Service {
 			if (task.getGoodsDets() == null || task.getGoodsDets().isEmpty()) {
 				return;
 			}
-			for (UpdateGoodsSplitBillTaskDet det : task.getGoodsDets()) {
+			for (GoodsSplitTaskDet det : task.getGoodsDets()) {
 				InsertSqlBuilder ib = new InsertSqlBuilder(context);
 				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material.getTableName());
 				MaterialsItem material = context.find(MaterialsItem.class, det.getId());
@@ -372,7 +381,7 @@ public class GoodsSplitPublishService extends Service {
 			if (task.getMaterialDets() == null || task.getMaterialDets().isEmpty()) {
 				return;
 			}
-			for (UpdateGoodsSplitBillTaskDet det : task.getGoodsDets()) {
+			for (GoodsSplitTaskDet det : task.getGoodsDets()) {
 				InsertSqlBuilder ib = new InsertSqlBuilder(context);
 				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Goods.getTableName());
 				GoodsItem goods = context.find(GoodsItem.class, det.getId());
@@ -499,4 +508,59 @@ public class GoodsSplitPublishService extends Service {
 		}
 	}
 
+	/**
+	 * 生成入库需求
+	 */
+	@Publish
+	protected class CreateCheckinSheetHandle extends SimpleTaskMethodHandler<GoodsSplitDistributTask> {
+
+		@Override
+		protected void handle(Context context, GoodsSplitDistributTask task) throws Throwable {
+			if (CheckIsNull.isEmpty(task.getList())) {
+				return;
+			}
+			for (GoodsSplitDistributeEntity ss : task.getList()) {
+				Instorage info = new Instorage();
+				info.setRelaBillsId(task.getBillId());
+				info.setRelaBillsNo(task.getBillNo());
+				info.setStoreId(ss.getStoreId());
+				Store store = context.find(Store.class, ss.getStoreId());
+				info.setStoreName(store.getName());
+				info.setStoreNamePY(PinyinHelper.getLetter(store.getName()));
+				info.setRemark(task.getRemark());
+				info.setCheckinDate(System.currentTimeMillis());
+				info.setPurchaseDate(System.currentTimeMillis());
+				Double totalCount = 0d, totalAmount = 0d;
+				List<InstorageItem> dets = getInstoDets(context, ss, totalCount, totalAmount);
+				info.setBillsCount(totalCount);
+				info.setBillsAmount(totalAmount);
+				InstoAddTask add = new InstoAddTask(info, dets);
+				context.handle(add, CheckingInType.GoodsSplit);
+			}
+		}
+
+		private List<InstorageItem> getInstoDets(Context context, GoodsSplitDistributeEntity ss, Double totalCount,
+				Double totalAmount) {
+			List<InstorageItem> list = new ArrayList<InstorageItem>();
+			for (GoodsSplitTaskDet d : ss.getDets()) {
+				InstorageItem det = new InstorageItem();
+				det = new InstorageItem();
+				det.setGoodsId(d.getId());
+				MaterialsItem m = context.find(MaterialsItem.class, d.getId());
+				det.setGoodsCode(m.getMaterialCode());
+				det.setGoodsNo(m.getMaterialNo());
+				det.setGoodsName(m.getMaterialName());
+				det.setGoodsSpec(m.getSpec());
+				det.setUnit(m.getMaterialUnit());
+				det.setPrice(m.getAvgBuyPrice());
+				det.setCount(d.getCount());
+				det.setScale(2);
+				det.setAmount(DoubleUtil.mul(d.getCount(), m.getAvgBuyPrice()));
+				list.add(det);
+				totalAmount += det.getAmount();
+				totalCount += d.getCount();
+			}
+			return list;
+		}
+	}
 }
