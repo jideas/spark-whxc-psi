@@ -22,6 +22,7 @@ public final class TB_PSI_GOODSSPLIT extends TableDeclarator {
 	public final TableFieldDefine f_rejectReason;
 	public final TableFieldDefine f_remark;
 	public final TableFieldDefine f_storeId;
+	public final TableFieldDefine f_finishDate;
 
 	public static final String FN_billNo ="billNo";
 	public static final String FN_creator ="creator";
@@ -37,6 +38,7 @@ public final class TB_PSI_GOODSSPLIT extends TableDeclarator {
 	public static final String FN_rejectReason ="rejectReason";
 	public static final String FN_remark ="remark";
 	public static final String FN_storeId ="storeId";
+	public static final String FN_finishDate ="finishDate";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_PSI_GOODSSPLIT() {
@@ -57,6 +59,7 @@ public final class TB_PSI_GOODSSPLIT extends TableDeclarator {
 		this.f_rejectReason = this.table.newField(FN_rejectReason, TypeFactory.NVARCHAR(1000));
 		this.f_remark = this.table.newField(FN_remark, TypeFactory.NVARCHAR(1000));
 		this.f_storeId = this.table.newField(FN_storeId, TypeFactory.GUID);
+		this.f_finishDate = this.table.newField(FN_finishDate, TypeFactory.DATE);
 	}
 
 }

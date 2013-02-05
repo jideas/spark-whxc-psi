@@ -13,6 +13,8 @@ public class GetGoodsSplitBillListKey extends LimitKey {
 
 	private long beginTime, endTime;
 
+	private SortField sortField = SortField.BillNumber;
+
 	public void setStatus(GoodsSplitStatus... status) {
 		statuses = status;
 	}
@@ -39,5 +41,51 @@ public class GetGoodsSplitBillListKey extends LimitKey {
 
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
+	}
+
+	public SortField getSortField() {
+		return sortField;
+	}
+
+	public void setSortField(SortField sortField) {
+		this.sortField = sortField;
+	}
+
+	/**
+	 * ÅÅÐò×Ö¶Î
+	 */
+	public static enum SortField {
+		None(""), //
+		/**
+		 * µ¥¾Ý±àºÅ
+		 */
+		BillNumber("t.billNo"), //
+
+		Creator("collate_gbk(t.creator)"),
+
+		CreateDate("t.createDate"),
+
+		Approvaler("collate_gbk(t.approvalPerson)"),
+
+		ApprovalDate("t.approvalDate"),
+
+		Distributer("collate_gbk(t.distributPerson)"),
+
+		DistributDate("t.distributDate"),
+
+		FinishDate("t.finishDate"),
+
+		Status("t.status"),
+		;
+		private final String fieldName;
+
+		private SortField(String fieldName) {
+			this.fieldName = fieldName;
+		}
+
+		public final String getFieldName() {
+			return this.fieldName;
+		}
+
 	}
 }
