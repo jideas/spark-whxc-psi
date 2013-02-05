@@ -21,8 +21,10 @@ public class InventoryCheckinFunction extends PSIFunction {
 	}
 
 	public BaseFunction[] getBaseFunctions(Context context) {
-		return new BaseFunction[] { new BaseFunction(new PageControllerInstance("PurchaseCheckingInListPage"), "采购入库", true),
+		return new BaseFunction[] {
+				new BaseFunction(new PageControllerInstance("PurchaseCheckingInListPage"), "采购入库", true),
 				new BaseFunction(new PageControllerInstance("SalesReturnCheckingInListPage"), "销售退货"),
+				new BaseFunction(new PageControllerInstance("GoodsSplitCheckingInListPage"), "成品拆分"),
 				new BaseFunction(new PageControllerInstance("RealGoodsCheckingInListPage"), "成品入库"),
 				new BaseFunction(new PageControllerInstance("KitCheckingInDetailPage"), "其他入库"),
 				new BaseFunction(new PageControllerInstance("ProcessedCheckingInListPage"), "入库记录") };

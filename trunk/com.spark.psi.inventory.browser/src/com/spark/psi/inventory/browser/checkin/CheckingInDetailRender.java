@@ -43,6 +43,9 @@ public class CheckingInDetailRender extends ExtendSimpleSheetPageRender {
 			if (null != info && CheckingInType.Return.equals(info.getType())) {
 				columns[5] = new STableColumn(CheckingInDetailProcessor.Columns.CheckingCount.name(), 100, JWT.RIGHT,
 						"销售退货数量");
+			} else if (null != info && CheckingInType.GoodsSplit.equals(info.getType())) {
+				columns[5] = new STableColumn(CheckingInDetailProcessor.Columns.CheckingCount.name(), 100, JWT.RIGHT,
+						"预计入库数量");
 			} else {
 				columns[5] = new STableColumn(CheckingInDetailProcessor.Columns.CheckingCount.name(), 100, JWT.RIGHT,
 						"采购数量");

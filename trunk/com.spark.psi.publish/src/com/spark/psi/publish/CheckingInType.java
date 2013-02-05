@@ -34,7 +34,9 @@ public enum CheckingInType {
 	 */
 	Joint("07", "联营入库"),
 	//
-	Gift("08", "赠品入库");
+	Gift("08", "赠品入库"),
+	
+	GoodsSplit("09","成品拆分");
 
 	/**
 	 * 代码
@@ -93,6 +95,8 @@ public enum CheckingInType {
 			return Joint;
 		} else if (Gift.code.equals(code)) {
 			return Gift;
+		} else if (GoodsSplit.code.equals(code)) {
+			return GoodsSplit;
 		}
 		return null;
 	}

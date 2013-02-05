@@ -13,8 +13,8 @@ public class UpdateGoodsSplitBillTask extends SimpleTask {
 	private GUID storeId;
 	private GoodsSplitStatus status;
 
-	private List<UpdateGoodsSplitBillTaskDet> goodsDets;
-	private List<UpdateGoodsSplitBillTaskDet> materialDets;
+	private List<GoodsSplitTaskDet> goodsDets;
+	private List<GoodsSplitTaskDet> materialDets;
 
 	public GUID getRECID() {
 		return RECID;
@@ -40,11 +40,11 @@ public class UpdateGoodsSplitBillTask extends SimpleTask {
 		this.status = status;
 	}
 
-	public List<UpdateGoodsSplitBillTaskDet> getGoodsDets() {
+	public List<GoodsSplitTaskDet> getGoodsDets() {
 		return goodsDets;
 	}
 
-	public List<UpdateGoodsSplitBillTaskDet> getMaterialDets() {
+	public List<GoodsSplitTaskDet> getMaterialDets() {
 		return materialDets;
 	}
 
@@ -64,39 +64,12 @@ public class UpdateGoodsSplitBillTask extends SimpleTask {
 		this.storeId = storeId;
 	}
 
-	public void setGoodsDets(List<UpdateGoodsSplitBillTaskDet> goodsDets) {
+	public void setGoodsDets(List<GoodsSplitTaskDet> goodsDets) {
 		this.goodsDets = goodsDets;
 	}
 
-	public void setMaterialDets(List<UpdateGoodsSplitBillTaskDet> materialDets) {
+	public void setMaterialDets(List<GoodsSplitTaskDet> materialDets) {
 		this.materialDets = materialDets;
 	}
-
-	public class UpdateGoodsSplitBillTaskDet {
-		private GUID id;
-		private double count;
-		private String reason;
-
-		public GUID getId() {
-			return id;
-		}
-
-		public double getCount() {
-			return count;
-		}
-
-		public String getReason() {
-			return reason;
-		}
-
-		public UpdateGoodsSplitBillTaskDet(GUID id, double count) {
-			this.id = id;
-			this.count = count;
-		}
-		public UpdateGoodsSplitBillTaskDet(GUID id, double count,String reason) {
-			this.id = id;
-			this.count = count;
-			this.reason = reason;
-		}
-	}
+ 
 }

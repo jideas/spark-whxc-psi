@@ -96,34 +96,25 @@ public class CheckingInDetailProcessor extends ExtendSimpleSheetPageProcessor<Ch
 		// 制单
 		Label createDate = this.createControl(ID_Label_Label_ExtraInfo, Label.class);
 		createDate.setText("制单：" + DateUtil.dateFromat(info.getCreateDate()));
-		if (CheckingInType.Return.equals(info.getType())) {
-			this.createControl(ID_Label_Supplier, Label.class).setText("客户：" + info.getPartnerName());
+		if (CheckingInType.GoodsSplit.equals(info.getType())) {
+			this.createControl(ID_Label_Store, Label.class).setText("入库仓库：" + info.getStoreName());
 		} else {
-			this.createControl(ID_Label_Supplier, Label.class).setText("供应商：" + info.getPartnerName());
-		}
+			if (CheckingInType.Return.equals(info.getType())) {
+				this.createControl(ID_Label_Supplier, Label.class).setText("客户：" + info.getPartnerName());
+			} else {
+				this.createControl(ID_Label_Supplier, Label.class).setText("供应商：" + info.getPartnerName());
+			}
 
-		this.createControl(ID_Label_Store, Label.class).setText("  入库仓库：" + info.getStoreName());
+			this.createControl(ID_Label_Store, Label.class).setText("  入库仓库：" + info.getStoreName());
+		}
 		if (CheckingInType.Purchase.equals(info.getType())) {
 			this.createControl(ID_Label_PlanDate, Label.class).setText(
 					"  预计入库日期：" + DateUtil.dateFromat(info.getPlanCheckinDate()));
 		}
 		this.createControl(ID_Label_RelatedNumber, Label.class).setText("  相关单据：" + info.getRelaBillsNo());
 		if (CheckingInStatus.Finish.equals(info.getStatus()) || CheckingInStatus.Stop.equals(info.getStatus())) {
-			// table.setEnabled(false);
 			return;
-		}
-
-		// inspectButton = new Button(this.createControl(ID_RenderButtonArea,
-		// Composite.class), JWT.APPEARANCE3);
-		// inspectButton.setID(ID_Button_Inspect);
-		// inspectButton.setText("材料待检");
-		// inspectButton.addActionListener(new ActionListener() {
-		//
-		// public void actionPerformed(ActionEvent e) {
-		// goodsInspect();
-		//
-		// }
-		// });
+		} 
 		GridData gd = new GridData();
 		gd.widthHint = 80;
 		gd.heightHint = 28;
@@ -335,6 +326,8 @@ public class CheckingInDetailProcessor extends ExtendSimpleSheetPageProcessor<Ch
 				return "零星采购入库单";
 			} else if (CheckingInType.Return.equals(info.getType())) {
 				return "销售退货入库单";
+			}  else if (CheckingInType.GoodsSplit.equals(info.getType())) {
+				return "成品拆分入库单";
 			} else {
 				return info.getType().getName() + "单";
 			}

@@ -78,12 +78,10 @@ public class InsertSheetService extends Service {
 	 * 成品入库
 	 */
 	@Publish
-	protected class RealGoodsCheckinTaskHandle extends
-			SimpleTaskMethodHandler<RealGoodsCheckinTask> {
+	protected class RealGoodsCheckinTaskHandle extends SimpleTaskMethodHandler<RealGoodsCheckinTask> {
 
 		@Override
-		protected void handle(Context context, RealGoodsCheckinTask task)
-				throws Throwable {
+		protected void handle(Context context, RealGoodsCheckinTask task) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			CheckInSheet sheet = new CheckInSheet();
@@ -119,14 +117,11 @@ public class InsertSheetService extends Service {
 				det.setGoodsNo(item.getGoodsNo());
 				det.setScale(item.getGoodsScale());
 				double itemPrice = 0, itemAmount = 0;
-				GoodsItem goods = context.find(GoodsItem.class, det
-						.getGoodsId());
+				GoodsItem goods = context.find(GoodsItem.class, det.getGoodsId());
 				BomInfo bom = context.find(BomInfo.class, goods.getBomId());
 				for (BomInfoItem bi : bom.getBomInfoItems()) {
-					MaterialsItem mi = context.find(MaterialsItem.class, bi
-							.getMaterialId());
-					itemPrice = DoubleUtil.sum(itemPrice, DoubleUtil.mul(mi
-							.getAvgBuyPrice(), bi.getRealCount()));
+					MaterialsItem mi = context.find(MaterialsItem.class, bi.getMaterialId());
+					itemPrice = DoubleUtil.sum(itemPrice, DoubleUtil.mul(mi.getAvgBuyPrice(), bi.getRealCount()));
 				}
 				itemAmount = DoubleUtil.mul(itemPrice, det.getRealCount());
 				det.setPrice(itemPrice);
@@ -142,9 +137,8 @@ public class InsertSheetService extends Service {
 
 			for (CheckInSheetItem item : items) {
 				// 更新库存和成本
-				modfiyMaterialsStorage(context, sheet.getStoreId(), item, null,
-						InventoryType.Goods, CheckingInType
-								.getCheckingInType(sheet.getSheetType()));
+				modfiyMaterialsStorage(context, sheet.getStoreId(), item, null, InventoryType.Goods, CheckingInType
+						.getCheckingInType(sheet.getSheetType()));
 			}
 			// 库存流水
 			doWrightStream(context, sheet, items, InventoryType.Goods);
@@ -155,12 +149,10 @@ public class InsertSheetService extends Service {
 	 * 生成其他入库
 	 */
 	@Publish
-	protected class InsertOnelotherBillsService extends
-			SimpleTaskMethodHandler<CheckInKitTask> {
+	protected class InsertOnelotherBillsService extends SimpleTaskMethodHandler<CheckInKitTask> {
 
 		@Override
-		protected void handle(Context context, CheckInKitTask task)
-				throws Throwable {
+		protected void handle(Context context, CheckInKitTask task) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 
@@ -213,8 +205,7 @@ public class InsertSheetService extends Service {
 			otherGoods.setDescription(det.getGoodsSpec());
 			otherGoods.setUnit(det.getUnit());
 			otherGoods.setNumber(det.getRealCount());
-			UpdateOtherGoodsTask otherTask = new UpdateOtherGoodsTask(tttt
-					.getEntity().getStoreId(), otherGoods);
+			UpdateOtherGoodsTask otherTask = new UpdateOtherGoodsTask(tttt.getEntity().getStoreId(), otherGoods);
 			otherTask.setInit(false);
 			context.handle(otherTask, Method.MODIFY);
 		}
@@ -224,23 +215,19 @@ public class InsertSheetService extends Service {
 	 * 生成零星采购入库
 	 */
 	@Publish
-	protected class InsertOneBillsService extends
-			TaskMethodHandler<InstoAddTask, CheckingInType> {
+	protected class InsertOneBillsService extends TaskMethodHandler<InstoAddTask, CheckingInType> {
 
 		protected InsertOneBillsService() {
 			super(CheckingInType.Irregular);
 		}
 
 		@Override
-		protected void handle(Context context, InstoAddTask task)
-				throws Throwable {
+		protected void handle(Context context, InstoAddTask task) throws Throwable {
 			if (null == task.getEntity()) {
 				return;
 			}
-			CheckInSheet sheet = fillEntity(context, task.getEntity(),
-					CheckingInType.Irregular.getCode());
-			List<CheckInSheetItem> items = fillDetails(context, task
-					.getDetailList(), sheet, null);
+			CheckInSheet sheet = fillEntity(context, task.getEntity(), CheckingInType.Irregular.getCode());
+			List<CheckInSheetItem> items = fillDetails(context, task.getDetailList(), sheet, null);
 			CheckinSheetTask tttt = new CheckinSheetTask();
 			tttt.setEntity(sheet);
 			tttt.setItems(items);
@@ -250,10 +237,8 @@ public class InsertSheetService extends Service {
 			}
 			for (CheckInSheetItem item : items) {
 				// 更新库存和成本
-				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task
-						.getDistributeInventoryItems(),
-						InventoryType.Materials, CheckingInType
-								.getCheckingInType(sheet.getSheetType()));
+				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task.getDistributeInventoryItems(),
+						InventoryType.Materials, CheckingInType.getCheckingInType(sheet.getSheetType()));
 			}
 			// 库存流水
 			doWrightStream(context, sheet, items, InventoryType.Materials);
@@ -265,8 +250,7 @@ public class InsertSheetService extends Service {
 			CheckInEvent event = new CheckInEvent(null);
 			event.setCheckInLogId(sheet.getRECID());
 			event.setRelaOrderId(sheet.getRelaBillsId());
-			event.setType(CheckingInType.getCheckingInType(task.getEntity()
-					.getSheetType()));
+			event.setType(CheckingInType.getCheckingInType(task.getEntity().getSheetType()));
 			context.dispatch(event);
 		}
 	}
@@ -274,15 +258,13 @@ public class InsertSheetService extends Service {
 	/**
 	 * 更新应收应付信息
 	 */
-	public void doUpdateDealing(Context context, CheckInSheet sheet,
-			DealingsType type) {
+	public void doUpdateDealing(Context context, CheckInSheet sheet, DealingsType type) {
 		double amount = sheet.getAmount();
 		if (type == DealingsType.CUS_THRK) {
 			amount = DoubleUtil.sub(0, amount);
 		}
-		CusdealTask cTask = new CusdealTask(sheet.getPartnerId(), type, sheet
-				.getAmount(), sheet.getPaidAmount(), sheet.getRECID(), sheet
-				.getSheetNo());
+		CusdealTask cTask = new CusdealTask(sheet.getPartnerId(), type, sheet.getAmount(), sheet.getPaidAmount(), sheet
+				.getRECID(), sheet.getSheetNo());
 		cTask.setPubdate(sheet.getCheckinDate());
 		context.handle(cTask);
 	}
@@ -299,14 +281,12 @@ public class InsertSheetService extends Service {
 		task.setPayDate(System.currentTimeMillis());
 		task.setPaymentType(PaymentType.PAY_LCFK.getCode());
 		task.setRemark(sheet.getRemark());
-		CreatePaymentTask.Item item = task.new Item(sheet.getRECID(), sheet
-				.getSheetNo(), null, null, System.currentTimeMillis(), task
-				.getAmount(), task.getAmount(), 0);
+		CreatePaymentTask.Item item = task.new Item(sheet.getRECID(), sheet.getSheetNo(), null, null, System
+				.currentTimeMillis(), task.getAmount(), task.getAmount(), 0);
 		task.setItems(new Item[] { item });
 		task.setDealingsWay(DealingsWay.Cash.getCode());
 		context.handle(task);
-		System.err
-				.println("创建付款记录出错：com.spark.psi.inventory.service.instorage.InsertSheetService.createPayBills");
+		System.err.println("创建付款记录出错：com.spark.psi.inventory.service.instorage.InsertSheetService.createPayBills");
 	}
 
 	/**
@@ -315,8 +295,8 @@ public class InsertSheetService extends Service {
 	 * @param items
 	 * @param sheet
 	 */
-	public void doWrightStream(Context context, CheckInSheet sheet,
-			List<CheckInSheetItem> items, InventoryType inventoryType) {
+	public void doWrightStream(Context context, CheckInSheet sheet, List<CheckInSheetItem> items,
+			InventoryType inventoryType) {
 		// 库存流水
 		StoStreamTask stream = new StoStreamTask();
 		List<InventoryLogEntity> list = new ArrayList<InventoryLogEntity>();
@@ -325,8 +305,7 @@ public class InsertSheetService extends Service {
 		for (CheckInSheetItem item : items) {
 			InventoryLogEntity sto = new InventoryLogEntity();
 			if (inventoryType.equals(InventoryType.Materials)) {
-				MaterialsItem goods = context.find(MaterialsItem.class, item
-						.getGoodsId());
+				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsId());
 				sto.setCategoryId(goods.getCategoryId());
 				sto.setProperties(goods.getSpec());
 				sto.setScale(goods.getScale());
@@ -337,8 +316,7 @@ public class InsertSheetService extends Service {
 				sto.setCode(goods.getMaterialCode());
 
 			} else {
-				GoodsItem goods = context.find(GoodsItem.class, item
-						.getGoodsId());
+				GoodsItem goods = context.find(GoodsItem.class, item.getGoodsId());
 				sto.setCategoryId(goods.getCategoryId());
 				sto.setProperties(goods.getSpec());
 				sto.setScale(goods.getScale());
@@ -360,8 +338,7 @@ public class InsertSheetService extends Service {
 				sto.setLogType(InventoryLogType.HandtomouthBuying.getCode());
 			} else {
 				sto.setLogType(InventoryLogType.INSTORAGE.getCode());
-				if (CheckingInType.RealGoods.getCode().equals(
-						sheet.getSheetType())) {
+				if (CheckingInType.RealGoods.getCode().equals(sheet.getSheetType())) {
 					sto.setLogType(InventoryLogType.GoodsCheckin.getCode());
 				}
 			}
@@ -379,43 +356,36 @@ public class InsertSheetService extends Service {
 	 * @param b
 	 * @param item
 	 */
-	public void modfiyMaterialsStorage(Context context, GUID storeId,
-			CheckInSheetItem item, DistributeInventoryItem[] inventoryItems,
-			InventoryType inventoryType, CheckingInType checkintype) {
+	public void modfiyMaterialsStorage(Context context, GUID storeId, CheckInSheetItem item,
+			DistributeInventoryItem[] inventoryItems, InventoryType inventoryType, CheckingInType checkintype) {
 		// 更新库存
 		InventoryBusTask task = new InventoryBusTask(storeId, item.getGoodsId());
 		task.setInventoryType(inventoryType);
 		task.setChangeCountAndAmount(item.getRealCount(), item.getAmount());
 		if (null != inventoryItems) {
-			setShelfItem(task, inventoryItems, storeId, item.getGoodsId(),
-					checkintype);
+			setShelfItem(task, inventoryItems, storeId, item.getGoodsId(), checkintype);
 		}
 		context.handle(task);
 		// 更新采购在途
 		if (checkintype == CheckingInType.Purchase) {
-			InventoryOnWayTask onway = new InventoryOnWayTask(storeId, item
-					.getGoodsId());
+			InventoryOnWayTask onway = new InventoryOnWayTask(storeId, item.getGoodsId());
 			onway.setInventoryType(InventoryType.Materials);
 			onway.setOnWayCount(DoubleUtil.sub(0, item.getRealCount()));
 			context.handle(onway);
 		}
 	}
 
-	private void setShelfItem(InventoryBusTask task,
-			DistributeInventoryItem[] inventoryItems, GUID storeId,
+	private void setShelfItem(InventoryBusTask task, DistributeInventoryItem[] inventoryItems, GUID storeId,
 			GUID goodsId, CheckingInType checkintype) {
 		List<DetItem> dets = new ArrayList<DetItem>();
 		for (DistributeInventoryItem iteminfo : inventoryItems) {
 			if (!iteminfo.getStockId().equals(goodsId)) {
 				continue;
 			}
-			for (DistributeInventoryItemDet item : iteminfo
-					.getInventoryDetItems()) {
+			for (DistributeInventoryItemDet item : iteminfo.getInventoryDetItems()) {
 				double count = item.getCount();
-				DetItem det = task.new DetItem(item.getShelfId(), item
-						.getShelfNo(), item.getTiersNo(),
-						iteminfo.getStockId(), count, item.getProduceDate(),
-						storeId);
+				DetItem det = task.new DetItem(item.getShelfId(), item.getShelfNo(), item.getTiersNo(), iteminfo
+						.getStockId(), count, item.getProduceDate(), storeId);
 				dets.add(det);
 			}
 		}
@@ -425,10 +395,8 @@ public class InsertSheetService extends Service {
 	/**
 	 * 得到入库单sheet实体
 	 */
-	private CheckInSheet fillEntity(Context context, Instorage entity,
-			String type) {
-		Employee user = context.find(Employee.class, context.find(Login.class)
-				.getEmployeeId());
+	private CheckInSheet fillEntity(Context context, Instorage entity, String type) {
+		Employee user = context.find(Employee.class, context.find(Login.class).getEmployeeId());
 		CheckInSheet sheet = new CheckInSheet();
 		sheet.setAskedAmount(0);
 		sheet.setBuyDate(entity.getPurchaseDate());
@@ -462,8 +430,7 @@ public class InsertSheetService extends Service {
 	/**
 	 * 得到入库单sheet明细实体
 	 */
-	public List<CheckInSheetItem> fillDetails(Context context,
-			List<InstorageItem> detailList, CheckInSheet sheet,
+	public List<CheckInSheetItem> fillDetails(Context context, List<InstorageItem> detailList, CheckInSheet sheet,
 			AllreadyAmountAndCount data) {
 		List<CheckInSheetItem> list = new ArrayList<CheckInSheetItem>();
 		double amount = 0;
@@ -486,16 +453,12 @@ public class InsertSheetService extends Service {
 			item.setSheetId(sheet.getRECID());
 			item.setUnit(det.getUnit());
 			count = DoubleUtil.sum(item.getRealCount(), count);
-			if (i == detailList.size() - 1
-					&& data != null
-					&& data.getBillCount() == DoubleUtil.sum(data
-							.getAllreadyCount(), count)) {
+			if (i == detailList.size() - 1 && data != null
+					&& data.getBillCount() == DoubleUtil.sum(data.getAllreadyCount(), count)) {
 				// 判断是否是单据的最后一次入库，是则计算金额
-				item.setAmount(DoubleUtil.sub(data.getBillAmount(), DoubleUtil
-						.sum(amount, data.getAllreadyAmount())));
+				item.setAmount(DoubleUtil.sub(data.getBillAmount(), DoubleUtil.sum(amount, data.getAllreadyAmount())));
 			} else {
-				item.setAmount(DoubleUtil.mul(det.getThisTimeCount(), det
-						.getPrice()));
+				item.setAmount(DoubleUtil.mul(det.getThisTimeCount(), det.getPrice()));
 			}
 			list.add(item);
 			amount = DoubleUtil.sum(item.getAmount(), amount);
@@ -508,16 +471,14 @@ public class InsertSheetService extends Service {
 	 * 生成调整入库
 	 */
 	@Publish
-	protected class InsertOneAdjustBillsService extends
-			TaskMethodHandler<InstoAddTask, CheckingInType> {
+	protected class InsertOneAdjustBillsService extends TaskMethodHandler<InstoAddTask, CheckingInType> {
 
 		protected InsertOneAdjustBillsService() {
 			super(CheckingInType.Kit);
 		}
 
 		@Override
-		protected void handle(Context context, InstoAddTask task)
-				throws Throwable {
+		protected void handle(Context context, InstoAddTask task) throws Throwable {
 			if (null == task.getEntity()) {
 				return;
 			}
@@ -528,20 +489,15 @@ public class InsertSheetService extends Service {
 	 * 确认入库
 	 */
 	@Publish
-	protected class SureCheckinHandle extends
-			SimpleTaskMethodHandler<SureCheckInTask> {
+	protected class SureCheckinHandle extends SimpleTaskMethodHandler<SureCheckInTask> {
 
 		@Override
-		protected void handle(Context context, SureCheckInTask task)
-				throws Throwable {
+		protected void handle(Context context, SureCheckInTask task) throws Throwable {
 			// 验证是否可以入库（仓库状态，入库单数据）
 			Instorage info = context.find(Instorage.class, task.getId());
-			List<InstorageItem> list = context.getList(InstorageItem.class,
-					task.getId());
-			AllreadyAmountAndCount data = context.find(
-					AllreadyAmountAndCount.class,
-					GetBillsAllreadyAmountAndCountKey.getCheckInKey(info
-							.getRelaBillsId()));
+			List<InstorageItem> list = context.getList(InstorageItem.class, task.getId());
+			AllreadyAmountAndCount data = context.find(AllreadyAmountAndCount.class, GetBillsAllreadyAmountAndCountKey
+					.getCheckInKey(info.getRelaBillsId()));
 			CheckinSheetTask tttt = validation(context, task, info, data, list);
 			if (tttt == null) {
 				return;
@@ -555,31 +511,31 @@ public class InsertSheetService extends Service {
 			}
 			for (CheckInSheetItem item : items) {
 				// 更新库存和成本
-				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task
-						.getInventoryItems(), InventoryType.Materials,
-						CheckingInType.getCheckingInType(sheet.getSheetType()));
+				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task.getInventoryItems(),
+						InventoryType.Materials, CheckingInType.getCheckingInType(sheet.getSheetType()));
 			}
 			// 库存流水
 			doWrightStream(context, sheet, items, InventoryType.Materials);
-			DealingsType dealingsType = DealingsType.PRO_CGRK;
-			if (sheet.getSheetType().equals(CheckingInType.Return.getCode())) {
-				dealingsType = DealingsType.CUS_THRK;
+			if (!sheet.getSheetType().equals(CheckingInType.GoodsSplit.getCode())) {
+				DealingsType dealingsType = DealingsType.PRO_CGRK;
+				if (sheet.getSheetType().equals(CheckingInType.Return.getCode())) {
+					dealingsType = DealingsType.CUS_THRK;
+				}
+				// 应收应付
+				doUpdateDealing(context, sheet, dealingsType);
 			}
-			// 应收应付
-			doUpdateDealing(context, sheet, dealingsType);
 			// 更改订单状态
 			doUpdateCheckingin(context, tttt, info, data, list);
+
 			// 确认入库事件
 			CheckInEvent event = new CheckInEvent(info.getRECID());
 			event.setCheckInLogId(sheet.getRECID());
 			event.setRelaOrderId(sheet.getRelaBillsId());
-			event.setType(CheckingInType
-					.getCheckingInType(sheet.getSheetType()));
+			event.setType(CheckingInType.getCheckingInType(sheet.getSheetType()));
 			context.dispatch(event);
 		}
 
-		private CheckinSheetTask validation(Context context,
-				SureCheckInTask task, Instorage info,
+		private CheckinSheetTask validation(Context context, SureCheckInTask task, Instorage info,
 				AllreadyAmountAndCount data, List<InstorageItem> list) {
 			Map<GUID, InstorageItem> map = new HashMap<GUID, InstorageItem>();
 			for (InstorageItem item : list) {
@@ -591,8 +547,7 @@ public class InsertSheetService extends Service {
 			setThisTimeCount(task, map);
 			CheckInSheet sheet = fillEntity(context, info, info.getSheetType());
 
-			List<CheckInSheetItem> items = fillDetails(context, list, sheet,
-					data);
+			List<CheckInSheetItem> items = fillDetails(context, list, sheet, data);
 			CheckinSheetTask ttt = new CheckinSheetTask();
 			ttt.setEntity(sheet);
 			ttt.setItems(items);
@@ -612,8 +567,7 @@ public class InsertSheetService extends Service {
 			return null;
 		}
 
-		private void setThisTimeCount(SureCheckInTask task,
-				Map<GUID, InstorageItem> map) {
+		private void setThisTimeCount(SureCheckInTask task, Map<GUID, InstorageItem> map) {
 			for (CheckInSheetTaskItem item : task.getItems()) {
 				InstorageItem det = map.get(item.getId());
 				det.setThisTimeCount(item.getCheckinCount());
@@ -622,18 +576,15 @@ public class InsertSheetService extends Service {
 		}
 	}
 
-	private void doUpdateCheckingin(Context context, CheckinSheetTask tttt,
-			Instorage info, AllreadyAmountAndCount data,
-			List<InstorageItem> list) throws Exception {
+	private void doUpdateCheckingin(Context context, CheckinSheetTask tttt, Instorage info,
+			AllreadyAmountAndCount data, List<InstorageItem> list) throws Exception {
 		double count = 0;
 		boolean isFinished = true;
 		for (InstorageItem item : list) {
 			UpdateSqlBuilder ub = new UpdateSqlBuilder(context);
 			ub.setTable(ERPTableNames.Inventory.Checkingin_Det.getTableName());
-			ub.addColumn("checkinCount", ub.DOUBLE, item.getCheckinCount()
-					+ item.getThisTimeCount());
-			ub.addCondition("oldAmount", ub.DOUBLE, item.getCheckinCount(),
-					"t.checkinCount = @oldAmount");
+			ub.addColumn("checkinCount", ub.DOUBLE, item.getCheckinCount() + item.getThisTimeCount());
+			ub.addCondition("oldAmount", ub.DOUBLE, item.getCheckinCount(), "t.checkinCount = @oldAmount");
 			ub.addCondition("rid", ub.guid, item.getId(), "t.RECID=@rid");
 			count = DoubleUtil.sum(item.getThisTimeCount(), count);
 			int i = ub.execute();
@@ -641,8 +592,7 @@ public class InsertSheetService extends Service {
 				throw new Exception(CheckInError.DataChangedError.getMessage());
 			}
 			if (isFinished) {
-				isFinished = item.getCount() == DoubleUtil.sum(item
-						.getCheckinCount(), item.getThisTimeCount());
+				isFinished = item.getCount() == DoubleUtil.sum(item.getCheckinCount(), item.getThisTimeCount());
 			}
 		}
 		UpdateSqlBuilder ub = new UpdateSqlBuilder(context);
@@ -653,9 +603,7 @@ public class InsertSheetService extends Service {
 		// .getAllreadyCount(), count))
 		) {
 			info.setStatus(CheckingInStatus.Finish.getCode());
-			ub
-					.addColumn("status", ub.STRING, CheckingInStatus.Finish
-							.getCode());
+			ub.addColumn("status", ub.STRING, CheckingInStatus.Finish.getCode());
 		} else {
 			ub.addColumn("status", ub.STRING, CheckingInStatus.Part.getCode());
 		}
@@ -664,13 +612,12 @@ public class InsertSheetService extends Service {
 	}
 
 	@Publish
-	protected class AllreadyAmountAndCountProvider
-			extends
+	protected class AllreadyAmountAndCountProvider extends
 			OneKeyResultProvider<AllreadyAmountAndCount, GetBillsAllreadyAmountAndCountKey> {
 
 		@Override
-		protected AllreadyAmountAndCount provide(Context context,
-				GetBillsAllreadyAmountAndCountKey key) throws Throwable {
+		protected AllreadyAmountAndCount provide(Context context, GetBillsAllreadyAmountAndCountKey key)
+				throws Throwable {
 			AllreadyAmountAndCount data = new AllreadyAmountAndCount();
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addColumn("t.billsCount", "billsCount");
@@ -680,22 +627,15 @@ public class InsertSheetService extends Service {
 			if (key.isCheckIn()) {
 				qb.addGroupBy("s.paidAmount");
 				qb.addColumn("s.paidAmount", "paidAmount");
-				qb.addTable(ERPTableNames.Inventory.Checkingin.getTableName(),
-						"t");
-				qb.addTable(
-						ERPTableNames.Inventory.CheckinSheet.getTableName(),
-						"s");
-				qb.addTable(ERPTableNames.Inventory.CheckinSheet_Det
-						.getTableName(), "d");
+				qb.addTable(ERPTableNames.Inventory.Checkingin.getTableName(), "t");
+				qb.addTable(ERPTableNames.Inventory.CheckinSheet.getTableName(), "s");
+				qb.addTable(ERPTableNames.Inventory.CheckinSheet_Det.getTableName(), "d");
 			} else {
 				qb.addGroupBy("s.receiptedAmount");
 				qb.addColumn("s.receiptedAmount", "receiptedAmount");
-				qb.addTable(ERPTableNames.Inventory.Checkingout.getTableName(),
-						"t");
-				qb.addTable(ERPTableNames.Inventory.CheckoutSheet
-						.getTableName(), "s");
-				qb.addTable(ERPTableNames.Inventory.CheckoutSheet_Det
-						.getTableName(), "d");
+				qb.addTable(ERPTableNames.Inventory.Checkingout.getTableName(), "t");
+				qb.addTable(ERPTableNames.Inventory.CheckoutSheet.getTableName(), "s");
+				qb.addTable(ERPTableNames.Inventory.CheckoutSheet_Det.getTableName(), "d");
 			}
 			qb.addArgs("relaId", qb.guid, key.getBillsId());
 			qb.addEquals("t.relaBillsId", "@relaId");
@@ -711,26 +651,21 @@ public class InsertSheetService extends Service {
 				data.setBillAmount(rs.getFields().get(index++).getDouble());
 				data.setAllreadyAmount(rs.getFields().get(index++).getDouble());
 				data.setAllreadyCount(rs.getFields().get(index++).getDouble());
-				data.setPaidOrReceiptedAmount(rs.getFields().get(index++)
-						.getDouble());
+				data.setPaidOrReceiptedAmount(rs.getFields().get(index++).getDouble());
 			} else {
 				fillBillCount(context, key, data);
 			}
 			return data;
 		}
 
-		private void fillBillCount(Context context,
-				GetBillsAllreadyAmountAndCountKey key,
-				AllreadyAmountAndCount data) {
+		private void fillBillCount(Context context, GetBillsAllreadyAmountAndCountKey key, AllreadyAmountAndCount data) {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addColumn("t.billsCount", "billsCount");
 			qb.addColumn("t.billsAmount", "billsAmount");
 			if (key.isCheckIn()) {
-				qb.addTable(ERPTableNames.Inventory.Checkingin.getTableName(),
-						"t");
+				qb.addTable(ERPTableNames.Inventory.Checkingin.getTableName(), "t");
 			} else {
-				qb.addTable(ERPTableNames.Inventory.Checkingout.getTableName(),
-						"t");
+				qb.addTable(ERPTableNames.Inventory.Checkingout.getTableName(), "t");
 			}
 			qb.addArgs("relaId", qb.guid, key.getBillsId());
 			qb.addEquals("t.relaBillsId", "@relaId");
@@ -747,12 +682,10 @@ public class InsertSheetService extends Service {
 	 * 调整入库
 	 */
 	@Publish
-	protected class AdjustCheckinTaskHandle extends
-			SimpleTaskMethodHandler<AdjustCheckinTask> {
+	protected class AdjustCheckinTaskHandle extends SimpleTaskMethodHandler<AdjustCheckinTask> {
 
 		@Override
-		protected void handle(Context context, AdjustCheckinTask task)
-				throws Throwable {
+		protected void handle(Context context, AdjustCheckinTask task) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			CheckInSheet sheet = new CheckInSheet();
@@ -782,8 +715,7 @@ public class InsertSheetService extends Service {
 				det.setSheetId(sheet.getRECID());
 				det.setAmount(item.getAmount());
 				det.setGoodsId(item.getGoodsId());
-				MaterialsItem goods = context.find(MaterialsItem.class, item
-						.getGoodsId());
+				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsId());
 				det.setGoodsCode(goods.getMaterialCode());
 				det.setGoodsName(goods.getMaterialName());
 				det.setGoodsNo(goods.getMaterialNo());
@@ -804,12 +736,10 @@ public class InsertSheetService extends Service {
 	 * 联营入库
 	 */
 	@Publish
-	protected class JointCheckinTaskHandle extends
-			SimpleTaskMethodHandler<JointCheckinTask> {
+	protected class JointCheckinTaskHandle extends SimpleTaskMethodHandler<JointCheckinTask> {
 
 		@Override
-		protected void handle(Context context, JointCheckinTask task)
-				throws Throwable {
+		protected void handle(Context context, JointCheckinTask task) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			CheckInSheet sheet = new CheckInSheet();
@@ -834,8 +764,7 @@ public class InsertSheetService extends Service {
 				det.setSheetId(sheet.getRECID());
 				det.setRealCount(item.getCount());
 				det.setGoodsId(item.getGoodsId());
-				MaterialsItem goods = context.find(MaterialsItem.class, item
-						.getGoodsId());
+				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsId());
 				det.setGoodsCode(goods.getMaterialCode());
 				det.setGoodsName(goods.getMaterialName());
 				det.setGoodsNo(goods.getMaterialNo());
@@ -851,9 +780,8 @@ public class InsertSheetService extends Service {
 
 			for (CheckInSheetItem item : items) {
 				// 更新库存和成本
-				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task
-						.getInventoryItems(), InventoryType.Materials,
-						CheckingInType.getCheckingInType(sheet.getSheetType()));
+				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task.getInventoryItems(),
+						InventoryType.Materials, CheckingInType.getCheckingInType(sheet.getSheetType()));
 			}
 			// 库存流水
 			doWrightStream(context, sheet, items, InventoryType.Materials);
@@ -861,11 +789,9 @@ public class InsertSheetService extends Service {
 	}
 
 	@Publish
-	protected class GiftCheckinHandle extends
-			SimpleTaskMethodHandler<GiftCheckinTask> {
+	protected class GiftCheckinHandle extends SimpleTaskMethodHandler<GiftCheckinTask> {
 		@Override
-		protected void handle(Context context, GiftCheckinTask task)
-				throws Throwable {
+		protected void handle(Context context, GiftCheckinTask task) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			CheckInSheet sheet = new CheckInSheet();
@@ -896,8 +822,7 @@ public class InsertSheetService extends Service {
 				det.setAmount(0);
 				det.setRealCount(item.getCount());
 				det.setGoodsId(item.getGoodsId());
-				MaterialsItem goods = context.find(MaterialsItem.class, item
-						.getGoodsId());
+				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsId());
 				det.setGoodsCode(goods.getMaterialCode());
 				det.setGoodsName(goods.getMaterialName());
 				det.setGoodsNo(goods.getMaterialNo());
@@ -914,10 +839,8 @@ public class InsertSheetService extends Service {
 
 			for (CheckInSheetItem item : items) {
 				// 更新库存和成本
-				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task
-						.getDistributeInventoryItems(),
-						InventoryType.Materials, CheckingInType
-								.getCheckingInType(sheet.getSheetType()));
+				modfiyMaterialsStorage(context, sheet.getStoreId(), item, task.getDistributeInventoryItems(),
+						InventoryType.Materials, CheckingInType.getCheckingInType(sheet.getSheetType()));
 			}
 			// 库存流水
 			doWrightStream(context, sheet, items, InventoryType.Materials);
