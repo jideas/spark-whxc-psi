@@ -15,6 +15,7 @@
     <field dbtable="PSI_GOODSSPLIT" name="rejectReason" name-db="rejectReason" type="nvarchar(1000)" primary-key="false" keep-valid="false" author="" title="" description="" ID="385840A57F5ADE0675FB8FA94F74513E" />
     <field dbtable="PSI_GOODSSPLIT" name="remark" name-db="remark" type="nvarchar(1000)" primary-key="false" keep-valid="false" author="" title="" description="" ID="BB5D2F9D185B5BD3510119569D7762B9" />
     <field dbtable="PSI_GOODSSPLIT" name="storeId" name-db="storeId" type="guid" primary-key="false" keep-valid="false" author="" title="" description="" ID="B730D3954DE8C639B300BDF2BCD41968" />
+    <field dbtable="PSI_GOODSSPLIT" name="finishDate" name-db="finishDate" type="date" primary-key="false" keep-valid="false" author="" title="" description="" ID="A441EE6C2B81B6990FE3027C77479E0A" />
   </fields>
   <indexs />
   <hierarchies />
