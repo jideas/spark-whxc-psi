@@ -150,6 +150,32 @@
 			<page space="psi/inventory" name="调整成本页面"
 				processor="com.spark.psi.inventory.browser.query.AdjustGoodsCostProcessor"
 				render="com.spark.psi.inventory.browser.query.AdjustGoodsCostRender" />
+			<!-- 成品拆分 -->
+			<page space="psi/inventory" name="NewGoodsSplitList"
+				title="新拆分单"
+				processor="com.spark.psi.inventory.browser.split.NewGoodsSplitListProcessor"
+				render="com.spark.psi.inventory.browser.split.NewGoodsSplitListRender" />
+			
+			<page space="psi/inventory" name="ApprovalGoodsSplitList"
+				title="待审批拆分单"
+				processor="com.spark.psi.inventory.browser.split.ApprovalGoodsSplitListProcessor"
+				render="com.spark.psi.inventory.browser.split.ApprovalGoodsSplitListRender" />
+			
+			<page space="psi/inventory" name="DistributingGoodsSplitList"
+				title="待分配拆分单"
+				processor="com.spark.psi.inventory.browser.split.DistributingGoodsSplitListProcessor"
+				render="com.spark.psi.inventory.browser.split.DistributingGoodsSplitListRender" />
+			
+			<page space="psi/inventory" name="ProcessingGoodsSplitList"
+				title="进行中拆分单"
+				processor="com.spark.psi.inventory.browser.split.ProcessingGoodsSplitListProcessor"
+				render="com.spark.psi.inventory.browser.split.ProcessingGoodsSplitListRender" />
+			
+			<page space="psi/inventory" name="FinishedGoodsSplitList"
+				title="已完成拆分单"
+				processor="com.spark.psi.inventory.browser.split.FinishedGoodsSplitListProcessor"
+				render="com.spark.psi.inventory.browser.split.FinishedGoodsSplitListRender" />
+
 		</saas-pages>
 	</publish>
 </dna>

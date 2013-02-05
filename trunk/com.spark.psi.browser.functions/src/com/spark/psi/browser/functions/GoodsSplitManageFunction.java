@@ -29,27 +29,27 @@ public class GoodsSplitManageFunction extends PSIFunction {
 		if (login.hasAuth(Auth.SubFunction_GoodsSplitManage_Create)
 				&& login.hasAuth(Auth.SubFunction_GoodsSplitManage_Approval)) {
 			//同时具有创建和审批权限
-			list.add(new BaseFunction(new PageControllerInstance("a"), "新拆分单",
+			list.add(new BaseFunction(new PageControllerInstance("NewGoodsSplitList"), "新拆分单",
 					false));
-			list.add(new BaseFunction(new PageControllerInstance("a"), "待审批",
+			list.add(new BaseFunction(new PageControllerInstance("ApprovalGoodsSplitList"), "待审批",
 					true));
 		} else if (login.hasAuth(Auth.SubFunction_GoodsSplitManage_Create)) {
 			//具有创建权限
-			list.add(new BaseFunction(new PageControllerInstance("a"), "新拆分单",
+			list.add(new BaseFunction(new PageControllerInstance("NewGoodsSplitList"), "新拆分单",
 					true));
 		} else if (login.hasAuth(Auth.SubFunction_GoodsSplitManage_Approval)) {
 			//具有审批权限
-			list.add(new BaseFunction(new PageControllerInstance("a"), "待审批",
+			list.add(new BaseFunction(new PageControllerInstance("ApprovalGoodsSplitList"), "待审批",
 					true));
 		}
 		list
-				.add(new BaseFunction(new PageControllerInstance("a"), "待分配",
+				.add(new BaseFunction(new PageControllerInstance("DistributingGoodsSplitList"), "待分配",
 						true));
 		list
-				.add(new BaseFunction(new PageControllerInstance("a"), "进行中",
+				.add(new BaseFunction(new PageControllerInstance("ProcessingGoodsSplitList"), "进行中",
 						true));
 		list
-				.add(new BaseFunction(new PageControllerInstance("a"), "已完成",
+				.add(new BaseFunction(new PageControllerInstance("FinishedGoodsSplitList"), "已完成",
 						true));
 		return list.toArray(new BaseFunction[list.size()]);
 	}
