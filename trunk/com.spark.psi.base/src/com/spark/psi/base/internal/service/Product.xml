@@ -202,6 +202,8 @@
 				<auth>1032003</auth>
 				<auth>1037</auth>
 				<auth>1041</auth>
+				<auth>1050</auth>
+				<auth>1050002</auth>
 			</role>
 			<role code="8" mask="7,0" name="财务员工" description="管理企业的收付款、往来款">
 				<auth>0007</auth>
@@ -236,6 +238,8 @@
 				<auth>1037</auth>
 				<auth>1041</auth>
 				<auth>1040</auth>
+				<auth>1050</auth>
+				<auth>1050002</auth>
 			</role>
 			<role code="10" mask="0" name="统计员" description="对销售订货单进行出库分配工作">
 				<auth>0010</auth>
@@ -280,6 +284,8 @@
 				<auth>1040</auth>
 				<auth>1040002</auth>
 				<auth>1040003</auth> 
+				<auth>1050</auth>
+				<auth>1050003</auth>
 			</role>
 			<role code="11" mask="12,0" name="站点经理" description="管理下属员工，管理本部门的站点的收货，领货，退货等工作">
 				<auth>0012</auth>
@@ -321,6 +327,8 @@
 				<auth>1034</auth>
 				<auth>1034001</auth>
 				<auth>1034003</auth>
+				<auth>1050</auth>
+				<auth>1050001</auth>
 			</role>
 			<role code="14" mask="13,0" name="车间员工" description="管理本部门的产品生产工作">
 				<auth>0015</auth>
