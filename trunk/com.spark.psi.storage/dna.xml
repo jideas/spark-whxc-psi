@@ -19,18 +19,18 @@
       <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_AUTHOR_GOODTEMPLETE" />
       <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPRECORD" />
       <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPSTAT" />
-      <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPTEMPLATE" />  
-      <table space="SAAS" class="com.spark.psi.storage.store.check.TB_SA_STORE_CHECK" />   
+      <table space="SAAS" class="com.spark.psi.storage.messagetip.TB_SA_COMM_MESSAGETIPTEMPLATE" />
+      <table space="SAAS" class="com.spark.psi.storage.store.check.TB_SA_STORE_CHECK" />
       <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_NOTE" />
       <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_WEATHER" />
       <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_MONITOR" />
-      <table space="SAAS" class="com.spark.psi.storage.store.storage.TB_SA_STORE_DIRECT" /> 
-      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT" /> 
+      <table space="SAAS" class="com.spark.psi.storage.store.storage.TB_SA_STORE_DIRECT" />
+      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT" />
       <table space="SAAS" class="com.spark.psi.storage.store.allocate.TB_SA_STORE_ALLOCATE" />
       <table space="SAAS" class="com.spark.psi.storage.store.check.TB_SA_STORE_CHECK_DET" />
-      <table space="SAAS" class="com.spark.psi.storage.store.allocate.TB_SA_STORE_ALLOCATE_DET" /> 
-      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT_DET" /> 
-      <table space="SAAS" class="com.spark.psi.storage.report.store.TB_sa_report_sto_stream" /> 
+      <table space="SAAS" class="com.spark.psi.storage.store.allocate.TB_SA_STORE_ALLOCATE_DET" />
+      <table space="SAAS" class="com.spark.psi.storage.store.dismounting.TB_SA_STORE_DISMOUNT_DET" />
+      <table space="SAAS" class="com.spark.psi.storage.report.store.TB_sa_report_sto_stream" />
       <table space="SAAS" class="com.spark.psi.storage.index.TB_SA_COMM_INDEX_TOOL" />
       <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_AUTHOR_GOODS" />
       <table space="SAAS" class="com.spark.psi.storage.customer.TB_SA_SALE_SENDADDERS" />
@@ -42,6 +42,9 @@
       <table space="SAAS" class="com.spark.psi.storage.account.cusdeal.TB_SA_ACCOUNT_DEALING" />
       <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory" />
       <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory_Det" />
+      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit" />
+      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit_Goods" />
+      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit_Materials" />
     </tables>
     <ui-entrys>
       <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
