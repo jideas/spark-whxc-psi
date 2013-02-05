@@ -101,4 +101,8 @@ Export-Package:
  com.spark.psi.publish.report.entity,
  com.spark.psi.publish.report.task,
  com.spark.psi.publish.smessage.entity,
- com.spark.psi.publish.smessage.task
+ com.spark.psi.publish.smessage.task,
+ com.spark.psi.publish.split.constant,
+ com.spark.psi.publish.split.entity,
+ com.spark.psi.publish.split.key,
+ com.spark.psi.publish.split.task
