@@ -117,7 +117,8 @@ public class GoodsPublishService extends Service {
 	/**
 	 * 商品分类表
 	 */
-	final static String Tab_GoodsCategory = ERPTableNames.Base.GoodsCategory.getTableName();
+	final static String Tab_GoodsCategory = ERPTableNames.Base.GoodsCategory
+			.getTableName();
 	/**
 	 * 商品表
 	 */
@@ -125,7 +126,8 @@ public class GoodsPublishService extends Service {
 	/**
 	 * 商品条目表
 	 */
-	final static String Tab_GoodsItem = ERPTableNames.Base.GoodsItem.getTableName();
+	final static String Tab_GoodsItem = ERPTableNames.Base.GoodsItem
+			.getTableName();
 
 	final Orm_GoodsItem orm_GoodsItem;
 
@@ -139,7 +141,9 @@ public class GoodsPublishService extends Service {
 
 	static final int MAXIMUM = 1 << 10;
 
-	protected GoodsPublishService(final Orm_GoodsItem orm_GoodsItem, final Orm_Goods orm_Goods,
+	protected GoodsPublishService(
+			final Orm_GoodsItem orm_GoodsItem,
+			final Orm_Goods orm_Goods,
 			final Orm_GoodsTraderLogByGoodsId orm_GoodsTraderLogByGoodsId,
 			final Orm_GoodsTraderLogByGoodsItemIdAndPartnerId orm_GoodsTraderLogByGoodsIdAndPartnerId) {
 		super("com.spark.psi.base.internal.service.GoodsPublishService");
@@ -157,18 +161,22 @@ public class GoodsPublishService extends Service {
 	 * 获得商品分类维护对象
 	 */
 	@Publish
-	protected class GetGoodsCategoryInfoByIdProvider extends OneKeyResultProvider<GoodsCategoryInfo, GUID> {
+	protected class GetGoodsCategoryInfoByIdProvider extends
+			OneKeyResultProvider<GoodsCategoryInfo, GUID> {
 
 		@Override
-		protected GoodsCategoryInfo provide(Context context, GUID key) throws Throwable {
+		protected GoodsCategoryInfo provide(Context context, GUID key)
+				throws Throwable {
 			GoodsCategoryInfoImpl impl = new GoodsCategoryInfoImpl();
-			GoodsCategory goodsCategory = context.find(GoodsCategory.class, key);
+			GoodsCategory goodsCategory = context
+					.find(GoodsCategory.class, key);
 			impl.setScale(goodsCategory.getScale());
 			impl.setId(key);
 			impl.setName(goodsCategory.getName());
 			impl.setCategoryNo(goodsCategory.getCategoryNo());
 			//
-			StringBuffer sql = new StringBuffer("define query getProperties(@id guid)");
+			StringBuffer sql = new StringBuffer(
+					"define query getProperties(@id guid)");
 			sql.append(" begin");
 			sql.append(" select t.properties as properties ");
 			sql.append(" from " + Tab_GoodsCategory + " as t");
@@ -187,13 +195,17 @@ public class GoodsPublishService extends Service {
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject property = array.getJSONObject(i);
 						String name = property.getString("name");
-						PropertyInputType type = PropertyInputType.getPropertyInputType(property.getString("type"));
-						JSONArray optionArray = property.getJSONArray("options");
+						PropertyInputType type = PropertyInputType
+								.getPropertyInputType(property
+										.getString("type"));
+						JSONArray optionArray = property
+								.getJSONArray("options");
 						String[] options = new String[optionArray.length()];
 						for (int j = 0; j < optionArray.length(); j++) {
 							options[j] = optionArray.getString(j);
 						}
-						PropertyDefineImpl propertyDefine = new PropertyDefineImpl(GUID.randomID(), name, type, options);
+						PropertyDefineImpl propertyDefine = new PropertyDefineImpl(
+								GUID.randomID(), name, type, options);
 						propertyDefineList.add(propertyDefine);
 					}
 				} catch (Throwable t) {
@@ -201,7 +213,8 @@ public class GoodsPublishService extends Service {
 			}
 
 			//
-			impl.setPropertyDefines(propertyDefineList.toArray(new PropertyDefine[0]));
+			impl.setPropertyDefines(propertyDefineList
+					.toArray(new PropertyDefine[0]));
 
 			return impl;
 		}
@@ -215,36 +228,43 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class GetGoodsCategoryTreeProvider extends ResultProvider<GoodsCategoryTree> {
+	protected class GetGoodsCategoryTreeProvider extends
+			ResultProvider<GoodsCategoryTree> {
 
 		@Override
 		protected GoodsCategoryTree provide(Context context) throws Throwable {
 
-			List<GoodsCategory> categorys = context.getList(GoodsCategory.class);
+			List<GoodsCategory> categorys = context
+					.getList(GoodsCategory.class);
 			ComparatorUtils.sort(categorys, "categoryNo", false);
 			List<GoodsCategoryTree.CategoryNode> result = new ArrayList<GoodsCategoryTree.CategoryNode>();
 			int i = 0; // 设置了属性的商品分类总数
 			for (GoodsCategory goodsCategory : categorys) {
-				if (GoodsCategory.ROOT.getId().equals(goodsCategory.getParent())) {
+				if (GoodsCategory.ROOT.getId()
+						.equals(goodsCategory.getParent())) {
 					result.add(toNode(context, goodsCategory));
 				}
 				if (goodsCategory.isPropertyFlag()) {
 					i++;
 				}
 			}
-			GoodsCategoryTreeImpl tree = new GoodsCategoryTreeImpl(result.toArray(new GoodsCategoryTree.CategoryNode[result.size()]));
+			GoodsCategoryTreeImpl tree = new GoodsCategoryTreeImpl(result
+					.toArray(new GoodsCategoryTree.CategoryNode[result.size()]));
 			tree.setCount(categorys.size());
 			tree.setPropertiedCount(i);
 			return tree;
 		}
 
-		private GoodsCategoryTree.CategoryNode toNode(Context context, GoodsCategory impl) {
+		private GoodsCategoryTree.CategoryNode toNode(Context context,
+				GoodsCategory impl) {
 			CategoryNodeImpl node = new CategoryNodeImpl();
 			node.setId(impl.getId());
 			node.setName(impl.getName());
 			node.setCategoryNo(impl.getCategoryNo());
 			node.setPropertyFlag(impl.isPropertyFlag());
-			List<GoodsCategory> childList = context.getList(GoodsCategory.class, new GetChildrenGoodsCategoryListKey(impl.getId()));
+			List<GoodsCategory> childList = context.getList(
+					GoodsCategory.class, new GetChildrenGoodsCategoryListKey(
+							impl.getId()));
 			ComparatorUtils.sort(childList, "categoryNo", false);
 			CategoryNode[] children = new CategoryNodeImpl[childList.size()];
 			for (int i = 0; i < childList.size(); i++) {
@@ -365,19 +385,24 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class CreateGoodsCategoryHandler extends SimpleTaskMethodHandler<CreateGoodsCategoryTask> {
+	protected class CreateGoodsCategoryHandler extends
+			SimpleTaskMethodHandler<CreateGoodsCategoryTask> {
 
 		@Override
-		protected void handle(Context context, CreateGoodsCategoryTask task) throws Throwable {
+		protected void handle(Context context, CreateGoodsCategoryTask task)
+				throws Throwable {
 			// Tenant tr = TenantHelper.getTenant(context);
 			task.setId(context.newRECID());
-			GUID parentId = task.getParentId() == null ? GoodsCategory.ROOT.getId() : task.getParentId();
+			GUID parentId = task.getParentId() == null ? GoodsCategory.ROOT
+					.getId() : task.getParentId();
 			byte[] path = null;
 			if (task.getParentId() == null) {
 				path = ("00" + task.getId()).getBytes();
 			} else {
-				GoodsCategory parentType = context.find(GoodsCategory.class, task.getParentId());
-				path = (new String(parentType.getPath()) + "00" + task.getId()).getBytes();
+				GoodsCategory parentType = context.find(GoodsCategory.class,
+						task.getParentId());
+				path = (new String(parentType.getPath()) + "00" + task.getId())
+						.getBytes();
 			}
 			// goodsType.setPath(path);
 
@@ -389,8 +414,10 @@ public class GoodsPublishService extends Service {
 
 			sql.append(" begin");
 			sql.append(" insert into ").append(Tab_GoodsCategory).append(" ");
-			sql.append(" (RECID,categoryName,categoryNo,parentId,path,createDate,creator,creatorId)");
-			sql.append(" values(@recid,@goodsTypeName, @categoryNo, @parentGuid,@path,@createDate,@createPerson,@creatorId)");
+			sql
+					.append(" (RECID,categoryName,categoryNo,parentId,path,createDate,creator,creatorId)");
+			sql
+					.append(" values(@recid,@goodsTypeName, @categoryNo, @parentGuid,@path,@createDate,@createPerson,@creatorId)");
 			sql.append(" end");
 
 			DBCommand dbc = context.prepareStatement(sql);
@@ -411,7 +438,8 @@ public class GoodsPublishService extends Service {
 				throw new IllegalArgumentException("增加商品分类失败，分类名称是否冲突？");
 			}
 			// 2、将父节点的是否是叶子节点改为非叶子节点
-			StringBuffer sql1 = new StringBuffer("define update modifyParentGoodsType(@leafFlag boolean,@parentGuid guid)");
+			StringBuffer sql1 = new StringBuffer(
+					"define update modifyParentGoodsType(@leafFlag boolean,@parentGuid guid)");
 			sql1.append(" begin");
 			sql1.append(" update ").append(Tab_GoodsCategory).append(" as a");
 			sql1.append(" set leafFlag=@leafFlag");
@@ -425,7 +453,9 @@ public class GoodsPublishService extends Service {
 
 			dbc1.executeUpdate();
 			if (task.getParentId() != null) {
-				context.handle(new UpdateGoodsCategoryResourceTask(task.getParentId()), UpdateGoodsCategoryResourceTask.Method.Modify);
+				context.handle(new UpdateGoodsCategoryResourceTask(task
+						.getParentId()),
+						UpdateGoodsCategoryResourceTask.Method.Modify);
 			}
 			//
 			// StringBuffer sql2 = new StringBuffer(
@@ -442,7 +472,8 @@ public class GoodsPublishService extends Service {
 			// dbc1.setArgumentValue(2, task.getParentId());
 			// dbc1.setArgumentValue(3, 0);
 			// dbc1.executeUpdate();
-			context.handle(new UpdateGoodsCategoryResourceTask(task.getId()), UpdateGoodsCategoryResourceTask.Method.Put);
+			context.handle(new UpdateGoodsCategoryResourceTask(task.getId()),
+					UpdateGoodsCategoryResourceTask.Method.Put);
 
 			//
 			task.setId(task.getId());
@@ -457,10 +488,12 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class UpdateGoodsCategoryHandler extends SimpleTaskMethodHandler<UpdateGoodsCategoryTask> {
+	protected class UpdateGoodsCategoryHandler extends
+			SimpleTaskMethodHandler<UpdateGoodsCategoryTask> {
 
 		@Override
-		protected void handle(Context context, UpdateGoodsCategoryTask task) throws Throwable {
+		protected void handle(Context context, UpdateGoodsCategoryTask task)
+				throws Throwable {
 			// 序列化属性列表
 			PropertyDefine[] propertyDefines = task.getPropertyDefines();
 			String properties = null;
@@ -472,7 +505,8 @@ public class GoodsPublishService extends Service {
 							String[] options = propertyDefine.getOptions();
 							JSONObject propertyObj = new JSONObject();
 							propertyObj.put("name", propertyDefine.getName());
-							propertyObj.put("type", propertyDefine.getValueInputMode().getCode());
+							propertyObj.put("type", propertyDefine
+									.getValueInputMode().getCode());
 							JSONArray optionArray = new JSONArray();
 							propertyObj.put("options", optionArray);
 							if (options != null) {
@@ -487,9 +521,11 @@ public class GoodsPublishService extends Service {
 				properties = propertyArray.toString();
 			}
 			//
-			modifyGoodsCategory(context, task.getId(), task.getName(), task.getScale(), task.getCategoryNo(), properties); // 修改商品分类的基础信息
+			modifyGoodsCategory(context, task.getId(), task.getName(), task
+					.getScale(), task.getCategoryNo(), properties); // 修改商品分类的基础信息
 			//
-			context.handle(new UpdateGoodsCategoryResourceTask(task.getId()), UpdateGoodsCategoryResourceTask.Method.Modify);
+			context.handle(new UpdateGoodsCategoryResourceTask(task.getId()),
+					UpdateGoodsCategoryResourceTask.Method.Modify);
 
 			// deleteProperty(context, task.getId());// 清空所有属性及属性项目
 			// saveProperty(context, task); // 重新保存属性项目
@@ -538,9 +574,11 @@ public class GoodsPublishService extends Service {
 		// }
 		// }
 
-		private void modifyGoodsCategory(Context context, GUID categoryId, String categoryName, int scale, String categoryNo,
+		private void modifyGoodsCategory(Context context, GUID categoryId,
+				String categoryName, int scale, String categoryNo,
 				String properties) {
-			GoodsCategory category = context.find(GoodsCategory.class, categoryId);
+			GoodsCategory category = context.find(GoodsCategory.class,
+					categoryId);
 			StringBuffer sql = new StringBuffer(
 					"define update modifyGoodsTypeName(@recid guid,@categoryName string,@categoryNo string, @scale int,@setPropertyFlag boolean, @properties string)");
 			sql.append(" begin");
@@ -655,27 +693,37 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected final class ChangeGoodsCategoryNameHandler extends SimpleTaskMethodHandler<ChangeGoodsCategoryNameTask> {
+	protected final class ChangeGoodsCategoryNameHandler extends
+			SimpleTaskMethodHandler<ChangeGoodsCategoryNameTask> {
 
 		@Override
-		protected void handle(Context context, ChangeGoodsCategoryNameTask task) throws Throwable {
-			StringBuffer sql = new StringBuffer("define update modifyGoodsCategoryName(").append("@id guid,@name string) ")
-					.append(" begin").append("    update ").append(Tab_GoodsCategory).append("  as a").append("    set categoryName=@name")
-					.append("    where 1=1").append("    and a.recid=@id").append(" end");
+		protected void handle(Context context, ChangeGoodsCategoryNameTask task)
+				throws Throwable {
+			StringBuffer sql = new StringBuffer(
+					"define update modifyGoodsCategoryName(").append(
+					"@id guid,@name string) ").append(" begin").append(
+					"    update ").append(Tab_GoodsCategory).append("  as a")
+					.append("    set categoryName=@name").append(
+							"    where 1=1").append("    and a.recid=@id")
+					.append(" end");
 
 			DBCommand dbc = context.prepareStatement(sql);
 			dbc.setArgumentValue(0, task.getCategoryId());
 			dbc.setArgumentValue(1, task.getName());
 			dbc.executeUpdate();
-			context.handle(new UpdateGoodsCategoryResourceTask(task.getCategoryId()), UpdateGoodsCategoryResourceTask.Method.Modify);
+			context.handle(new UpdateGoodsCategoryResourceTask(task
+					.getCategoryId()),
+					UpdateGoodsCategoryResourceTask.Method.Modify);
 		}
 	}
 
 	@Publish
-	protected final class DeleteGoodsCategoryHandler extends SimpleTaskMethodHandler<DeleteGoodsCategoryTask> {
+	protected final class DeleteGoodsCategoryHandler extends
+			SimpleTaskMethodHandler<DeleteGoodsCategoryTask> {
 
 		@Override
-		protected void handle(Context context, DeleteGoodsCategoryTask task) throws Throwable {
+		protected void handle(Context context, DeleteGoodsCategoryTask task)
+				throws Throwable {
 
 			// StringBuffer sql =
 			// new StringBuffer(
@@ -691,19 +739,27 @@ public class GoodsPublishService extends Service {
 			// GoodsCategory category =
 			// context.find(GoodsCategory.class,task.getId());
 			// if(category.is)
-			GoodsCategory category = context.find(GoodsCategory.class, task.getId());
-			ResourceToken<Tenant> token = TenantHelper.getTenantToken(context, category.getTenantId());
-			List<GoodsCategory> list = context.getResourceReferences(GoodsCategory.class, token, new LevelTreeFilter<GoodsCategory>(
-					category.getPath()));
+			GoodsCategory category = context.find(GoodsCategory.class, task
+					.getId());
+			ResourceToken<Tenant> token = TenantHelper.getTenantToken(context,
+					category.getTenantId());
+			List<GoodsCategory> list = context.getResourceReferences(
+					GoodsCategory.class, token,
+					new LevelTreeFilter<GoodsCategory>(category.getPath()));
 			for (GoodsCategory goodsCategory : list) {
-				int result = SqlUtil.DeleteById(context, Tab_GoodsCategory, goodsCategory.getId());
+				int result = SqlUtil.DeleteById(context, Tab_GoodsCategory,
+						goodsCategory.getId());
 				if (result > 0)
-					context.handle(new UpdateGoodsCategoryResourceTask(goodsCategory.getId()),
+					context.handle(new UpdateGoodsCategoryResourceTask(
+							goodsCategory.getId()),
 							UpdateGoodsCategoryResourceTask.Method.Remove);
 			}
-			int result = SqlUtil.DeleteById(context, Tab_GoodsCategory, task.getId());
+			int result = SqlUtil.DeleteById(context, Tab_GoodsCategory, task
+					.getId());
 			if (result > 0)
-				context.handle(new UpdateGoodsCategoryResourceTask(task.getId()), UpdateGoodsCategoryResourceTask.Method.Remove);
+				context.handle(
+						new UpdateGoodsCategoryResourceTask(task.getId()),
+						UpdateGoodsCategoryResourceTask.Method.Remove);
 		}
 	}
 
@@ -715,10 +771,12 @@ public class GoodsPublishService extends Service {
 	 * 验证商品名称和编号是否重复
 	 */
 	@Publish
-	protected final class ValidationGoodsNameIsExistProvider extends SimpleTaskMethodHandler<ValidationGoodsIsExistTask> {
+	protected final class ValidationGoodsNameIsExistProvider extends
+			SimpleTaskMethodHandler<ValidationGoodsIsExistTask> {
 
 		@Override
-		protected void handle(Context context, ValidationGoodsIsExistTask task) throws Throwable {
+		protected void handle(Context context, ValidationGoodsIsExistTask task)
+				throws Throwable {
 			// ResourceToken<Tenant> token =
 			// TenantHelper.getTenantToken(context);
 			List<Goods> list = context.getList(Goods.class);
@@ -737,11 +795,13 @@ public class GoodsPublishService extends Service {
 				return;
 			List<GoodsItem> itemList = context.getList(GoodsItem.class);
 			for (GoodsItem item : itemList) {
-				if (task.getItemId() != null && item.getId().equals(task.getItemId()))
+				if (task.getItemId() != null
+						&& item.getId().equals(task.getItemId()))
 					continue; // 排除本身
 				if (item.getGoodsNo() == null || item.getSpec() == null)
 					continue; // 编号为空的商品不参与比较
-				if (!item.getGoodsNo().equals(task.getCode()) || !item.getSpec().equals(task.getSpec()))
+				if (!item.getGoodsNo().equals(task.getCode())
+						|| !item.getSpec().equals(task.getSpec()))
 					continue;
 				if (task.getErrType() == null) { // 如果名称没重复
 					task.setErrType(ErrType.SPECANDNUMBER);
@@ -755,11 +815,15 @@ public class GoodsPublishService extends Service {
 	}
 
 	@Publish
-	protected class GetGoodsInfoItemListProvider extends OneKeyResultProvider<ListEntity<GoodsInfoItem>, GetGoodsInfoItemListKey> {
+	protected class GetGoodsInfoItemListProvider
+			extends
+			OneKeyResultProvider<ListEntity<GoodsInfoItem>, GetGoodsInfoItemListKey> {
 
 		@Override
-		protected ListEntity<GoodsInfoItem> provide(Context context, GetGoodsInfoItemListKey key) throws Throwable {
-			StringBuffer sql = new StringBuffer("define query getGoodsInfoItem(");
+		protected ListEntity<GoodsInfoItem> provide(Context context,
+				GetGoodsInfoItemListKey key) throws Throwable {
+			StringBuffer sql = new StringBuffer(
+					"define query getGoodsInfoItem(");
 			sql.append("@tenantsGuid guid");
 			sql.append(",@goodsstatus string");
 			if (key.getCategoryId() != null) {
@@ -769,15 +833,21 @@ public class GoodsPublishService extends Service {
 				sql.append(",@searchText string");
 			}
 			sql.append(")");
-			sql.append(" begin").append(" select ").append(" a.RECID as recid,").append(" a.goodsNo as goodsNo,").append(
-					" a.goodsName as goodsName,").append(" a.salePrice as salePrice,").append(" a.refflag as refflag ").append(" from ")
-					.append(Tab_Goods).append("  AS a").append(" where a.tenantsGuid=@tenantsGuid").append(
+			sql.append(" begin").append(" select ")
+					.append(" a.RECID as recid,").append(
+							" a.goodsNo as goodsNo,").append(
+							" a.goodsName as goodsName,").append(
+							" a.salePrice as salePrice,").append(
+							" a.refflag as refflag ").append(" from ").append(
+							Tab_Goods).append("  AS a").append(
+							" where a.tenantsGuid=@tenantsGuid").append(
 							" and a.goodsstatus=@goodsstatus");
 			if (key.getCategoryId() != null) {
 				sql.append(" and  a.goodsTypeGuid=@category");
 			}
 			if (!StringUtils.isEmpty(key.getSearchText())) {
-				sql.append(" and(a.goodsNo like '%' + @searchText +'%' or a.goodsName like '%' + @searchText + '%' )");
+				sql
+						.append(" and(a.goodsNo like '%' + @searchText +'%' or a.goodsName like '%' + @searchText + '%' )");
 			}
 			if (key.isNopriceOnly()) {
 				sql.append(" and a.salePrice = 0");
@@ -786,7 +856,8 @@ public class GoodsPublishService extends Service {
 			//
 			DBCommand dbc = context.prepareStatement(sql);
 			int index = 0;
-			dbc.setArgumentValue(index++, context.find(Login.class).getTenantId());
+			dbc.setArgumentValue(index++, context.find(Login.class)
+					.getTenantId());
 			dbc.setArgumentValue(index++, key.getStatus().getCode());
 			if (key.getCategoryId() != null) {
 				dbc.setArgumentValue(index++, key.getCategoryId());
@@ -799,7 +870,8 @@ public class GoodsPublishService extends Service {
 			RecordSet rs = dbc.executeQuery();
 			while (rs.next()) {
 				count++;
-				RecordSetFieldContainer<? extends RecordSetField> fields = rs.getFields();
+				RecordSetFieldContainer<? extends RecordSetField> fields = rs
+						.getFields();
 				GoodsInfoItemImpl item = new GoodsInfoItemImpl();
 				item.setId(fields.get(0).getGUID());
 				item.setCode(fields.get(1).getString());
@@ -819,21 +891,27 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class GetGoodsInfoByIdProvider extends OneKeyResultProvider<GoodsInfo, GUID> {
+	protected class GetGoodsInfoByIdProvider extends
+			OneKeyResultProvider<GoodsInfo, GUID> {
 
 		@Override
-		protected GoodsInfo provide(Context context, GUID guid) throws Throwable {
+		protected GoodsInfo provide(Context context, GUID guid)
+				throws Throwable {
 			Goods goods = context.find(Goods.class, guid);
 			if (goods == null)
 				return null;
 			GoodsInfoImpl entity = GoodsHelper.goodsToGoodsInfo(context, goods);
 			entity.setItems(getGoodsItem(context, goods));
-			entity.setCategory(context.find(GoodsCategoryInfo.class, goods.getCategoryId()));
+			entity.setCategory(context.find(GoodsCategoryInfo.class, goods
+					.getCategoryId()));
 			return entity;
 		}
 
-		private List<GoodsItemDataImpl> getGoodsItem(final Context context, Goods goods) {
-			List<GoodsItem> list = context.getResourceReferences(GoodsItem.class, context.findResourceToken(Goods.class, goods.getId()));
+		private List<GoodsItemDataImpl> getGoodsItem(final Context context,
+				Goods goods) {
+			List<GoodsItem> list = context.getResourceReferences(
+					GoodsItem.class, context.findResourceToken(Goods.class,
+							goods.getId()));
 			List<GoodsItemDataImpl> result = new ArrayList<GoodsItemDataImpl>();
 			for (GoodsItem impl : list) {
 				if (impl.getGoodsId().equals(goods.getId())) {
@@ -851,30 +929,40 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class GetGoodsInfoByCodeProvider extends OneKeyResultProvider<GoodsInfo, GetGoodsInfoByCodeKey> {
+	protected class GetGoodsInfoByCodeProvider extends
+			OneKeyResultProvider<GoodsInfo, GetGoodsInfoByCodeKey> {
 
 		@Override
-		protected GoodsInfo provide(Context context, final GetGoodsInfoByCodeKey key) throws Throwable {
+		protected GoodsInfo provide(Context context,
+				final GetGoodsInfoByCodeKey key) throws Throwable {
 			ResourceToken<Tenant> token = TenantHelper.getTenantToken(context);
-			List<Goods> list = context.getResourceReferences(Goods.class, token, new Filter<Goods>() {
+			List<Goods> list = context.getResourceReferences(Goods.class,
+					token, new Filter<Goods>() {
 
-				public boolean accept(Goods item) {
-					if (null == item.getGoodsCode() || null == key.getGoodsCode()) {
-						return false;
-					}
-					return item.getGoodsCode().equals(key.getGoodsCode());
-				}
-			});
+						public boolean accept(Goods item) {
+							if (null == item.getGoodsCode()
+									|| null == key.getGoodsCode()) {
+								return false;
+							}
+							return item.getGoodsCode().equals(
+									key.getGoodsCode());
+						}
+					});
 			if (list.size() < 1)
 				return null;
-			GoodsInfoImpl goods = GoodsHelper.goodsToGoodsInfo(context, list.get(0));
+			GoodsInfoImpl goods = GoodsHelper.goodsToGoodsInfo(context, list
+					.get(0));
 			goods.setItems(getGoodsItem(context, list.get(0)));
-			goods.setCategory(context.find(GoodsCategoryInfo.class, list.get(0).getCategoryId()));
+			goods.setCategory(context.find(GoodsCategoryInfo.class, list.get(0)
+					.getCategoryId()));
 			return goods;
 		}
 
-		private List<GoodsItemDataImpl> getGoodsItem(final Context context, Goods goods) {
-			List<GoodsItem> list = context.getResourceReferences(GoodsItem.class, context.findResourceToken(Goods.class, goods.getId()));
+		private List<GoodsItemDataImpl> getGoodsItem(final Context context,
+				Goods goods) {
+			List<GoodsItem> list = context.getResourceReferences(
+					GoodsItem.class, context.findResourceToken(Goods.class,
+							goods.getId()));
 			List<GoodsItemDataImpl> result = new ArrayList<GoodsItemDataImpl>();
 			for (GoodsItem impl : list) {
 				if (impl.getGoodsId().equals(goods.getId())) {
@@ -893,12 +981,16 @@ public class GoodsPublishService extends Service {
 	 * 修改商品状态
 	 */
 	@Publish
-	protected class ChanageGoodsStatusHandler extends SimpleTaskMethodHandler<ChangeGoodsStatusTask> {
+	protected class ChanageGoodsStatusHandler extends
+			SimpleTaskMethodHandler<ChangeGoodsStatusTask> {
 
 		@Override
-		protected void handle(Context context, ChangeGoodsStatusTask task) throws Throwable {
-			GoodsStatus status = task.isTurnOnOrOff() ? GoodsStatus.ON_SALE : GoodsStatus.STOP_SALE;
-			StringBuffer sql1 = new StringBuffer("define update modifyBatchGoodsStatus(@RECID guid,@goodsstatus string)");
+		protected void handle(Context context, ChangeGoodsStatusTask task)
+				throws Throwable {
+			GoodsStatus status = task.isTurnOnOrOff() ? GoodsStatus.ON_SALE
+					: GoodsStatus.STOP_SALE;
+			StringBuffer sql1 = new StringBuffer(
+					"define update modifyBatchGoodsStatus(@RECID guid,@goodsstatus string)");
 			sql1.append(" begin");
 			sql1.append(" update ").append(Tab_Goods).append("  as a");
 			sql1.append(" set status=@goodsstatus");
@@ -913,14 +1005,18 @@ public class GoodsPublishService extends Service {
 				dbc1.setArgumentValue(0, guid);
 				dbc1.setArgumentValue(1, status.getCode());
 				dbc1.executeUpdate();
-				context.handle(new UpdateGoodsResourceTask(guid), UpdateGoodsResourceTask.Method.Modify);
+				context.handle(new UpdateGoodsResourceTask(guid),
+						UpdateGoodsResourceTask.Method.Modify);
 			}
 
 		}
 
-		protected void updateGoodsItemstatus(Context context, GoodsStatus status, GUID goodsId) throws Throwable {
+		protected void updateGoodsItemstatus(Context context,
+				GoodsStatus status, GUID goodsId) throws Throwable {
 
-			StringBuffer sql = new StringBuffer("define update modifyGoodsPropertystatus(" + "@status string,@goodsId guid)");
+			StringBuffer sql = new StringBuffer(
+					"define update modifyGoodsPropertystatus("
+							+ "@status string,@goodsId guid)");
 			sql.append(" begin");
 			sql.append(" update ");
 			sql.append(Tab_GoodsItem);
@@ -934,9 +1030,12 @@ public class GoodsPublishService extends Service {
 			dbc.setArgumentValue(0, status.getCode());
 			dbc.setArgumentValue(1, goodsId);
 			dbc.executeUpdate();
-			ResourceToken<Goods> token = context.findResourceToken(Goods.class, goodsId);
-			for (GoodsItem item : context.getResourceReferences(GoodsItem.class, token)) {
-				context.handle(new UpdateGoodsItemResourceTask(item.getId()), UpdateGoodsItemResourceTask.Method.Modify);
+			ResourceToken<Goods> token = context.findResourceToken(Goods.class,
+					goodsId);
+			for (GoodsItem item : context.getResourceReferences(
+					GoodsItem.class, token)) {
+				context.handle(new UpdateGoodsItemResourceTask(item.getId()),
+						UpdateGoodsItemResourceTask.Method.Modify);
 				context.dispatch(new GoodsStatusChangeEvent(item.getId()));
 			}
 		}
@@ -950,12 +1049,15 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class DeleteGoodsHandler extends SimpleTaskMethodHandler<DeleteGoodsTask> {
+	protected class DeleteGoodsHandler extends
+			SimpleTaskMethodHandler<DeleteGoodsTask> {
 
 		@Override
-		protected void handle(Context context, DeleteGoodsTask task) throws Throwable {
+		protected void handle(Context context, DeleteGoodsTask task)
+				throws Throwable {
 			// 更新商品的状态
-			StringBuffer sql1 = new StringBuffer("define delete deleteBatchGoodsInfo(@RECID guid)");
+			StringBuffer sql1 = new StringBuffer(
+					"define delete deleteBatchGoodsInfo(@RECID guid)");
 			sql1.append(" begin");
 			sql1.append(" delete from ").append(Tab_Goods).append("  as a");
 			sql1.append(" where 1=1");
@@ -963,7 +1065,8 @@ public class GoodsPublishService extends Service {
 			sql1.append(" and a.refFlag=false");
 			sql1.append(" end");
 
-			StringBuffer sql = new StringBuffer("define delete modifyGoodsPropertystatus(@goodsId guid)");
+			StringBuffer sql = new StringBuffer(
+					"define delete modifyGoodsPropertystatus(@goodsId guid)");
 			sql.append(" begin");
 			sql.append(" delete from ");
 			sql.append(Tab_GoodsItem);
@@ -977,17 +1080,22 @@ public class GoodsPublishService extends Service {
 
 			DBCommand dbc1 = context.prepareStatement(sql1);
 			for (GUID guid : task.getIds()) {
-				ResourceToken<Goods> token = context.findResourceToken(Goods.class, guid);
+				ResourceToken<Goods> token = context.findResourceToken(
+						Goods.class, guid);
 				if (token.getFacade().isRefFlag())
 					throw new IllegalArgumentException(guid + "商品已经使用过了，不能删除");
-				for (GoodsItem item : context.getResourceReferences(GoodsItem.class, token)) {
-					context.handle(new UpdateGoodsItemResourceTask(item.getId()), UpdateGoodsItemResourceTask.Method.Remove);
+				for (GoodsItem item : context.getResourceReferences(
+						GoodsItem.class, token)) {
+					context.handle(
+							new UpdateGoodsItemResourceTask(item.getId()),
+							UpdateGoodsItemResourceTask.Method.Remove);
 				}
 				dbc.setArgumentValue(0, guid);
 				dbc.executeUpdate(); // 删除商品条目
 				dbc1.setArgumentValue(0, guid);
 				dbc1.executeUpdate(); // 删除商品
-				context.handle(new UpdateGoodsResourceTask(guid), UpdateGoodsResourceTask.Method.Remove);
+				context.handle(new UpdateGoodsResourceTask(guid),
+						UpdateGoodsResourceTask.Method.Remove);
 			}
 		}
 	}
@@ -999,14 +1107,16 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class CreateGoodsInfoHandler extends TaskMethodHandler<GoodsInfoTask, GoodsInfoTask.Method> {
+	protected class CreateGoodsInfoHandler extends
+			TaskMethodHandler<GoodsInfoTask, GoodsInfoTask.Method> {
 
 		protected CreateGoodsInfoHandler() {
 			super(GoodsInfoTask.Method.Create);
 		}
 
 		@Override
-		protected void handle(Context context, GoodsInfoTask goodsInfo) throws Throwable {
+		protected void handle(Context context, GoodsInfoTask goodsInfo)
+				throws Throwable {
 			// Tenant tr = TenantHelper.getTenant(context);
 			Employee emp = context.find(Employee.class);
 			GoodsStatus status = GoodsStatus.ON_SALE;
@@ -1058,20 +1168,23 @@ public class GoodsPublishService extends Service {
 				GoodsOrmEntity entity = new GoodsOrmEntity();
 				entity.setId(goodsInfo.getId());
 
-				GoodsCategory goodsCategory = context.find(GoodsCategory.class, goodsInfo.getCategoryId());
+				GoodsCategory goodsCategory = context.find(GoodsCategory.class,
+						goodsInfo.getCategoryId());
 				String maxCode = goodsCategory.getCategoryNo() + "0000";
 				GoodsItem[] gis = goodsCategory.getGoodsItems(context);
 				if (gis.length > 0) {
 					for (GoodsItem gi : gis) {
-						if (Integer.parseInt(gi.getGoodsCode()) > Integer.parseInt(maxCode)) {
+						if (Integer.parseInt(gi.getGoodsCode()) > Integer
+								.parseInt(maxCode)) {
 							maxCode = gi.getGoodsCode();
 						}
 					}
 				}
 				goodsInfo.setCode(StringHelper.addOneInt(maxCode));
-//				String code = context.get(String.class, SheetNumberType.OnlineReturn);
-//				code = code.substring(5, code.length());
-//				entity.setGoodsCode(code);
+				// String code = context.get(String.class,
+				// SheetNumberType.OnlineReturn);
+				// code = code.substring(5, code.length());
+				// entity.setGoodsCode(code);
 				entity.setGoodsCode(goodsInfo.getCode());
 				entity.setGoodsName(goodsInfo.getName());
 				entity.setNamePY(PinyinHelper.getLetter(goodsInfo.getName()));
@@ -1087,14 +1200,16 @@ public class GoodsPublishService extends Service {
 				entity.setShelfLife(goodsInfo.getShelfLife());
 				entity.setWarningDay(goodsInfo.getWarningDay());
 
-				ORMAccessor<GoodsOrmEntity> orm = context.newORMAccessor(orm_Goods);
+				ORMAccessor<GoodsOrmEntity> orm = context
+						.newORMAccessor(orm_Goods);
 				try {
 					orm.insert(entity);
 				} finally {
 					orm.unuse();
 				}
 
-				context.handle(new UpdateGoodsResourceTask(goodsInfo.getId()), UpdateGoodsResourceTask.Method.Put);
+				context.handle(new UpdateGoodsResourceTask(goodsInfo.getId()),
+						UpdateGoodsResourceTask.Method.Put);
 				if (goodsInfo.getItems() != null) {
 					for (GoodsInfoTask.Item item : goodsInfo.getItems()) {
 						saveGoodsProperty(context, goodsInfo, item);
@@ -1104,26 +1219,32 @@ public class GoodsPublishService extends Service {
 		}
 	}
 
-	private void saveGoodsProperty(Context context, GoodsInfoTask goodsInfo, GoodsInfoTask.Item goodsItem) {
+	private void saveGoodsProperty(Context context, GoodsInfoTask goodsInfo,
+			GoodsInfoTask.Item goodsItem) {
 		// Tenant tr = TenantHelper.getTenant(context);
-		ORMAccessor<GoodsItemOrmEntity> acc = context.newORMAccessor(orm_GoodsItem);
+		ORMAccessor<GoodsItemOrmEntity> acc = context
+				.newORMAccessor(orm_GoodsItem);
 		if (goodsItem.getMethod() == ItemMethod.Delete) {
 			acc.delete(goodsItem.getId());
-			context.handle(new UpdateGoodsItemResourceTask(goodsItem.getId()), UpdateGoodsItemResourceTask.Method.Remove);
+			context.handle(new UpdateGoodsItemResourceTask(goodsItem.getId()),
+					UpdateGoodsItemResourceTask.Method.Remove);
 		} else {
 			GoodsItemOrmEntity entity;
-			GoodsItem resource = context.find(GoodsItem.class, goodsItem.getId());
+			GoodsItem resource = context.find(GoodsItem.class, goodsItem
+					.getId());
 			boolean isGoodsStatusChange = false;
 			if (resource == null) {
 				entity = new GoodsItemOrmEntity();
 				entity.setId(goodsItem.getId());
-				String serialNumber = context.get(String.class, SheetNumberType.GoodsSerial);
+				String serialNumber = context.get(String.class,
+						SheetNumberType.GoodsSerial);
 				serialNumber = serialNumber.substring(0, serialNumber.length());
 				entity.setSerialNumber(serialNumber);
 			} else {
 				entity = acc.findByRECID(goodsItem.getId());
 				isGoodsStatusChange = !entity.getStatus().equals(
-						goodsItem.isOnsale() ? GoodsStatus.ON_SALE.getCode() : GoodsStatus.STOP_SALE.getCode());
+						goodsItem.isOnsale() ? GoodsStatus.ON_SALE.getCode()
+								: GoodsStatus.STOP_SALE.getCode());
 			}
 			// entity.setTenantId(tr.getId());
 			entity.setGoodsId(goodsInfo.getId());
@@ -1131,8 +1252,10 @@ public class GoodsPublishService extends Service {
 			entity.setNamePY(PinyinHelper.getLetter(goodsInfo.getName()));
 			entity.setGoodsCode(goodsInfo.getCode());
 			entity.setCategoryId(goodsInfo.getCategoryId());
-			entity.setStatus(goodsItem.isOnsale() ? GoodsStatus.ON_SALE.getCode() : GoodsStatus.STOP_SALE.getCode());
-			entity.setGoodsProperties(GoodsProperyUtil.subGoodsPropertyToString(goodsItem.getPropertyValues()));
+			entity.setStatus(goodsItem.isOnsale() ? GoodsStatus.ON_SALE
+					.getCode() : GoodsStatus.STOP_SALE.getCode());
+			entity.setGoodsProperties(GoodsProperyUtil
+					.subGoodsPropertyToString(goodsItem.getPropertyValues()));
 			entity.setGoodsNo(goodsItem.getGoodsNo());
 			entity.setSalePrice(goodsItem.getSalePrice());
 			entity.setLossRate(goodsItem.getLossRate());
@@ -1142,40 +1265,53 @@ public class GoodsPublishService extends Service {
 			entity.setWarningDay(goodsInfo.getWarningDay());
 			entity.setGoodsUnit(goodsItem.getUnit());
 			entity.setStandardCost(goodsItem.getStandardCost());
-			
+
 			if (resource == null) {
 				entity.setCreateDate(System.currentTimeMillis());
-				Employee emp = context.find(Employee.class, context.find(Login.class).getEmployeeId());
+				Employee emp = context.find(Employee.class, context.find(
+						Login.class).getEmployeeId());
 				entity.setCreatorId(emp.getId());
 				entity.setCreator(emp.getName());
 				entity.setCreateDate(System.currentTimeMillis());
 				acc.insert(entity);
-				context.handle(new UpdateGoodsItemResourceTask(entity.getId()), UpdateGoodsItemResourceTask.Method.Put);
+				context.handle(new UpdateGoodsItemResourceTask(entity.getId()),
+						UpdateGoodsItemResourceTask.Method.Put);
 			} else {
 				acc.update(entity);
-				context.handle(new UpdateGoodsItemResourceTask(entity.getId()), UpdateGoodsItemResourceTask.Method.Modify);
+				context.handle(new UpdateGoodsItemResourceTask(entity.getId()),
+						UpdateGoodsItemResourceTask.Method.Modify);
 				if (isGoodsStatusChange) {
-					context.dispatch(new GoodsStatusChangeEvent(goodsItem.getId()));
+					context.dispatch(new GoodsStatusChangeEvent(goodsItem
+							.getId()));
 				}
 			}
 			// 停售时更新网站商品发布状态
 			if (!goodsItem.isOnsale()) {
-				
+
 			}
 			// update cms_goods同步更新网站对应商品的销售价格
-			StringBuffer updateCmsSql = new StringBuffer("define update modifyCmsGoods(");
-			updateCmsSql.append("@RECID guid,@realPrice double, @goodsname string)");
+			StringBuffer updateCmsSql = new StringBuffer(
+					"define update modifyCmsGoods(");
+			updateCmsSql
+					.append("@RECID guid,@realPrice double, @goodsname string,@goodsNo string,@goodsSpec string,@goodsUnit string,@originalPrice double)");
 			updateCmsSql.append(" begin");
 			updateCmsSql.append(" update cms_goods ").append("  as a");
 			updateCmsSql.append(" set realPrice=@realPrice");
 			updateCmsSql.append(", goodsName=@goodsname");
+			updateCmsSql.append(", goodsNo=@goodsNo");
+			updateCmsSql.append(", goodsSpec=@goodsSpec");
+			updateCmsSql.append(", goodsUnit=@goodsUnit");
+			updateCmsSql.append(", originalPrice=@originalPrice");
 			if (GoodsStatus.STOP_SALE.getCode().equals(entity.getStatus())) {
 				updateCmsSql.append(", isPublished=false ");
 			}
 			updateCmsSql.append(" where a.recid=@RECID");
 			updateCmsSql.append(" end");
 			DBCommand dbc3 = context.prepareStatement(updateCmsSql);
-			dbc3.setArgumentValues(entity.getId(), entity.getSalePrice(), entity.getGoodsName());
+			dbc3.setArgumentValues(entity.getId(), entity.getSalePrice(),
+					entity.getGoodsName(), entity.getGoodsNo(), entity
+							.getSpec(), entity.getGoodsUnit(), entity
+							.getOriginalPrice());
 			dbc3.executeUpdate();
 		}
 	}
@@ -1187,14 +1323,16 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class UpdateGoodsInfoHandler extends TaskMethodHandler<GoodsInfoTask, GoodsInfoTask.Method> {
+	protected class UpdateGoodsInfoHandler extends
+			TaskMethodHandler<GoodsInfoTask, GoodsInfoTask.Method> {
 
 		protected UpdateGoodsInfoHandler() {
 			super(GoodsInfoTask.Method.Update);
 		}
 
 		@Override
-		protected void handle(Context context, GoodsInfoTask goodsInfo) throws Throwable {
+		protected void handle(Context context, GoodsInfoTask goodsInfo)
+				throws Throwable {
 			Employee emp = context.find(Employee.class);
 			boolean isOnSale = false, isStopSale = false;
 			GoodsStatus goodsstatus = GoodsStatus.ON_SALE;
@@ -1219,10 +1357,13 @@ public class GoodsPublishService extends Service {
 					goodsstatus = GoodsStatus.STOP_SALE;
 				}
 			}
-			StringBuffer sql2 = new StringBuffer("define update modifyGoodsInfo(");
+			StringBuffer sql2 = new StringBuffer(
+					"define update modifyGoodsInfo(");
 			sql2.append("@RECID guid,@goodsName string,");
-			sql2.append("@salePrice double,@remark string,@lastModifyDate date,");
-			sql2.append("@lastModifyPerson string,@setPriceFlag boolean,@goodsstatus string,");
+			sql2
+					.append("@salePrice double,@remark string,@lastModifyDate date,");
+			sql2
+					.append("@lastModifyPerson string,@setPriceFlag boolean,@goodsstatus string,");
 			sql2.append("@shelfLife int");
 			sql2.append(",@warningDay int");
 			sql2.append(",@isJointVenture boolean");
@@ -1234,7 +1375,8 @@ public class GoodsPublishService extends Service {
 			sql2.append(" salePrice=@salePrice,remark=@remark,");
 			sql2.append(" lastModifyDate=@lastModifyDate,");
 			// sql2.append(" lastModifyPerson=@lastModifyPerson,setPriceFlag=@setPriceFlag,goodsstatus = @goodsstatus");
-			sql2.append(" lastModifyPerson=@lastModifyPerson,status = @goodsstatus");
+			sql2
+					.append(" lastModifyPerson=@lastModifyPerson,status = @goodsstatus");
 			sql2.append(",shelfLife=@shelfLife");
 			sql2.append(",warningDay=@warningDay");
 			sql2.append(",isJointVenture=@isJointVenture");
@@ -1259,10 +1401,9 @@ public class GoodsPublishService extends Service {
 			dbc2.setArgumentValue(i++, goodsInfo.isJointVenture());
 			dbc2.setArgumentValue(i++, goodsInfo.getSupplierId());
 			dbc2.executeUpdate();
-			context.handle(new UpdateGoodsResourceTask(goodsInfo.getId()), UpdateGoodsResourceTask.Method.Modify);
-			
-			
-			
+			context.handle(new UpdateGoodsResourceTask(goodsInfo.getId()),
+					UpdateGoodsResourceTask.Method.Modify);
+
 			// for (GoodsInfoTask.Item item : goodsInfo.getItems()) {
 			// saveGoodsProperty(context, goodsInfo, item);
 			// context.handle(new UpdateGoodsItemResourceTask(item.getId()),
@@ -1309,25 +1450,32 @@ public class GoodsPublishService extends Service {
 	 * 获得指定商品的交易记录
 	 */
 	@Publish
-	protected final class GetGoodsTraderLogListProvider extends TwoKeyResultListProvider<GoodsTraderLogItem, GUID, TraderType> {
+	protected final class GetGoodsTraderLogListProvider extends
+			TwoKeyResultListProvider<GoodsTraderLogItem, GUID, TraderType> {
 
 		@Override
-		protected void provide(Context context, GUID key1, TraderType key2, List<GoodsTraderLogItem> resultList) throws Throwable {
-			ORMAccessor<GoodsTraderLogOrmEntity> acc = context.newORMAccessor(orm_GoodsTraderLogByGoodsId);
+		protected void provide(Context context, GUID key1, TraderType key2,
+				List<GoodsTraderLogItem> resultList) throws Throwable {
+			ORMAccessor<GoodsTraderLogOrmEntity> acc = context
+					.newORMAccessor(orm_GoodsTraderLogByGoodsId);
 			List<GoodsTraderLogOrmEntity> list = acc.fetch(key1, key2.name());
 			for (GoodsTraderLogOrmEntity goodsTraderLogOrmEntity : list) {
 				GoodsTraderLog log = new GoodsTraderLog(goodsTraderLogOrmEntity);
 				GoodsTraderLogItemImpl g = new GoodsTraderLogItemImpl();
-				GoodsItem gi = context.find(GoodsItem.class, log.getGoodsItemId());
+				GoodsItem gi = context.find(GoodsItem.class, log
+						.getGoodsItemId());
 				Partner p = context.find(Partner.class, log.getPartnerId());
-				g.setProperty(GoodsProperyUtil.subGoodsPropertyToString(gi.getGoodsProperties()));
+				g.setProperty(GoodsProperyUtil.subGoodsPropertyToString(gi
+						.getGoodsProperties()));
 				g.setUnit(gi.getGoodsUnit());
 				g.setPartnerName(p.getShortName());
 				g.setStatus(gi.getStatus().getName());
 				g.setCount(log.getCount());
 				g.setTotalTraderAmount(log.getTotalTraderAmount());
-				g.setTotalTraderCount(DoubleUtil.getRoundStr(log.getTotalTraderCount(), gi.getScale()));
-				g.setRecentCount(DoubleUtil.getRoundStr(log.getRecentCount(), gi.getScale()));
+				g.setTotalTraderCount(DoubleUtil.getRoundStr(log
+						.getTotalTraderCount(), gi.getScale()));
+				g.setRecentCount(DoubleUtil.getRoundStr(log.getRecentCount(),
+						gi.getScale()));
 				g.setRecentDate(log.getRecentDate());
 				g.setRecentPrice(log.getRecentPrice());
 				g.setPriceList(log.getPriceList());
@@ -1344,12 +1492,16 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected final class UpdateGoodsTraderLogHandler extends SimpleTaskMethodHandler<UpdateGoodsTraderLogTask> {
+	protected final class UpdateGoodsTraderLogHandler extends
+			SimpleTaskMethodHandler<UpdateGoodsTraderLogTask> {
 
 		@Override
-		protected void handle(Context context, UpdateGoodsTraderLogTask task) throws Throwable {
-			ORMAccessor<GoodsTraderLogOrmEntity> acc = context.newORMAccessor(orm_GoodsTraderLogByGoodsItemIdAndPartnerId);
-			GoodsTraderLogOrmEntity entity = acc.findByPKey(task.getGoodsItemId(), task.getPratnerId());
+		protected void handle(Context context, UpdateGoodsTraderLogTask task)
+				throws Throwable {
+			ORMAccessor<GoodsTraderLogOrmEntity> acc = context
+					.newORMAccessor(orm_GoodsTraderLogByGoodsItemIdAndPartnerId);
+			GoodsTraderLogOrmEntity entity = acc.findByPKey(task
+					.getGoodsItemId(), task.getPratnerId());
 			GoodsTraderLog log;
 			boolean isCreate = false;
 			if (entity == null) {
@@ -1357,7 +1509,8 @@ public class GoodsPublishService extends Service {
 				entity = new GoodsTraderLogOrmEntity();
 				entity.setId(context.newRECID());
 				entity.setType(task.getType().name());
-				GoodsItem goodsItem = context.find(GoodsItem.class, task.getGoodsItemId());
+				GoodsItem goodsItem = context.find(GoodsItem.class, task
+						.getGoodsItemId());
 				entity.setGoodsId(goodsItem.getGoodsId());
 				entity.setGoodsItemId(task.getGoodsItemId());
 				entity.setPartnerId(task.getPratnerId());
@@ -1389,13 +1542,16 @@ public class GoodsPublishService extends Service {
 	 * 获得商品条目维护对象
 	 */
 	@Publish
-	protected class GetGoodsItemInfoByIdProvider extends OneKeyResultProvider<GoodsItemInfo, GUID> {
+	protected class GetGoodsItemInfoByIdProvider extends
+			OneKeyResultProvider<GoodsItemInfo, GUID> {
 
 		@Override
-		protected GoodsItemInfo provide(Context context, GUID guid) throws Throwable {
+		protected GoodsItemInfo provide(Context context, GUID guid)
+				throws Throwable {
 			GoodsItem goodsItem = context.find(GoodsItem.class, guid);
 			GoodsItemInfoImpl result = new GoodsItemInfoImpl();
-			result.setBaseInfo(context.find(GoodsInfo.class, goodsItem.getGoodsId()));
+			result.setBaseInfo(context.find(GoodsInfo.class, goodsItem
+					.getGoodsId()));
 			result.setItemData(GoodsHelper.goodsItemToItemData(goodsItem));
 			return result;
 		}
@@ -1413,27 +1569,31 @@ public class GoodsPublishService extends Service {
 		}
 
 	}
-	
+
 	@Publish
-	protected class GetGoodsItemListProvider extends OneKeyResultListProvider<GoodsItemDetail, GetGoodsItemDetailListKey> {
+	protected class GetGoodsItemListProvider
+			extends
+			OneKeyResultListProvider<GoodsItemDetail, GetGoodsItemDetailListKey> {
 
 		@Override
 		protected void provide(Context context, GetGoodsItemDetailListKey key,
 				List<GoodsItemDetail> resultList) throws Throwable {
-			GetGoodsItemListKey iKey = new GetGoodsItemListKey(GoodsCategory.ROOT.getId(), key.getOffset(), key.getCount(), key.isQueryTotal());
-			
+			GetGoodsItemListKey iKey = new GetGoodsItemListKey(
+					GoodsCategory.ROOT.getId(), key.getOffset(),
+					key.getCount(), key.isQueryTotal());
+
 			List<GoodsItem> itemList = context.getList(GoodsItem.class);
-			
-			//BeanCopy.copys(itemList, resultList);
-//			BeanCopy.copys(resultList, itemList);
-			GoodsItemDetail itemDetail = null; 
+
+			// BeanCopy.copys(itemList, resultList);
+			// BeanCopy.copys(resultList, itemList);
+			GoodsItemDetail itemDetail = null;
 			for (GoodsItem item : itemList) {
 				itemDetail = new GoodsItemDetail();
 				BeanUtils.copyObject(item, itemDetail);
 				resultList.add(itemDetail);
 			}
 		}
-		
+
 	}
 
 	/**
@@ -1444,10 +1604,12 @@ public class GoodsPublishService extends Service {
 	@Publish
 	@Deprecated
 	// 取消（2012-10-14）
-	protected class UpdateGoodsItemUpperLimitHandler extends SimpleTaskMethodHandler<UpdateGoodsItemThresholdTask> {
+	protected class UpdateGoodsItemUpperLimitHandler extends
+			SimpleTaskMethodHandler<UpdateGoodsItemThresholdTask> {
 
 		@Override
-		protected void handle(Context context, UpdateGoodsItemThresholdTask task) throws Throwable {
+		protected void handle(Context context, UpdateGoodsItemThresholdTask task)
+				throws Throwable {
 			// GoodsItemThresholdItem[] items = task.items;
 			// // ORMAccessor<GoodsOrmEntity> goodsAcc =
 			// // context.newORMAccessor(orm_Goods);
@@ -1484,13 +1646,16 @@ public class GoodsPublishService extends Service {
 			// }
 		}
 
-		private void changeGoodsWarnningType(Context context, UpdateGoodsItemThresholdTask task) {
+		private void changeGoodsWarnningType(Context context,
+				UpdateGoodsItemThresholdTask task) {
 			GoodsItemThresholdItem item = task.items[0];
-			GoodsItem goodsItem = context.find(GoodsItem.class, item.getGoodsItemId());
+			GoodsItem goodsItem = context.find(GoodsItem.class, item
+					.getGoodsItemId());
 			ORMAccessor<GoodsOrmEntity> acc = context.newORMAccessor(orm_Goods);
 			GoodsOrmEntity entity = acc.findByRECID(goodsItem.getGoodsId());
 			acc.update(entity);
-			context.handle(new UpdateGoodsResourceTask(goodsItem.getGoodsId()), UpdateGoodsResourceTask.Method.Modify);
+			context.handle(new UpdateGoodsResourceTask(goodsItem.getGoodsId()),
+					UpdateGoodsResourceTask.Method.Modify);
 		}
 	}
 
@@ -1502,7 +1667,8 @@ public class GoodsPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected final class GetGoodsInfoListProvider extends OneKeyResultProvider<ListEntity<GoodsInfo>, GetGoodsInfoListKey> {
+	protected final class GetGoodsInfoListProvider extends
+			OneKeyResultProvider<ListEntity<GoodsInfo>, GetGoodsInfoListKey> {
 
 		private class GFilter implements Filter<GoodsItem> {
 
@@ -1511,28 +1677,33 @@ public class GoodsPublishService extends Service {
 			private GetGoodsInfoListKey key;
 
 			public GFilter(GetGoodsInfoListKey key) {
-				this.searchkey = key.getSearchText() == null ? "" : key.getSearchText();
+				this.searchkey = key.getSearchText() == null ? "" : key
+						.getSearchText();
 				this.key = key;
 			}
 
 			public boolean accept(GoodsItem item) {
-				if(key.isQueryAll()){
-					if (item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1) {
+				if (key.isQueryAll()) {
+					if (item.getGoodsName().indexOf(searchkey) > -1
+							|| item.getGoodsCode().indexOf(searchkey) > -1) {
 						return true;
 					}
 					return false;
 				}
 				if (key.isJointVenture()) {
-					if (!(GoodsStatus.ON_SALE == item.getStatus() && item.getGoods().isJointVenture())) {
+					if (!(GoodsStatus.ON_SALE == item.getStatus() && item
+							.getGoods().isJointVenture())) {
 						return false;
 					}
-					if (item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1) {
+					if (item.getGoodsName().indexOf(searchkey) > -1
+							|| item.getGoodsCode().indexOf(searchkey) > -1) {
 						return true;
 					}
 					return false;
 				}
 				if (key.getStatus() != GoodsStatus.PART_SALE) {
-					if (!item.getStatus().equals(key.getStatus()) || item.getGoods().isJointVenture())
+					if (!item.getStatus().equals(key.getStatus())
+							|| item.getGoods().isJointVenture())
 						return false;
 				}
 				if (key.isNopriceOnly()) {
@@ -1543,20 +1714,26 @@ public class GoodsPublishService extends Service {
 					if (item.getSalePrice() < 0)
 						return false;
 				}
-				return item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1;
+				return item.getGoodsName().indexOf(searchkey) > -1
+						|| item.getGoodsCode().indexOf(searchkey) > -1;
 			}
 
 		}
 
 		@Override
-		protected ListEntity<GoodsInfo> provide(final Context context, final GetGoodsInfoListKey key) throws Throwable {
+		protected ListEntity<GoodsInfo> provide(final Context context,
+				final GetGoodsInfoListKey key) throws Throwable {
 			LinkedHashMap<GUID, GoodsInfoImpl> goodsMap = new LinkedHashMap<GUID, GoodsInfoImpl>();
 			List<GoodsItem> items = new ArrayList<GoodsItem>();
 			if (key.getCateoryId() != null) {
-				List<GoodsCategory> list = context.getList(GoodsCategory.class, new GetGoodsCategoryLeafNodesKey(key.getCateoryId()));
+				List<GoodsCategory> list = context.getList(GoodsCategory.class,
+						new GetGoodsCategoryLeafNodesKey(key.getCateoryId()));
 				for (GoodsCategory goodsCategory : list) {
-					ResourceToken<GoodsCategory> category = context.findResourceToken(GoodsCategory.class, goodsCategory.getId());
-					items.addAll(context.getResourceReferences(GoodsItem.class, category, new GFilter(key)));
+					ResourceToken<GoodsCategory> category = context
+							.findResourceToken(GoodsCategory.class,
+									goodsCategory.getId());
+					items.addAll(context.getResourceReferences(GoodsItem.class,
+							category, new GFilter(key)));
 				}
 			} else {
 				// ResourceToken<Tenant> token =
@@ -1568,60 +1745,75 @@ public class GoodsPublishService extends Service {
 			}
 			for (GoodsItem goodsItem : items) {
 				if (!goodsMap.containsKey(goodsItem.getGoodsId())) {
-					GoodsInfoImpl info = GoodsHelper.goodsToGoodsInfo(context, goodsItem.getGoods());
-					info.setCategory(GoodsHelper.goodsCategoryToGoodsCategoryInfoImpl(context.find(GoodsCategory.class, goodsItem
-							.getCategoryId())));
+					GoodsInfoImpl info = GoodsHelper.goodsToGoodsInfo(context,
+							goodsItem.getGoods());
+					info.setCategory(GoodsHelper
+							.goodsCategoryToGoodsCategoryInfoImpl(context.find(
+									GoodsCategory.class, goodsItem
+											.getCategoryId())));
 					goodsMap.put(goodsItem.getGoodsId(), info);
 				}
-				goodsMap.get(goodsItem.getGoodsId()).addItem(GoodsHelper.goodsItemToItemData(goodsItem));
+				goodsMap.get(goodsItem.getGoodsId()).addItem(
+						GoodsHelper.goodsItemToItemData(goodsItem));
 			}
 			List<GoodsInfo> result = new ArrayList<GoodsInfo>();
 			int i = 0;
 			for (GoodsInfo goods : goodsMap.values()) {
 				// if(goods.gets)
-				if( i >= key.getOffset() && i < (key.getOffset() + key.getCount())){
+				if (i >= key.getOffset()
+						&& i < (key.getOffset() + key.getCount())) {
 					result.add(goods);
 				}
 				// if(i==key.getOffset()+key.getCount())break;
 				i++;
 			}
 
-			if (key.getSortField() != null && !key.getSortField().equals(SortField.None)) {
+			if (key.getSortField() != null
+					&& !key.getSortField().equals(SortField.None)) {
 				String sortField = key.getSortField().getFieldName();
-				boolean isSortByDesc = key.getSortType().equals(SortType.Desc) ? true : false;
+				boolean isSortByDesc = key.getSortType().equals(SortType.Desc) ? true
+						: false;
 				ComparatorUtils.sort(result, sortField, isSortByDesc);
 			}
 
 			return new ListEntity<GoodsInfo>(result, goodsMap.size());
 		}
 
-		private Collection<? extends GoodsItem> getFilteredList(List<GoodsItem> list, GetGoodsInfoListKey key) {
+		private Collection<? extends GoodsItem> getFilteredList(
+				List<GoodsItem> list, GetGoodsInfoListKey key) {
 			List<GoodsItem> newList = new ArrayList<GoodsItem>();
-			String searchkey = key.getSearchText() == null ? "" : key.getSearchText();
+			String searchkey = key.getSearchText() == null ? "" : key
+					.getSearchText();
 
 			for (GoodsItem item : list) {
 				if (key.isQueryAll()) {
-					if (item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1) {
+					if (item.getGoodsName().indexOf(searchkey) > -1
+							|| item.getGoodsCode().indexOf(searchkey) > -1) {
 						newList.add(item);
 					}
 					continue;
 				}
 				if (key.isJointVenture()) {
-					if (!(GoodsStatus.ON_SALE == item.getStatus() && item.getGoods().isJointVenture())) {
+					if (!(GoodsStatus.ON_SALE == item.getStatus() && item
+							.getGoods().isJointVenture())) {
 						continue;
 					}
-					if (item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1) {
+					if (item.getGoodsName().indexOf(searchkey) > -1
+							|| item.getGoodsCode().indexOf(searchkey) > -1) {
 						newList.add(item);
 					}
 					continue;
 				}
-				if (((key.getStatus() != GoodsStatus.PART_SALE && !item.getStatus().equals(key.getStatus()))
-						|| (key.isNopriceOnly() && !item.getStatus().equals(key.getStatus())) || (key.isSetPriceOnley() && item
+				if (((key.getStatus() != GoodsStatus.PART_SALE && !item
+						.getStatus().equals(key.getStatus()))
+						|| (key.isNopriceOnly() && !item.getStatus().equals(
+								key.getStatus())) || (key.isSetPriceOnley() && item
 						.getSalePrice() < 0))
 						|| item.getGoods().isJointVenture()) {
 					continue;
 				}
-				if (item.getGoodsName().indexOf(searchkey) > -1 || item.getGoodsCode().indexOf(searchkey) > -1) {
+				if (item.getGoodsName().indexOf(searchkey) > -1
+						|| item.getGoodsCode().indexOf(searchkey) > -1) {
 					newList.add(item);
 				}
 			}
@@ -1644,23 +1836,30 @@ public class GoodsPublishService extends Service {
 	 * @version 2012-4-22
 	 */
 	@Publish
-	protected final class MarkGoodsItemUsedHandler extends SimpleTaskMethodHandler<MarkGoodsItemUsedTask> {
+	protected final class MarkGoodsItemUsedHandler extends
+			SimpleTaskMethodHandler<MarkGoodsItemUsedTask> {
 
 		@Override
-		protected void handle(Context context, MarkGoodsItemUsedTask task) throws Throwable {
+		protected void handle(Context context, MarkGoodsItemUsedTask task)
+				throws Throwable {
 			GoodsItem goodsItem = context.find(GoodsItem.class, task.getId());
 			if (goodsItem.isRefFlag())
 				return;
-			ORMAccessor<GoodsItemOrmEntity> acc = context.newORMAccessor(orm_GoodsItem);
+			ORMAccessor<GoodsItemOrmEntity> acc = context
+					.newORMAccessor(orm_GoodsItem);
 			GoodsItemOrmEntity entity = acc.findByRECID(task.getId());
 			entity.setRefFlag(true);
 			acc.update(entity);
-			context.handle(new UpdateGoodsItemResourceTask(entity.getId()), UpdateGoodsItemResourceTask.Method.Modify);
-			ORMAccessor<GoodsOrmEntity> goodsAcc = context.newORMAccessor(orm_Goods);
-			GoodsOrmEntity goodsEntity = goodsAcc.findByRECID(entity.getGoodsId());
+			context.handle(new UpdateGoodsItemResourceTask(entity.getId()),
+					UpdateGoodsItemResourceTask.Method.Modify);
+			ORMAccessor<GoodsOrmEntity> goodsAcc = context
+					.newORMAccessor(orm_Goods);
+			GoodsOrmEntity goodsEntity = goodsAcc.findByRECID(entity
+					.getGoodsId());
 			goodsEntity.setRefFlag(true);
 			goodsAcc.update(goodsEntity);
-			context.handle(new UpdateGoodsResourceTask(goodsEntity.getId()), UpdateGoodsResourceTask.Method.Modify);
+			context.handle(new UpdateGoodsResourceTask(goodsEntity.getId()),
+					UpdateGoodsResourceTask.Method.Modify);
 		}
 
 	}
@@ -1678,14 +1877,17 @@ public class GoodsPublishService extends Service {
 	 * @version 2012-7-11
 	 */
 	@Publish
-	protected final class BatchSaveGoodsHandler extends TaskMethodHandler<BatchSaveForExcelTask, BatchSaveForExcelTask.Model> {
+	protected final class BatchSaveGoodsHandler
+			extends
+			TaskMethodHandler<BatchSaveForExcelTask, BatchSaveForExcelTask.Model> {
 
 		protected BatchSaveGoodsHandler() {
 			super(BatchSaveForExcelTask.Model.Goods);
 		}
 
 		@Override
-		protected void handle(Context context, BatchSaveForExcelTask task) throws Throwable {
+		protected void handle(Context context, BatchSaveForExcelTask task)
+				throws Throwable {
 			ExcelReader reader = new ExcelReader(task.getExcel());
 			// TODO 此处添加批量添加商品的代码
 
@@ -1697,7 +1899,8 @@ public class GoodsPublishService extends Service {
 	 * 查询所有商品数量
 	 */
 	@Publish
-	protected final class FindGoodsCountProvider extends OneKeyResultProvider<Integer, FindGoodsCountKey> {
+	protected final class FindGoodsCountProvider extends
+			OneKeyResultProvider<Integer, FindGoodsCountKey> {
 
 		/**
 		 * 查询商品数量的SQL
@@ -1714,10 +1917,12 @@ public class GoodsPublishService extends Service {
 		}
 
 		@Override
-		protected Integer provide(Context context, FindGoodsCountKey key) throws Throwable {
+		protected Integer provide(Context context, FindGoodsCountKey key)
+				throws Throwable {
 			DBCommand dbCommand = context.prepareStatement(getGoodsCountSql());
 			try {
-				dbCommand.setArgumentValue(0, context.get(Login.class).getTenantId());
+				dbCommand.setArgumentValue(0, context.get(Login.class)
+						.getTenantId());
 				return (Integer) dbCommand.executeScalar();
 			} finally {
 				dbCommand.unuse();
@@ -1730,7 +1935,8 @@ public class GoodsPublishService extends Service {
 	 * 查询所有商品分类数量
 	 */
 	@Publish
-	protected final class FindGoodsTypeCountProvider extends OneKeyResultProvider<Integer, FindGoodsTypeCountKey> {
+	protected final class FindGoodsTypeCountProvider extends
+			OneKeyResultProvider<Integer, FindGoodsTypeCountKey> {
 
 		/**
 		 * 查询商品分类数量的SQL
@@ -1747,10 +1953,13 @@ public class GoodsPublishService extends Service {
 		}
 
 		@Override
-		protected Integer provide(Context context, FindGoodsTypeCountKey key) throws Throwable {
-			DBCommand dbCommand = context.prepareStatement(getGoodsTypeCountSql());
+		protected Integer provide(Context context, FindGoodsTypeCountKey key)
+				throws Throwable {
+			DBCommand dbCommand = context
+					.prepareStatement(getGoodsTypeCountSql());
 			try {
-				dbCommand.setArgumentValue(0, context.get(Login.class).getTenantId());
+				dbCommand.setArgumentValue(0, context.get(Login.class)
+						.getTenantId());
 				return (Integer) dbCommand.executeScalar();
 			} finally {
 				dbCommand.unuse();
@@ -1763,7 +1972,8 @@ public class GoodsPublishService extends Service {
 	 * 查询已设置属性商品分类的数量
 	 */
 	@Publish
-	protected final class FindGoodsTypeHadSetPropertiesCountProvider extends
+	protected final class FindGoodsTypeHadSetPropertiesCountProvider
+			extends
 			OneKeyResultProvider<Integer, FindGoodsTypeHadSetPropertiesCountKey> {
 
 		/**
@@ -1771,20 +1981,25 @@ public class GoodsPublishService extends Service {
 		 */
 		private String getGoodsTypeHadSetPropertiesCountSql() {
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("define query Qu_GoodsTypeCount(@tenantGuid guid, @setPropertyFlag boolean) ");
+			buffer
+					.append("define query Qu_GoodsTypeCount(@tenantGuid guid, @setPropertyFlag boolean) ");
 			buffer.append(" begin ");
 			buffer.append(" select count(*) ");
 			buffer.append(" from sa_goods_type as t ");
-			buffer.append(" where t.tenantsGuid=@tenantGuid and t.setPropertyFlag=@setPropertyFlag");
+			buffer
+					.append(" where t.tenantsGuid=@tenantGuid and t.setPropertyFlag=@setPropertyFlag");
 			buffer.append(" end ");
 			return buffer.toString();
 		}
 
 		@Override
-		protected Integer provide(Context context, FindGoodsTypeHadSetPropertiesCountKey key) throws Throwable {
-			DBCommand dbCommand = context.prepareStatement(getGoodsTypeHadSetPropertiesCountSql());
+		protected Integer provide(Context context,
+				FindGoodsTypeHadSetPropertiesCountKey key) throws Throwable {
+			DBCommand dbCommand = context
+					.prepareStatement(getGoodsTypeHadSetPropertiesCountSql());
 			try {
-				dbCommand.setArgumentValue(0, context.get(Login.class).getTenantId());
+				dbCommand.setArgumentValue(0, context.get(Login.class)
+						.getTenantId());
 				dbCommand.setArgumentValue(1, Boolean.TRUE);
 				return (Integer) dbCommand.executeScalar();
 			} finally {
