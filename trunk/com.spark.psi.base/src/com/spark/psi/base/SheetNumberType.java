@@ -3,7 +3,11 @@ package com.spark.psi.base;
 public enum SheetNumberType {
 
 	Sales("XSD", 4), // œ˙ €
-	OnlineOrder("WSDD", 4), ProduceOrder("SCDD", 4), Deliver("PSD", 4), DeliverTicket("FHD", 4), SalesReturn("XTD", 4), //
+	OnlineOrder("WSDD", 4), //
+	ProduceOrder("SCDD", 4), //
+	Deliver("PSD", 4), //
+	DeliverTicket("FHD", 4), //
+	SalesReturn("XTD", 4), //
 	Purchaes("CGD", 4), //
 	PurchaseReturn("CTD", 4), //
 	Retail("LSD", 4), //
@@ -16,8 +20,11 @@ public enum SheetNumberType {
 	ReportLoss("BSD", 4), //
 	Receipt("SKD", 4), //
 	Payment("FKD", 4), //
-	GoodsSerial("", 6, true),
-	BalanceAdjust("TZD", 4), JointSettlement("JSD", 4), OnlineReturn("WTD", 4); //
+	GoodsSerial("", 6, true), //
+	BalanceAdjust("TZD", 4), //
+	JointSettlement("JSD", 4), //
+	GoodsSplit("CFD", 4), //
+	OnlineReturn("WTD", 4); //
 
 	private String defaultPrefix;
 	private int length;
@@ -29,7 +36,8 @@ public enum SheetNumberType {
 		this.onlyOrderNo = false;
 	}
 
-	private SheetNumberType(String defaultPrefix, int length, boolean onlyOrderNo) {
+	private SheetNumberType(String defaultPrefix, int length,
+			boolean onlyOrderNo) {
 		this.defaultPrefix = defaultPrefix;
 		this.length = length;
 		this.onlyOrderNo = onlyOrderNo;

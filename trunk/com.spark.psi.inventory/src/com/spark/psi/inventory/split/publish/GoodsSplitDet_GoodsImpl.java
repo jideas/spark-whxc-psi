@@ -12,6 +12,25 @@ public class GoodsSplitDet_GoodsImpl implements GoodsSplitDet_Goods {
 	private String goodsName;
 	private String goodsSpec;
 	private String goodsUnit;
+	private String goodsCode;
+	private String goodsNo;
+ 
+ 
+	public String getGoodsCode() {
+		return goodsCode;
+	}
+
+	public String getGoodsNo() {
+		return goodsNo;
+	}
+
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
+	}
+
+	public void setGoodsNo(String goodsNo) {
+		this.goodsNo = goodsNo;
+	}
 
 	public GUID getRECID() {
 		return RECID;
