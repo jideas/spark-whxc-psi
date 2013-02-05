@@ -3,7 +3,8 @@
 	<publish>
 		<!-- 系统功能 -->
 		<saas-functions>
-
+			<function space="psi/functions"
+				class="com.spark.psi.browser.functions.GoodsSplitManageFunction" />
 			<function space="psi/functions"
 				class="com.spark.psi.browser.functions.OnlineReturnManageFunction" />
 			<function space="psi/functions"

@@ -229,7 +229,12 @@ public enum Auth {
 	SubFunction_OnlineReturn_Approval("1040002", "审批网上退货"),
 	SubFunction_OnlineReturn_Confirm("1040003", "确认网上退货"),
 	MainFunction_JointSettleMent("1041", "联营供应商结算"),
-	MainFunction_RealGoodsSales("1042","成品销售");
+	MainFunction_RealGoodsSales("1042","成品销售"),
+
+	MainFunction_GoodsSplitManage("1050","成品拆分"),
+	SubFunction_GoodsSplitManage_Create("1050001","创建成品拆分"),
+	SubFunction_GoodsSplitManage_Distribution("1050003","分配材料仓库"),
+	SubFunction_GoodsSplitManage_Approval("1050002","审批成品拆分");
 	/**
 	 * 功能/职责代码
 	 */
