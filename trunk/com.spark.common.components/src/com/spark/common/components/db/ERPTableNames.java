@@ -318,6 +318,12 @@ public abstract class ERPTableNames {
 		 * ø‚¥ÊÃ®’À
 		 */
 		Inventory_Book("PSI_Inventory_Book"),
+		
+		GoodsSplitSheet("PSI_GOODSSPLIT"),
+		
+		GoodsSplitDet_Goods("PSI_GOODSSPLIT_GOODS"),
+		
+		GoodsSplitDet_Material("PSI_GOODSSPLIT_MATERIAL"),
 
 		;
 		private String name;

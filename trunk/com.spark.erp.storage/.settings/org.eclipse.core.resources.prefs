@@ -1,4 +1,4 @@
-#Tue Jan 15 23:12:24 CST 2013
+#Tue Feb 05 17:45:54 CST 2013
 eclipse.preferences.version=1
 encoding//meta/com/spark/b2c/storage/base/member/B2C_Base_Member.td=UTF-8
 encoding//meta/com/spark/b2c/storage/joint/PSI_JOINT_RECORD.td=UTF-8
@@ -48,6 +48,9 @@ encoding//meta/com/spark/erp/storage/inventory/PSI_INVENTORY_MATERIALDET.td=UTF-
 encoding//meta/com/spark/erp/storage/inventory/allocate/PSI_Inventory_Allocate_Shelf.td=UTF-8
 encoding//meta/com/spark/erp/storage/inventory/reportloss/PSI_INVENTORY_REPORTLOSS_DET.td=UTF-8
 encoding//meta/com/spark/erp/storage/inventory/reportloss/PSI_INVENTORY_REPORTLOSS_SHELF.td=UTF-8
+encoding//meta/com/spark/erp/storage/inventory/split/PSI_GOODSSPLIT.td=UTF-8
+encoding//meta/com/spark/erp/storage/inventory/split/PSI_GOODSSPLIT_GOODS.td=UTF-8
+encoding//meta/com/spark/erp/storage/inventory/split/PSI_GOODSSPLIT_MATERIAL.td=UTF-8
 encoding//meta/com/spark/erp/storage/onlinereturn/PSI_SALES_OLRETURN_DET.td=UTF-8
 encoding//meta/com/spark/erp/storage/onlinereturn/PSI_SALES_ONLINERETURN.td=UTF-8
 encoding//meta/com/spark/erp/storage/sales/ERP_Sales_OnlineOrder_Log.td=UTF-8
