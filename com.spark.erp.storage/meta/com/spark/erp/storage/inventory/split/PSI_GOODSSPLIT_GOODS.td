@@ -8,6 +8,8 @@
     <field dbtable="PSI_GOODSSPLIT_GOODS" name="goodsName" name-db="goodsName" type="nvarchar(200)" primary-key="false" keep-valid="false" author="" title="" description="" ID="8C6CC9FB85DABF2BD199E3F81DA3F527" />
     <field dbtable="PSI_GOODSSPLIT_GOODS" name="goodsSpec" name-db="goodsSpec" type="nvarchar(100)" primary-key="false" keep-valid="false" author="" title="" description="" ID="9D397232B66AF7BC7A2AE873F87EE658" />
     <field dbtable="PSI_GOODSSPLIT_GOODS" name="goodsUnit" name-db="goodsUnit" type="nvarchar(20)" primary-key="false" keep-valid="false" author="" title="" description="" ID="0F98EA6845D7394BE01E5BA70A5C43C8" />
+    <field dbtable="PSI_GOODSSPLIT_GOODS" name="goodsCode" name-db="goodsCode" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="" description="" ID="B0EB87F8E134CDB7E573ED11F6B7DD13" />
+    <field dbtable="PSI_GOODSSPLIT_GOODS" name="goodsNo" name-db="goodsNo" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="" description="" ID="D4162374CE5F9871FE482033D2357019" />
   </fields>
   <indexs />
   <hierarchies />

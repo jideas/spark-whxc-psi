@@ -15,6 +15,8 @@ public final class TB_PSI_GOODSSPLIT_GOODS extends TableDeclarator {
 	public final TableFieldDefine f_goodsName;
 	public final TableFieldDefine f_goodsSpec;
 	public final TableFieldDefine f_goodsUnit;
+	public final TableFieldDefine f_goodsCode;
+	public final TableFieldDefine f_goodsNo;
 
 	public static final String FN_goodsId ="goodsId";
 	public static final String FN_billId ="billId";
@@ -23,6 +25,8 @@ public final class TB_PSI_GOODSSPLIT_GOODS extends TableDeclarator {
 	public static final String FN_goodsName ="goodsName";
 	public static final String FN_goodsSpec ="goodsSpec";
 	public static final String FN_goodsUnit ="goodsUnit";
+	public static final String FN_goodsCode ="goodsCode";
+	public static final String FN_goodsNo ="goodsNo";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_PSI_GOODSSPLIT_GOODS() {
@@ -34,6 +38,8 @@ public final class TB_PSI_GOODSSPLIT_GOODS extends TableDeclarator {
 		this.f_goodsName = this.table.newField(FN_goodsName, TypeFactory.NVARCHAR(200));
 		this.f_goodsSpec = this.table.newField(FN_goodsSpec, TypeFactory.NVARCHAR(100));
 		this.f_goodsUnit = this.table.newField(FN_goodsUnit, TypeFactory.NVARCHAR(20));
+		this.f_goodsCode = this.table.newField(FN_goodsCode, TypeFactory.NVARCHAR(30));
+		this.f_goodsNo = this.table.newField(FN_goodsNo, TypeFactory.NVARCHAR(30));
 	}
 
 }

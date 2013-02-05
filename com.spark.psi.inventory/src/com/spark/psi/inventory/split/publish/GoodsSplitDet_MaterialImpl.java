@@ -11,6 +11,16 @@ public class GoodsSplitDet_MaterialImpl implements GoodsSplitDet_Material {
 	private String mname;
 	private String munit;
 	private String mspec;
+	private String mcode;
+	private String mnumber;
+
+	public String getMcode() {
+		return mcode;
+	}
+
+	public String getMnumber() {
+		return mnumber;
+	}
 
 	public GUID getRECID() {
 		return RECID;
@@ -66,6 +76,14 @@ public class GoodsSplitDet_MaterialImpl implements GoodsSplitDet_Material {
 
 	public void setMspec(String mspec) {
 		this.mspec = mspec;
+	}
+
+	public void setMcode(String mcode) {
+		this.mcode = mcode;
+	}
+
+	public void setMnumber(String mnumber) {
+		this.mnumber = mnumber;
 	}
 
 }
