@@ -26,7 +26,7 @@ public class OnlineOrderManageFunction extends PSIFunction{
 	public BaseFunction[] getBaseFunctions(Context context) {
 		List<BaseFunction> list = new ArrayList<BaseFunction>();
 		LoginInfo loginInfo = context.find(LoginInfo.class);
-		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_DeliverOnly) && !loginInfo.hasAuth(Auth.Boss)) {
+		if (loginInfo.hasAuth(Auth.SubFunction_OnlineOrder_DeliverOnly)&&!loginInfo.hasAuth(Auth.Distribute) && !loginInfo.hasAuth(Auth.Boss)) {
 			list.add(new BaseFunction(new PageControllerInstance("PickingOnlineOrderListPage"), "拣货中"));
 		} else {
 			list.add(new BaseFunction(new PageControllerInstance("EffectedOnlineOrderListPage"), "新订单", true));
