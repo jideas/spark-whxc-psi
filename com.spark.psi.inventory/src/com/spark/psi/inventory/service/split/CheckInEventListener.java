@@ -29,9 +29,9 @@ public class CheckInEventListener extends Service {
 			AllreadyAmountAndCount data = context.find(AllreadyAmountAndCount.class, GetBillsAllreadyAmountAndCountKey
 					.getCheckInKey(event.getRelaOrderId()));
 			if (data.getAllreadyCount() == data.getBillCount()) {
-				context.handle(new UpdateGoodsSplitStatusTask(GoodsSplitStatus.Finished));
+				context.handle(new UpdateGoodsSplitStatusTask(event.getRelaOrderId(),GoodsSplitStatus.Finished));
 			} else {
-				context.handle(new UpdateGoodsSplitStatusTask(GoodsSplitStatus.Checkingin));
+				context.handle(new UpdateGoodsSplitStatusTask(event.getRelaOrderId(),GoodsSplitStatus.Checkingin));
 			}
 		}
 	}
