@@ -476,6 +476,7 @@ public class GoodsSplitPublishService extends Service {
 			UpdateSqlBuilder ub = new UpdateSqlBuilder(context);
 			ub.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ub.addColumn("status", ub.STRING, task.getStatus().getCode());
+			ub.addCondition("id", ub.guid, task.getId(), "t.RECID = @id");
 			Employee user = context.find(Employee.class, context.find(Login.class).getEmployeeId());
 			switch (status) {
 			case Rejected:
