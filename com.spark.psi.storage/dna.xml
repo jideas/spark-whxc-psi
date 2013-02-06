@@ -41,10 +41,7 @@
       <table space="SAAS" class="com.spark.psi.storage.account.cusdeal.TB_SA_FINANCE_CUSDEAL_DEAL" />
       <table space="SAAS" class="com.spark.psi.storage.account.cusdeal.TB_SA_ACCOUNT_DEALING" />
       <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory" />
-      <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory_Det" />
-      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit" />
-      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit_Goods" />
-      <table space="spark" class="com.spark.psi.storage.store.goodssplit.TB_PSI_GoodsSplit_Materials" />
+      <table space="spark" class="com.spark.psi.storage.inventory.TB_PSI_Inventory_Det" /> 
     </tables>
     <ui-entrys>
       <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
