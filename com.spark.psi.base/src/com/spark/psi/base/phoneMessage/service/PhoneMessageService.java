@@ -154,7 +154,10 @@ public class PhoneMessageService extends Service {
 		@Override
 		protected void handle(Context context, PhoneMessageSendTask task)
 				throws Throwable {
-			System.out.println("连接短信服务器。。。。。。");
+			System.out.println(task.getPhoneNo()+":::"+task.getMessage());
+			if(1==1){
+				return;
+			}
 			PhoneMessageConfig config = context.find(PhoneMessageConfig.class);
 			if (!config.isActiving()) {
 				task.setFlag(ReturnFlag.NotActiving);
