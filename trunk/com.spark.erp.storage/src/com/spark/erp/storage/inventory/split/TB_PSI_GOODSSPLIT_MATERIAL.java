@@ -3,6 +3,7 @@ package com.spark.erp.storage.inventory.split;
 import com.jiuqi.dna.core.def.table.TableDeclarator;
 import com.jiuqi.dna.core.type.TypeFactory;
 import com.jiuqi.dna.core.def.table.TableFieldDefine;
+import com.jiuqi.dna.core.def.table.TableFieldDeclare;
 
 public final class TB_PSI_GOODSSPLIT_MATERIAL extends TableDeclarator {
 
@@ -16,6 +17,7 @@ public final class TB_PSI_GOODSSPLIT_MATERIAL extends TableDeclarator {
 	public final TableFieldDefine f_mcode;
 	public final TableFieldDefine f_mnumber;
 	public final TableFieldDefine f_mspec;
+	public final TableFieldDefine f_standardCount;
 
 	public static final String FN_billId ="billId";
 	public static final String FN_materialId ="materialId";
@@ -25,10 +27,12 @@ public final class TB_PSI_GOODSSPLIT_MATERIAL extends TableDeclarator {
 	public static final String FN_mcode ="mcode";
 	public static final String FN_mnumber ="mnumber";
 	public static final String FN_mspec ="mspec";
+	public static final String FN_standardCount ="standardCount";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_PSI_GOODSSPLIT_MATERIAL() {
 		super(TABLE_NAME);
+		TableFieldDeclare field;
 		this.f_billId = this.table.newField(FN_billId, TypeFactory.GUID);
 		this.f_materialId = this.table.newField(FN_materialId, TypeFactory.GUID);
 		this.f_mcount = this.table.newField(FN_mcount, TypeFactory.NUMERIC(17,2));
@@ -37,6 +41,8 @@ public final class TB_PSI_GOODSSPLIT_MATERIAL extends TableDeclarator {
 		this.f_mcode = this.table.newField(FN_mcode, TypeFactory.NVARCHAR(30));
 		this.f_mnumber = this.table.newField(FN_mnumber, TypeFactory.NVARCHAR(30));
 		this.f_mspec = this.table.newField(FN_mspec, TypeFactory.NVARCHAR(100));
+		this.f_standardCount = field = this.table.newField(FN_standardCount, TypeFactory.NUMERIC(17,2));
+		field.setTitle("参考数量");
 	}
 
 }
