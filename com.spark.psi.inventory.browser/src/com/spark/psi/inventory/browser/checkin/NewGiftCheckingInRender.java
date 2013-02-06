@@ -83,6 +83,7 @@ public class NewGiftCheckingInRender extends PSIListPageRender {
 		providerText.setLayoutData(gdInput);
 		providerText.setImage(InventoryImages.getImage("/images/checkin/saas_mark_find.png"));
 		providerText.setID(NewGiftCheckingInProcessor.ID_Text_Provider);
+		providerText.setEditable(false);
 
 		new Label(tableHeaderArea).setText("    ");
 
