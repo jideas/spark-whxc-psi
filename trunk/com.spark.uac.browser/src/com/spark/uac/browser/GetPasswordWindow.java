@@ -107,7 +107,7 @@ public class GetPasswordWindow extends SMenuWindow{
 		else{
 			markInputErrorstatus(mobileNumberText, null);
 		}
-		String tenantTitle = "7号生活馆"; 
+		String tenantTitle = "七号生活馆"; 
 		String userTitle = userTitleText.getText();
 		if(userTitle == null || userTitle.trim().length() == 0){
 			markInputErrorstatus(userTitleText, "请输入您的姓名");
