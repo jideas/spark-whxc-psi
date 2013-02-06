@@ -155,9 +155,9 @@ public class PhoneMessageService extends Service {
 		protected void handle(Context context, PhoneMessageSendTask task)
 				throws Throwable {
 			System.out.println(task.getPhoneNo()+":::"+task.getMessage());
-			if(1==1){
-				return;
-			}
+//			if(1==1){
+//				return;
+//			}
 			PhoneMessageConfig config = context.find(PhoneMessageConfig.class);
 			if (!config.isActiving()) {
 				task.setFlag(ReturnFlag.NotActiving);
