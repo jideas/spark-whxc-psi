@@ -9,6 +9,7 @@
     <field dbtable="PSI_GOODSSPLIT_MATERIAL" name="mcode" name-db="mcode" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="" description="" ID="68E9B8725C8698939EA9F2C137062460" />
     <field dbtable="PSI_GOODSSPLIT_MATERIAL" name="mnumber" name-db="mnumber" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="" description="" ID="BE4772C9E4C052C0AA79C3D16E31F1A5" />
     <field dbtable="PSI_GOODSSPLIT_MATERIAL" name="mspec" name-db="mspec" type="nvarchar(100)" primary-key="false" keep-valid="false" author="" title="" description="" ID="428DD6F68C40EC9642B9143AFD9278C4" />
+    <field dbtable="PSI_GOODSSPLIT_MATERIAL" name="standardCount" name-db="standardCount" type="numeric(17,2)" primary-key="false" keep-valid="false" author="" title="参考数量" description="" ID="69D8C3E8F64B546B82605C5DA25D74B9" />
   </fields>
   <indexs />
   <hierarchies />
