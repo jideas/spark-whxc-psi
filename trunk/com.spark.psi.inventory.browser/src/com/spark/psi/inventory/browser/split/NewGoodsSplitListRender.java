@@ -2,6 +2,7 @@ package com.spark.psi.inventory.browser.split;
 
 import com.jiuqi.dna.ui.common.constants.JWT;
 import com.jiuqi.dna.ui.custom.combo.LWComboList;
+import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.controls.text.SSearchText2;
 import com.spark.common.components.table.STableColumn;
@@ -22,12 +23,16 @@ public class NewGoodsSplitListRender extends PSIListPageRender {
 		
 		super.afterFooterRender();
 		//
-		new SSearchText2(headerRightArea).setID(NewGoodsSplitListProcessor.ID_TEXT_SEARCH);
-//		new Button(headerRightArea).setID(NewGoodsSplitListProcessor.ID_BUTTON_SEARCH);
-		//
-		new LWComboList(headerLeftArea,JWT.APPEARANCE3).setID(NewGoodsSplitListProcessor.ID_COMBOLIST_DATEITEM);		
-		new Label(headerLeftArea).setText("  出库单数量：");
+//		new SSearchText2(headerRightArea).setID(NewGoodsSplitListProcessor.ID_TEXT_SEARCH);
+////		new Button(headerRightArea).setID(NewGoodsSplitListProcessor.ID_BUTTON_SEARCH);
+//		//
+//		new LWComboList(headerLeftArea,JWT.APPEARANCE3).setID(NewGoodsSplitListProcessor.ID_COMBOLIST_DATEITEM);		
+		new Label(headerLeftArea).setText("  单据数量：");
 		new Label(headerLeftArea).setID(NewGoodsSplitListProcessor.ID_LABEL_CHECKOUTGINSHEET_COUNT);
+		
+		Button button = new Button(footerLeftArea, JWT.APPEARANCE2);
+		button.setText(" 新增 ");
+		button.setID(NewGoodsSplitListProcessor.ID_Button_Add); 
 	}
 
 	public STableColumn[] getColumns() {

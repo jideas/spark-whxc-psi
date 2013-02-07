@@ -22,12 +22,12 @@ public class ApprovalGoodsSplitListRender extends PSIListPageRender {
 		
 		super.afterFooterRender();
 		//
-		new SSearchText2(headerRightArea).setID(NewGoodsSplitListProcessor.ID_TEXT_SEARCH);
+		new SSearchText2(headerRightArea).setID(ApprovalGoodsSplitListProcessor.ID_TEXT_SEARCH);
 //		new Button(headerRightArea).setID(NewGoodsSplitListProcessor.ID_BUTTON_SEARCH);
 		//
-		new LWComboList(headerLeftArea,JWT.APPEARANCE3).setID(NewGoodsSplitListProcessor.ID_COMBOLIST_DATEITEM);		
-		new Label(headerLeftArea).setText("  出库单数量：");
-		new Label(headerLeftArea).setID(NewGoodsSplitListProcessor.ID_LABEL_CHECKOUTGINSHEET_COUNT);
+		new LWComboList(headerLeftArea,JWT.APPEARANCE3).setID(ApprovalGoodsSplitListProcessor.ID_COMBOLIST_DATEITEM);		
+		new Label(headerLeftArea).setText("  单据数量：");
+		new Label(headerLeftArea).setID(ApprovalGoodsSplitListProcessor.ID_LABEL_CHECKOUTGINSHEET_COUNT);
 	}
 
 	public STableColumn[] getColumns() {
