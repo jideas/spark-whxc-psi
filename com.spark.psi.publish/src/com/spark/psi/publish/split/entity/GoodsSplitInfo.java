@@ -3,6 +3,7 @@ package com.spark.psi.publish.split.entity;
 import java.util.List;
 
 import com.jiuqi.dna.core.type.GUID;
+import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 
 public interface GoodsSplitInfo {
 
@@ -32,7 +33,7 @@ public interface GoodsSplitInfo {
 
 	public long getDistributDate();
 
-	public String getStatus();
+	public GoodsSplitStatus getStatus();
 
 	public String getRejectReason();
 

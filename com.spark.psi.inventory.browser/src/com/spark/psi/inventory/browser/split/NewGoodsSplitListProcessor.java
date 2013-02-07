@@ -6,14 +6,10 @@ import java.util.Map;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
-import com.jiuqi.dna.core.type.GUID;
-import com.jiuqi.dna.ui.custom.combo.LWComboList;
 import com.jiuqi.dna.ui.wt.events.ActionEvent;
 import com.jiuqi.dna.ui.wt.events.ActionListener;
-import com.jiuqi.dna.ui.wt.events.SelectionEvent;
-import com.jiuqi.dna.ui.wt.events.SelectionListener;
+import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Label;
-import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.spark.common.components.pages.PageController;
 import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.table.SSortDirection;
@@ -23,10 +19,7 @@ import com.spark.common.utils.character.StringHelper;
 import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
-import com.spark.psi.base.browser.PSIProcessorUtils;
-import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
-import com.spark.psi.publish.inventory.checkout.entity.CheckOutBaseInfo;
 import com.spark.psi.publish.inventory.checkout.entity.CheckoutSheetItem;
 import com.spark.psi.publish.inventory.key.GetCheckingOutListKey;
 import com.spark.psi.publish.inventory.key.GetCheckingOutListKey.SortField;
@@ -38,13 +31,14 @@ public class NewGoodsSplitListProcessor extends
 		PSIListPageProcessor<CheckoutSheetItem> {
 
 	// 选择ComboList框，用于日期过滤项目条件设置 本周、上周、上月、本月
-	public final static String ID_COMBOLIST_DATEITEM = "ComboList_DateItem";
-	// 出库单数量
+//	public final static String ID_COMBOLIST_DATEITEM = "ComboList_DateItem";
+//	// 出库单数量
 	public final static String ID_LABEL_CHECKOUTGINSHEET_COUNT = "Label_CheckingOut_Count";
-	// 搜索文本
-	public final static String ID_TEXT_SEARCH = "Text_Search";
-	// 搜索按钮
-	public final static String ID_BUTTON_SEARCH = "Button_Search";
+//	// 搜索文本
+//	public final static String ID_TEXT_SEARCH = "Text_Search";
+//	// 搜索按钮
+//	public final static String ID_BUTTON_SEARCH = "Button_Search";
+	public static final String ID_Button_Add = "Button_Add"; 
 
 	// 编辑、查看
 	public final static String ID_ACTION_EDIT = "edit";
@@ -56,30 +50,24 @@ public class NewGoodsSplitListProcessor extends
 
 	private Map<String, CheckoutSheetItem> itemMap = new HashMap<String, CheckoutSheetItem>();
 
-	private LWComboList queryTermList;
-	private Text searchText;
+//	private LWComboList queryTermList;
+//	private Text searchText;
 	private Label countLabel;
 
 	@Override
-	public void process(Situation situation) {
-		super.process(situation);
-
-		queryTermList = this.createControl(ID_COMBOLIST_DATEITEM,
-				LWComboList.class);
-		PSIProcessorUtils.initQueryTermSource(queryTermList);
-		queryTermList.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				table.render();
-			}
-		});
-
+	public void process(final Situation context) {
+		super.process(context);
 		countLabel = this.createControl(ID_LABEL_CHECKOUTGINSHEET_COUNT,
 				Label.class);
-
-		searchText = this.createControl(ID_TEXT_SEARCH, Text.class);
-		searchText.addActionListener(new ActionListener() {
+		final Button addButton    = createControl(ID_Button_Add, Button.class); 
+		addButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				table.render();
+				
+				PageController pc = new PageController(NewGoodsSplitDetailProcessor.class, NewGoodsSplitDetailRender.class);
+				PageControllerInstance pci = new PageControllerInstance(pc);
+				MsgRequest request = new MsgRequest(pci, "新增拆分");
+				context.bubbleMessage(request);
 			}
 		});
 	}
@@ -95,10 +83,10 @@ public class NewGoodsSplitListProcessor extends
 			key.setSortField(getSortField(tablestatus.getSortColumn()));
 			key.setSortType(getSortType(tablestatus.getSortDirection()));
 		}
-		key.setSearchText(searchText.getText());
-		key
-				.setQueryTerm(context.find(QueryTerm.class, queryTermList
-						.getText()));
+//		key.setSearchText(searchText.getText());
+//		key
+//				.setQueryTerm(context.find(QueryTerm.class, queryTermList
+//						.getText()));
 		List<CheckoutSheetItem> itemList = context.getList(
 				CheckoutSheetItem.class, key);
 		// if (CheckIsNull.isEmpty(itemList)) {

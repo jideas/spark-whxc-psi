@@ -3,6 +3,7 @@ package com.spark.psi.inventory.split.publish;
 import java.util.List;
 
 import com.jiuqi.dna.core.type.GUID;
+import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Goods;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Material;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
@@ -88,8 +89,8 @@ public class GoodsSplitInfoImpl implements GoodsSplitInfo {
 		return distributDate;
 	}
 
-	public String getStatus() {
-		return status;
+	public GoodsSplitStatus getStatus() {
+		return GoodsSplitStatus.getStatus(status);
 	}
 
 	public String getRejectReason() {
