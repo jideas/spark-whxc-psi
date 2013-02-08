@@ -7,6 +7,7 @@ import com.jiuqi.dna.ui.wt.graphics.CBorder;
 import com.jiuqi.dna.ui.wt.graphics.Color;
 import com.jiuqi.dna.ui.wt.layouts.GridData;
 import com.jiuqi.dna.ui.wt.layouts.GridLayout;
+import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
@@ -71,6 +72,10 @@ public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 
 	@Override
 	protected final void fillHeader() {
+		Button button = null;
+		button = new Button(headerLeftArea,JWT.APPEARANCE2);
+		button.setText("添加商品");
+		button.setID(NewGoodsSplitDetailProcessor.ID_Button_AddGoods);
 //		GridData gd = new GridData();
 //		gd.widthHint = 120;
 //		
@@ -80,8 +85,8 @@ public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 //		lb.setLayoutData(gd);
 //		
 //		new Label(headerRightArea).setID(AbstractGoodsSplitOrderProcessor.ID_Label_ReceiveReturn);
-//		new Label(headerRightArea).setText("   单据状态：");
-//		new Label(headerRightArea).setID(AbstractGoodsSplitOrderProcessor.ID_Label_Status);
+		new Label(headerRightArea).setText("   单据状态：");
+		new Label(headerRightArea).setID(AbstractGoodsSplitOrderProcessor.ID_Label_Status);
 	}
 	
 	protected abstract void renderTable(Composite tableArea);

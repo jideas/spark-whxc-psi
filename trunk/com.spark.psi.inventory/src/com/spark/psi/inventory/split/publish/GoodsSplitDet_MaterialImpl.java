@@ -13,6 +13,15 @@ public class GoodsSplitDet_MaterialImpl implements GoodsSplitDet_Material {
 	private String mspec;
 	private String mcode;
 	private String mnumber;
+	private double scount;
+
+	public double getScount() {
+		return scount;
+	}
+
+	public void setScount(double scount) {
+		this.scount = scount;
+	}
 
 	public String getMcode() {
 		return mcode;

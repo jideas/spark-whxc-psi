@@ -15,6 +15,8 @@ public interface GoodsSplitDet_Material {
 	public GUID getMaterialId();
 
 	public double getMcount();
+	
+	public double getScount();
 
 	public String getMname();
 
