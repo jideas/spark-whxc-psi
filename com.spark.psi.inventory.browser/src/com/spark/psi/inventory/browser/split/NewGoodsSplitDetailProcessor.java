@@ -2,9 +2,6 @@ package com.spark.psi.inventory.browser.split;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.cxf.common.util.StringUtils;
-
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
 import com.jiuqi.dna.core.type.GUID;
@@ -15,7 +12,6 @@ import com.jiuqi.dna.ui.wt.events.ActionListener;
 import com.jiuqi.dna.ui.wt.events.ClientNotifyEvent;
 import com.jiuqi.dna.ui.wt.events.ClientNotifyListener;
 import com.jiuqi.dna.ui.wt.graphics.Color;
-import com.jiuqi.dna.ui.wt.graphics.Font;
 import com.jiuqi.dna.ui.wt.layouts.GridData;
 import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Button;
@@ -31,31 +27,25 @@ import com.spark.common.components.table.edit.SNameValue;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
-import com.spark.common.utils.reflection.BeanUtils;
 import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.portal.browser.SMenuWindow;
 import com.spark.psi.base.browser.CommonSelectRequest;
 import com.spark.psi.inventory.browser.split.SplitGoodsSelectProcessor.SelectedItem;
-import com.spark.psi.publish.Auth;
 import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.onlineorder.entity.TotalMaterialsItem;
 import com.spark.psi.publish.onlineorder.entity.TotalMaterialsItem.MaterialsItem;
 import com.spark.psi.publish.onlineorder.key.GetTotalMaterialsKey;
 import com.spark.psi.publish.onlineorder.key.GetTotalMaterialsKey.GoodsItem;
-import com.spark.psi.publish.produceorder.entity.ProduceOrderInfoGoodsItem;
-import com.spark.psi.publish.produceorder.entity.ProduceOrderInfoMaterialsItem;
 import com.spark.psi.publish.produceorder.entity.ProduceOrderInfo.ReceivedLog;
 import com.spark.psi.publish.produceorder.entity.ProduceOrderInfo.ReturnedLog;
-import com.spark.psi.publish.produceorder.task.FinishTask;
 import com.spark.psi.publish.produceorder.task.UpdateProduceOrderStatusTask;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Goods;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Material;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 import com.spark.psi.publish.split.task.UpdateGoodsSplitBillTask;
-import com.spark.psi.publish.split.task.UpdateGoodsSplitStatusTask;
 
 public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcessor {
 	public static final String ID_Label_Info = "Label_Info";
@@ -66,19 +56,19 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 	public static final String ID_Button_AddGoods = "Button_AddGoods";
 	
 	public static enum GoodsColumnName {
-		goodsName, spec, count, doneCount, currentCount
+		goodsName, spec, count
 	}
 	
 	public static enum GoodsTableExtraValueName {
-		itemId, count, doneCount, goodsId
+		itemId, count, goodsId
 	}
 	
 	public static enum MaterialColumnName {
-		materialName, count, storeName, receivedCount, returnedCount, currentCount
+		materialName, spec,scount, count
 	}
 	
 	public static enum MaterialTableExtraValueName {
-		itemId, storeId, materialId, count, receivedCount, returnedCount
+		itemId, materialId,spec,scount, count
 	}
 	
 	private SEditTable goodsTable     = null;
@@ -87,8 +77,8 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 	private LoginInfo loginInfo       = null;
 	
 	private GoodsSplitInfo orderInfo = null;
-	private List<GoodsSplitDet_Goods> goodsDets = null;
-	private List<GoodsSplitDet_Material> materialDets = null;;
+	private List<GoodsDets> goodsDets = null;
+	private List<MaterialDets> materialDets = null;;
 	@Override
 	public void init(Situation context) {
 		super.init(context);
@@ -176,9 +166,8 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 	}
 	
 	private void refreshTable(Object returnValue) {
-		// TODO Auto-generated method stub
 		SelectedItem[] items = (SelectedItem[])returnValue;
-		goodsDets = new ArrayList<GoodsSplitDet_Goods>();
+		goodsDets = new ArrayList<GoodsDets>();
 		GoodsItem[] goodsItems = new GoodsItem[items.length];
 		int index = 0;
 		GetTotalMaterialsKey tk = new GetTotalMaterialsKey();
@@ -207,7 +196,7 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		tk.setGoodsItems(goodsItems);
 		try
 		{
-			materialDets = new ArrayList<GoodsSplitDet_Material>();
+			materialDets = new ArrayList<MaterialDets>();
 			TotalMaterialsItem tmi = getContext().find(TotalMaterialsItem.class, tk);
 			if(CheckIsNull.isNotEmpty(tmi.getMaterials()))
 			{
@@ -230,6 +219,8 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			alert(e.getMessage());
 			System.out.println(e.getMessage());
 		}
+		goodsTable.setContentProvider(new EditableGoodsTableContentProvider());
+		materialtable.setContentProvider(new EditableMaterialTableContentProvider());
 		goodsTable.render();
 		materialtable.render();
 	}
@@ -346,35 +337,35 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 	
 	
 	
-	private void addConfirmActionListener(Button button) {
-		button.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				// 确认完成
-				if (!validateGoodsTableData()) return;
-				FinishTask task = new FinishTask(orderInfo.getRECID());
-				String[] rowIds = goodsTable.getAllRowId();
-				List<FinishTask.Item> itemList = new ArrayList<FinishTask.Item>();
-				FinishTask.Item item = null;
-				for (int rowIndex = 0; rowIndex < rowIds.length; rowIndex++) {
-					String rowId = rowIds[rowIndex];
-					String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.currentCount.name())[0];
-					if (StringUtils.isEmpty(currrentCountStr)) {
-						continue;
-					}
-					String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.itemId.name(),
-							GoodsTableExtraValueName.goodsId.name());
-					item = task.new Item(GUID.tryValueOf(baseValues[0]), DoubleUtil.strToDouble(currrentCountStr),
-							GUID.tryValueOf(baseValues[1]));
-					itemList.add(item);
-				}
-				task.setItems(itemList.toArray(new FinishTask.Item[0]));
-				task.setSheetNo(orderInfo.getBillNo());
-				getContext().handle(task);
-				getContext().bubbleMessage(new MsgResponse(true));
-			}
-		});
-	}
+//	private void addConfirmActionListener(Button button) {
+//		button.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				// 确认完成
+//				if (!validateGoodsTableData()) return;
+//				FinishTask task = new FinishTask(orderInfo.getRECID());
+//				String[] rowIds = goodsTable.getAllRowId();
+//				List<FinishTask.Item> itemList = new ArrayList<FinishTask.Item>();
+//				FinishTask.Item item = null;
+//				for (int rowIndex = 0; rowIndex < rowIds.length; rowIndex++) {
+//					String rowId = rowIds[rowIndex];
+//					String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.currentCount.name())[0];
+//					if (StringUtils.isEmpty(currrentCountStr)) {
+//						continue;
+//					}
+//					String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.itemId.name(),
+//							GoodsTableExtraValueName.goodsId.name());
+//					item = task.new Item(GUID.tryValueOf(baseValues[0]), DoubleUtil.strToDouble(currrentCountStr),
+//							GUID.tryValueOf(baseValues[1]));
+//					itemList.add(item);
+//				}
+//				task.setItems(itemList.toArray(new FinishTask.Item[0]));
+//				task.setSheetNo(orderInfo.getBillNo());
+//				getContext().handle(task);
+//				getContext().bubbleMessage(new MsgResponse(true));
+//			}
+//		});
+//	}
 	
 	private void showReceiveItem(Composite parentArea, ReceivedLog ceceivedLog) {
 		Composite titleArea = new Composite(parentArea);
@@ -487,32 +478,37 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 	private boolean validateGoodsTableData() {
 		String[] rowIds = goodsTable.getAllRowId();
 		int emptyCount = 0;
-		for (String rowId : rowIds) {
-			String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.currentCount.name())[0];
-			if (StringUtils.isEmpty(currrentCountStr)) {
-				emptyCount++;
-				continue;
-			}
-			String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.count.name(), 
-					GoodsTableExtraValueName.doneCount.name());
-			double doneCount = DoubleUtil.strToDouble(baseValues[1]);
-			double count = DoubleUtil.strToDouble(baseValues[0]);
-			double currentCount = DoubleUtil.strToDouble(currrentCountStr);
-			
-			if (currentCount == 0) {
-//				alert("本次完成数量不能为0");
+//		for (String rowId : rowIds) {
+//			String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.count.name())[0];
+//			if (StringUtils.isEmpty(currrentCountStr)) {
+//				emptyCount++;
+//				continue;
+//			}
+//			String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.count.name(), 
+//					GoodsTableExtraValueName.doneCount.name());
+//			double doneCount = DoubleUtil.strToDouble(baseValues[1]);
+//			double count = DoubleUtil.strToDouble(baseValues[0]);
+//			double currentCount = DoubleUtil.strToDouble(currrentCountStr);
+//			
+//			if (currentCount == 0) {
+////				alert("本次完成数量不能为0");
+////				return false;
+//				emptyCount++;
+//				continue;
+//			}
+//			
+//			if ((doneCount + currentCount) > count) {
+//				alert("完成数量不能大于数量。");
 //				return false;
-				emptyCount++;
-				continue;
-			}
-			
-			if ((doneCount + currentCount) > count) {
-				alert("完成数量不能大于数量。");
-				return false;
-			}
-		}
-		if (emptyCount == rowIds.length) {
-			alert("本次完成数量不能为空，或都为0。");
+//			}
+//		}
+//		if (emptyCount == rowIds.length) {
+//			alert("本次完成数量不能为空，或都为0。");
+//			return false;
+//		}
+		if(rowIds.length<1)
+		{
+			alert("请选择商品！");
 			return false;
 		}
 		return true;
@@ -539,10 +535,10 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public SNameValue[] getExtraData(Object element) {
-			ProduceOrderInfoGoodsItem item = (ProduceOrderInfoGoodsItem)element;
-			return new SNameValue[] { new SNameValue(GoodsTableExtraValueName.itemId.name(), item.getId().toString()),
-					new SNameValue(GoodsTableExtraValueName.count.name(), "" + item.getCount()),
-					new SNameValue(GoodsTableExtraValueName.doneCount.name(), "" + item.getFinishedCount()),
+			GoodsSplitDet_Goods item = (GoodsSplitDet_Goods)element;
+			return new SNameValue[] { new SNameValue(GoodsTableExtraValueName.itemId.name(), item.getRECID().toString()),
+					new SNameValue(GoodsTableExtraValueName.count.name(), "" + item.getGcount()),
+//					new SNameValue(GoodsTableExtraValueName.doneCount.name(), "" + item.getFinishedCount()),
 					new SNameValue(GoodsTableExtraValueName.goodsId.name(), "" + item.getGoodsId()) };
 		}
 
@@ -551,11 +547,11 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public String getValue(Object element, String columnName) {
-			if (loginInfo.hasAuth(Auth.SubFunction_ProduceOrder_Produce)) {
-				if (GoodsColumnName.currentCount.name().equals(columnName)) {
-					return "";
-				}
-			}
+//			if (loginInfo.hasAuth(Auth.SubFunction_ProduceOrder_Produce)) {
+//				if (GoodsColumnName.currentCount.name().equals(columnName)) {
+//					return "";
+//				}
+//			}
 			return null;
 		}
 
@@ -590,13 +586,14 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public SNameValue[] getExtraData(Object element) {
-			ProduceOrderInfoMaterialsItem item = (ProduceOrderInfoMaterialsItem)element;
-			return new SNameValue[] { new SNameValue(MaterialTableExtraValueName.itemId.name(), item.getId().toString()),
-					new SNameValue(MaterialTableExtraValueName.storeId.name(), item.getStoreId().toString()),
-					new SNameValue(MaterialTableExtraValueName.count.name(), "" + item.getCount()),
-					new SNameValue(MaterialTableExtraValueName.receivedCount.name(), "" + item.getReceivedCount()),
-					new SNameValue(MaterialTableExtraValueName.returnedCount.name(), "" + item.getReturnedCount()),
-					new SNameValue(MaterialTableExtraValueName.materialId.name(), item.getMaterialId().toString())};
+			GoodsSplitDet_Material item = (GoodsSplitDet_Material)element;
+			return new SNameValue[] { new SNameValue(MaterialTableExtraValueName.itemId.name(), item.getRECID().toString()),
+//					new SNameValue(MaterialTableExtraValueName.storeId.name(), item.getStoreId().toString()),
+					new SNameValue(MaterialTableExtraValueName.scount.name(), "" + item.getScount()),
+					new SNameValue(MaterialTableExtraValueName.materialId.name(), "" + item.getMaterialId()),
+					new SNameValue(MaterialTableExtraValueName.spec.name(), "" + item.getMspec()),
+//					new SNameValue(MaterialTableExtraValueName.materialId.name(), item.getMaterialId().toString())
+			};
 		}
 
 		public Object getNewElement() {
@@ -604,9 +601,9 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public String getValue(Object element, String columnName) {
-//			if (MaterialColumnName.currentCount.name().equals(columnName)) {
-//				return "";
-//			}
+			if (MaterialColumnName.count.name().equals(columnName)) {
+				return "";
+			}
 			return null;
 		}
 
@@ -645,6 +642,7 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		private String mspec;
 		private String mcode;
 		private String mnumber;
+		private double scount;
 
 		public String getMcode() {
 			return mcode;
@@ -716,6 +714,14 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 
 		public void setMnumber(String mnumber) {
 			this.mnumber = mnumber;
+		}
+
+		public void setScount(double scount) {
+			this.scount = scount;
+		}
+
+		public double getScount() {
+			return scount;
 		}
 
 
