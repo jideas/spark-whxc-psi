@@ -8,6 +8,7 @@ import com.jiuqi.dna.ui.wt.events.ActionListener;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.psi.base.browser.SetPSICaseUtil;
+import com.spark.psi.publish.InventoryAllocateStatus;
 import com.spark.psi.publish.inventory.task.InventoryAllocateTask;
 import com.spark.psi.publish.inventory.task.UpdateInventoryAllocateSheetTask;
 
@@ -38,10 +39,15 @@ public class ApprovalingSheetDetailProcesser extends AllocateSheetDetailBaseProc
 		super.process(context);
 		//≈˙◊º…Í«Î
 		Button approvalButton = this.createControl(ID_Button_Approval, Button.class, JWT.NONE);
-		approvalButton.addActionListener(new ApprovalButtonListener());
 		//ÕÀªÿ…Í«Î
 		Button denyButton = this.createControl(ID_Button_Deny, Button.class, JWT.NONE);
-		denyButton.addActionListener(new DenyButtonListener());
+		if (InventoryAllocateStatus.Submitted.equals(info.getStatus())) {
+			approvalButton.addActionListener(new ApprovalButtonListener());
+			denyButton.addActionListener(new DenyButtonListener());
+		} else {
+			approvalButton.dispose();
+			denyButton.dispose();
+		}
 	}
 
 	/**
