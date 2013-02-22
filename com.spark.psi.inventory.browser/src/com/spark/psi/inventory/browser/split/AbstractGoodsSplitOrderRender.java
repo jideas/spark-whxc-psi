@@ -13,17 +13,18 @@ import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.spark.psi.base.browser.AbstractFormRender;
 import com.spark.psi.publish.produceorder.entity.ProduceOrderInfo;
+import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 
 public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 	
-//	protected ProduceOrderInfo orderInfo  =  null;
+	protected GoodsSplitInfo orderInfo  =  null;
 	
 	
 	@Override
 	public void init(Situation context) {
 		super.init(context);
-//		GUID orderId = (GUID)getArgument();
-//		orderInfo = context.find(ProduceOrderInfo.class, orderId);
+		GUID orderId = (GUID)getArgument();
+		orderInfo = context.find(GoodsSplitInfo.class, orderId);
 	}
 
 	@Override

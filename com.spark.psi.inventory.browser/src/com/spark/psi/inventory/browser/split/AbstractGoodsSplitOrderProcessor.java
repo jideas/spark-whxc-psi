@@ -6,6 +6,7 @@ import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.spark.psi.base.browser.AbstractFormProcessor;
 import com.spark.psi.publish.ProduceOrderStatus;
+import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 
 public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProcessor {
@@ -55,15 +56,15 @@ public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProce
 		remarkText.setText(orderInfo.getRemark());
 		statusLabel.setText(orderInfo.getStatus().getTitle());
 		
-//		if (orderInfo.getStatus() == ProduceOrderStatus.Submiting
-//				|| orderInfo.getStatus() == ProduceOrderStatus.Reject) {
-//			remarkText.setEnabled(true);
-//		} else {
-//			remarkText.setEnabled(false);
-//		}
+		if (orderInfo.getStatus() == GoodsSplitStatus.Submiting
+				|| orderInfo.getStatus() == GoodsSplitStatus.Rejected) {
+			remarkText.setEnabled(true);
+		} else {
+			remarkText.setEnabled(false);
+		}
 		
 		
-		if (null!=orderInfo&&ProduceOrderStatus.Reject.equals(orderInfo.getStatus())) {
+		if (null!=orderInfo&&GoodsSplitStatus.Rejected==orderInfo.getStatus()) {
 			causeLabel.setText("ÕÀªÿ‘≠“Ú£∫" + orderInfo.getRejectReason());
 		} else {
 			causeLabel.dispose();

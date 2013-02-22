@@ -48,14 +48,16 @@ import com.spark.psi.publish.split.entity.GoodsSplitDet_Material;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 import com.spark.psi.publish.split.task.GoodsSplitTaskDet;
 import com.spark.psi.publish.split.task.UpdateGoodsSplitBillTask;
+import com.spark.psi.publish.split.task.UpdateGoodsSplitStatusTask;
 
-public class NewGoodsSplitDetailProcessor extends
+public class GoodsSplitDetailProcessor extends
 		AbstractGoodsSplitOrderProcessor {
 	public static final String ID_Label_Info = "Label_Info";
 	public static final String ID_Table_Goods = "Table_Goods";
 	public static final String ID_Table_Material = "Table_Material";
-	public static final String ID_Button_Submit = "Button_Submit";
-	public static final String ID_Button_Save = "Button_Save";
+	public static final String ID_Button_Approval = "Button_Approval";
+	public static final String ID_Button_Deny = "Button_Deny";
+	public static final String ID_Button_Distribut = "Button_Distribut";
 	public static final String ID_Button_AddGoods = "Button_AddGoods";
 
 	public static enum GoodsColumnName {
@@ -116,8 +118,12 @@ public class NewGoodsSplitDetailProcessor extends
 			sheetInfo += "     审批：" + orderInfo.getApprovalPerson() + "("
 					+ DateUtil.dateFromat(orderInfo.getApprovalDate()) + ")";
 		}
+		if (orderInfo.getDistributPerson() != null) {
+			sheetInfo += "     分配：" + orderInfo.getDistributPerson() + "("
+					+ DateUtil.dateFromat(orderInfo.getDistributDate()) + ")";
+		}
 		if (orderInfo.getFinishDate() > 0) {
-			sheetInfo += "     确认完成日期："
+			sheetInfo += "     完成日期："
 					+ DateUtil.dateFromat(orderInfo.getFinishDate());
 		}
 		infoLabel.setText(sheetInfo);
@@ -126,23 +132,28 @@ public class NewGoodsSplitDetailProcessor extends
 
 	private void initActions() {
 		Button button = null;
-		if (null != orderInfo) {
 			switch (orderInfo.getStatus()) {
 			case Submiting:
-			case Rejected:
-				button = createControl(ID_Button_Submit, Button.class);
-				addSumbitActionListener(button);
-				Button buttons = createControl(ID_Button_Save, Button.class);
-				addSaveActionListener(buttons);
+			case Approvaling:
+				button = createControl(ID_Button_Approval, Button.class);
+				addApprovalActionListener(button);
+				Button buttons = createControl(ID_Button_Deny, Button.class);
+				addRejectActionListener(buttons);
+				break;
+			case Approvaled:
+				button = createControl(ID_Button_Distribut, Button.class);
+				addDistributActionListener(button);
+				break;
 			}
-		} else {
-			button = createControl(ID_Button_Submit, Button.class);
-			addSumbitActionListener(button);
-			Button buttons = createControl(ID_Button_Save, Button.class);
-			addSaveActionListener(buttons);
-		}
+		
 		Button buttons = createControl(ID_Button_AddGoods, Button.class);
-		addGoodsActionListener(buttons);
+		buttons.setEnabled(false);
+//		addGoodsActionListener(buttons);
+	}
+
+	private void addDistributActionListener(Button button) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void addGoodsActionListener(Button button) {
@@ -227,28 +238,7 @@ public class NewGoodsSplitDetailProcessor extends
 		materialtable.render();
 	}
 
-	private void addSaveActionListener(Button button) {
-		button.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				doSave();
-			}
-		});
-	}
-
-	protected void doSave() {
-		if (!validationValue()) {
-			return;
-		}
-		UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
-		fillTaskData(task);
-		task.setStatus(GoodsSplitStatus.Submiting);
-		if (null != orderInfo)
-			task.setRECID(orderInfo.getRECID());
-		getContext().handle(task);
-		getContext().bubbleMessage(new MsgResponse(true));
-
-	}
 
 	private void fillTaskData(UpdateGoodsSplitBillTask task) {
 		task.setRemark(remarkText.getText());
@@ -291,39 +281,14 @@ public class NewGoodsSplitDetailProcessor extends
 		return true;
 	}
 
-	private void addSumbitActionListener(Button button) {
-		button.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				doSubmit();
-
-			}
-		});
-	}
-
-	protected void doSubmit() {
-		if (!validationValue()) {
-			return;
-		}
-		UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
-		fillTaskData(task);
-		task.setStatus(GoodsSplitStatus.Approvaling);
-		if (null != orderInfo)
-			task.setRECID(orderInfo.getRECID());
-		getContext().handle(task);
-		getContext().bubbleMessage(new MsgResponse(true));
-
-	}
-
 	private void addApprovalActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// 批准
-				UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(
-						orderInfo.getRECID());
-				getContext().handle(task,
-						UpdateProduceOrderStatusTask.Method.Approve);
+				UpdateGoodsSplitStatusTask task = new UpdateGoodsSplitStatusTask(
+						orderInfo.getRECID(),GoodsSplitStatus.Approvaled);
+				getContext().handle(task);
 				getContext().bubbleMessage(new MsgResponse(true));
 			}
 		});
@@ -341,11 +306,9 @@ public class NewGoodsSplitDetailProcessor extends
 					public void handle(Object returnValue, Object returnValue2,
 							Object returnValue3, Object returnValue4) {
 						if (null != returnValue2) {
-							UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(
-									orderInfo.getRECID());
-							task.setRejectReason((String) returnValue2);
-							getContext().handle(task,
-									UpdateProduceOrderStatusTask.Method.Deny);
+							UpdateGoodsSplitStatusTask task = new UpdateGoodsSplitStatusTask(
+									orderInfo.getRECID(),GoodsSplitStatus.Rejected,(String) returnValue2);
+							getContext().handle(task);
 							getContext().bubbleMessage(new MsgResponse(true));
 						}
 					}
@@ -687,13 +650,6 @@ public class NewGoodsSplitDetailProcessor extends
 		}
 
 		public String getValue(Object element, String columnName) {
-			GoodsSplitDet_Material m = (GoodsSplitDet_Material) element;
-			if (MaterialColumnName.count.name().equals(columnName)) {
-				if (null == m)
-					return "0";
-				else
-					return m.getMcount() + "";
-			}
 			return null;
 		}
 

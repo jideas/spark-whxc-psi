@@ -288,7 +288,7 @@ public class GoodsSplitPublishService extends Service {
 			}
 			if (key.getEndTime() > 0) {
 				qb.addArgs("endTime", qb.DATE, key.getEndTime());
-				qb.addGreaterThanOrEquals("t.createDate", "@endTime");
+				qb.addLessThan("t.createDate", "@endTime");
 			}
 			// ≈≈–Ú
 			if (key.getSortField() != null) {
@@ -407,7 +407,9 @@ public class GoodsSplitPublishService extends Service {
 			ib.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ib.addColumn("remark", ib.STRING, task.getRemark());
 			ib.addColumn("storeId", ib.guid, task.getStoreId());
+			ib.addColumn("status", ib.STRING, task.getStatus().getCode());
 			ib.addCondition("id", ib.guid, task.getRECID(), "t.RECID = @id");
+			ib.addCondition(" t.status='"+GoodsSplitStatus.Submiting.getCode()+"' or t.status='"+GoodsSplitStatus.Rejected.getCode()+"' ");
 			int i = ib.execute();
 			return i == 1;
 		}
@@ -423,7 +425,7 @@ public class GoodsSplitPublishService extends Service {
 			ib.addColumn("creator", ib.STRING, user.getName());
 			ib.addColumn("creatorId", ib.guid, user.getId());
 			ib.addColumn("createDate", ib.DATE, System.currentTimeMillis());
-			ib.addColumn("status", ib.STRING, GoodsSplitStatus.Submiting.getCode());
+			ib.addColumn("status", ib.STRING, task.getStatus().getCode());
 			ib.addColumn("remark", ib.STRING, task.getRemark());
 			ib.addColumn("storeId", ib.guid, task.getStoreId());
 			int i = ib.execute();
@@ -487,13 +489,16 @@ public class GoodsSplitPublishService extends Service {
 				ub.addColumn("approvalPerson", ub.STRING, user.getName());
 				ub.addColumn("approvalPersonId", ub.guid, user.getId());
 				ub.addColumn("approvalDate", ub.DATE, System.currentTimeMillis());
+				ub.addCondition(" t.status='"+GoodsSplitStatus.Approvaling.getCode()+"' ");
 				break;
 			case Approvaling:
+				ub.addCondition(" (t.status='"+GoodsSplitStatus.Submiting.getCode()+"' or  t.status='"+GoodsSplitStatus.Rejected.getCode()+"') ");
 				break;
 			case Approvaled:
 				ub.addColumn("approvalPerson", ub.STRING, user.getName());
 				ub.addColumn("approvalPersonId", ub.guid, user.getId());
 				ub.addColumn("approvalDate", ub.DATE, System.currentTimeMillis());
+				ub.addCondition(" t.status='"+GoodsSplitStatus.Approvaling.getCode()+"' ");
 				break;
 			case Checkingin:
 				break;

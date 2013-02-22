@@ -24,6 +24,7 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
 import com.spark.psi.base.browser.PSIProcessorUtils;
+import com.spark.psi.publish.Action;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
@@ -96,12 +97,14 @@ public class DistributingGoodsSplitListProcessor extends
 			key.setSortType(getSortType(tablestatus.getSortDirection()));
 		}
 		key.setStatus(new GoodsSplitStatus[]{GoodsSplitStatus.Approvaled});
+		key.setSearchText(searchText.getText());
+		key.setBeginTime(context.find(QueryTerm.class, queryTermList
+						.getText()).getStartTime());
+		key.setEndTime(context.find(QueryTerm.class, queryTermList
+				.getText()).getEndTime());
 		ListEntity<GoodsSplitItem> entity = context.find(ListEntity.class, key);
 		List<GoodsSplitItem> itemList = entity.getItemList();
-//		key.setSearchText(searchText.getText());
-//		key
-//				.setQueryTerm(context.find(QueryTerm.class, queryTermList
-//						.getText()));
+		
 		
 		// if (CheckIsNull.isEmpty(itemList)) {
 		// countLabel.setText("0");
@@ -153,33 +156,31 @@ public class DistributingGoodsSplitListProcessor extends
 		return ((GoodsSplitItem) element).getRECID().toString();
 	}
 
+	@Override
+	public String[] getTableActionIds() {
+		return new String[]{Action.Detail.name()};
+	}
+
 	/**
 	 * 指定操作发生时，触发的事件
 	 */
 	public void actionPerformed(String rowId, String actionName,
 			String actionValue) {
-		if (ID_ACTION_EDIT.equals(actionName)) {
-			// CheckOutBaseInfo info = getContext().find(CheckOutBaseInfo.class,
-			// GUID.valueOf(rowId));
-			// PageController pc = new
-			// PageController(CheckedOutDetailProcessor.class,
-			// CheckedOutDetailRender.class);
-			// PageControllerInstance pci = new PageControllerInstance(pc, info,
-			// rowId);
-			// MsgRequest request = new MsgRequest(pci, "出库单详情");
-			// request.setResponseHandler(new ResponseHandler() {
-			// public void handle(Object returnValue, Object returnValue2,
-			// Object returnValue3, Object returnValue4) {
-			// table.render();
-			// }
-			// });
-			// getContext().bubbleMessage(request);
-		}
+		PageController pc = new PageController(GoodsSplitDetailProcessor.class, GoodsSplitDetailRender.class);
+		PageControllerInstance pci = new PageControllerInstance(pc,GUID.valueOf(rowId));
+		MsgRequest request = new MsgRequest(pci, "拆分单");
+		request.setResponseHandler(new ResponseHandler() {
+			
+			public void handle(Object returnValue, Object returnValue2,
+					Object returnValue3, Object returnValue4) {
+				table.render();
+			}
+		});
+		getContext().bubbleMessage(request);
 	}
 
 	@Override
 	protected String getExportFileTitle() {
-		// TODO Auto-generated method stub
-		return "成品出库单";
+		return "商品拆分单";
 	}
 }
