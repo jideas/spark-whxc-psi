@@ -42,10 +42,18 @@ public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProce
 		planDateLabel = createControl(ID_Label_PlanDate, Label.class);
 		receiveReturnLabel = createControl(ID_Label_ReceiveReturn, Label.class);
 		final Label statusLabel = createLabelControl(ID_Label_Status);
-//		statusLabel.setText(orderInfo.getStatus().getName());
+		Label causeLabel = createControl(ID_Label_StopCause,
+				Label.class);
+//		
 		
 //		planDateLabel.setText(DateUtil.dateFromat(orderInfo.getPlanDate()));
-//		remarkText.setText(orderInfo.getRemark());
+		if(null==orderInfo)
+		{
+			causeLabel.dispose();
+			return;
+		}
+		remarkText.setText(orderInfo.getRemark());
+		statusLabel.setText(orderInfo.getStatus().getTitle());
 		
 //		if (orderInfo.getStatus() == ProduceOrderStatus.Submiting
 //				|| orderInfo.getStatus() == ProduceOrderStatus.Reject) {
@@ -54,8 +62,7 @@ public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProce
 //			remarkText.setEnabled(false);
 //		}
 		
-		Label causeLabel = createControl(ID_Label_StopCause,
-				Label.class);
+		
 		if (null!=orderInfo&&ProduceOrderStatus.Reject.equals(orderInfo.getStatus())) {
 			causeLabel.setText("ÕÀªÿ‘≠“Ú£∫" + orderInfo.getRejectReason());
 		} else {

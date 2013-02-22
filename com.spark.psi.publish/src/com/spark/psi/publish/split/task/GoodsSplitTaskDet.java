@@ -5,7 +5,16 @@ import com.jiuqi.dna.core.type.GUID;
 public class GoodsSplitTaskDet {
 	private GUID id;
 	private double count;
+	private double sCount;
 	private String reason;
+
+	public double getsCount() {
+		return sCount;
+	}
+
+	public void setsCount(double sCount) {
+		this.sCount = sCount;
+	}
 
 	public GUID getId() {
 		return id;
