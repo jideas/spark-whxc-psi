@@ -305,7 +305,15 @@ public class GoodsSplitDetailProcessor extends
 				// Åú×¼
 				UpdateGoodsSplitStatusTask task = new UpdateGoodsSplitStatusTask(
 						orderInfo.getRECID(),GoodsSplitStatus.Approvaled);
-				getContext().handle(task);
+				try
+				{
+					getContext().handle(task);
+				}
+				catch(Throwable t)
+				{
+					alert(t.getMessage());
+					return;
+				}
 				getContext().bubbleMessage(new MsgResponse(true));
 			}
 		});
