@@ -32,6 +32,9 @@ import com.spark.psi.inventory.split.publish.GoodsSplitItemImpl;
 import com.spark.psi.publish.CheckingInType;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.SortType;
+import com.spark.psi.publish.deliver.entity.DeliverInfoItem;
+import com.spark.psi.publish.inventory.checkout.task.RealGoodsCheckOutTask;
+import com.spark.psi.publish.inventory.checkout.task.RealGoodsCheckOutTaskItem;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Goods;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Material;
@@ -55,12 +58,15 @@ public class GoodsSplitPublishService extends Service {
 	 * 详情
 	 */
 	@Publish
-	protected class FindGoodsSplitBill extends OneKeyResultProvider<GoodsSplitInfo, GUID> {
+	protected class FindGoodsSplitBill extends
+			OneKeyResultProvider<GoodsSplitInfo, GUID> {
 
 		@Override
-		protected GoodsSplitInfo provide(Context context, GUID key) throws Throwable {
+		protected GoodsSplitInfo provide(Context context, GUID key)
+				throws Throwable {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
-			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(), "t");
+			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(),
+					"t");
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.billNo", "billNo");
 			qb.addColumn("t.creator", "creator");
@@ -92,8 +98,12 @@ public class GoodsSplitPublishService extends Service {
 				item.setApprovalPerson(rs.getFields().get(index++).getString());
 				item.setApprovalPersonId(rs.getFields().get(index++).getGUID());
 				item.setApprovalDate(rs.getFields().get(index++).getDate());
-				item.setDistributPerson(rs.getFields().get(index++).getString());
-				item.setDistributPersonId(rs.getFields().get(index++).getGUID());
+				item
+						.setDistributPerson(rs.getFields().get(index++)
+								.getString());
+				item
+						.setDistributPersonId(rs.getFields().get(index++)
+								.getGUID());
 				item.setDistributDate(rs.getFields().get(index++).getDate());
 				item.setStatus(rs.getFields().get(index++).getString());
 				item.setRejectReason(rs.getFields().get(index++).getString());
@@ -110,9 +120,11 @@ public class GoodsSplitPublishService extends Service {
 			return item;
 		}
 
-		private void fillMaterialDetails(Context context, GoodsSplitInfoImpl item) {
+		private void fillMaterialDetails(Context context,
+				GoodsSplitInfoImpl item) {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
-			qb.addTable(ERPTableNames.Inventory.GoodsSplitDet_Material.getTableName(), "t");
+			qb.addTable(ERPTableNames.Inventory.GoodsSplitDet_Material
+					.getTableName(), "t");
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.billId", "billId");
 			qb.addColumn("t.materialId", "materialId");
@@ -147,7 +159,8 @@ public class GoodsSplitPublishService extends Service {
 
 		private void fillGoodsDetails(Context context, GoodsSplitInfoImpl item) {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
-			qb.addTable(ERPTableNames.Inventory.GoodsSplitDet_Goods.getTableName(), "t");
+			qb.addTable(ERPTableNames.Inventory.GoodsSplitDet_Goods
+					.getTableName(), "t");
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.goodsId", "goodsId");
 			qb.addColumn("t.billId", "billId");
@@ -186,12 +199,15 @@ public class GoodsSplitPublishService extends Service {
 	 * 主表详情
 	 */
 	@Publish
-	protected class FindGoodsSplitBill2 extends TwoKeyResultProvider<GoodsSplitInfo, GUID, Boolean> {
+	protected class FindGoodsSplitBill2 extends
+			TwoKeyResultProvider<GoodsSplitInfo, GUID, Boolean> {
 
 		@Override
-		protected GoodsSplitInfo provide(Context context, GUID key, Boolean b) throws Throwable {
+		protected GoodsSplitInfo provide(Context context, GUID key, Boolean b)
+				throws Throwable {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
-			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(), "t");
+			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(),
+					"t");
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.billNo", "billNo");
 			qb.addColumn("t.creator", "creator");
@@ -223,8 +239,12 @@ public class GoodsSplitPublishService extends Service {
 				item.setApprovalPerson(rs.getFields().get(index++).getString());
 				item.setApprovalPersonId(rs.getFields().get(index++).getGUID());
 				item.setApprovalDate(rs.getFields().get(index++).getDate());
-				item.setDistributPerson(rs.getFields().get(index++).getString());
-				item.setDistributPersonId(rs.getFields().get(index++).getGUID());
+				item
+						.setDistributPerson(rs.getFields().get(index++)
+								.getString());
+				item
+						.setDistributPersonId(rs.getFields().get(index++)
+								.getGUID());
 				item.setDistributDate(rs.getFields().get(index++).getDate());
 				item.setStatus(rs.getFields().get(index++).getString());
 				item.setRejectReason(rs.getFields().get(index++).getString());
@@ -240,13 +260,16 @@ public class GoodsSplitPublishService extends Service {
 	 * 分页查询列表
 	 */
 	@Publish
-	protected class GetGoodsSplitBillList extends
+	protected class GetGoodsSplitBillList
+			extends
 			OneKeyResultProvider<ListEntity<GoodsSplitItem>, GetGoodsSplitBillListKey> {
 
 		@Override
-		protected ListEntity<GoodsSplitItem> provide(Context context, GetGoodsSplitBillListKey key) throws Throwable {
+		protected ListEntity<GoodsSplitItem> provide(Context context,
+				GetGoodsSplitBillListKey key) throws Throwable {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
-			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(), "t");
+			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(),
+					"t");
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.billNo", "billNo");
 			qb.addColumn("t.creator", "creator");
@@ -318,10 +341,15 @@ public class GoodsSplitPublishService extends Service {
 				item.setApprovalPerson(rs.getFields().get(index++).getString());
 				item.setApprovalPersonId(rs.getFields().get(index++).getGUID());
 				item.setApprovalDate(rs.getFields().get(index++).getDate());
-				item.setDistributPerson(rs.getFields().get(index++).getString());
-				item.setDistributPersonId(rs.getFields().get(index++).getGUID());
+				item
+						.setDistributPerson(rs.getFields().get(index++)
+								.getString());
+				item
+						.setDistributPersonId(rs.getFields().get(index++)
+								.getGUID());
 				item.setDistributDate(rs.getFields().get(index++).getDate());
-				item.setStatus(GoodsSplitStatus.getStatus(rs.getFields().get(index++).getString()).getTitle());
+				item.setStatus(GoodsSplitStatus.getStatus(
+						rs.getFields().get(index++).getString()).getTitle());
 				item.setRejectReason(rs.getFields().get(index++).getString());
 				item.setRemark(rs.getFields().get(index++).getString());
 				item.setStoreId(rs.getFields().get(index++).getGUID());
@@ -336,10 +364,12 @@ public class GoodsSplitPublishService extends Service {
 	 * 新增或者修改
 	 */
 	@Publish
-	protected class UpdateGoodsSplitBill extends SimpleTaskMethodHandler<UpdateGoodsSplitBillTask> {
+	protected class UpdateGoodsSplitBill extends
+			SimpleTaskMethodHandler<UpdateGoodsSplitBillTask> {
 
 		@Override
-		protected void handle(Context context, UpdateGoodsSplitBillTask task) throws Throwable {
+		protected void handle(Context context, UpdateGoodsSplitBillTask task)
+				throws Throwable {
 			if (task.getRECID() == null) {
 				task.setRECID(context.newRECID());
 				boolean b = createBill(context, task);
@@ -358,14 +388,17 @@ public class GoodsSplitPublishService extends Service {
 			}
 		}
 
-		private void insertMaterialDetail(Context context, UpdateGoodsSplitBillTask task) {
+		private void insertMaterialDetail(Context context,
+				UpdateGoodsSplitBillTask task) {
 			if (task.getGoodsDets() == null || task.getGoodsDets().isEmpty()) {
 				return;
 			}
 			for (GoodsSplitTaskDet det : task.getMaterialDets()) {
 				InsertSqlBuilder ib = new InsertSqlBuilder(context);
-				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material.getTableName());
-				MaterialsItem material = context.find(MaterialsItem.class, det.getId());
+				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material
+						.getTableName());
+				MaterialsItem material = context.find(MaterialsItem.class, det
+						.getId());
 				ib.addColumn("RECID", ib.guid, context.newRECID());
 				ib.addColumn("billId", ib.guid, task.getRECID());
 				ib.addColumn("materialId", ib.guid, det.getId());
@@ -380,13 +413,16 @@ public class GoodsSplitPublishService extends Service {
 			}
 		}
 
-		private void insertGoodsDetail(Context context, UpdateGoodsSplitBillTask task) {
-			if (task.getMaterialDets() == null || task.getMaterialDets().isEmpty()) {
+		private void insertGoodsDetail(Context context,
+				UpdateGoodsSplitBillTask task) {
+			if (task.getMaterialDets() == null
+					|| task.getMaterialDets().isEmpty()) {
 				return;
 			}
 			for (GoodsSplitTaskDet det : task.getGoodsDets()) {
 				InsertSqlBuilder ib = new InsertSqlBuilder(context);
-				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Goods.getTableName());
+				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Goods
+						.getTableName());
 				GoodsItem goods = context.find(GoodsItem.class, det.getId());
 				ib.addColumn("RECID", ib.guid, context.newRECID());
 				ib.addColumn("goodsId", ib.guid, det.getId());
@@ -402,25 +438,30 @@ public class GoodsSplitPublishService extends Service {
 			}
 		}
 
-		private boolean updateBill(Context context, UpdateGoodsSplitBillTask task) {
+		private boolean updateBill(Context context,
+				UpdateGoodsSplitBillTask task) {
 			UpdateSqlBuilder ib = new UpdateSqlBuilder(context);
 			ib.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ib.addColumn("remark", ib.STRING, task.getRemark());
 			ib.addColumn("storeId", ib.guid, task.getStoreId());
 			ib.addColumn("status", ib.STRING, task.getStatus().getCode());
 			ib.addCondition("id", ib.guid, task.getRECID(), "t.RECID = @id");
-			ib.addCondition(" t.status='"+GoodsSplitStatus.Submiting.getCode()+"' or t.status='"+GoodsSplitStatus.Rejected.getCode()+"' ");
+			ib.addCondition(" t.status='"
+					+ GoodsSplitStatus.Submiting.getCode() + "' or t.status='"
+					+ GoodsSplitStatus.Rejected.getCode() + "' ");
 			int i = ib.execute();
 			return i == 1;
 		}
 
-		private boolean createBill(Context context, UpdateGoodsSplitBillTask task) {
+		private boolean createBill(Context context,
+				UpdateGoodsSplitBillTask task) {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			InsertSqlBuilder ib = new InsertSqlBuilder(context);
 			ib.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ib.addColumn("RECID", ib.guid, task.getRECID());
-			String billNo = context.find(String.class, SheetNumberType.GoodsSplit);
+			String billNo = context.find(String.class,
+					SheetNumberType.GoodsSplit);
 			ib.addColumn("billNo", ib.STRING, billNo);
 			ib.addColumn("creator", ib.STRING, user.getName());
 			ib.addColumn("creatorId", ib.guid, user.getId());
@@ -435,7 +476,8 @@ public class GoodsSplitPublishService extends Service {
 
 	private void clearMaterialDetail(Context context, GUID id) {
 		DeleteSqlBuilder db = new DeleteSqlBuilder(context);
-		db.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material.getTableName());
+		db.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material
+				.getTableName());
 		db.addEquals("billId", db.guid, id);
 		db.execute();
 	}
@@ -451,10 +493,12 @@ public class GoodsSplitPublishService extends Service {
 	 * 删除
 	 */
 	@Publish
-	protected class DeleteGoodsSplitBill extends SimpleTaskMethodHandler<DeleteGoodsSplitBillTask> {
+	protected class DeleteGoodsSplitBill extends
+			SimpleTaskMethodHandler<DeleteGoodsSplitBillTask> {
 
 		@Override
-		protected void handle(Context context, DeleteGoodsSplitBillTask task) throws Throwable {
+		protected void handle(Context context, DeleteGoodsSplitBillTask task)
+				throws Throwable {
 			DeleteSqlBuilder db = new DeleteSqlBuilder(context);
 			db.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			db.addEquals("RECID", db.guid, task.getRecid());
@@ -470,10 +514,12 @@ public class GoodsSplitPublishService extends Service {
 	 * 状态变更
 	 */
 	@Publish
-	protected class UpdateGoodsSplitStatus extends SimpleTaskMethodHandler<UpdateGoodsSplitStatusTask> {
+	protected class UpdateGoodsSplitStatus extends
+			SimpleTaskMethodHandler<UpdateGoodsSplitStatusTask> {
 
 		@Override
-		protected void handle(Context context, UpdateGoodsSplitStatusTask task) throws Throwable {
+		protected void handle(Context context, UpdateGoodsSplitStatusTask task)
+				throws Throwable {
 			GoodsSplitStatus status = task.getStatus();
 			if (null == status) {
 				return;
@@ -482,37 +528,51 @@ public class GoodsSplitPublishService extends Service {
 			ub.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ub.addColumn("status", ub.STRING, task.getStatus().getCode());
 			ub.addCondition("id", ub.guid, task.getId(), "t.RECID = @id");
-			Employee user = context.find(Employee.class, context.find(Login.class).getEmployeeId());
+			Employee user = context.find(Employee.class, context.find(
+					Login.class).getEmployeeId());
 			switch (status) {
 			case Rejected:
 				ub.addColumn("rejectReason", ub.STRING, task.getReason());
 				ub.addColumn("approvalPerson", ub.STRING, user.getName());
 				ub.addColumn("approvalPersonId", ub.guid, user.getId());
-				ub.addColumn("approvalDate", ub.DATE, System.currentTimeMillis());
-				ub.addCondition(" t.status='"+GoodsSplitStatus.Approvaling.getCode()+"' ");
+				ub.addColumn("approvalDate", ub.DATE, System
+						.currentTimeMillis());
+				ub.addCondition(" t.status='"
+						+ GoodsSplitStatus.Approvaling.getCode() + "' ");
 				break;
 			case Approvaling:
-				ub.addCondition(" (t.status='"+GoodsSplitStatus.Submiting.getCode()+"' or  t.status='"+GoodsSplitStatus.Rejected.getCode()+"') ");
+				ub.addCondition(" (t.status='"
+						+ GoodsSplitStatus.Submiting.getCode()
+						+ "' or  t.status='"
+						+ GoodsSplitStatus.Rejected.getCode() + "') ");
 				break;
 			case Approvaled:
 				ub.addColumn("approvalPerson", ub.STRING, user.getName());
 				ub.addColumn("approvalPersonId", ub.guid, user.getId());
-				ub.addColumn("approvalDate", ub.DATE, System.currentTimeMillis());
-				ub.addCondition(" t.status='"+GoodsSplitStatus.Approvaling.getCode()+"' ");
+				ub.addColumn("approvalDate", ub.DATE, System
+						.currentTimeMillis());
+				ub.addCondition(" t.status='"
+						+ GoodsSplitStatus.Approvaling.getCode() + "' ");
 				break;
 			case Checkingin:
 				break;
 			case Distributed:
 				ub.addColumn("distributPerson", ub.STRING, user.getName());
 				ub.addColumn("distributPersonId", ub.guid, user.getId());
-				ub.addColumn("distributDate", ub.DATE, System.currentTimeMillis());
+				ub.addColumn("distributDate", ub.DATE, System
+						.currentTimeMillis());
+				ub.addCondition(" t.status='"
+						+ GoodsSplitStatus.Approvaled.getCode() + "' ");
 				break;
 			case Finished:
 				break;
 			}
 			int count = ub.execute();
 			if (1 != count) {
-				throw new Exception("更新单据状态失败，请重试！");
+				throw new Throwable("更新单据状态失败，请重试！");
+			}
+			if (GoodsSplitStatus.Approvaled == task.getStatus()) {
+				insertCheckOutSheet(context, task);
 			}
 		}
 	}
@@ -521,13 +581,18 @@ public class GoodsSplitPublishService extends Service {
 	 * 生成入库需求
 	 */
 	@Publish
-	protected class CreateCheckinSheetHandle extends SimpleTaskMethodHandler<GoodsSplitDistributTask> {
+	protected class CreateCheckinSheetHandle extends
+			SimpleTaskMethodHandler<GoodsSplitDistributTask> {
 
 		@Override
-		protected void handle(Context context, GoodsSplitDistributTask task) throws Throwable {
+		protected void handle(Context context, GoodsSplitDistributTask task)
+				throws Throwable {
 			if (CheckIsNull.isEmpty(task.getList())) {
 				return;
 			}
+			UpdateGoodsSplitStatusTask st = new UpdateGoodsSplitStatusTask(task
+					.getBillId(), GoodsSplitStatus.Distributed);
+			context.handle(st);
 			for (GoodsSplitDistributeEntity ss : task.getList()) {
 				Instorage info = new Instorage();
 				info.setRelaBillsId(task.getBillId());
@@ -540,7 +605,8 @@ public class GoodsSplitPublishService extends Service {
 				info.setCheckinDate(System.currentTimeMillis());
 				info.setPurchaseDate(System.currentTimeMillis());
 				Double totalCount = 0d, totalAmount = 0d;
-				List<InstorageItem> dets = getInstoDets(context, ss, totalCount, totalAmount);
+				List<InstorageItem> dets = getInstoDets(context, ss,
+						totalCount, totalAmount);
 				info.setBillsCount(totalCount);
 				info.setBillsAmount(totalAmount);
 				InstoAddTask add = new InstoAddTask(info, dets);
@@ -548,7 +614,8 @@ public class GoodsSplitPublishService extends Service {
 			}
 		}
 
-		private List<InstorageItem> getInstoDets(Context context, GoodsSplitDistributeEntity ss, Double totalCount,
+		private List<InstorageItem> getInstoDets(Context context,
+				GoodsSplitDistributeEntity ss, Double totalCount,
 				Double totalAmount) {
 			List<InstorageItem> list = new ArrayList<InstorageItem>();
 			for (GoodsSplitTaskDet d : ss.getDets()) {
@@ -571,5 +638,37 @@ public class GoodsSplitPublishService extends Service {
 			}
 			return list;
 		}
+	}
+
+	public void insertCheckOutSheet(Context context,
+			UpdateGoodsSplitStatusTask task) {
+		GoodsSplitInfo info = context.find(GoodsSplitInfo.class, task.getId());
+		RealGoodsCheckOutTask ot = new RealGoodsCheckOutTask();
+		ot.setRelaBillsId(info.getRECID());
+		ot.setRelaBillsNo(info.getBillNo());
+		ot.setRemark(info.getRemark());
+		ot.setStoreId(Store.GoodsStoreId);
+		List<RealGoodsCheckOutTaskItem> items = new ArrayList<RealGoodsCheckOutTaskItem>();
+		for (GoodsSplitDet_Goods i : info.getGoodsDets()) {
+
+			RealGoodsCheckOutTaskItem ri = new RealGoodsCheckOutTaskItem();
+
+			ri.setCount(i.getGcount());
+			ri.setGoodsId(i.getGoodsId());
+			ri.setGoodsName(i.getGoodsName());
+			ri.setGoodsSpec(i.getGoodsSpec());
+			GoodsItem gi = context.find(GoodsItem.class, i.getGoodsId());
+			ri.setGoodsScale(gi.getScale());
+			ri.setGoodsNo(gi.getGoodsNo());
+			ri.setGoodsUnit(gi.getGoodsUnit());
+			ri.setPrice(gi.getStandardCost());
+			ri.setAmount(ri.getCount() * ri.getPrice());
+
+			items.add(ri);
+
+		}
+		ot.setItems(items);
+		context.handle(ot);
+
 	}
 }
