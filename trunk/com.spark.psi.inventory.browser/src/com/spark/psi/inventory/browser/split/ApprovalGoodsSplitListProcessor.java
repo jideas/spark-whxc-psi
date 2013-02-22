@@ -24,6 +24,7 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
 import com.spark.psi.base.browser.PSIProcessorUtils;
+import com.spark.psi.publish.Action;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
@@ -31,6 +32,8 @@ import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitItem;
 import com.spark.psi.publish.split.key.GetGoodsSplitBillListKey;
 import com.spark.psi.publish.split.key.GetGoodsSplitBillListKey.SortField;
+import com.spark.psi.publish.split.task.DeleteGoodsSplitBillTask;
+import com.spark.psi.publish.split.task.UpdateGoodsSplitStatusTask;
 /**
  * 已处理完成的出库单列表处理器
  */
@@ -84,6 +87,11 @@ public class ApprovalGoodsSplitListProcessor extends
 		});
 	}
 
+	@Override
+	public String[] getTableActionIds() {
+		return new String[]{Action.Approval.name()};
+	}
+
 	/*
 	 * 获取对象列表
 	 */
@@ -95,12 +103,14 @@ public class ApprovalGoodsSplitListProcessor extends
 			key.setSortType(getSortType(tablestatus.getSortDirection()));
 		}
 		key.setStatus(new GoodsSplitStatus[]{GoodsSplitStatus.Approvaling});
+		key.setSearchText(searchText.getText());
+		key.setBeginTime(context.find(QueryTerm.class, queryTermList
+						.getText()).getStartTime());
+		key.setEndTime(context.find(QueryTerm.class, queryTermList
+				.getText()).getEndTime());
 		ListEntity<GoodsSplitItem> entity = context.find(ListEntity.class, key);
 		List<GoodsSplitItem> itemList = entity.getItemList();
-//		key.setSearchText(searchText.getText());
-//		key
-//				.setQueryTerm(context.find(QueryTerm.class, queryTermList
-//						.getText()));
+		
 		
 		// if (CheckIsNull.isEmpty(itemList)) {
 		// countLabel.setText("0");
@@ -157,23 +167,35 @@ public class ApprovalGoodsSplitListProcessor extends
 	 */
 	public void actionPerformed(String rowId, String actionName,
 			String actionValue) {
-		if (ID_ACTION_EDIT.equals(actionName)) {
-			// CheckOutBaseInfo info = getContext().find(CheckOutBaseInfo.class,
-			// GUID.valueOf(rowId));
-			// PageController pc = new
-			// PageController(CheckedOutDetailProcessor.class,
-			// CheckedOutDetailRender.class);
-			// PageControllerInstance pci = new PageControllerInstance(pc, info,
-			// rowId);
-			// MsgRequest request = new MsgRequest(pci, "出库单详情");
-			// request.setResponseHandler(new ResponseHandler() {
-			// public void handle(Object returnValue, Object returnValue2,
-			// Object returnValue3, Object returnValue4) {
-			// table.render();
-			// }
-			// });
-			// getContext().bubbleMessage(request);
-		}
+//		if (ID_ACTION_EDIT.equals(actionName)) {
+			PageController pc = new PageController(GoodsSplitDetailProcessor.class, GoodsSplitDetailRender.class);
+			PageControllerInstance pci = new PageControllerInstance(pc,GUID.valueOf(rowId));
+			MsgRequest request = new MsgRequest(pci, "拆分单");
+			request.setResponseHandler(new ResponseHandler() {
+				
+				public void handle(Object returnValue, Object returnValue2,
+						Object returnValue3, Object returnValue4) {
+					table.render();
+				}
+			});
+			getContext().bubbleMessage(request);
+//		}
+//		else if (Action.Submit.name().equals(actionName)) {
+//			UpdateGoodsSplitStatusTask task = new UpdateGoodsSplitStatusTask(GUID.valueOf(rowId), GoodsSplitStatus.Approvaling);
+//			getContext().handle(task);
+//			table.render();
+//		}
+//		else if (Action.Delete.name().equals(actionName)) {
+//			confirm("确定要删除吗？", new Runnable() {
+//				
+//				public void run() {
+//					DeleteGoodsSplitBillTask task = new DeleteGoodsSplitBillTask(GUID.valueOf(rowId));
+//					getContext().handle(task);
+//					table.render();
+//				}
+//			});
+//			
+//		}
 	}
 
 	@Override

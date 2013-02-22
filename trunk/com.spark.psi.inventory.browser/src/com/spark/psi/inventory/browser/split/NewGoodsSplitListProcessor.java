@@ -19,6 +19,8 @@ import com.spark.common.components.table.STableStatus;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.StringHelper;
 import com.spark.portal.browser.MsgRequest;
+import com.spark.portal.browser.MsgResponse;
+import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.SortType;
@@ -72,6 +74,13 @@ public class NewGoodsSplitListProcessor extends
 				PageController pc = new PageController(NewGoodsSplitDetailProcessor.class, NewGoodsSplitDetailRender.class);
 				PageControllerInstance pci = new PageControllerInstance(pc);
 				MsgRequest request = new MsgRequest(pci, "新增拆分");
+				request.setResponseHandler(new ResponseHandler() {
+					
+					public void handle(Object returnValue, Object returnValue2,
+							Object returnValue3, Object returnValue4) {
+						table.render();
+					}
+				});
 				context.bubbleMessage(request);
 			}
 		});
@@ -154,6 +163,13 @@ public class NewGoodsSplitListProcessor extends
 			PageController pc = new PageController(NewGoodsSplitDetailProcessor.class, NewGoodsSplitDetailRender.class);
 			PageControllerInstance pci = new PageControllerInstance(pc,GUID.valueOf(rowId));
 			MsgRequest request = new MsgRequest(pci, "编辑拆分单");
+			request.setResponseHandler(new ResponseHandler() {
+				
+				public void handle(Object returnValue, Object returnValue2,
+						Object returnValue3, Object returnValue4) {
+					table.render();
+				}
+			});
 			getContext().bubbleMessage(request);
 		}
 		else if (Action.Submit.name().equals(actionName)) {

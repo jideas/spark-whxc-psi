@@ -13,10 +13,12 @@ public class UpdateGoodsSplitStatusTask extends SimpleTask {
 	private String reason;
 
 	public UpdateGoodsSplitStatusTask(GUID id,GoodsSplitStatus status) {
+		this.id = id;
 		this.status = status;
 	}
 
 	public UpdateGoodsSplitStatusTask(GUID id,GoodsSplitStatus status, String reason) {
+		this.id = id;
 		this.status = status;
 		this.reason = reason;
 	}
