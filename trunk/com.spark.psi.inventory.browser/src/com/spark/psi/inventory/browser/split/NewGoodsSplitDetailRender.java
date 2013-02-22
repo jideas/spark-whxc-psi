@@ -30,8 +30,8 @@ public class NewGoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 		goodsTable.setLabelProvider(new EditableGoodsTableLabelProvider());
 		materialTable = new SEditTable(tableArea,
 				getEditableMaterialTableColumns(), tableStyle, null);
-		// materialTable.setLabelProvider(new
-		// EditableMaterialTableLabelProvider());
+		 materialTable.setLabelProvider(new
+		 EditableMaterialTableLabelProvider());
 		// } else if (ProduceOrderStatus.Finished.equals(orderInfo.getStatus()))
 		// {
 		// goodsTable = new SEditTable(tableArea, getGoodsTableColumns(),

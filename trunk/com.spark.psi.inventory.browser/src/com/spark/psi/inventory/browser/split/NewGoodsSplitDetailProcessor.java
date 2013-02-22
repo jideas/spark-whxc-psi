@@ -31,6 +31,7 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.portal.browser.SMenuWindow;
+import com.spark.psi.base.Store;
 import com.spark.psi.base.browser.CommonSelectRequest;
 import com.spark.psi.inventory.browser.split.SplitGoodsSelectProcessor.SelectedItem;
 import com.spark.psi.publish.LoginInfo;
@@ -45,47 +46,50 @@ import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Goods;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Material;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
+import com.spark.psi.publish.split.task.GoodsSplitTaskDet;
 import com.spark.psi.publish.split.task.UpdateGoodsSplitBillTask;
 
-public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcessor {
+public class NewGoodsSplitDetailProcessor extends
+		AbstractGoodsSplitOrderProcessor {
 	public static final String ID_Label_Info = "Label_Info";
 	public static final String ID_Table_Goods = "Table_Goods";
 	public static final String ID_Table_Material = "Table_Material";
 	public static final String ID_Button_Submit = "Button_Submit";
 	public static final String ID_Button_Save = "Button_Save";
 	public static final String ID_Button_AddGoods = "Button_AddGoods";
-	
+
 	public static enum GoodsColumnName {
 		goodsName, spec, count
 	}
-	
+
 	public static enum GoodsTableExtraValueName {
 		itemId, count, goodsId
 	}
-	
+
 	public static enum MaterialColumnName {
-		materialName, spec,scount, count
+		materialName, spec, scount, count
 	}
-	
+
 	public static enum MaterialTableExtraValueName {
-		itemId, materialId,spec,scount, count
+		itemId, materialId, spec, scount, count
 	}
-	
-	private SEditTable goodsTable     = null;
-	private SEditTable materialtable  = null;
-	
-	private LoginInfo loginInfo       = null;
-	
+
+	private SEditTable goodsTable = null;
+	private SEditTable materialtable = null;
+
+	private LoginInfo loginInfo = null;
+
 	private GoodsSplitInfo orderInfo = null;
 	private List<GoodsDets> goodsDets = null;
 	private List<MaterialDets> materialDets = null;;
+
 	@Override
 	public void init(Situation context) {
 		super.init(context);
 		loginInfo = context.find(LoginInfo.class);
-		if(null!=this.getArgument())
-		{
-			orderInfo = context.find(GoodsSplitInfo.class, (GUID)this.getArgument());
+		if (null != this.getArgument()) {
+			orderInfo = context.find(GoodsSplitInfo.class, (GUID) this
+					.getArgument());
 		}
 	}
 
@@ -96,33 +100,34 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		goodsTable = createControl(ID_Table_Goods, SEditTable.class);
 		materialtable = createControl(ID_Table_Material, SEditTable.class);
 		goodsTable.setContentProvider(new EditableGoodsTableContentProvider());
-		materialtable.setContentProvider(new EditableMaterialTableContentProvider());
-		if(null==orderInfo)
-		{
-			return;
-		}
-		
-		final Label infoLabel = createControl(ID_Label_Info, Label.class);
-		
-		String sheetInfo = "制单：" + orderInfo.getCreator() + "(" + DateUtil.dateFromat(orderInfo.getCreateDate()) + ")";
-		if (orderInfo.getApprovalPerson() != null) {
-			sheetInfo += "     审批：" + orderInfo.getApprovalPerson() + "(" + DateUtil.dateFromat(orderInfo.getApprovalDate()) + ")";
-		}
-		if (orderInfo.getFinishDate() > 0) {
-			sheetInfo += "     确认完成日期：" + DateUtil.dateFromat(orderInfo.getFinishDate());
-		}
-		infoLabel.setText(sheetInfo);
+		materialtable
+				.setContentProvider(new EditableMaterialTableContentProvider());
 		goodsTable.render();
 		materialtable.render();
-		
-		
+		if (null == orderInfo) {
+			return;
+		}
+
+		final Label infoLabel = createControl(ID_Label_Info, Label.class);
+
+		String sheetInfo = "制单：" + orderInfo.getCreator() + "("
+				+ DateUtil.dateFromat(orderInfo.getCreateDate()) + ")";
+		if (orderInfo.getApprovalPerson() != null) {
+			sheetInfo += "     审批：" + orderInfo.getApprovalPerson() + "("
+					+ DateUtil.dateFromat(orderInfo.getApprovalDate()) + ")";
+		}
+		if (orderInfo.getFinishDate() > 0) {
+			sheetInfo += "     确认完成日期："
+					+ DateUtil.dateFromat(orderInfo.getFinishDate());
+		}
+		infoLabel.setText(sheetInfo);
+
 	}
-	
+
 	private void initActions() {
 		Button button = null;
-		if(null!=orderInfo)
-		{
-			switch(orderInfo.getStatus()) {
+		if (null != orderInfo) {
+			switch (orderInfo.getStatus()) {
 			case Submiting:
 			case Rejected:
 				button = createControl(ID_Button_Submit, Button.class);
@@ -130,9 +135,7 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 				Button buttons = createControl(ID_Button_Save, Button.class);
 				addSaveActionListener(buttons);
 			}
-		}
-		else
-		{
+		} else {
 			button = createControl(ID_Button_Submit, Button.class);
 			addSumbitActionListener(button);
 			Button buttons = createControl(ID_Button_Save, Button.class);
@@ -141,38 +144,38 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		Button buttons = createControl(ID_Button_AddGoods, Button.class);
 		addGoodsActionListener(buttons);
 	}
-	
+
 	private void addGoodsActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				PageController pc = new PageController(SplitGoodsSelectProcessor.class, SplitGoodsSelectRender.class);
+				PageController pc = new PageController(
+						SplitGoodsSelectProcessor.class,
+						SplitGoodsSelectRender.class);
 				PageControllerInstance pci = new PageControllerInstance(pc);
 				MsgRequest request = new MsgRequest(pci, "添加商品");
 				request.setResponseHandler(new ResponseHandler() {
-					
+
 					public void handle(Object returnValue, Object returnValue2,
 							Object returnValue3, Object returnValue4) {
-						if(CheckIsNull.isNotEmpty(returnValue))
-						{
+						if (CheckIsNull.isNotEmpty(returnValue)) {
 							refreshTable(returnValue);
 						}
 					}
-					
+
 				});
 				getContext().bubbleMessage(request);
 			}
 		});
 	}
-	
+
 	private void refreshTable(Object returnValue) {
-		SelectedItem[] items = (SelectedItem[])returnValue;
+		SelectedItem[] items = (SelectedItem[]) returnValue;
 		goodsDets = new ArrayList<GoodsDets>();
 		GoodsItem[] goodsItems = new GoodsItem[items.length];
 		int index = 0;
 		GetTotalMaterialsKey tk = new GetTotalMaterialsKey();
-		for(final SelectedItem item:items)
-		{
+		for (final SelectedItem item : items) {
 			GoodsItem gi = tk.new GoodsItem();
 			gi.setCount(item.getCount());
 			gi.setGoodsCode(item.getCode());
@@ -192,92 +195,156 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			goods.setRECID(item.getGoodsItemId());
 			goodsDets.add(goods);
 		}
-		
+
 		tk.setGoodsItems(goodsItems);
-		try
-		{
+		try {
 			materialDets = new ArrayList<MaterialDets>();
-			TotalMaterialsItem tmi = getContext().find(TotalMaterialsItem.class, tk);
-			if(CheckIsNull.isNotEmpty(tmi.getMaterials()))
-			{
-				for(final MaterialsItem mi : tmi.getMaterials())
-				{
-					MaterialDets m = new MaterialDets(); 
+			TotalMaterialsItem tmi = getContext().find(
+					TotalMaterialsItem.class, tk);
+			if (CheckIsNull.isNotEmpty(tmi.getMaterials())) {
+				for (final MaterialsItem mi : tmi.getMaterials()) {
+					MaterialDets m = new MaterialDets();
 					m.setMaterialId(mi.getMaterialId());
 					m.setMcode(mi.getMaterialCode());
-					m.setMcount(mi.getCount());
+					m.setScount(mi.getCount());
 					m.setMname(mi.getMaterialName());
 					m.setMspec(mi.getMaterialSpec());
 					m.setMunit(mi.getUnit());
 					m.setRECID(mi.getMaterialId());
 					materialDets.add(m);
 				}
-				
+
 			}
-		}
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			alert(e.getMessage());
 			System.out.println(e.getMessage());
 		}
-		goodsTable.setContentProvider(new EditableGoodsTableContentProvider());
-		materialtable.setContentProvider(new EditableMaterialTableContentProvider());
+		// goodsTable.setContentProvider(new
+		// EditableGoodsTableContentProvider());
+		// materialtable.setContentProvider(new
+		// EditableMaterialTableContentProvider());
 		goodsTable.render();
 		materialtable.render();
 	}
+
 	private void addSaveActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
-				task.setStatus(GoodsSplitStatus.Submiting);
-				if(null!=orderInfo)
-					task.setRECID(orderInfo.getRECID());
-				getContext().handle(task);
-				getContext().bubbleMessage(new MsgResponse(true));
+				doSave();
 			}
 		});
 	}
-	
+
+	protected void doSave() {
+		if (!validationValue()) {
+			return;
+		}
+		UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
+		fillTaskData(task);
+		task.setStatus(GoodsSplitStatus.Submiting);
+		if (null != orderInfo)
+			task.setRECID(orderInfo.getRECID());
+		getContext().handle(task);
+		getContext().bubbleMessage(new MsgResponse(true));
+
+	}
+
+	private void fillTaskData(UpdateGoodsSplitBillTask task) {
+		task.setRemark(remarkText.getText());
+		task.setStoreId(Store.GoodsStoreId);
+		List<GoodsSplitTaskDet> goodsDets = new ArrayList<GoodsSplitTaskDet>();
+		for (String rowId : goodsTable.getAllRowId()) {
+			GoodsSplitTaskDet det = new GoodsSplitTaskDet(GUID.valueOf(rowId), DoubleUtil.strToDouble(goodsTable.getExtraData(rowId, GoodsColumnName.count.name())[0]));
+			
+			goodsDets.add(det);
+		}
+		List<GoodsSplitTaskDet> materialDets = new ArrayList<GoodsSplitTaskDet>();
+		for (String rowId : materialtable.getAllRowId()) {
+			GoodsSplitTaskDet det = new GoodsSplitTaskDet(GUID.valueOf(rowId), DoubleUtil.strToDouble(materialtable.getEditValue(rowId, MaterialColumnName.count.name())[0]));
+			det.setsCount(DoubleUtil.strToDouble(materialtable.getExtraData(rowId, MaterialColumnName.scount.name())[0]));
+			materialDets.add(det);
+		}
+		task.setGoodsDets(goodsDets);
+		task.setMaterialDets(materialDets);
+	}
+
+	private boolean validationValue() {
+		if (null == goodsTable.getAllRowId()
+				|| goodsTable.getAllRowId().length < 1) {
+			alert("请选择商品！");
+			return false;
+		}
+		if (null == materialtable.getAllRowId()
+				|| materialtable.getAllRowId().length < 1) {
+			alert("材料信息发生错误！");
+			return false;
+		}
+		for (String rowId : materialtable.getAllRowId()) {
+			String countStr = materialtable.getEditValue(rowId,
+					MaterialColumnName.count.name())[0];
+			if (CheckIsNull.isEmpty(countStr)) {
+				alert("请填写材料数量！");
+				return false;
+			}
+		}
+		return true;
+	}
+
 	private void addSumbitActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
-				task.setStatus(GoodsSplitStatus.Approvaling);
-				if(null!=orderInfo)
-					task.setRECID(orderInfo.getRECID());
-				getContext().handle(task);
-				getContext().bubbleMessage(new MsgResponse(true));
+				doSubmit();
+
 			}
 		});
 	}
-	
+
+	protected void doSubmit() {
+		if (!validationValue()) {
+			return;
+		}
+		UpdateGoodsSplitBillTask task = new UpdateGoodsSplitBillTask();
+		task.setStatus(GoodsSplitStatus.Approvaling);
+		if (null != orderInfo)
+			task.setRECID(orderInfo.getRECID());
+		getContext().handle(task);
+		getContext().bubbleMessage(new MsgResponse(true));
+
+	}
+
 	private void addApprovalActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 批准
-				UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(orderInfo.getRECID());
-				getContext().handle(task, UpdateProduceOrderStatusTask.Method.Approve);
+				UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(
+						orderInfo.getRECID());
+				getContext().handle(task,
+						UpdateProduceOrderStatusTask.Method.Approve);
 				getContext().bubbleMessage(new MsgResponse(true));
 			}
 		});
 	}
-	
+
 	private void addRejectActionListener(Button button) {
 		button.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 退回
-				MsgRequest request = CommonSelectRequest.createCommonDenyRequest(false);
+				MsgRequest request = CommonSelectRequest
+						.createCommonDenyRequest(false);
 				request.setResponseHandler(new ResponseHandler() {
-					
+
 					public void handle(Object returnValue, Object returnValue2,
 							Object returnValue3, Object returnValue4) {
 						if (null != returnValue2) {
-							UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(orderInfo.getRECID());
-							task.setRejectReason((String)returnValue2);
-							getContext().handle(task, UpdateProduceOrderStatusTask.Method.Deny);
+							UpdateProduceOrderStatusTask task = new UpdateProduceOrderStatusTask(
+									orderInfo.getRECID());
+							task.setRejectReason((String) returnValue2);
+							getContext().handle(task,
+									UpdateProduceOrderStatusTask.Method.Deny);
 							getContext().bubbleMessage(new MsgResponse(true));
 						}
 					}
@@ -286,14 +353,15 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			}
 		});
 	}
-	
+
 	private void addReceiveReturnActionListener(Label label) {
-		// 查看领/退料情况			
+		// 查看领/退料情况
 		receiveReturnLabel.setText("领料/退料情况");
 		receiveReturnLabel.setForeground(Color.COLOR_BLUE);
-		SMenuWindow menuWindow = new SMenuWindow(null, label,Direction.Down);
+		SMenuWindow menuWindow = new SMenuWindow(null, label, Direction.Down);
 		menuWindow.bindTargetControl(label);
-		menuWindow.addClientEventHandler(JWT.CLIENT_EVENT_VISIBLE_SHOW,"Produce.onReceiveReturn");
+		menuWindow.addClientEventHandler(JWT.CLIENT_EVENT_VISIBLE_SHOW,
+				"Produce.onReceiveReturn");
 		Composite windowArea = menuWindow.getContentArea();
 		windowArea.setLayout(new GridLayout());
 		final ScrolledPanel area = new ScrolledPanel(windowArea);
@@ -302,30 +370,30 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		gd.heightHint = 280;
 		area.setLayoutData(gd);
 		final Composite contentArea = area.getComposite();
-		menuWindow.addClientNotifyListener(new ClientNotifyListener() {			
-			public void notified(ClientNotifyEvent e) {		
+		menuWindow.addClientNotifyListener(new ClientNotifyListener() {
+			public void notified(ClientNotifyEvent e) {
 				contentArea.clear();
 				GridLayout glContent = new GridLayout();
 				glContent.marginTop = 10;
-//				glContent.verticalSpacing = 10;
+				// glContent.verticalSpacing = 10;
 				contentArea.setLayout(glContent);
-				
+
 				GridData gdTitle = new GridData(GridData.FILL_HORIZONTAL);
 				gdTitle.heightHint = 19;
 				boolean isShowContent = false;
-				//TODO
-//				if (orderInfo.getReceivedLogs() != null
-//						&& orderInfo.getReceivedLogs().length > 0) {
-//					Label label = new Label(contentArea);
-//					label.setText("入库情况：");
-//					label.setFont(new Font(9, "黑体", JWT.FONT_STYLE_PLAIN));
-//					label.setLayoutData(gdTitle);
-//					for (ReceivedLog log : orderInfo.getReceivedLogs()) {
-//						showReceiveItem(contentArea, log);
-//					}
-//					isShowContent = true;
-//				}
-				
+				// TODO
+				// if (orderInfo.getReceivedLogs() != null
+				// && orderInfo.getReceivedLogs().length > 0) {
+				// Label label = new Label(contentArea);
+				// label.setText("入库情况：");
+				// label.setFont(new Font(9, "黑体", JWT.FONT_STYLE_PLAIN));
+				// label.setLayoutData(gdTitle);
+				// for (ReceivedLog log : orderInfo.getReceivedLogs()) {
+				// showReceiveItem(contentArea, log);
+				// }
+				// isShowContent = true;
+				// }
+
 				if (!isShowContent) {
 					Label label = new Label(contentArea);
 					label.setText("无入库情况。");
@@ -334,39 +402,40 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			}
 		});
 	}
-	
-	
-	
-//	private void addConfirmActionListener(Button button) {
-//		button.addActionListener(new ActionListener() {
-//			
-//			public void actionPerformed(ActionEvent e) {
-//				// 确认完成
-//				if (!validateGoodsTableData()) return;
-//				FinishTask task = new FinishTask(orderInfo.getRECID());
-//				String[] rowIds = goodsTable.getAllRowId();
-//				List<FinishTask.Item> itemList = new ArrayList<FinishTask.Item>();
-//				FinishTask.Item item = null;
-//				for (int rowIndex = 0; rowIndex < rowIds.length; rowIndex++) {
-//					String rowId = rowIds[rowIndex];
-//					String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.currentCount.name())[0];
-//					if (StringUtils.isEmpty(currrentCountStr)) {
-//						continue;
-//					}
-//					String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.itemId.name(),
-//							GoodsTableExtraValueName.goodsId.name());
-//					item = task.new Item(GUID.tryValueOf(baseValues[0]), DoubleUtil.strToDouble(currrentCountStr),
-//							GUID.tryValueOf(baseValues[1]));
-//					itemList.add(item);
-//				}
-//				task.setItems(itemList.toArray(new FinishTask.Item[0]));
-//				task.setSheetNo(orderInfo.getBillNo());
-//				getContext().handle(task);
-//				getContext().bubbleMessage(new MsgResponse(true));
-//			}
-//		});
-//	}
-	
+
+	// private void addConfirmActionListener(Button button) {
+	// button.addActionListener(new ActionListener() {
+	//			
+	// public void actionPerformed(ActionEvent e) {
+	// // 确认完成
+	// if (!validateGoodsTableData()) return;
+	// FinishTask task = new FinishTask(orderInfo.getRECID());
+	// String[] rowIds = goodsTable.getAllRowId();
+	// List<FinishTask.Item> itemList = new ArrayList<FinishTask.Item>();
+	// FinishTask.Item item = null;
+	// for (int rowIndex = 0; rowIndex < rowIds.length; rowIndex++) {
+	// String rowId = rowIds[rowIndex];
+	// String currrentCountStr = goodsTable.getEditValue(rowId,
+	// GoodsColumnName.currentCount.name())[0];
+	// if (StringUtils.isEmpty(currrentCountStr)) {
+	// continue;
+	// }
+	// String[] baseValues = goodsTable.getExtraData(rowId,
+	// GoodsTableExtraValueName.itemId.name(),
+	// GoodsTableExtraValueName.goodsId.name());
+	// item = task.new Item(GUID.tryValueOf(baseValues[0]),
+	// DoubleUtil.strToDouble(currrentCountStr),
+	// GUID.tryValueOf(baseValues[1]));
+	// itemList.add(item);
+	// }
+	// task.setItems(itemList.toArray(new FinishTask.Item[0]));
+	// task.setSheetNo(orderInfo.getBillNo());
+	// getContext().handle(task);
+	// getContext().bubbleMessage(new MsgResponse(true));
+	// }
+	// });
+	// }
+
 	private void showReceiveItem(Composite parentArea, ReceivedLog ceceivedLog) {
 		Composite titleArea = new Composite(parentArea);
 		GridData gdTitle = new GridData(GridData.FILL_HORIZONTAL);
@@ -378,19 +447,19 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		glTitle.horizontalSpacing = 20;
 		titleArea.setLayout(glTitle);
 		titleArea.setBackground(new Color(0xC3DFE9));
-		
+
 		Label label = new Label(titleArea);
 		label.setText("仓库：" + ceceivedLog.getStoreName());
 		GridData gdStore = new GridData();
 		gdStore.widthHint = 110;
 		label.setLayoutData(gdStore);
-				
+
 		label = new Label(titleArea);
 		label.setText("领料人：" + ceceivedLog.getCreator());
 		GridData gdReceiver = new GridData();
 		gdReceiver.widthHint = 110;
 		label.setLayoutData(gdReceiver);
-		
+
 		Composite materialArea = new Composite(parentArea);
 		GridLayout glMaterial = new GridLayout();
 		glMaterial.numColumns = 5;
@@ -399,30 +468,33 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		GridData gdMaterial = new GridData();
 		gdMaterial.heightHint = 19 * ceceivedLog.getItems().length;
 		materialArea.setLayoutData(gdMaterial);
-		
-		
+
 		for (int itemIndex = 0; itemIndex < ceceivedLog.getItems().length; itemIndex++) {
 			ReceivedLog.Item item = ceceivedLog.getItems()[itemIndex];
 			label = new Label(materialArea);
-			label.setText("材料：" + item.getMaterialName() + "[" + item.getMaterialSpec() + "]");
-			
+			label.setText("材料：" + item.getMaterialName() + "["
+					+ item.getMaterialSpec() + "]");
+
 			new Label(materialArea).setText("  ");
-			
+
 			label = new Label(materialArea);
-			label.setText("数量：" + DoubleUtil.getRoundStr(item.getPlanCount(), 2));
-			
+			label.setText("数量："
+					+ DoubleUtil.getRoundStr(item.getPlanCount(), 2));
+
 			new Label(materialArea).setText("  ");
-			
+
 			label = new Label(materialArea);
-			label.setText("已入库数量：" + DoubleUtil.getRoundStr(item.getRealCount(), 2));
-			
+			label.setText("已入库数量："
+					+ DoubleUtil.getRoundStr(item.getRealCount(), 2));
+
 			// 每一行中间加一个竖线
-//			if ((itemIndex + 1) % 2 > 0 && itemIndex != ceceivedLog.getItems().length) {
-//				new SSeparator(materialArea, JWT.VERTICAL, 0);
-//			}
+			// if ((itemIndex + 1) % 2 > 0 && itemIndex !=
+			// ceceivedLog.getItems().length) {
+			// new SSeparator(materialArea, JWT.VERTICAL, 0);
+			// }
 		}
 	}
-	
+
 	private void showReturnItem(Composite parentArea, ReturnedLog returnLog) {
 		Composite titleArea = new Composite(parentArea);
 		GridData gdTitle = new GridData(GridData.FILL_HORIZONTAL);
@@ -433,113 +505,122 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		glTitle.horizontalSpacing = 20;
 		titleArea.setLayout(glTitle);
 		titleArea.setBackground(new Color(0xC3DFE9));
-		
+
 		Label label = new Label(titleArea);
 		label.setText("仓库：" + returnLog.getStoreName());
 		GridData gdStore = new GridData();
 		gdStore.widthHint = 110;
 		label.setLayoutData(gdStore);
-		
+
 		label = new Label(titleArea);
 		label.setText("退料人：" + returnLog.getCreator());
 		GridData gdReceiver = new GridData();
 		gdReceiver.widthHint = 110;
 		label.setLayoutData(gdReceiver);
-		
+
 		Composite materialArea = new Composite(parentArea);
 		GridLayout glMaterial = new GridLayout();
 		glMaterial.numColumns = 5;
 		materialArea.setLayout(glMaterial);
-		
-		
+
 		for (int itemIndex = 0; itemIndex < returnLog.getItems().length; itemIndex++) {
 			ReturnedLog.Item item = returnLog.getItems()[itemIndex];
 			label = new Label(materialArea);
 			label.setText("材料：" + item.getMaterialName());
-			
+
 			new Label(materialArea).setText("  ");
-			
+
 			label = new Label(materialArea);
-			label.setText("退料数量：" + DoubleUtil.getRoundStr(item.getPlanCount(), item.getScale()));
-			
+			label.setText("退料数量："
+					+ DoubleUtil.getRoundStr(item.getPlanCount(), item
+							.getScale()));
+
 			new Label(materialArea).setText("  ");
-			
+
 			label = new Label(materialArea);
-			label.setText("已退数量：" + DoubleUtil.getRoundStr(item.getRealCount(), item.getScale()));
-			
-//			// 每一行中间加一个竖线
-//			if (itemIndex % 2 > 0 && itemIndex != returnLog.getItems().length) {
-//				new SSeparator(parentArea, JWT.VERTICAL, 0);
-//			}
+			label.setText("已退数量："
+					+ DoubleUtil.getRoundStr(item.getRealCount(), item
+							.getScale()));
+
+			// // 每一行中间加一个竖线
+			// if (itemIndex % 2 > 0 && itemIndex !=
+			// returnLog.getItems().length) {
+			// new SSeparator(parentArea, JWT.VERTICAL, 0);
+			// }
 		}
 	}
-	
-	
+
 	private boolean validateGoodsTableData() {
 		String[] rowIds = goodsTable.getAllRowId();
 		int emptyCount = 0;
-//		for (String rowId : rowIds) {
-//			String currrentCountStr = goodsTable.getEditValue(rowId, GoodsColumnName.count.name())[0];
-//			if (StringUtils.isEmpty(currrentCountStr)) {
-//				emptyCount++;
-//				continue;
-//			}
-//			String[] baseValues = goodsTable.getExtraData(rowId, GoodsTableExtraValueName.count.name(), 
-//					GoodsTableExtraValueName.doneCount.name());
-//			double doneCount = DoubleUtil.strToDouble(baseValues[1]);
-//			double count = DoubleUtil.strToDouble(baseValues[0]);
-//			double currentCount = DoubleUtil.strToDouble(currrentCountStr);
-//			
-//			if (currentCount == 0) {
-////				alert("本次完成数量不能为0");
-////				return false;
-//				emptyCount++;
-//				continue;
-//			}
-//			
-//			if ((doneCount + currentCount) > count) {
-//				alert("完成数量不能大于数量。");
-//				return false;
-//			}
-//		}
-//		if (emptyCount == rowIds.length) {
-//			alert("本次完成数量不能为空，或都为0。");
-//			return false;
-//		}
-		if(rowIds.length<1)
-		{
+		// for (String rowId : rowIds) {
+		// String currrentCountStr = goodsTable.getEditValue(rowId,
+		// GoodsColumnName.count.name())[0];
+		// if (StringUtils.isEmpty(currrentCountStr)) {
+		// emptyCount++;
+		// continue;
+		// }
+		// String[] baseValues = goodsTable.getExtraData(rowId,
+		// GoodsTableExtraValueName.count.name(),
+		// GoodsTableExtraValueName.doneCount.name());
+		// double doneCount = DoubleUtil.strToDouble(baseValues[1]);
+		// double count = DoubleUtil.strToDouble(baseValues[0]);
+		// double currentCount = DoubleUtil.strToDouble(currrentCountStr);
+		//			
+		// if (currentCount == 0) {
+		// // alert("本次完成数量不能为0");
+		// // return false;
+		// emptyCount++;
+		// continue;
+		// }
+		//			
+		// if ((doneCount + currentCount) > count) {
+		// alert("完成数量不能大于数量。");
+		// return false;
+		// }
+		// }
+		// if (emptyCount == rowIds.length) {
+		// alert("本次完成数量不能为空，或都为0。");
+		// return false;
+		// }
+		if (rowIds.length < 1) {
 			alert("请选择商品！");
 			return false;
 		}
 		return true;
 	}
-	
-//	private boolean validateMaterialTableData() {
-//		String[] rowIds = materialtable.getAllRowId();
-//		for (String rowId : rowIds) {
-//			String currrentCountStr = materialtable.getEditValue(rowId, MaterialColumnName.currentCount.name())[0];
-//			if (!StringUtils.isEmpty(currrentCountStr)) { // 只要有一个不为空就可以
-//				return true;
-//			}
-//		}
-//		alert("本次领料数量不能为空。");
-//		return false;
-//	}
-	
-	
-	
-	private class EditableGoodsTableContentProvider implements SEditContentProvider {
+
+	// private boolean validateMaterialTableData() {
+	// String[] rowIds = materialtable.getAllRowId();
+	// for (String rowId : rowIds) {
+	// String currrentCountStr = materialtable.getEditValue(rowId,
+	// MaterialColumnName.currentCount.name())[0];
+	// if (!StringUtils.isEmpty(currrentCountStr)) { // 只要有一个不为空就可以
+	// return true;
+	// }
+	// }
+	// alert("本次领料数量不能为空。");
+	// return false;
+	// }
+
+	private class EditableGoodsTableContentProvider implements
+			SEditContentProvider {
 
 		public String[] getActionIds(Object element) {
 			return null;
 		}
 
 		public SNameValue[] getExtraData(Object element) {
-			GoodsSplitDet_Goods item = (GoodsSplitDet_Goods)element;
-			return new SNameValue[] { new SNameValue(GoodsTableExtraValueName.itemId.name(), item.getRECID().toString()),
-					new SNameValue(GoodsTableExtraValueName.count.name(), "" + item.getGcount()),
-//					new SNameValue(GoodsTableExtraValueName.doneCount.name(), "" + item.getFinishedCount()),
-					new SNameValue(GoodsTableExtraValueName.goodsId.name(), "" + item.getGoodsId()) };
+			GoodsSplitDet_Goods item = (GoodsSplitDet_Goods) element;
+			return new SNameValue[] {
+					new SNameValue(GoodsTableExtraValueName.itemId.name(), item
+							.getRECID().toString()),
+					new SNameValue(GoodsTableExtraValueName.count.name(), ""
+							+ item.getGcount()),
+					// new SNameValue(GoodsTableExtraValueName.doneCount.name(),
+					// "" + item.getFinishedCount()),
+					new SNameValue(GoodsTableExtraValueName.goodsId.name(), ""
+							+ item.getGoodsId()) };
 		}
 
 		public Object getNewElement() {
@@ -547,24 +628,19 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public String getValue(Object element, String columnName) {
-//			if (loginInfo.hasAuth(Auth.SubFunction_ProduceOrder_Produce)) {
-//				if (GoodsColumnName.currentCount.name().equals(columnName)) {
-//					return "";
-//				}
-//			}
 			return null;
 		}
 
 		public String getElementId(Object element) {
-			GoodsSplitDet_Goods item = (GoodsSplitDet_Goods)element;
-			return item.getRECID().toString();
+			GoodsSplitDet_Goods item = (GoodsSplitDet_Goods) element;
+			return item.getGoodsId().toString();
 		}
 
 		public Object[] getElements(Context context, STableStatus tablestatus) {
-			if(null!=orderInfo)
-			return orderInfo.getGoodsDets().toArray();
-			else if(CheckIsNull.isNotEmpty(goodsDets))
+			if (CheckIsNull.isNotEmpty(goodsDets))
 				return goodsDets.toArray();
+			else if (null != orderInfo)
+				return orderInfo.getGoodsDets().toArray();
 			else
 				return null;
 		}
@@ -576,23 +652,32 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		public boolean isSelected(Object element) {
 			return false;
 		}
-		
+
 	}
 
-	private class EditableMaterialTableContentProvider implements SEditContentProvider {
+	private class EditableMaterialTableContentProvider implements
+			SEditContentProvider {
 
 		public String[] getActionIds(Object element) {
 			return null;
 		}
 
 		public SNameValue[] getExtraData(Object element) {
-			GoodsSplitDet_Material item = (GoodsSplitDet_Material)element;
-			return new SNameValue[] { new SNameValue(MaterialTableExtraValueName.itemId.name(), item.getRECID().toString()),
-//					new SNameValue(MaterialTableExtraValueName.storeId.name(), item.getStoreId().toString()),
-					new SNameValue(MaterialTableExtraValueName.scount.name(), "" + item.getScount()),
-					new SNameValue(MaterialTableExtraValueName.materialId.name(), "" + item.getMaterialId()),
-					new SNameValue(MaterialTableExtraValueName.spec.name(), "" + item.getMspec()),
-//					new SNameValue(MaterialTableExtraValueName.materialId.name(), item.getMaterialId().toString())
+			GoodsSplitDet_Material item = (GoodsSplitDet_Material) element;
+			return new SNameValue[] {
+					new SNameValue(MaterialTableExtraValueName.itemId.name(),
+							item.getRECID().toString()),
+					// new
+					// SNameValue(MaterialTableExtraValueName.storeId.name(),
+					// item.getStoreId().toString()),
+					new SNameValue(MaterialTableExtraValueName.scount.name(),
+							"" + item.getScount()),
+					new SNameValue(MaterialTableExtraValueName.materialId
+							.name(), "" + item.getMaterialId()),
+					new SNameValue(MaterialTableExtraValueName.spec.name(), ""
+							+ item.getMspec()),
+			// new SNameValue(MaterialTableExtraValueName.materialId.name(),
+			// item.getMaterialId().toString())
 			};
 		}
 
@@ -601,22 +686,26 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		}
 
 		public String getValue(Object element, String columnName) {
+			GoodsSplitDet_Material m = (GoodsSplitDet_Material) element;
 			if (MaterialColumnName.count.name().equals(columnName)) {
-				return "";
+				if (null == m)
+					return "0";
+				else
+					return m.getMcount() + "";
 			}
 			return null;
 		}
 
 		public String getElementId(Object element) {
-			GoodsSplitDet_Material item = (GoodsSplitDet_Material)element;
-			return item.getRECID().toString();
+			GoodsSplitDet_Material item = (GoodsSplitDet_Material) element;
+			return item.getMaterialId().toString();
 		}
 
 		public Object[] getElements(Context context, STableStatus tablestatus) {
-			if(CheckIsNull.isNotEmpty(goodsDets))
+			if (CheckIsNull.isNotEmpty(goodsDets))
 				return materialDets.toArray();
-			else if(null!=orderInfo)
-			return orderInfo.getMaterialDets().toArray();
+			else if (null != orderInfo)
+				return orderInfo.getMaterialDets().toArray();
 			else
 				return null;
 		}
@@ -628,10 +717,10 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		public boolean isSelected(Object element) {
 			return false;
 		}
-		
+
 	}
-	private class MaterialDets implements GoodsSplitDet_Material
-	{
+
+	private class MaterialDets implements GoodsSplitDet_Material {
 
 		private GUID RECID;
 		private GUID billId;
@@ -724,10 +813,9 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			return scount;
 		}
 
-
 	}
-	private class GoodsDets implements GoodsSplitDet_Goods
-	{
+
+	private class GoodsDets implements GoodsSplitDet_Goods {
 		private GUID RECID;
 		private GUID goodsId;
 		private GUID billId;
@@ -738,8 +826,7 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 		private String goodsUnit;
 		private String goodsCode;
 		private String goodsNo;
-	 
-	 
+
 		public String getGoodsCode() {
 			return goodsCode;
 		}
@@ -820,5 +907,5 @@ public class NewGoodsSplitDetailProcessor extends AbstractGoodsSplitOrderProcess
 			this.goodsUnit = goodsUnit;
 		}
 
-}
+	}
 }

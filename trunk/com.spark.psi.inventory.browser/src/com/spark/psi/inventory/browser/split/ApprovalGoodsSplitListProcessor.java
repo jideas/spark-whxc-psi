@@ -24,18 +24,18 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
 import com.spark.psi.base.browser.PSIProcessorUtils;
+import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
-import com.spark.psi.publish.inventory.checkout.entity.CheckOutBaseInfo;
-import com.spark.psi.publish.inventory.checkout.entity.CheckoutSheetItem;
-import com.spark.psi.publish.inventory.key.GetCheckingOutListKey;
-import com.spark.psi.publish.inventory.key.GetCheckingOutListKey.SortField;
-
+import com.spark.psi.publish.split.constant.GoodsSplitStatus;
+import com.spark.psi.publish.split.entity.GoodsSplitItem;
+import com.spark.psi.publish.split.key.GetGoodsSplitBillListKey;
+import com.spark.psi.publish.split.key.GetGoodsSplitBillListKey.SortField;
 /**
  * 已处理完成的出库单列表处理器
  */
 public class ApprovalGoodsSplitListProcessor extends
-		PSIListPageProcessor<CheckoutSheetItem> {
+		PSIListPageProcessor<GoodsSplitItem> {
 
 	// 选择ComboList框，用于日期过滤项目条件设置 本周、上周、上月、本月
 	public final static String ID_COMBOLIST_DATEITEM = "ComboList_DateItem";
@@ -54,7 +54,7 @@ public class ApprovalGoodsSplitListProcessor extends
 		LastCheckoutDate, SheetNumber, Type, RelatedNumber, StoreName, CheckoutEmployees, status
 	}
 
-	private Map<String, CheckoutSheetItem> itemMap = new HashMap<String, CheckoutSheetItem>();
+	private Map<String, GoodsSplitItem> itemMap = new HashMap<String, GoodsSplitItem>();
 
 	private LWComboList queryTermList;
 	private Text searchText;
@@ -88,27 +88,28 @@ public class ApprovalGoodsSplitListProcessor extends
 	 * 获取对象列表
 	 */
 	public Object[] getElements(Context context, STableStatus tablestatus) {
-		GetCheckingOutListKey key = new GetCheckingOutListKey(tablestatus
+		GetGoodsSplitBillListKey key = new GetGoodsSplitBillListKey(tablestatus
 				.getBeginIndex(), tablestatus.getPageSize(), false);
-		key.setRealGoods(true);
 		if (CheckIsNull.isNotEmpty(tablestatus.getSortColumn())) {
 			key.setSortField(getSortField(tablestatus.getSortColumn()));
 			key.setSortType(getSortType(tablestatus.getSortDirection()));
 		}
-		key.setSearchText(searchText.getText());
-		key
-				.setQueryTerm(context.find(QueryTerm.class, queryTermList
-						.getText()));
-		List<CheckoutSheetItem> itemList = context.getList(
-				CheckoutSheetItem.class, key);
+		key.setStatus(new GoodsSplitStatus[]{GoodsSplitStatus.Approvaling});
+		ListEntity<GoodsSplitItem> entity = context.find(ListEntity.class, key);
+		List<GoodsSplitItem> itemList = entity.getItemList();
+//		key.setSearchText(searchText.getText());
+//		key
+//				.setQueryTerm(context.find(QueryTerm.class, queryTermList
+//						.getText()));
+		
 		// if (CheckIsNull.isEmpty(itemList)) {
 		// countLabel.setText("0");
 		// return null;
 		// }
-		CheckoutSheetItem[] items = new CheckoutSheetItem[itemList.size()];
+		GoodsSplitItem[] items = new GoodsSplitItem[itemList.size()];
 		for (int i = 0; i < itemList.size(); i++) {
 			items[i] = itemList.get(i);
-			itemMap.put(items[i].getId().toString(), items[i]);
+			itemMap.put(items[i].getRECID().toString(), items[i]);
 		}
 		int size = items.length;
 		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
@@ -132,21 +133,15 @@ public class ApprovalGoodsSplitListProcessor extends
 	}
 
 	private SortField getSortField(String sortColumn) {
-		if (Columns.CheckoutEmployees.name().equals(sortColumn)) {
-			return SortField.CheckoutEmployees;
-		} else if (Columns.LastCheckoutDate.name().equals(sortColumn)) {
-			return SortField.LastCheckoutDate;
-		} else if (Columns.Type.name().equals(sortColumn)) {
-			return SortField.Type;
-		} else if (Columns.RelatedNumber.name().equals(sortColumn)) {
-			return SortField.RelatedNumber;
-		} else if (Columns.StoreName.name().equals(sortColumn)) {
-			return SortField.StoreName;
-		} else if (Columns.SheetNumber.name().equals(sortColumn)) {
-			return SortField.SheetNumber;
-		} else if (Columns.status.name().equals(sortColumn)) {
-			return SortField.status;
-		}
+		if (NewGoodsSplitListProcessor.Columns.Creator.name().equals(sortColumn)) {
+			return SortField.Creator;
+		} else if (NewGoodsSplitListProcessor.Columns.CreateDate.name().equals(sortColumn)) {
+			return SortField.CreateDate;
+		} else if (NewGoodsSplitListProcessor.Columns.Status.name().equals(sortColumn)) {
+			return SortField.Status;
+		} else if (NewGoodsSplitListProcessor.Columns.SheetNumber.name().equals(sortColumn)) {
+			return SortField.BillNumber;
+		} 
 		return null;
 	}
 
@@ -154,7 +149,7 @@ public class ApprovalGoodsSplitListProcessor extends
 	 * 获取指定对象ID
 	 */
 	public String getElementId(Object element) {
-		return ((CheckoutSheetItem) element).getId().toString();
+		return ((GoodsSplitItem) element).getRECID().toString();
 	}
 
 	/**

@@ -116,6 +116,7 @@ public class GoodsSplitPublishService extends Service {
 			qb.addColumn("t.RECID", "RECID");
 			qb.addColumn("t.billId", "billId");
 			qb.addColumn("t.materialId", "materialId");
+			qb.addColumn("t.standardCount", "standardCount");
 			qb.addColumn("t.mcount", "mcount");
 			qb.addColumn("t.mname", "mname");
 			qb.addColumn("t.munit", "munit");
@@ -123,7 +124,7 @@ public class GoodsSplitPublishService extends Service {
 			qb.addColumn("t.mcode", "mcode");
 			qb.addColumn("t.mnumber", "mnumber");
 			qb.addArgs("id", qb.guid, item.getRECID());
-			qb.addEquals("t.RECID", "@id");
+			qb.addEquals("t.billId", "@id");
 			RecordSet rs = qb.getRecord();
 			List<GoodsSplitDet_Material> list = new ArrayList<GoodsSplitDet_Material>();
 			while (rs.next()) {
@@ -132,6 +133,7 @@ public class GoodsSplitPublishService extends Service {
 				det.setRECID(rs.getFields().get(index++).getGUID());
 				det.setBillId(rs.getFields().get(index++).getGUID());
 				det.setMaterialId(rs.getFields().get(index++).getGUID());
+				det.setScount(rs.getFields().get(index++).getDouble());
 				det.setMcount(rs.getFields().get(index++).getDouble());
 				det.setMname(rs.getFields().get(index++).getString());
 				det.setMunit(rs.getFields().get(index++).getString());
@@ -158,7 +160,7 @@ public class GoodsSplitPublishService extends Service {
 			qb.addColumn("t.goodsNo", "goodsNo");
 
 			qb.addArgs("id", qb.guid, item.getRECID());
-			qb.addEquals("t.RECID", "@id");
+			qb.addEquals("t.billId", "@id");
 			RecordSet rs = qb.getRecord();
 			List<GoodsSplitDet_Goods> list = new ArrayList<GoodsSplitDet_Goods>();
 			while (rs.next()) {
@@ -266,7 +268,7 @@ public class GoodsSplitPublishService extends Service {
 				int index = 0;
 				for (GoodsSplitStatus status : key.getStatuses()) {
 					qb.addArgs("status" + index, qb.STRING, status.getCode());
-					list.add("status" + index++);
+					list.add("@status" + index++);
 				}
 				qb.addIn("t.status", list);
 			}
@@ -319,7 +321,7 @@ public class GoodsSplitPublishService extends Service {
 				item.setDistributPerson(rs.getFields().get(index++).getString());
 				item.setDistributPersonId(rs.getFields().get(index++).getGUID());
 				item.setDistributDate(rs.getFields().get(index++).getDate());
-				item.setStatus(rs.getFields().get(index++).getString());
+				item.setStatus(GoodsSplitStatus.getStatus(rs.getFields().get(index++).getString()).getTitle());
 				item.setRejectReason(rs.getFields().get(index++).getString());
 				item.setRemark(rs.getFields().get(index++).getString());
 				item.setStoreId(rs.getFields().get(index++).getGUID());
@@ -360,13 +362,14 @@ public class GoodsSplitPublishService extends Service {
 			if (task.getGoodsDets() == null || task.getGoodsDets().isEmpty()) {
 				return;
 			}
-			for (GoodsSplitTaskDet det : task.getGoodsDets()) {
+			for (GoodsSplitTaskDet det : task.getMaterialDets()) {
 				InsertSqlBuilder ib = new InsertSqlBuilder(context);
 				ib.setTable(ERPTableNames.Inventory.GoodsSplitDet_Material.getTableName());
 				MaterialsItem material = context.find(MaterialsItem.class, det.getId());
 				ib.addColumn("RECID", ib.guid, context.newRECID());
 				ib.addColumn("billId", ib.guid, task.getRECID());
 				ib.addColumn("materialId", ib.guid, det.getId());
+				ib.addColumn("standardCount", ib.DOUBLE, det.getsCount());
 				ib.addColumn("mcount", ib.DOUBLE, det.getCount());
 				ib.addColumn("mname", ib.STRING, material.getMaterialName());
 				ib.addColumn("munit", ib.STRING, material.getMaterialUnit());
@@ -402,7 +405,7 @@ public class GoodsSplitPublishService extends Service {
 		private boolean updateBill(Context context, UpdateGoodsSplitBillTask task) {
 			UpdateSqlBuilder ib = new UpdateSqlBuilder(context);
 			ib.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
-			ib.addColumn("remark", ib.guid, task.getRemark());
+			ib.addColumn("remark", ib.STRING, task.getRemark());
 			ib.addColumn("storeId", ib.guid, task.getStoreId());
 			ib.addCondition("id", ib.guid, task.getRECID(), "t.RECID = @id");
 			int i = ib.execute();
@@ -416,12 +419,12 @@ public class GoodsSplitPublishService extends Service {
 			ib.setTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName());
 			ib.addColumn("RECID", ib.guid, task.getRECID());
 			String billNo = context.find(String.class, SheetNumberType.GoodsSplit);
-			ib.addColumn("billNo", ib.guid, billNo);
-			ib.addColumn("creator", ib.guid, user.getName());
+			ib.addColumn("billNo", ib.STRING, billNo);
+			ib.addColumn("creator", ib.STRING, user.getName());
 			ib.addColumn("creatorId", ib.guid, user.getId());
-			ib.addColumn("createDate", ib.guid, System.currentTimeMillis());
-			ib.addColumn("status", ib.guid, GoodsSplitStatus.Submiting.getCode());
-			ib.addColumn("remark", ib.guid, task.getRemark());
+			ib.addColumn("createDate", ib.DATE, System.currentTimeMillis());
+			ib.addColumn("status", ib.STRING, GoodsSplitStatus.Submiting.getCode());
+			ib.addColumn("remark", ib.STRING, task.getRemark());
 			ib.addColumn("storeId", ib.guid, task.getStoreId());
 			int i = ib.execute();
 			return i == 1;
