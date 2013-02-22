@@ -152,8 +152,25 @@ public class GoodsSplitDetailProcessor extends
 	}
 
 	private void addDistributActionListener(Button button) {
-		// TODO Auto-generated method stub
-		
+		button.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				PageController pc = new PageController(
+						DistributeProcessor.class,
+						DistributeRender.class);
+				PageControllerInstance pci = new PageControllerInstance(pc,orderInfo);
+				MsgRequest request = new MsgRequest(pci, "∑÷≈‰≤÷ø‚");
+				request.setResponseHandler(new ResponseHandler() {
+
+					public void handle(Object returnValue, Object returnValue2,
+							Object returnValue3, Object returnValue4) {
+							getContext().bubbleMessage(new MsgResponse(true));
+					}
+
+				});
+				getContext().bubbleMessage(request);
+			}
+		});
 	}
 
 	private void addGoodsActionListener(Button button) {
