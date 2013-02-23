@@ -604,20 +604,17 @@ public class GoodsSplitPublishService extends Service {
 				info.setRemark(task.getRemark());
 				info.setCheckinDate(System.currentTimeMillis());
 				info.setPurchaseDate(System.currentTimeMillis());
-				Double totalCount = 0d, totalAmount = 0d;
 				List<InstorageItem> dets = getInstoDets(context, ss,
-						totalCount, totalAmount);
-				info.setBillsCount(totalCount);
-				info.setBillsAmount(totalAmount);
+						info);
 				InstoAddTask add = new InstoAddTask(info, dets);
 				context.handle(add, CheckingInType.GoodsSplit);
 			}
 		}
 
 		private List<InstorageItem> getInstoDets(Context context,
-				GoodsSplitDistributeEntity ss, Double totalCount,
-				Double totalAmount) {
+				GoodsSplitDistributeEntity ss, Instorage info) {
 			List<InstorageItem> list = new ArrayList<InstorageItem>();
+			double totalAmount=0,totalCount=0;
 			for (GoodsSplitTaskDet d : ss.getDets()) {
 				InstorageItem det = new InstorageItem();
 				det = new InstorageItem();
@@ -636,6 +633,8 @@ public class GoodsSplitPublishService extends Service {
 				totalAmount += det.getAmount();
 				totalCount += d.getCount();
 			}
+			info.setBillsAmount(totalAmount);
+			info.setBillsCount(totalCount);
 			return list;
 		}
 	}

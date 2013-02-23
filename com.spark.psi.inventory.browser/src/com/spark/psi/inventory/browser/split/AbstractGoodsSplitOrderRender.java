@@ -23,8 +23,11 @@ public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 	@Override
 	public void init(Situation context) {
 		super.init(context);
-		GUID orderId = (GUID)getArgument();
-		orderInfo = context.find(GoodsSplitInfo.class, orderId);
+		if(null!=getArgument())
+		{
+			GUID orderId = (GUID)getArgument();
+			orderInfo = context.find(GoodsSplitInfo.class, orderId);
+		}
 	}
 
 	@Override

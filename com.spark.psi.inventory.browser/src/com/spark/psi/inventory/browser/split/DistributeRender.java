@@ -58,7 +58,8 @@ public class DistributeRender extends BaseFormPageRender {
 		
 		renderLeftArea(leftArea);
 		renderRightArea(rightArea);
-		renderBottomArea(bottomArea);
+		bottomArea.dispose();
+//		renderBottomArea(bottomArea);
 	}
 
 	private void renderLeftArea(Composite parent) {
@@ -143,20 +144,20 @@ public class DistributeRender extends BaseFormPageRender {
 		table.setLayoutData(GridData.INS_FILL_BOTH);
 	}
 
-	private void renderBottomArea(Composite bottomArea) {
-		GridLayout glBottom = new GridLayout();
-		glBottom.numColumns = 2;
-		bottomArea.setLayout(glBottom);
-		Label memoLabel = new Label(bottomArea);
-		memoLabel.setText("±¸×¢£º");
-		memoLabel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING
-				| GridData.HORIZONTAL_ALIGN_END));
-		Text memoText = new Text(bottomArea, JWT.APPEARANCE3);
-		memoText.setID(DistributeProcessor.ID_Text_Remark);
-		GridData gdMemo = new GridData(GridData.FILL_BOTH);
-		memoText.setLayoutData(gdMemo);
-		memoText.dispose();
-	}
+//	private void renderBottomArea(Composite bottomArea) {
+//		GridLayout glBottom = new GridLayout();
+//		glBottom.numColumns = 2;
+//		bottomArea.setLayout(glBottom);
+//		Label memoLabel = new Label(bottomArea);
+//		memoLabel.setText("±¸×¢£º");
+//		memoLabel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING
+//				| GridData.HORIZONTAL_ALIGN_END));
+//		Text memoText = new Text(bottomArea, JWT.APPEARANCE3);
+//		memoText.setID(DistributeProcessor.ID_Text_Remark);
+//		GridData gdMemo = new GridData(GridData.FILL_BOTH);
+//		memoText.setLayoutData(gdMemo);
+//		memoText.dispose();
+//	}
 	
 	@Override
 	protected void renderButton(Composite buttonArea) {
