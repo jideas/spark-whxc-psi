@@ -24,7 +24,7 @@ public class SubmitingProduceOrderListProcessor<Item> extends
 	ProduceOrderListProcessor<Item> {
 	
 	public static final String ID_Label_Count = "Label_Count";
-	public static final String ID_Button_Add = "Button_Add"; 
+//	public static final String ID_Button_Add = "Button_Add"; 
 
 	public static enum ColumnName {
 		code, count, planFinishDate, status
@@ -32,23 +32,23 @@ public class SubmitingProduceOrderListProcessor<Item> extends
 	@Override
 	public void process(final Situation context) {
 		super.process(context);
-		final Button addButton    = createControl(ID_Button_Add, Button.class); 
-		addButton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				PageController pc = new PageController(NewProduceOrderProcessor.class, NewProduceOrderRender.class);
-				PageControllerInstance pci = new PageControllerInstance(pc);
-				MsgRequest request = new MsgRequest(pci, "添加商品");
-				request.setResponseHandler(new ResponseHandler() {
-					
-					public void handle(Object returnValue, Object returnValue2,
-							Object returnValue3, Object returnValue4) {
-						table.render();
-					}
-				});
-				context.bubbleMessage(request);
-			}
-		});
+//		final Button addButton    = createControl(ID_Button_Add, Button.class); 
+//		addButton.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				PageController pc = new PageController(NewProduceOrderProcessor.class, NewProduceOrderRender.class);
+//				PageControllerInstance pci = new PageControllerInstance(pc);
+//				MsgRequest request = new MsgRequest(pci, "添加商品");
+//				request.setResponseHandler(new ResponseHandler() {
+//					
+//					public void handle(Object returnValue, Object returnValue2,
+//							Object returnValue3, Object returnValue4) {
+//						table.render();
+//					}
+//				});
+//				context.bubbleMessage(request);
+//			}
+//		});
 	}
 
 	@Override
