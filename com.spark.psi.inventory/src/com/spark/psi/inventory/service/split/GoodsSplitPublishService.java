@@ -267,6 +267,7 @@ public class GoodsSplitPublishService extends Service {
 		@Override
 		protected ListEntity<GoodsSplitItem> provide(Context context,
 				GetGoodsSplitBillListKey key) throws Throwable {
+			Login login = context.find(Login.class);
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addTable(ERPTableNames.Inventory.GoodsSplitSheet.getTableName(),
 					"t");
@@ -292,6 +293,11 @@ public class GoodsSplitPublishService extends Service {
 				for (GoodsSplitStatus status : key.getStatuses()) {
 					qb.addArgs("status" + index, qb.STRING, status.getCode());
 					list.add("@status" + index++);
+					if(GoodsSplitStatus.Submiting==status)
+					{
+						qb.addArgs("creatorId", qb.guid, login.getEmployeeId());
+						qb.addCondition(" t.creatorId=@creatorId ");
+					}
 				}
 				qb.addIn("t.status", list);
 			}

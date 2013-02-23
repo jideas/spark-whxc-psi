@@ -79,7 +79,7 @@ public class GoodsSplitDetailProcessor extends
 	private SEditTable goodsTable = null;
 	private SEditTable materialtable = null;
 
-	private LoginInfo loginInfo = null;
+//	private LoginInfo loginInfo = null;
 
 	private GoodsSplitInfo orderInfo = null;
 	private List<GoodsDets> goodsDets = null;
@@ -88,7 +88,7 @@ public class GoodsSplitDetailProcessor extends
 	@Override
 	public void init(Situation context) {
 		super.init(context);
-		loginInfo = context.find(LoginInfo.class);
+//		loginInfo = context.find(LoginInfo.class);
 		if (null != this.getArgument()) {
 			orderInfo = context.find(GoodsSplitInfo.class, (GUID) this
 					.getArgument());
@@ -136,12 +136,15 @@ public class GoodsSplitDetailProcessor extends
 			case Submiting:
 			case Approvaling:
 				button = createControl(ID_Button_Approval, Button.class);
+				if(null!=button)
 				addApprovalActionListener(button);
 				Button buttons = createControl(ID_Button_Deny, Button.class);
+				if(null!=buttons)
 				addRejectActionListener(buttons);
 				break;
 			case Approvaled:
 				button = createControl(ID_Button_Distribut, Button.class);
+				if(null!=button)
 				addDistributActionListener(button);
 				break;
 			}

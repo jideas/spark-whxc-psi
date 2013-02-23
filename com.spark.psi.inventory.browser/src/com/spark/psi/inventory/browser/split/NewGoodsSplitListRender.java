@@ -11,6 +11,8 @@ import com.spark.common.components.table.StableUtil;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.psi.base.browser.PSIListPageRender;
+import com.spark.psi.publish.Auth;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.split.entity.GoodsSplitItem;
 
 /**
@@ -18,9 +20,10 @@ import com.spark.psi.publish.split.entity.GoodsSplitItem;
  */
 public class NewGoodsSplitListRender extends PSIListPageRender {
 
+	private LoginInfo loginInfo = null;
 	@Override
 	protected void afterFooterRender() {
-		
+		loginInfo = getContext().find(LoginInfo.class);
 		super.afterFooterRender();
 		//
 //		new SSearchText2(headerRightArea).setID(NewGoodsSplitListProcessor.ID_TEXT_SEARCH);
@@ -29,10 +32,12 @@ public class NewGoodsSplitListRender extends PSIListPageRender {
 //		new LWComboList(headerLeftArea,JWT.APPEARANCE3).setID(NewGoodsSplitListProcessor.ID_COMBOLIST_DATEITEM);		
 		new Label(headerLeftArea).setText("  单据数量：");
 		new Label(headerLeftArea).setID(NewGoodsSplitListProcessor.ID_LABEL_CHECKOUTGINSHEET_COUNT);
-		
-		Button button = new Button(footerLeftArea, JWT.APPEARANCE2);
-		button.setText(" 新增 ");
-		button.setID(NewGoodsSplitListProcessor.ID_Button_Add); 
+		if(loginInfo.hasAuth(Auth.Boss)||loginInfo.hasAuth(Auth.ProduceManager))
+		{
+			Button button = new Button(footerLeftArea, JWT.APPEARANCE2);
+			button.setText(" 新增 ");
+			button.setID(NewGoodsSplitListProcessor.ID_Button_Add); 
+		}
 	}
 
 	public STableColumn[] getColumns() {

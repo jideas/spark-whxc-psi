@@ -12,13 +12,14 @@ import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.spark.psi.base.browser.AbstractFormRender;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.produceorder.entity.ProduceOrderInfo;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
 
 public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 	
 	protected GoodsSplitInfo orderInfo  =  null;
-	
+	protected LoginInfo loginInfo  =  null;
 	
 	@Override
 	public void init(Situation context) {
@@ -28,6 +29,7 @@ public abstract class AbstractGoodsSplitOrderRender extends AbstractFormRender {
 			GUID orderId = (GUID)getArgument();
 			orderInfo = context.find(GoodsSplitInfo.class, orderId);
 		}
+		loginInfo = context.find(LoginInfo.class);
 	}
 
 	@Override
