@@ -5,6 +5,7 @@ import com.jiuqi.dna.core.type.GUID;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.spark.psi.base.browser.AbstractFormProcessor;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.ProduceOrderStatus;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitInfo;
@@ -24,6 +25,7 @@ public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProce
 	protected Label sheetInfoLabel     = null;
 	
 	protected GoodsSplitInfo orderInfo  =  null;
+	protected LoginInfo loginInfo = null;
 	
 	
 	@Override
@@ -34,6 +36,7 @@ public abstract class AbstractGoodsSplitOrderProcessor extends AbstractFormProce
 			GUID orderId = (GUID)getArgument();
 			orderInfo = context.find(GoodsSplitInfo.class, orderId);
 		}
+		loginInfo = context.find(LoginInfo.class);
 	}
 	
 	@Override

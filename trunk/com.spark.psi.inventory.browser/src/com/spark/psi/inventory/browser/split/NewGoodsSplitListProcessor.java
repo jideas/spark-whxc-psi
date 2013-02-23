@@ -67,6 +67,7 @@ public class NewGoodsSplitListProcessor extends
 		countLabel = this.createControl(ID_LABEL_CHECKOUTGINSHEET_COUNT,
 				Label.class);
 		final Button addButton    = createControl(ID_Button_Add, Button.class); 
+		if(null!=addButton)
 		addButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {

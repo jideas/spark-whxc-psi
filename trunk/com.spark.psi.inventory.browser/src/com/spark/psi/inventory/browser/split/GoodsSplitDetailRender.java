@@ -13,6 +13,7 @@ import com.spark.common.components.table.STableStyle;
 import com.spark.common.components.table.edit.SEditTable;
 import com.spark.common.components.table.edit.SNumberEditColumn;
 import com.spark.common.utils.character.DoubleUtil;
+import com.spark.psi.publish.Auth;
 import com.spark.psi.publish.order.entity.OrderInfo;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
 import com.spark.psi.publish.split.entity.GoodsSplitDet_Goods;
@@ -71,7 +72,7 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 //		button = new Button(footerLeftArea,JWT.APPEARANCE2);
 //		button.setText("添加商品");
 //		button.setID(NewGoodsSplitDetailProcessor.ID_Button_AddGoods);
-		if(orderInfo.getStatus()==GoodsSplitStatus.Approvaling)
+		if(orderInfo.getStatus()==GoodsSplitStatus.Approvaling&&(loginInfo.hasAuth(Auth.AccountManager)||loginInfo.hasAuth(Auth.Account)||loginInfo.hasAuth(Auth.Boss)))
 		{
 			button = new Button(footerRightArea, JWT.APPEARANCE3);
 			button.setText("  批准  ");
@@ -80,7 +81,7 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 			button.setText("  驳回  ");
 			button.setID(GoodsSplitDetailProcessor.ID_Button_Deny);
 		}
-		else if(orderInfo.getStatus()==GoodsSplitStatus.Approvaled)
+		else if(orderInfo.getStatus()==GoodsSplitStatus.Approvaled&&(loginInfo.hasAuth(Auth.StoreKeeperManager)||loginInfo.hasAuth(Auth.Boss)))
 		{
 			button = new Button(footerRightArea, JWT.APPEARANCE3);
 			button.setText("  分配  ");
