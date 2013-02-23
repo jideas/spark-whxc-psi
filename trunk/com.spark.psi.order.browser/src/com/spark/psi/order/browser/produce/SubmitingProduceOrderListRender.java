@@ -49,9 +49,9 @@ public class SubmitingProduceOrderListRender extends ProduceOrderListRender {
 		new Label(headerLeftArea).setText("单据数量：");
 		new Label(headerLeftArea).setID(ProducingProduceOrderListProcessor.ID_Label_Count);
 		
-		Button button = new Button(footerLeftArea, JWT.APPEARANCE2);
-		button.setText(" 新增订单 ");
-		button.setID(SubmitingProduceOrderListProcessor.ID_Button_Add); 
+//		Button button = new Button(footerLeftArea, JWT.APPEARANCE2);
+//		button.setText(" 新增订单 ");
+//		button.setID(SubmitingProduceOrderListProcessor.ID_Button_Add); 
 	} 
 	
 	public STableStyle getTableStyle() {
