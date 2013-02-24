@@ -622,8 +622,8 @@ public class InsertSheetService extends Service {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addColumn("t.billsCount", "billsCount");
 			qb.addColumn("t.billsAmount", "billsAmount");
-			qb.addColumn("sum(d.amount)", "amount");
-			qb.addColumn("sum(d.realCount)", "realCount");
+			qb.addColumn(" d.amount ", "amount");
+			qb.addColumn(" d.realCount ", "realCount");
 			if (key.isCheckIn()) {
 				qb.addGroupBy("s.paidAmount");
 				qb.addColumn("s.paidAmount", "paidAmount");
@@ -644,15 +644,19 @@ public class InsertSheetService extends Service {
 			qb.addEquals("d.sheetId", "s.RECID");
 			qb.addGroupBy("t.billsCount");
 			qb.addGroupBy("t.billsAmount");
+			qb.addGroupBy("d.recid");
 			RecordSet rs = qb.getRecord();
-			if (rs.next()) {
+			boolean b = false;
+			while (rs.next()) {
+				b = true;
 				int index = 0;
 				data.setBillCount(rs.getFields().get(index++).getDouble());
 				data.setBillAmount(rs.getFields().get(index++).getDouble());
-				data.setAllreadyAmount(rs.getFields().get(index++).getDouble());
-				data.setAllreadyCount(rs.getFields().get(index++).getDouble());
+				data.setAllreadyAmount(DoubleUtil.sum(rs.getFields().get(index++).getDouble(), data.getAllreadyAmount()));
+				data.setAllreadyCount(DoubleUtil.sum(rs.getFields().get(index++).getDouble(), data.getAllreadyCount()));
 				data.setPaidOrReceiptedAmount(rs.getFields().get(index++).getDouble());
-			} else {
+			}
+			if (!b) {
 				fillBillCount(context, key, data);
 			}
 			return data;
