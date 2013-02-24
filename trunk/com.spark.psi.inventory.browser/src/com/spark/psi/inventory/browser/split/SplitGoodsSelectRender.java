@@ -18,6 +18,7 @@ import com.spark.common.components.table.edit.SActionInfo;
 import com.spark.common.components.table.edit.SNumberEditColumn;
 import com.spark.psi.base.browser.PSIActionCommon;
 import com.spark.psi.base.browser.PSIGoodsListPageRender;
+import com.spark.psi.base.browser.goods.GoodsCategoryFramePageRender;
 import com.spark.psi.base.browser.material.MaterialCategoryFramePageRender;
 import com.spark.psi.inventory.browser.split.GoodsSelectProcessor.GoodsItemListProcessor;
 import com.spark.psi.inventory.browser.split.SplitGoodsSelectProcessor.SelectedGoodsItemListProcessor;
@@ -29,7 +30,7 @@ import com.spark.psi.inventory.browser.split.SplitGoodsSelectProcessor.StoreAndG
  * 材料选择界面视图
  * 
  */
-public class SplitGoodsSelectRender extends MaterialCategoryFramePageRender {
+public class SplitGoodsSelectRender extends GoodsCategoryFramePageRender {
 
 	@Override
 	protected void doRender() {

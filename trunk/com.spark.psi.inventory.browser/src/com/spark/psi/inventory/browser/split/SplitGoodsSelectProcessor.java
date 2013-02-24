@@ -29,13 +29,12 @@ import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.table.STableStatus;
 import com.spark.common.components.table.edit.SNameValue;
 import com.spark.portal.browser.MsgCancel;
-import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.portal.browser.SMenuWindow;
 import com.spark.psi.base.Store;
 import com.spark.psi.base.browser.PSIGoodsListPageProcessor;
-import com.spark.psi.base.browser.material.MaterialCategoryFramePageProcessor;
-import com.spark.psi.base.browser.material.MaterialCategorySelectionMsg;
+import com.spark.psi.base.browser.goods.GoodsCategoryFramePageProcessor;
+import com.spark.psi.base.browser.goods.GoodsCategorySelectionMsg;
 import com.spark.psi.inventory.browser.split.GoodsSelectRender.SelectedGoodsItemListRender;
 import com.spark.psi.inventory.browser.split.SplitGoodsSelectRender.StoreAndGoodsItemListRender;
 import com.spark.psi.publish.Action;
@@ -51,7 +50,7 @@ import com.spark.psi.publish.inventory.key.GetInventoryInfoListKey;
  * 从全部材料中选择采购材料的界面处理器
  * 
  */
-public class SplitGoodsSelectProcessor extends MaterialCategoryFramePageProcessor {
+public class SplitGoodsSelectProcessor extends GoodsCategoryFramePageProcessor {
 	public static enum Columns {
 		GoodsName(100, JWT.CENTER, "商品名称", true), GoodsProperties(70, JWT.CENTER, "商品规格"), GoodsUnit(60, JWT.CENTER, "单位"),InventoryCount(80, JWT.RIGHT, "库存数量"),Count(80, JWT.RIGHT, "数量");
 		private int width;
@@ -114,10 +113,9 @@ public class SplitGoodsSelectProcessor extends MaterialCategoryFramePageProcesso
 	@Override
 	public void process(final Situation context) {
 		super.process(context);
-		// 监听材料分类变化消息，刷新界面，已选材料不变并传入
-		getContext().regMessageListener(MaterialCategorySelectionMsg.class, new MessageListener<MaterialCategorySelectionMsg>() {
-			public void onMessage(Situation context, MaterialCategorySelectionMsg message,
-					MessageTransmitter<MaterialCategorySelectionMsg> transmitter) {
+		getContext().regMessageListener(GoodsCategorySelectionMsg.class, new MessageListener<GoodsCategorySelectionMsg>() {
+			public void onMessage(Situation context, GoodsCategorySelectionMsg message,
+					MessageTransmitter<GoodsCategorySelectionMsg> transmitter) {
 				rightArea.showPage(ControllerPage.NAME, new PageControllerInstance(new PageController(StoreAndGoodsItemListProcessor.class,
 						StoreAndGoodsItemListRender.class), message.getCategoryId(), selectedItemList));
 			}
@@ -254,7 +252,7 @@ public class SplitGoodsSelectProcessor extends MaterialCategoryFramePageProcesso
 //			if (StringUtils.isEmpty(storeList.getText())) {
 //				return null;
 //			}
-			GetGoodsInfoListKey key = new GetGoodsInfoListKey(tablestatus.getBeginIndex(), tablestatus.getPageSize(), false);
+			GetGoodsInfoListKey key = new GetGoodsInfoListKey(0, JWT.MAXIMUM, false);
 			key.setSearchText(searchText);
 			key.setCateoryId(categoryId);
 			key.setJointVenture(false);
