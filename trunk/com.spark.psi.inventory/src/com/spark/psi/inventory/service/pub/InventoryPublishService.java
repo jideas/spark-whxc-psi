@@ -1883,7 +1883,8 @@ public class InventoryPublishService extends Service {
 				iDet.setStockId(item.getStockId());
 				iDet.setTiersNo(item.getTiersNo());
 				iDet.setShelfId(item.getShelfId());
-				iDet.setStockName(item.getStockName());
+				MaterialsItem m = context.find(MaterialsItem.class, item.getStockId());
+				iDet.setStockName(m.getMaterialName());
 				iDet.setStoreId(item.getStoreId());
 				iDets[index] = iDet;
 			}

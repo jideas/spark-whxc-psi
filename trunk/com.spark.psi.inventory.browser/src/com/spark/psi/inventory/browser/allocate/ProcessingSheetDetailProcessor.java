@@ -170,7 +170,6 @@ public class ProcessingSheetDetailProcessor extends AllocateSheetDetailBaseProce
 							item.setStockId(iDet.getStockId());
 							item.setTiersNo(iDet.getTiersNo());
 							item.setStoreId(info.getSourceStoreId());
-							item.setStockName(info.getDestinationStoreName());
 							itemList.add(item);
 						}
 						
