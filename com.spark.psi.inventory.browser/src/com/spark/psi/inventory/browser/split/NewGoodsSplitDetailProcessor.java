@@ -280,6 +280,7 @@ public class NewGoodsSplitDetailProcessor extends
 			alert("材料信息发生错误！");
 			return false;
 		}
+		boolean hasMaterialCount = false;
 		for (String rowId : materialtable.getAllRowId()) {
 			String countStr = materialtable.getEditValue(rowId,
 					MaterialColumnName.count.name())[0];
@@ -287,6 +288,16 @@ public class NewGoodsSplitDetailProcessor extends
 				alert("请填写材料数量！");
 				return false;
 			}
+			double count = DoubleUtil.strToDouble(countStr);
+			if(count>0)
+			{
+				hasMaterialCount = true;
+			}
+		}
+		if(!hasMaterialCount)
+		{
+			alert("请填写材料数量！");
+			return false;
 		}
 		return true;
 	}
