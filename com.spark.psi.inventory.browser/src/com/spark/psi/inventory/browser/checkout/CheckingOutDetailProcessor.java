@@ -308,7 +308,8 @@ public class CheckingOutDetailProcessor extends ExtendSimpleSheetPageProcessor<C
 			Item item = (Item) entry.getValue();
 			ResourceToken<Inventory> token = getContext().findResourceToken(Inventory.class, info.getStoreId(),
 					item.getGoodsItemId());
-			if (null == token || item.getCheckCount() > token.getFacade().getCount()) {
+			if ((null == token || item.getCheckCount() > token.getFacade().getCount())
+					&& this.info.getType() != CheckingOutType.Mateiral_Return) {
 				MaterialsItemInfo goods = getContext().find(MaterialsItemInfo.class, item.getGoodsItemId());
 				alert("材料：" + goods.getBaseInfo().getName() + ",超出库存数量！");
 				canCheckOut = false;
