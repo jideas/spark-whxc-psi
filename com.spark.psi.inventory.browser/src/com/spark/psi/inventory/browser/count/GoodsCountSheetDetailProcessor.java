@@ -296,7 +296,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					String countString = table.getExtraData(rowId, Columns.Count.name())[0];
 					String goodsName = table.getExtraData(rowId, Columns.GoodsName.name())[0];
 					if (CheckIsNull.isNotEmpty(values[0]) && CheckIsNull.isNotEmpty(countString)
-							&& !Double.valueOf(countString).equals(Double.valueOf(values[0]))) {
+							&& DoubleUtil.strToDouble(countString) != DoubleUtil.strToDouble(values[0])) {
 						if (CheckIsNull.isEmpty(memo)) {
 							return "材料：" + goodsName + "，说明不能为空！";
 						}
