@@ -28,8 +28,8 @@ public class ReturnAndReceiveMaterialPageRender extends BaseListPageRender {
 		columns[0] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.materialName.name(), 350, JWT.LEFT, "材料名称");
 		columns[0].setGrab(true);
 		columns[1] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.count.name(), 180, JWT.RIGHT, "数量");
-		columns[2] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.receivedCount.name(), 180, JWT.RIGHT, "已领数量");
-		columns[3] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.returnedCount.name(), 180, JWT.RIGHT, "已退数量");
+		columns[2] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.receivedCount.name(), 180, JWT.RIGHT, "已申请领料数量");
+		columns[3] = new STableColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.returnedCount.name(), 180, JWT.RIGHT, "已申请退料数量");
 		if (type == Type.RECEIVE) {
 			columns[4] = new SNumberEditColumn(ReturnAndReceiveMaterialPageProcessor.ColumnName.currentReceivCount.name(), 180, JWT.RIGHT, "本次领料数量");
 		} else {
