@@ -4,6 +4,7 @@ import com.jiuqi.dna.ui.common.constants.JWT;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.spark.common.components.table.STableColumn;
+import com.spark.common.components.table.edit.SNumberEditColumn;
 import com.spark.common.utils.character.DoubleUtil;
 
 /**
@@ -44,9 +45,9 @@ public class ProcessingSheetDetailRender extends AllocateSheetDetailBaseRender{
 		columns[3] = new STableColumn(ProcessingSheetDetailProcessor.Columns.spec.name(), 100, JWT.LEFT, "规格");
 		columns[4] = new STableColumn(ProcessingSheetDetailProcessor.Columns.unit.name(), 120, JWT.CENTER, "单位");
 		columns[5] =
-		        new STableColumn(ProcessingSheetDetailProcessor.Columns.availableCount.name(), 150, JWT.RIGHT, "可用库存");
+		        new SNumberEditColumn(ProcessingSheetDetailProcessor.Columns.availableCount.name(), 150, JWT.RIGHT, "可用库存");
 		columns[6] =
-		        new STableColumn(ProcessingSheetDetailProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");
+		        new SNumberEditColumn(ProcessingSheetDetailProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");
 		//自适应
 		columns[0].setGrab(true);
 		columns[1].setGrab(true);

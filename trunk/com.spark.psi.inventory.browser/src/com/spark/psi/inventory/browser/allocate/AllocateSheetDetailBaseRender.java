@@ -6,6 +6,7 @@ import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.table.STableColumn;
 import com.spark.common.components.table.STableStyle;
+import com.spark.common.components.table.edit.SNumberEditColumn;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.psi.base.browser.SimpleSheetPageRender;
 
@@ -114,11 +115,12 @@ public class AllocateSheetDetailBaseRender extends SimpleSheetPageRender{
 		columns[2] = new STableColumn(AllocateSheetDetailBaseProcessor.Columns.name.name(), 100, JWT.LEFT, "材料名称");
 		columns[3] = new STableColumn(AllocateSheetDetailBaseProcessor.Columns.spec.name(), 100, JWT.LEFT, "规格");
 		columns[4] = new STableColumn(AllocateSheetDetailBaseProcessor.Columns.unit.name(), 120, JWT.CENTER, "单位");
-		columns[5] = new STableColumn(AllocateSheetDetailBaseProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");
+		columns[5] = new SNumberEditColumn(AllocateSheetDetailBaseProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");
 		//自适应
 		columns[0].setGrab(true);
 		columns[1].setGrab(true);
 		columns[2].setGrab(true);
+		((SNumberEditColumn)columns[5]).setDecimal(2);
 		return columns;
 	}
 	
@@ -127,10 +129,9 @@ public class AllocateSheetDetailBaseRender extends SimpleSheetPageRender{
 	 */
 	public int getDecimal(Object element, int columnIndex) {
 		if(element instanceof AllocateShowItem){
-			AllocateShowItem item = (AllocateShowItem)element;
 			switch(columnIndex){
 				case 5:
-					return item.getScale();
+					return 2;
 			}
 		}
 		return -1;
