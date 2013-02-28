@@ -355,7 +355,7 @@ public class StoreCheckService extends Service {
 				context.handle(oTask, Method.MODIFY);
 			} else if (InventoryCountType.Materials.getCode().equals(checkInventory.getCheckObj())) {
 				InventoryBusTask oTask = new InventoryBusTask(checkInventory.getStoreGuid(), item.getGoodsGuid());
-				oTask.setChangeCount(DoubleUtil.sub(item.getRealCount(), item.getCarryCount()));
+				oTask.setChangeCount(DoubleUtil.round(DoubleUtil.sub(item.getRealCount(), item.getCarryCount())));
 				oTask.setCount(true);
 				oTask.setUpdateAvgPrice(true);
 				if (null != oTask.getChangeCount() && oTask.getChangeCount() > 0) {
@@ -368,6 +368,7 @@ public class StoreCheckService extends Service {
 				}
 				if ((null != oTask.getChangeCount() && oTask.getChangeCount() != 0)
 						|| (null != oTask.getChangeAmount() && 0 != oTask.getChangeAmount())) {
+//						System.out.println(item.getGoodsName());
 					context.handle(oTask);
 				}
 

@@ -540,7 +540,7 @@ public final class InventoryServiceUtil {
 					itemImpl.setActualCount(checkInventoryItem.getRealCount());
 					itemImpl.setCount(checkInventoryItem.getCarryCount());
 					itemImpl.setCountDecimal(checkInventoryItem.getGoodsScale());
-					itemImpl.setGoodsCode(checkInventoryItem.getGoodsItemNo());
+					itemImpl.setGoodsCode(checkInventoryItem.getGoodsItemCode());
 					itemImpl.setGoodsNo(checkInventoryItem.getGoodsItemNo());
 					itemImpl.setGoodsItemId(checkInventoryItem.getGoodsGuid());
 					itemImpl.setGoodsItemName(checkInventoryItem.getGoodsName());
