@@ -218,7 +218,8 @@ public class InventoryShelfInfoPageProcessor extends PageProcessor {
 	private boolean validateCount(DistributeInventoryItem dbtItem, List<DistributeInventoryItemDet> detItemList) {
 		double count = 0.0;
 		for (DistributeInventoryItemDet detItem : detItemList) {
-			count += detItem.getDistributeCount();
+//			count += detItem.getDistributeCount();
+			count = DoubleUtil.sum(count, detItem.getDistributeCount());
 		}
 		if (count == dbtItem.getCount()) {
 			return true;
