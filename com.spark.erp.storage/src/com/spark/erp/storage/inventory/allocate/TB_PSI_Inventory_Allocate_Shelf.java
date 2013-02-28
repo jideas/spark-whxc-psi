@@ -36,7 +36,7 @@ public final class TB_PSI_Inventory_Allocate_Shelf extends TableDeclarator {
 		this.f_allocateItemId = this.table.newField(FN_allocateItemId, TypeFactory.GUID);
 		this.f_sheetId = this.table.newField(FN_sheetId, TypeFactory.GUID);
 		this.f_stockId = this.table.newField(FN_stockId, TypeFactory.GUID);
-		this.f_stockName = this.table.newField(FN_stockName, TypeFactory.VARCHAR(10));
+		this.f_stockName = this.table.newField(FN_stockName, TypeFactory.NVARCHAR(100));
 		this.f_storeId = this.table.newField(FN_storeId, TypeFactory.GUID);
 		this.f_count = this.table.newField(FN_count, TypeFactory.NUMERIC(17,5));
 		this.f_shelfId = this.table.newField(FN_shelfId, TypeFactory.GUID);
