@@ -35,7 +35,7 @@ public class GoodsCountSheetDetailRender extends SimpleSheetPageRender {
 	public STableColumn[] getColumns() {
 		STableColumn[] columns = new STableColumn[9];
 		columns[0] = new STableColumn(GoodsCountSheetDetailProcessor.Columns.GoodsCode.name(), 100, JWT.LEFT, "材料编号");
-		columns[1] = new STableColumn(GoodsCountSheetDetailProcessor.Columns.GoodsNo.name(), 100, JWT.LEFT, "材料条码条码");
+		columns[1] = new STableColumn(GoodsCountSheetDetailProcessor.Columns.GoodsNo.name(), 100, JWT.LEFT, "材料条码");
 		columns[2] = new STableColumn(GoodsCountSheetDetailProcessor.Columns.GoodsName.name(), 100, JWT.CENTER, "材料名称");
 		columns[3] = new STableColumn(GoodsCountSheetDetailProcessor.Columns.GoodsProperties.name(), 100, JWT.CENTER,
 				"材料规格");
