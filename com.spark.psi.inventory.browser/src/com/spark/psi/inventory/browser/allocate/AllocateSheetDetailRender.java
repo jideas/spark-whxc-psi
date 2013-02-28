@@ -51,7 +51,7 @@ public class AllocateSheetDetailRender extends SimpleSheetPageRender {
 		        new SNumberEditColumn(AllocateSheetDetailProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");;
 		}
 		columns[5] =
-	        new STableColumn(AllocateSheetDetailProcessor.Columns.availableCount.name(), 150, JWT.RIGHT, "可用库存");
+	        new SNumberEditColumn(AllocateSheetDetailProcessor.Columns.availableCount.name(), 150, JWT.RIGHT, "可用库存");
 		columns[6] =
 		        new SNumberEditColumn(AllocateSheetDetailProcessor.Columns.allocateCount.name(), 150, JWT.RIGHT, "调拨数量");
 		//自适应
