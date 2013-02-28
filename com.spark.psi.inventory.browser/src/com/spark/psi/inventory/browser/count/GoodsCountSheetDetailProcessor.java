@@ -543,7 +543,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setGoodsItemName(goodsCountItem.getGoodsItemName());
 					item.setGoodsItemProperties(goodsCountItem.getGoodsItemProperties());
 					item.setGoodsItemUnit(goodsCountItem.getGoodsItemUnit());
-					item.setCount(goodsCountItem.getCount());
+					item.setCount(DoubleUtil.round(goodsCountItem.getCount()));
 					item.setActualCount(goodsCountItem.getActualCount());
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
