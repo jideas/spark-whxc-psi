@@ -6,6 +6,7 @@ import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.table.STableColumn;
+import com.spark.common.components.table.STableStyle;
 import com.spark.common.components.table.edit.SAsignFormula;
 import com.spark.common.components.table.edit.SFormula;
 import com.spark.common.components.table.edit.SNumberEditColumn;
@@ -192,6 +193,13 @@ public class GoodsCountSheetDetailRender extends SimpleSheetPageRender {
 			addButton.setID(GoodsCountSheetDetailProcessor.ID_Button_AddGoods);
 			addButton.setText(" Ìí¼Ó²ÄÁÏ ");
 		}
+	}
+
+	@Override
+	public STableStyle getTableStyle() {
+		STableStyle tableStyle = new STableStyle();
+		tableStyle.setPageAble(false);
+		return tableStyle;
 	}
 
 }
