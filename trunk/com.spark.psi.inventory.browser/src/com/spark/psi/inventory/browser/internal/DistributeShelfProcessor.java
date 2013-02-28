@@ -330,10 +330,10 @@ public class DistributeShelfProcessor extends PageProcessor {
 	private boolean validateCount(DistributeInventoryItem dbtItem, List<DistributeInventoryItemDet> detItemList) {
 		double count = 0.0;
 		for (DistributeInventoryItemDet detItem : detItemList) {
-			count += detItem.getCount();
+			count = DoubleUtil.sum(count, DoubleUtil.round(detItem.getCount()));
 		}
 		
-		double diffCount = count - dbtItem.getCount();
+		double diffCount = DoubleUtil.sub(count, DoubleUtil.round(dbtItem.getCount()));
 		if (diffCount > 0) {
 			alert("材料：" + dbtItem.getName() + "\n货位入库总数为" + count + "，比总入库数多了" + diffCount);
 			return false;

@@ -82,7 +82,8 @@ public class InventoryShelfInfoPageProcessor extends PageProcessor {
 						// 临时存储货位条目信息
 						List<DistributeInventoryItemDet> detItemList = getDetItemList(itemTable, dbtItem.getStockId());
 						if (!validateCount(dbtItem, detItemList)) {
-							alert("货位出库数量必须与总数量相等。");
+//							alert("货位出库数量必须与总数量相等。");
+							alert("材料：" + dbtItem.getName() + "的货位出库数量与总数量不相等。");
 							return ;
 						} else {
 							dbtItem.setInventoryDetItems(detItemList.toArray(new DistributeInventoryItemDet[0]));
@@ -221,7 +222,7 @@ public class InventoryShelfInfoPageProcessor extends PageProcessor {
 //			count += detItem.getDistributeCount();
 			count = DoubleUtil.sum(count, detItem.getDistributeCount());
 		}
-		if (count == dbtItem.getCount()) {
+		if (count == DoubleUtil.round(dbtItem.getCount())) {
 			return true;
 		} else {
 			return false;
