@@ -190,11 +190,11 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 			dii.setStockId(item.getGoodsItemId());
 			dii.setName(map.get(item.getGoodsItemId()).getGoodsItemName());
 			double oldCount = map.get(item.getGoodsItemId()).getCount();
-			if (oldCount > item.getActualCount()) {
-				dii.setCount(oldCount - item.getActualCount());
+			if (DoubleUtil.round(oldCount) > DoubleUtil.round(item.getActualCount())) {
+				dii.setCount(DoubleUtil.round(oldCount) - DoubleUtil.round(item.getActualCount()));
 				inventorysSub.add(dii);
-			} else if (oldCount < item.getActualCount()) {
-				dii.setCount(item.getActualCount() - oldCount);
+			} else if (DoubleUtil.round(oldCount) < DoubleUtil.round(item.getActualCount())) {
+				dii.setCount(DoubleUtil.round(item.getActualCount()) - DoubleUtil.round(oldCount));
 				inventorysAdd.add(dii);
 			}
 		}
@@ -296,7 +296,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					String countString = table.getExtraData(rowId, Columns.Count.name())[0];
 					String goodsName = table.getExtraData(rowId, Columns.GoodsName.name())[0];
 					if (CheckIsNull.isNotEmpty(values[0]) && CheckIsNull.isNotEmpty(countString)
-							&& DoubleUtil.strToDouble(countString) != DoubleUtil.strToDouble(values[0])) {
+							&& DoubleUtil.strToDouble(countString).doubleValue() != DoubleUtil.strToDouble(values[0]).doubleValue()) {
 						if (CheckIsNull.isEmpty(memo)) {
 							return "材料：" + goodsName + "，说明不能为空！";
 						}
@@ -523,7 +523,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setGoodsItemName(goodsCountItem.getGoodsItemName());
 					item.setGoodsItemProperties(goodsCountItem.getGoodsItemProperties());
 					item.setGoodsItemUnit(goodsCountItem.getGoodsItemUnit());
-					item.setCount(goodsCountItem.getCount());
+					item.setCount(DoubleUtil.round(goodsCountItem.getCount(), 2));
 					item.setActualCount(goodsCountItem.getActualCount());
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
