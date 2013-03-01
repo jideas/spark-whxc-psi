@@ -6,8 +6,6 @@
 
 <%
 	final GUID userId = GUID.tryValueOf(request.getParameter("userId"));
-	if (CredentialValidator.validate(
-			request.getParameter("credential"), userId)) {
 		//创建新的DNA会话
 		Session dnaSession = AppUtil.getDefaultApp().newSession(
 				DNASessionIniterImpl.INSTANCE,
@@ -28,7 +26,4 @@
 </body>
 </html>
 <%
-	} else {
-		response.sendRedirect("redirect.jsp");
-	}
 %>

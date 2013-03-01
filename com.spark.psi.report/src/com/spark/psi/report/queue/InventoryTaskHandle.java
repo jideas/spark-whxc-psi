@@ -63,33 +63,36 @@ public class InventoryTaskHandle {
 	 */
 	public static void handle(Context context, InventoryAllocateApprovalEvent event, ReportQueue rq) {
 		context.handle(new SMessageDelTask(SMessageType.UnapproveOrders, event.getId()));
-		AllocateInventory entity = context.find(AllocateInventory.class, event.getId());
-		Set<Employee> set = new HashSet<Employee>();
-		if (entity.getApprovePersonId() == null) {
-			Store instore = context.find(Store.class, entity.getAllocateInStoreId());
-			set.addAll(SMessageUtils.getStoreManagers(context, instore));
-			Store outstore = context.find(Store.class, entity.getAllocateOutStoreId());
-			set.addAll(SMessageUtils.getStoreManagers(context, outstore));
-		}
-		if (!set.isEmpty()) {
-			SMessageInfo info = new SMessageInfo();
-			info.setRECID(context.newRECID());
-			info.setMessageType(SMessageType.UnapproveOrders.getCode());
-			info.setRelaObjId(entity.getId());
-			info.setTemplateCode(SMessageTemplateEnum.UnapproveOrders06.getCode());
-			info.setStringValue1(entity.getAllocSheetNo());
-			context.handle(new SMessageInfoTask(info));
-			long startTime = new Date().getTime();
-			for (Employee e : set) {
-				SMessageMapping mapping = new SMessageMapping();
-				mapping.setRECID(context.newRECID());
-				mapping.setMessageId(info.getRECID());
-				mapping.setMessageType(info.getMessageType());
-				mapping.setStartTime(startTime);
-				mapping.setUserId(e.getId());
-				context.handle(new SMessageMappingTask(mapping));
-			}
-		}
+		// AllocateInventory entity = context.find(AllocateInventory.class,
+		// event.getId());
+		// Set<Employee> set = new HashSet<Employee>();
+		// if (entity.getApprovePersonId() == null) {
+		// Store instore = context.find(Store.class,
+		// entity.getAllocateInStoreId());
+		// set.addAll(SMessageUtils.getStoreManagers(context, instore));
+		// Store outstore = context.find(Store.class,
+		// entity.getAllocateOutStoreId());
+		// set.addAll(SMessageUtils.getStoreManagers(context, outstore));
+		// }
+		// if (!set.isEmpty()) {
+		// SMessageInfo info = new SMessageInfo();
+		// info.setRECID(context.newRECID());
+		// info.setMessageType(SMessageType.UnapproveOrders.getCode());
+		// info.setRelaObjId(entity.getId());
+		// info.setTemplateCode(SMessageTemplateEnum.UnapproveOrders06.getCode());
+		// info.setStringValue1(entity.getAllocSheetNo());
+		// context.handle(new SMessageInfoTask(info));
+		// long startTime = new Date().getTime();
+		// for (Employee e : set) {
+		// SMessageMapping mapping = new SMessageMapping();
+		// mapping.setRECID(context.newRECID());
+		// mapping.setMessageId(info.getRECID());
+		// mapping.setMessageType(info.getMessageType());
+		// mapping.setStartTime(startTime);
+		// mapping.setUserId(e.getId());
+		// context.handle(new SMessageMappingTask(mapping));
+		// }
+		// }
 	}
 
 	// 调拨单待审批事件
@@ -289,7 +292,7 @@ public class InventoryTaskHandle {
 		info.setMessageType(SMessageType.GoodsInventory.getCode());
 		info.setRelaObjId(item.getId());
 		info.setTemplateCode(tempType.getCode());
-		info.setStringValue1(item.getMaterialName() + "["+item.getSpec()+"]");
+		info.setStringValue1(item.getMaterialName() + "[" + item.getSpec() + "]");
 		info.setStringValue2(value2);
 		info.setStringValue3(DoubleUtil.getRoundStr(value3));
 		context.handle(new SMessageInfoTask(info));
