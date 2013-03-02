@@ -24,6 +24,7 @@ import com.spark.common.components.pages.PageController;
 import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.table.STableStatus;
 import com.spark.common.components.table.edit.SNameValue;
+import com.spark.common.utils.ComparatorUtils;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
@@ -65,7 +66,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 	public final static String ID_Text_Search = "Text_Search";
 	public final static String ID_Button_AddGoods = "Button_AddGoods";
 	public final static String ID_Button_Finish = "Button_Finish";
-	public final static String ID_Button_Save = "Button_Save"; 
+	public final static String ID_Button_Save = "Button_Save";
 
 	public final static String ID_Label_Store = "Label_Store";
 
@@ -172,7 +173,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					processData();
 				}
 			});
-		} 
+		}
 
 		initControls();
 	}
@@ -295,8 +296,10 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					String memo = table.getEditValue(rowId, Columns.Memo.name())[0];
 					String countString = table.getExtraData(rowId, Columns.Count.name())[0];
 					String goodsName = table.getExtraData(rowId, Columns.GoodsName.name())[0];
-					if (CheckIsNull.isNotEmpty(values[0]) && CheckIsNull.isNotEmpty(countString)
-							&& DoubleUtil.strToDouble(countString).doubleValue() != DoubleUtil.strToDouble(values[0]).doubleValue()) {
+					if (CheckIsNull.isNotEmpty(values[0])
+							&& CheckIsNull.isNotEmpty(countString)
+							&& DoubleUtil.strToDouble(countString).doubleValue() != DoubleUtil.strToDouble(values[0])
+									.doubleValue()) {
 						if (CheckIsNull.isEmpty(memo)) {
 							return "材料：" + goodsName + "，说明不能为空！";
 						}
@@ -479,6 +482,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 
 	private void initData() {
 		if (null != this.getArgument()) {
+			List<Item> sortlist = new ArrayList<Item>();
 			countSheet = (InventoryCountSheetInfo) this.getArgument();
 			if (null != this.getArgument2()) {
 				ExcelReadHelper excel = (ExcelReadHelper) this.getArgument2();
@@ -513,7 +517,6 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					}
 					list.add(item);
 				}
-				items = new Item[list.size()];
 				for (int i = 0; i < list.size(); i++) {
 					GoodsCountItem goodsCountItem = list.get(i);
 					Item item = new Item();
@@ -528,12 +531,11 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
 					item.setCountDecimal(goodsCountItem.getScale());
-					items[i] = item;
+					sortlist.add(item);
 				}
 				return;
 			}
 			if (null != countSheet.getGoodsCountItems() && countSheet.getGoodsCountItems().length > 0) {
-				items = new Item[countSheet.getGoodsCountItems().length];
 				for (int i = 0; i < countSheet.getGoodsCountItems().length; i++) {
 					InventoryCountSheetInfo.GoodsCountItem goodsCountItem = countSheet.getGoodsCountItems()[i];
 					Item item = new Item();
@@ -548,9 +550,11 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
 					item.setCountDecimal(goodsCountItem.getScale());
-					items[i] = item;
+					sortlist.add(item);
 				}
 			}
+			ComparatorUtils.sort(sortlist, "goodsCode", false);
+			this.items = sortlist.toArray(new Item[sortlist.size()]);
 		}
 
 	}
@@ -787,7 +791,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 						bw.setTable(head, list);
 						try {
 							bw.write(countSheet.getSheetNumber());
-						} catch (Exception e) { 
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
