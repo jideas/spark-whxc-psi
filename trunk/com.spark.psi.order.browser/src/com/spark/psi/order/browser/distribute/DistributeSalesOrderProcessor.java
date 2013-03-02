@@ -51,7 +51,6 @@ import com.spark.psi.order.browser.internal.OrderImages;
 import com.spark.psi.publish.Action;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.StoreStatus;
-import com.spark.psi.publish.base.config.entity.TenantInfo;
 import com.spark.psi.publish.base.store.entity.StoreItem;
 import com.spark.psi.publish.base.store.key.GetStoreListKey;
 import com.spark.psi.publish.inventory.key.GetAvailableCountKey;
@@ -149,10 +148,9 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 					String[] salesGoodsItemIds = goodsTable.getAllRowId();
 					for (int i = 0; i < salesGoodsItemIds.length; i++) {
 						double notAllocateCount = getItemAllocatedCountNotInStore(salesGoodsItemIds[i], currentStoreId);
-						int decimal = Integer.parseInt(goodsTable.getExtraData(salesGoodsItemIds[i], "Decimal")[0]);
-						goodsTable.updateCell(salesGoodsItemIds[i], "Allocate", String.valueOf(notAllocateCount),
-								String.valueOf(notAllocateCount), decimal);
-						goodsTable.updateCell(salesGoodsItemIds[i], "UnAllocate", null, "0", decimal);
+						goodsTable.updateCell(salesGoodsItemIds[i], "Allocate", DoubleUtil.getRoundStr(notAllocateCount),
+								DoubleUtil.getRoundStr(notAllocateCount), 2);
+						goodsTable.updateCell(salesGoodsItemIds[i], "UnAllocate", null, "0", 2);
 					}
 					markDataChanged();
 					goodsTable.renderUpate();
@@ -293,7 +291,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 						double allocateCount = getItemAllocatedCountInStore((SalesOrderGoodsItem) element,
 								currentStoreId);
 						if (allocateCount > 0) {
-							return String.valueOf(allocateCount);
+							return DoubleUtil.getRoundStr(allocateCount);
 						}
 						return "";
 					}
@@ -315,7 +313,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 					return new SNameValue[] {
 							new SNameValue("Allocating", DoubleUtil.getRoundStrWithOutQfw(item.getCount()
 									- getItemAllocatedCount(item) + getItemAllocatedCountInStore(item, currentStoreId),
-									item.getScale())), new SNameValue("Decimal", String.valueOf(item.getScale())) };
+									2)), new SNameValue("Decimal", String.valueOf(2)) };
 				}
 				return null;
 			}
@@ -341,7 +339,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 					return StableUtil.toLink(new SNameValue("View", null), null, null, DoubleUtil.getRoundStr(item
 							.getCount()));
 				case 4:
-					return String.valueOf(item.getCount() - getItemAllocatedCount(item));
+					return DoubleUtil.getRoundStr(item.getCount() - getItemAllocatedCount(item));
 				case 5:
 					if (currentStoreId != null) {
 						Double v = goodsInventorys.get(currentStoreId + "-" + item.getGoodsItemId());
@@ -373,9 +371,8 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 				switch (columnIndex) {
 				case 4:
 				case 5:
-				case 6:
-					SalesOrderGoodsItem item = (SalesOrderGoodsItem) element;
-					return item.getScale();
+				case 6: 
+					return 2;
 				default:
 					return -1;
 				}
@@ -398,7 +395,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 						Double v = goodsInventorys.get(stores[i].getId() + "-" + salesOrderGoodsItem.getGoodsItemId());
 						String availableCount = "--";
 						if (v != null) {
-							availableCount = String.valueOf(v);
+							availableCount = DoubleUtil.getRoundStr(v);
 						}
 						double distributeCount = 0;
 						if (allStoreResult != null) {
@@ -411,19 +408,19 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 						if (currentStoreId.equals(stores[i].getId().toString())) {
 							String allocate = goodsTable.getEditValue(rowId, "Allocate")[0];
 							if (!StringUtils.isEmpty(allocate)) {
-								distributeCount += Double.parseDouble(allocate);
+								distributeCount += DoubleUtil.strToDouble(allocate);
 							}
 						}
 						//
 						items[i] = new DistributeInfoWindow.Item(stores[i].getId(), stores[i].getName(),
-								availableCount, String.valueOf(distributeCount), salesOrderGoodsItem.getScale());
+								availableCount, DoubleUtil.getRoundStr(distributeCount), 2);
 						unAllocateCount -= distributeCount;
 					}
 					//
 					String[] locationInfo = actionValue.split(":");
 					distributeInfoWindow.refresh(salesOrderGoodsItem.getName() + "：" + salesOrderGoodsItem.getSpec()
 							+ salesOrderGoodsItem.getUnit(), DoubleUtil.getRoundStr(unAllocateCount,
-							salesOrderGoodsItem.getScale()), items, new Point(Integer.parseInt(locationInfo[0]),
+							2), items, new Point(Integer.parseInt(locationInfo[0]),
 							Integer.parseInt(locationInfo[1])));
 				}
 			}
@@ -449,10 +446,10 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 		String[] salesGoodsItemIds = goodsTable.getAllRowId();
 		// 校验分配数量是否超出剩余分配数量和库存数量
 		for (int i = 0; i < salesGoodsItemIds.length; i++) {
-			double allocating = Double.parseDouble(goodsTable.getExtraData(salesGoodsItemIds[i], "Allocating")[0]);
+			double allocating = DoubleUtil.strToDouble(goodsTable.getExtraData(salesGoodsItemIds[i], "Allocating")[0]);
 			double allocate = 0;
 			try {
-				allocate = Double.parseDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
+				allocate = DoubleUtil.strToDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
 			} catch (Throwable t) {
 				continue;
 			}
@@ -491,7 +488,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor impleme
 		for (int i = 0; i < salesGoodsItemIds.length; i++) {
 			double allocate = 0;
 			try {
-				allocate = Double.parseDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
+				allocate = DoubleUtil.strToDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
 			} catch (Throwable t) {
 				continue;
 			}
