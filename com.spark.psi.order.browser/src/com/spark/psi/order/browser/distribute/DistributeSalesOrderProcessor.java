@@ -65,8 +65,8 @@ import com.spark.psi.publish.order.task.SalesOrderDistributeTask.DistributionIte
  * 销售配货单明细处理器
  * 
  */
-public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
-		implements IDataProcessPrompt, SelectionListener {
+public class DistributeSalesOrderProcessor extends BaseFormPageProcessor implements IDataProcessPrompt,
+		SelectionListener {
 
 	public final static String ID_Label_StoreInfo = "StoreInfo";
 	public final static String ID_Text_Date = "Text_Date";
@@ -100,9 +100,8 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 	@Override
 	public void init(Situation context) {
 		super.init(context);
-		if(this.getArgument() instanceof String) {
-			this.orderInfo = getContext().get(SalesOrderInfo.class,
-					GUID.valueOf((String)this.getArgument()));
+		if (this.getArgument() instanceof String) {
+			this.orderInfo = getContext().get(SalesOrderInfo.class, GUID.valueOf((String) this.getArgument()));
 		} else {
 			this.orderInfo = (SalesOrderInfo) this.getArgument();
 		}
@@ -111,23 +110,18 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		}
 		//
 		GetStoreListKey storeKey = new GetStoreListKey(true, StoreStatus.ENABLE, StoreStatus.ONCOUNTING);
-		List<StoreItem> storeList = context.find(ListEntity.class, storeKey) 
-				.getItemList();
+		List<StoreItem> storeList = context.find(ListEntity.class, storeKey).getItemList();
 		stores = storeList.toArray(new StoreItem[0]);
 
 		for (StoreItem storeItem : stores) {
-			for (SalesOrderGoodsItem goodsItem : orderInfo
-					.getSalesOrderGoodsItems()) {
-				GetAvailableCountKey key = new GetAvailableCountKey(
-						storeItem.getId(), goodsItem.getGoodsItemId());
+			for (SalesOrderGoodsItem goodsItem : orderInfo.getSalesOrderGoodsItems()) {
+				GetAvailableCountKey key = new GetAvailableCountKey(storeItem.getId(), goodsItem.getGoodsItemId());
 				Double v = context.find(Double.class, key);
 				if (v != null) {
 					if (v < 0) {
 						v = new Double(0);
 					}
-					goodsInventorys.put(
-							storeItem.getId() + "-"
-									+ goodsItem.getGoodsItemId(), v);
+					goodsInventorys.put(storeItem.getId() + "-" + goodsItem.getGoodsItemId(), v);
 				}
 			}
 		}
@@ -136,33 +130,29 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 	@Override
 	public void process(Situation context) {
 		storeInfoLabel = this.createControl(ID_Label_StoreInfo, Label.class);
-		//此处实现用户对当前配货单的独占状态，用户获得一个配货单的占用时间只有20秒，页面打开后会启动一个js的定时循环，每10秒像服务器端发送一次消息，用于继续占用此配货单。
-		//此处增加客户端定时扫描任务，以保持当前用户对当前配货单处于独占状态  周利均  
+		// 此处实现用户对当前配货单的独占状态，用户获得一个配货单的占用时间只有20秒，页面打开后会启动一个js的定时循环，每10秒像服务器端发送一次消息，用于继续占用此配货单。
+		// 此处增加客户端定时扫描任务，以保持当前用户对当前配货单处于独占状态 周利均
 		storeInfoLabel.addClientEventHandler(JWT.CLIENT_EVENT_INIT, "DistributeSalesOrder.ResetDistributeSalesOrder");
-		storeInfoLabel.addClientNotifyListener(new ClientNotifyListener(){
-			//捕获界面发送过来的连续独占此配货单的消息  平均10秒触发一次
-			public void notified(ClientNotifyEvent e){
-				//调用服务 维持对当前配货单的占用状态  如果20秒后不调用此服务，当前配货单将释放。
-				getContext().handle(new SalesOrderDistributeTask(orderInfo.getId()),SalesOrderDistributeTask.Method.Reset);
+		storeInfoLabel.addClientNotifyListener(new ClientNotifyListener() {
+			// 捕获界面发送过来的连续独占此配货单的消息 平均10秒触发一次
+			public void notified(ClientNotifyEvent e) {
+				// 调用服务 维持对当前配货单的占用状态 如果20秒后不调用此服务，当前配货单将释放。
+				getContext().handle(new SalesOrderDistributeTask(orderInfo.getId()),
+						SalesOrderDistributeTask.Method.Reset);
 			}
 		});
 		datePicker = this.createControl(ID_Text_Date, DatePicker.class);
-		resolveAllButton = this
-				.createControl(ID_Button_ResolveAll, Label.class);
+		resolveAllButton = this.createControl(ID_Button_ResolveAll, Label.class);
 		resolveAllButton.addMouseClickListener(new MouseClickListener() {
 			public void click(MouseEvent e) {
 				if (currentStoreId != null) {
 					String[] salesGoodsItemIds = goodsTable.getAllRowId();
 					for (int i = 0; i < salesGoodsItemIds.length; i++) {
-						double notAllocateCount = getItemAllocatedCountNotInStore(
-								salesGoodsItemIds[i], currentStoreId);
-						int decimal = Integer.parseInt(goodsTable.getExtraData(
-								salesGoodsItemIds[i], "Decimal")[0]);
-						goodsTable.updateCell(salesGoodsItemIds[i], "Allocate",
-								String.valueOf(notAllocateCount),
+						double notAllocateCount = getItemAllocatedCountNotInStore(salesGoodsItemIds[i], currentStoreId);
+						int decimal = Integer.parseInt(goodsTable.getExtraData(salesGoodsItemIds[i], "Decimal")[0]);
+						goodsTable.updateCell(salesGoodsItemIds[i], "Allocate", String.valueOf(notAllocateCount),
 								String.valueOf(notAllocateCount), decimal);
-						goodsTable.updateCell(salesGoodsItemIds[i],
-								"UnAllocate", null, "0", decimal);
+						goodsTable.updateCell(salesGoodsItemIds[i], "UnAllocate", null, "0", decimal);
 					}
 					markDataChanged();
 					goodsTable.renderUpate();
@@ -219,15 +209,12 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 
 			public String getText(Object element, int columnIndex) {
 				StoreItem item = (StoreItem) element;
-				ImageDescriptor image = OrderImages
-						.getImage("images/saas_products_cart.png");
+				ImageDescriptor image = OrderImages.getImage("images/saas_products_cart.png");
 				String[] salesGoodsItemIds = goodsTable.getAllRowId();
 				if (salesGoodsItemIds != null) {
 					for (int i = 0; i < salesGoodsItemIds.length; i++) {
-						if (getItemAllocatedCountInStore(salesGoodsItemIds[i],
-								item.getId().toString()) > 0) {
-							return StableUtil.toImg(image.getDNAURI(), "已分配材料",
-									15) + item.getName();
+						if (getItemAllocatedCountInStore(salesGoodsItemIds[i], item.getId().toString()) > 0) {
+							return StableUtil.toImg(image.getDNAURI(), "已分配材料", 15) + item.getName();
 						}
 					}
 				}
@@ -248,23 +235,19 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		});
 		storeTable.addClientNotifyListener(new ClientNotifyListener() {
 			public void notified(ClientNotifyEvent e) {
-				JSONObject customSelectionInfo = storeTable
-						.getClientObject("customSelectionInfo");
+				JSONObject customSelectionInfo = storeTable.getClientObject("customSelectionInfo");
 				String selectingId = null;
 				try {
 					selectingId = customSelectionInfo.getString("selecting");
 				} catch (JSONException ex) {
 				}
-				goodsTable
-						.removeSelectionListener(DistributeSalesOrderProcessor.this); // 移除用于提示没有选择仓库的监听器
-				if (currentStoreId != null
-						&& currentStoreId.equals(selectingId)) {
+				goodsTable.removeSelectionListener(DistributeSalesOrderProcessor.this); // 移除用于提示没有选择仓库的监听器
+				if (currentStoreId != null && currentStoreId.equals(selectingId)) {
 					return;
 				}
 				if (currentStoreId == null) {
 					currentStoreId = selectingId;
-					if (!currentStoreId.equals(orderInfo.getPartnerInfo()
-							.getId().toString())) {
+					if (!currentStoreId.equals(orderInfo.getPartnerInfo().getId().toString())) {
 						datePicker.setEnabled(true);
 						datePicker.setDate(new Date(orderInfo.getDeliveryDate()));
 					}
@@ -284,8 +267,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		// storeTable.addSelectionListener(new SelectionListener() {
 		//
 		// });
-		storeTable.addClientEventHandler(STable.CLIENT_EVENT_ROWCLICK,
-				"DistributeSalesOrder.handleStoreSelection");
+		storeTable.addClientEventHandler(STable.CLIENT_EVENT_ROWCLICK, "DistributeSalesOrder.handleStoreSelection");
 		storeTable.render();
 
 		goodsTable.setContentProvider(new SEditContentProvider() {
@@ -308,8 +290,8 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 			public String getValue(Object element, String columnName) {
 				if (columnName.equals("Allocate")) {
 					if (currentStoreId != null) {
-						double allocateCount = getItemAllocatedCountInStore(
-								(SalesOrderGoodsItem) element, currentStoreId);
+						double allocateCount = getItemAllocatedCountInStore((SalesOrderGoodsItem) element,
+								currentStoreId);
 						if (allocateCount > 0) {
 							return String.valueOf(allocateCount);
 						}
@@ -331,17 +313,9 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 				SalesOrderGoodsItem item = (SalesOrderGoodsItem) element;
 				if (currentStoreId != null) {
 					return new SNameValue[] {
-							new SNameValue(
-									"Allocating",
-									DoubleUtil.getRoundStrWithOutQfw(
-											item.getCount()
-													- getItemAllocatedCount(item)
-													+ getItemAllocatedCountInStore(
-															item,
-															currentStoreId),
-											item.getScale())),
-							new SNameValue("Decimal", String.valueOf(item
-									.getScale())) };
+							new SNameValue("Allocating", DoubleUtil.getRoundStrWithOutQfw(item.getCount()
+									- getItemAllocatedCount(item) + getItemAllocatedCountInStore(item, currentStoreId),
+									item.getScale())), new SNameValue("Decimal", String.valueOf(item.getScale())) };
 				}
 				return null;
 			}
@@ -364,29 +338,22 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 				case 2:
 					return item.getUnit();
 				case 3:
-					return StableUtil.toLink(
-							new SNameValue("View", null),
-							null,
-							null,
-							DoubleUtil.getRoundStr(item.getCount(),
-									item.getScale()));
+					return StableUtil.toLink(new SNameValue("View", null), null, null, DoubleUtil.getRoundStr(item
+							.getCount()));
 				case 4:
-					return String.valueOf(item.getCount()
-							- getItemAllocatedCount(item));
+					return String.valueOf(item.getCount() - getItemAllocatedCount(item));
 				case 5:
 					if (currentStoreId != null) {
-						Double v = goodsInventorys.get(currentStoreId + "-"
-								+ item.getGoodsItemId());
+						Double v = goodsInventorys.get(currentStoreId + "-" + item.getGoodsItemId());
 						if (v != null) {
-							return String.valueOf(v);
+							return DoubleUtil.getRoundStr(v);
 						}
 					}
 					return "--";
 				case 6:
-					double count = getItemAllocatedCountInStore(item,
-							currentStoreId);
+					double count = getItemAllocatedCountInStore(item, currentStoreId);
 					if (count > 0) {
-						return String.valueOf(count);
+						return DoubleUtil.getRoundStr(count);
 					}
 					return "";
 				default:
@@ -416,64 +383,53 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		});
 		goodsTable.addSelectionListener(this);
 		goodsTable.addActionListener(new SActionListener() {
-			public void actionPerformed(String rowId, String actionName,
-					String actionValue) {
+			public void actionPerformed(String rowId, String actionName, String actionValue) {
 				if (actionName.equals("View")) {
 					if (currentStoreId == null) {
 						alert("请选择仓库");
 						return;
 					}
-					SalesOrderGoodsItem salesOrderGoodsItem = salesOrderGoodsItems
-							.get(rowId);
+					SalesOrderGoodsItem salesOrderGoodsItem = salesOrderGoodsItems.get(rowId);
 					DistributeInfoWindow.Item[] items = new DistributeInfoWindow.Item[stores.length];
-					Map<String, Double> allStoreResult = goodsDistributeResult
-							.get(salesOrderGoodsItem.getId().toString());
+					Map<String, Double> allStoreResult = goodsDistributeResult.get(salesOrderGoodsItem.getId()
+							.toString());
 					double unAllocateCount = salesOrderGoodsItem.getCount();
 					for (int i = 0; i < items.length; i++) {
-						Double v = goodsInventorys.get(stores[i].getId() + "-"
-								+ salesOrderGoodsItem.getGoodsItemId());
+						Double v = goodsInventorys.get(stores[i].getId() + "-" + salesOrderGoodsItem.getGoodsItemId());
 						String availableCount = "--";
 						if (v != null) {
 							availableCount = String.valueOf(v);
 						}
 						double distributeCount = 0;
 						if (allStoreResult != null) {
-							v = allStoreResult
-									.get(stores[i].getId().toString());
+							v = allStoreResult.get(stores[i].getId().toString());
 							if (v != null) {
 								distributeCount = v.doubleValue();
 							}
 						}
 						//
 						if (currentStoreId.equals(stores[i].getId().toString())) {
-							String allocate = goodsTable.getEditValue(rowId,
-									"Allocate")[0];
+							String allocate = goodsTable.getEditValue(rowId, "Allocate")[0];
 							if (!StringUtils.isEmpty(allocate)) {
 								distributeCount += Double.parseDouble(allocate);
 							}
 						}
 						//
-						items[i] = new DistributeInfoWindow.Item(stores[i]
-								.getId(), stores[i].getName(), availableCount,
-								String.valueOf(distributeCount),
-								salesOrderGoodsItem.getScale());
+						items[i] = new DistributeInfoWindow.Item(stores[i].getId(), stores[i].getName(),
+								availableCount, String.valueOf(distributeCount), salesOrderGoodsItem.getScale());
 						unAllocateCount -= distributeCount;
 					}
 					//
 					String[] locationInfo = actionValue.split(":");
-					distributeInfoWindow.refresh(salesOrderGoodsItem.getName()
-							+ "：" + salesOrderGoodsItem.getSpec()
-							+ salesOrderGoodsItem.getUnit(), DoubleUtil
-							.getRoundStr(unAllocateCount,
-									salesOrderGoodsItem.getScale()),
-							items, new Point(Integer.parseInt(locationInfo[0]),
-									Integer.parseInt(locationInfo[1])));
+					distributeInfoWindow.refresh(salesOrderGoodsItem.getName() + "：" + salesOrderGoodsItem.getSpec()
+							+ salesOrderGoodsItem.getUnit(), DoubleUtil.getRoundStr(unAllocateCount,
+							salesOrderGoodsItem.getScale()), items, new Point(Integer.parseInt(locationInfo[0]),
+							Integer.parseInt(locationInfo[1])));
 				}
 			}
 		});
 		// 处理查询分配情况动作的客户端事件
-		goodsTable.addClientEventHandler(STable.CLIENT_EVENT_ACTION,
-				"DistributeSalesOrder.handleActionPerformed");
+		goodsTable.addClientEventHandler(STable.CLIENT_EVENT_ACTION, "DistributeSalesOrder.handleActionPerformed");
 
 		//
 		goodsTable.render();
@@ -493,12 +449,10 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		String[] salesGoodsItemIds = goodsTable.getAllRowId();
 		// 校验分配数量是否超出剩余分配数量和库存数量
 		for (int i = 0; i < salesGoodsItemIds.length; i++) {
-			double allocating = Double.parseDouble(goodsTable.getExtraData(
-					salesGoodsItemIds[i], "Allocating")[0]);
+			double allocating = Double.parseDouble(goodsTable.getExtraData(salesGoodsItemIds[i], "Allocating")[0]);
 			double allocate = 0;
 			try {
-				allocate = Double.parseDouble(goodsTable.getEditValue(
-						salesGoodsItemIds[i], "Allocate")[0]);
+				allocate = Double.parseDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
 			} catch (Throwable t) {
 				continue;
 			}
@@ -519,15 +473,13 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		}
 		// 如果有分配信息，则校验日期
 		if (hasAllocateInfo) {
-			if (!currentStoreId.equals(orderInfo.getPartnerInfo().getId()
-					.toString())) { // 直供仓库不检查日期
+			if (!currentStoreId.equals(orderInfo.getPartnerInfo().getId().toString())) { // 直供仓库不检查日期
 				if (datePicker.getDate() == null) {
 					alert("请填写当前仓库发货日期！");
 					return false;
 				}
 				long checkoutDate = datePicker.getDate().getTime();
-				if (DateUtil.getDayStartTime(checkoutDate) > DateUtil
-						.getDayStartTime(orderInfo.getDeliveryDate())) {
+				if (DateUtil.getDayStartTime(checkoutDate) > DateUtil.getDayStartTime(orderInfo.getDeliveryDate())) {
 					alert("本库发货日期不能大于交货日期！");
 					return false;
 				}
@@ -539,17 +491,14 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		for (int i = 0; i < salesGoodsItemIds.length; i++) {
 			double allocate = 0;
 			try {
-				allocate = Double.parseDouble(goodsTable.getEditValue(
-						salesGoodsItemIds[i], "Allocate")[0]);
+				allocate = Double.parseDouble(goodsTable.getEditValue(salesGoodsItemIds[i], "Allocate")[0]);
 			} catch (Throwable t) {
 				continue;
 			}
 			//
-			distributionGoodsItemList.add(new DistributionGoodsItem(GUID
-					.valueOf(salesGoodsItemIds[i]), allocate));
+			distributionGoodsItemList.add(new DistributionGoodsItem(GUID.valueOf(salesGoodsItemIds[i]), allocate));
 			//
-			Map<String, Double> allStoreResult = goodsDistributeResult
-					.get(salesGoodsItemIds[i]);
+			Map<String, Double> allStoreResult = goodsDistributeResult.get(salesGoodsItemIds[i]);
 			if (allStoreResult == null) {
 				allStoreResult = new HashMap<String, Double>();
 				goodsDistributeResult.put(salesGoodsItemIds[i], allStoreResult);
@@ -558,12 +507,9 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		}
 
 		//
-		storeDistributeResult.put(
-				currentStoreId,
-				new DistributionItem(datePicker.getDate() == null ? new Date()
-						.getTime() : datePicker.getDate().getTime(), GUID
-						.valueOf(currentStoreId), distributionGoodsItemList
-						.toArray(new DistributionGoodsItem[0])));
+		storeDistributeResult.put(currentStoreId, new DistributionItem(datePicker.getDate() == null ? new Date()
+				.getTime() : datePicker.getDate().getTime(), GUID.valueOf(currentStoreId), distributionGoodsItemList
+				.toArray(new DistributionGoodsItem[0])));
 
 		//
 		String lastStoreId = currentStoreId;
@@ -571,17 +517,14 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		// 切换到当前选择仓库，更改日期，刷新表格
 		if (!currentStoreId.equals(selectingId)) {
 			currentStoreId = selectingId;
-			if (currentStoreId.equals(orderInfo.getPartnerInfo().getId()
-					.toString())) {
+			if (currentStoreId.equals(orderInfo.getPartnerInfo().getId().toString())) {
 				datePicker.setDate(null);
 				datePicker.setEnabled(false);
 			} else {
-				DistributionItem distributionItem = storeDistributeResult
-						.get(currentStoreId);
+				DistributionItem distributionItem = storeDistributeResult.get(currentStoreId);
 				datePicker.setEnabled(true);
 				if (distributionItem != null) {
-					datePicker.setDate(new Date(distributionItem
-							.getDeliverDate()));
+					datePicker.setDate(new Date(distributionItem.getDeliverDate()));
 				} else {
 					datePicker.setDate(new Date(orderInfo.getDeliveryDate()));
 				}
@@ -601,8 +544,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 
 	private double getItemAllocatedCount(SalesOrderGoodsItem item) {
 		double allAllocatedCount = 0;
-		Map<String, Double> allStoreResult = goodsDistributeResult.get(item
-				.getId().toString());
+		Map<String, Double> allStoreResult = goodsDistributeResult.get(item.getId().toString());
 		if (allStoreResult != null) {
 			Iterator<Double> valueIt = allStoreResult.values().iterator();
 			while (valueIt.hasNext()) {
@@ -612,8 +554,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 		return allAllocatedCount;
 	}
 
-	private double getItemAllocatedCountInStore(SalesOrderGoodsItem item,
-			String storeId) {
+	private double getItemAllocatedCountInStore(SalesOrderGoodsItem item, String storeId) {
 		return getItemAllocatedCountInStore(item.getId().toString(), storeId);
 	}
 
@@ -679,8 +620,7 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 
 	public void postDisposed(Situation context) {
 		super.postDisposed(context);
-		getContext().handle(new SalesOrderDistributeTask(orderInfo.getId()),
-				SalesOrderDistributeTask.Method.Cancel);
+		getContext().handle(new SalesOrderDistributeTask(orderInfo.getId()), SalesOrderDistributeTask.Method.Cancel);
 	}
 
 	public boolean processData() {
@@ -704,30 +644,24 @@ public class DistributeSalesOrderProcessor extends BaseFormPageProcessor
 			DistributionItem item = storeDistributeResult.get(storeId);
 			List<DistributionGoodsItem> distributionGoodsItemList = new ArrayList<DistributionGoodsItem>();
 			if (item.getItems() != null) {
-				for (DistributionGoodsItem distributionGoodsItem : item
-						.getItems()) {
+				for (DistributionGoodsItem distributionGoodsItem : item.getItems()) {
 					if (distributionGoodsItem.getCount() > 0) {
 						distributionGoodsItemList.add(distributionGoodsItem);
 					}
 				}
 			}
 			if (distributionGoodsItemList.size() > 0) {
-				if (item.getStoreId()
-						.equals(orderInfo.getPartnerInfo().getId())) { // 直供
-					distributionItemList.add(new DistributionItem(
-							distributionGoodsItemList
-									.toArray(new DistributionGoodsItem[0])));
+				if (item.getStoreId().equals(orderInfo.getPartnerInfo().getId())) { // 直供
+					distributionItemList.add(new DistributionItem(distributionGoodsItemList
+							.toArray(new DistributionGoodsItem[0])));
 				} else {
-					distributionItemList.add(new DistributionItem(item
-							.getDeliverDate(), item.getStoreId(),
-							distributionGoodsItemList
-									.toArray(new DistributionGoodsItem[0])));
+					distributionItemList.add(new DistributionItem(item.getDeliverDate(), item.getStoreId(),
+							distributionGoodsItemList.toArray(new DistributionGoodsItem[0])));
 				}
 			}
 		}
-		SalesOrderDistributeTask task = new SalesOrderDistributeTask(
-				orderInfo.getId(),
-				distributionItemList.toArray(new DistributionItem[0]));
+		SalesOrderDistributeTask task = new SalesOrderDistributeTask(orderInfo.getId(), distributionItemList
+				.toArray(new DistributionItem[0]));
 		getContext().handle(task, SalesOrderDistributeTask.Method.Confirm);
 
 		//

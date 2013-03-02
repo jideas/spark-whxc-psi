@@ -197,13 +197,13 @@ public abstract class OrderDetailRender extends SimpleSheetPageRender {
 		case GoodsUnit:
 			return item.getUnit();
 		case Count:
-			return DoubleUtil.getRoundStr(item.getCount(),item.getScale());
+			return DoubleUtil.getRoundStr(item.getCount(),2);
 		case Price:
 			return DoubleUtil.getRoundStr(item.getPrice());
 		case Amount:
 			return DoubleUtil.getRoundStr(item.getAmount());
 		case ReturnCount:
-			return DoubleUtil.getRoundStr(item.getCount(),item.getScale());
+			return DoubleUtil.getRoundStr(item.getCount(),2);
 		case ReturnPrice:
 			return DoubleUtil.getRoundStr(item.getPrice());
 		case ReturnAmount:
