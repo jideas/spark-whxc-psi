@@ -118,7 +118,7 @@ public class SplitGoodsSelectRender extends GoodsCategoryFramePageRender {
 		@Override
 		public STableStyle getTableStyle() {
 			STableStyle tableStyle = new STableStyle();
-			tableStyle.setPageAble(true);
+			tableStyle.setPageAble(false);
 			tableStyle.setSelectionMode(SSelectionMode.Row);
 			return tableStyle;
 		}
