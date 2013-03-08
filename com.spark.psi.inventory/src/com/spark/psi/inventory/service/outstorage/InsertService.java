@@ -283,7 +283,7 @@ public class InsertService extends Service {
 			checkInventory.setCheckProfit(checkProfit);
 			context.handle(cTask, Method.INSERT);
 
-			insertCountInventoryLog(context, cTask);
+			//insertCountInventoryLog(context, cTask);
 		}
 		// 更新库存流水和台账
 		StoStreamTask stream = new StoStreamTask();
@@ -300,8 +300,7 @@ public class InsertService extends Service {
 				avgInventoryCost = goods.getAvgBuyPrice();
 				sto.setCategoryId(goods.getCategoryId());
 				sto.setName(goods.getMaterialName());
-				sto.setProperties(MaterialsProperyUtil.subMaterialsPropertyToString(goods
-						.getMaterialProperties()));
+				sto.setProperties(goods.getSpec());
 				sto.setUnit(goods.getMaterialUnit());
 				sto.setCode(goods.getMaterialCode());
 				sto.setStockNo(goods.getMaterialNo());
@@ -394,8 +393,7 @@ public class InsertService extends Service {
 				if (null != goods) {
 					sto.setCategoryId(goods.getCategoryId());
 					sto.setName(goods.getMaterialName());
-					sto.setProperties(MaterialsProperyUtil.subMaterialsPropertyToString(goods
-							.getMaterialProperties()));
+					sto.setProperties(goods.getSpec());
 					sto.setUnit(goods.getMaterialUnit());
 					sto.setCode(goods.getMaterialCode());
 					sto.setStockNo(goods.getMaterialNo());
