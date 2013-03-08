@@ -106,7 +106,7 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 	}
 
 	private STableColumn[] getMaterialTableColumns() {
-		STableColumn[] columns = new STableColumn[4];
+		STableColumn[] columns = new STableColumn[5];
 		columns[0] = new STableColumn(
 				NewGoodsSplitDetailProcessor.MaterialColumnName.materialName
 						.name(), 200, JWT.LEFT, "材料名称");
@@ -114,9 +114,12 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 				NewGoodsSplitDetailProcessor.MaterialColumnName.spec.name(),
 				140, JWT.RIGHT, "规格");
 		columns[2] = new STableColumn(
+				NewGoodsSplitDetailProcessor.MaterialColumnName.unit
+						.name(), 100, JWT.CENTER, "单位");
+		columns[3] = new STableColumn(
 				NewGoodsSplitDetailProcessor.MaterialColumnName.scount
 						.name(), 100, JWT.CENTER, "参考数量");
-		columns[3] = new SNumberEditColumn(
+		columns[4] = new SNumberEditColumn(
 				NewGoodsSplitDetailProcessor.MaterialColumnName.count
 						.name(), 100, JWT.CENTER, "数量");
 		columns[0].setGrab(true);
@@ -124,7 +127,7 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 	}
 
 	private STableColumn[] getEditableGoodsTableColumns() {
-		STableColumn[] columns = new STableColumn[3];
+		STableColumn[] columns = new STableColumn[4];
 		columns[0] = new STableColumn(
 				NewGoodsSplitDetailProcessor.GoodsColumnName.goodsName.name(),
 				150, JWT.LEFT, "商品名称");
@@ -133,25 +136,31 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 				NewGoodsSplitDetailProcessor.GoodsColumnName.spec.name(), 90,
 				JWT.LEFT, "规格");
 		columns[2] = new STableColumn(
+				NewGoodsSplitDetailProcessor.GoodsColumnName.unit.name(), 90,
+				JWT.RIGHT, "单位");
+		columns[3] = new STableColumn(
 				NewGoodsSplitDetailProcessor.GoodsColumnName.count.name(), 90,
 				JWT.RIGHT, "数量");
 		return columns;
 	}
 
 	private STableColumn[] getEditableMaterialTableColumns() {
-		STableColumn[] columns = new STableColumn[4];
+		STableColumn[] columns = new STableColumn[5];
 		columns[0] = new STableColumn(
 				NewGoodsSplitDetailProcessor.MaterialColumnName.materialName
-						.name(), 150, JWT.LEFT, "材料名称");
+						.name(), 200, JWT.LEFT, "材料名称");
 		columns[1] = new STableColumn(
 				NewGoodsSplitDetailProcessor.MaterialColumnName.spec.name(),
-				90, JWT.RIGHT, "规格");
+				140, JWT.RIGHT, "规格");
 		columns[2] = new STableColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.scount.name(),
-				90, JWT.RIGHT, "参考数量");
-		columns[3] = new SNumberEditColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.count.name(),
-				90, JWT.RIGHT, "数量");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.unit
+						.name(), 100, JWT.CENTER, "单位");
+		columns[3] = new STableColumn(
+				NewGoodsSplitDetailProcessor.MaterialColumnName.scount
+						.name(), 100, JWT.CENTER, "参考数量");
+		columns[4] = new SNumberEditColumn(
+				NewGoodsSplitDetailProcessor.MaterialColumnName.count
+						.name(), 100, JWT.CENTER, "数量");
 		columns[0].setGrab(true);
 		return columns;
 	}
@@ -246,6 +255,8 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 			case 1:
 				return item.getGoodsSpec();
 			case 2:
+				return item.getGoodsUnit();
+			case 3:
 				return DoubleUtil.getRoundStr(item.getGcount());
 			}
 			return null;
@@ -280,8 +291,10 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 			case 1:
 				return item.getMspec();
 			case 2:
-				return DoubleUtil.getRoundStr(item.getScount());
+				return item.getMunit();
 			case 3:
+				return DoubleUtil.getRoundStr(item.getScount());
+			case 4:
 				return DoubleUtil.getRoundStr(item.getMcount());
 			}
 			return null;
