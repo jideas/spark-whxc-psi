@@ -135,6 +135,7 @@
       <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT" />
       <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT_GOODS" />
       <table space="SPARK" class="com.spark.erp.storage.inventory.split.TB_PSI_GOODSSPLIT_MATERIAL" />
+      <table space="spark/cms" class="com.spark.cms.storage.log.TB_CMS_PAYING_LOG" />
     </tables>
     <ui-entrys>
       <!--uientry class="com.jiuqi.dna.bap.workflowmanager.define.ui.DemoApplicationUIEntry" name="workflowdefine">
