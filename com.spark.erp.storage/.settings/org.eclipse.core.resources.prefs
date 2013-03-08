@@ -1,4 +1,4 @@
-#Tue Feb 05 17:45:54 CST 2013
+#Fri Mar 08 21:41:25 CST 2013
 eclipse.preferences.version=1
 encoding//meta/com/spark/b2c/storage/base/member/B2C_Base_Member.td=UTF-8
 encoding//meta/com/spark/b2c/storage/joint/PSI_JOINT_RECORD.td=UTF-8
@@ -21,6 +21,7 @@ encoding//meta/com/spark/cms/storage/goods/CMS_CATEGORY_PVALUES.td=UTF-8
 encoding//meta/com/spark/cms/storage/goods/CMS_GOODS.td=UTF-8
 encoding//meta/com/spark/cms/storage/goods/CMS_GOODS_CATEGORY.td=UTF-8
 encoding//meta/com/spark/cms/storage/goods/CMS_GOODS_CONTENT.td=UTF-8
+encoding//meta/com/spark/cms/storage/log/CMS_PAYING_LOG.td=UTF-8
 encoding//meta/com/spark/cms/storage/manager/cms_channel.td=UTF-8
 encoding//meta/com/spark/cms/storage/manager/cms_channel_advertising.td=UTF-8
 encoding//meta/com/spark/cms/storage/manager/cms_channel_content.td=UTF-8
