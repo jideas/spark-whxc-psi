@@ -447,7 +447,7 @@ public class CustomerPublishERPService extends Service {
 			ib.addColumn("taxNumber", ib.STRING, task.getTaxNumber());
 			if (login.hasAuth(Auth.Sales) && !login.hasAuth(Auth.Boss, Auth.SalesManager)) {
 				ib.addColumn("deptId", ib.guid, emp.getDepartmentId());
-				ib.addColumn("businessPerson", ib.STRING, emp.getId());
+				ib.addColumn("businessPerson", ib.guid, emp.getId());
 			}
 			synchronized (LockedFlag) {
 				task.setPartnerNo(context.find(String.class, new GetNewCustomerNoKey(task.getTown())));
