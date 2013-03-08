@@ -30,6 +30,7 @@ import com.spark.psi.inventory.split.publish.GoodsSplitDet_MaterialImpl;
 import com.spark.psi.inventory.split.publish.GoodsSplitInfoImpl;
 import com.spark.psi.inventory.split.publish.GoodsSplitItemImpl;
 import com.spark.psi.publish.CheckingInType;
+import com.spark.psi.publish.CheckingOutType;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.SortType;
 import com.spark.psi.publish.inventory.checkout.task.RealGoodsCheckOutTask;
@@ -605,6 +606,7 @@ public class GoodsSplitPublishService extends Service {
 		ot.setRelaBillsNo(info.getBillNo());
 		ot.setRemark(info.getRemark());
 		ot.setStoreId(Store.GoodsStoreId);
+		ot.setCheckingOutType(CheckingOutType.GoodsSplit);
 		List<RealGoodsCheckOutTaskItem> items = new ArrayList<RealGoodsCheckOutTaskItem>();
 		for (GoodsSplitDet_Goods i : info.getGoodsDets()) {
 

@@ -86,7 +86,7 @@ public class CheckoutSheetDao extends Service {
 			}
 			task.setSuccess(true);
 			if (task.getCheckoutType().equals(CheckingOutType.Joint.getCode())
-					|| task.getCheckoutType().equals(CheckingOutType.RealGoods.getCode())
+					|| task.getCheckoutType().equals(CheckingOutType.RealGoods.getCode())||task.getCheckoutType().equals(CheckingOutType.GoodsSplit.getCode())
 					|| task.getCheckoutType().equals(CheckingOutType.Kit.getCode())) {
 				return;
 			}

@@ -338,6 +338,10 @@ public class InsertSheetService extends Service {
 				sto.setLogType(InventoryLogType.HandtomouthBuying.getCode());
 			} else {
 				sto.setLogType(InventoryLogType.INSTORAGE.getCode());
+				if(CheckingInType.GoodsSplit.getCode().equals(sheet.getSheetType()))
+				{
+					sto.setLogType(InventoryLogType.GoodsSplitCheckin.getCode());
+				}
 				if (CheckingInType.RealGoods.getCode().equals(sheet.getSheetType())) {
 					sto.setLogType(InventoryLogType.GoodsCheckin.getCode());
 				}

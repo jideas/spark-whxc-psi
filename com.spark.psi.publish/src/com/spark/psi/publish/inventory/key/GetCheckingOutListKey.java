@@ -32,6 +32,16 @@ public class GetCheckingOutListKey extends LimitKey {
 	private SortField sortField;
 
 	private boolean realGoods = false;
+	
+	private boolean goodsSplit = false;
+
+	public boolean isGoodsSplit() {
+		return goodsSplit;
+	}
+
+	public void setGoodsSplit(boolean goodsSplit) {
+		this.goodsSplit = goodsSplit;
+	}
 
 	/**
 	 * ¹¹Ôìº¯Êý

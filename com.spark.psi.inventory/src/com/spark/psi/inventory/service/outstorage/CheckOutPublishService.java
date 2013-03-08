@@ -248,10 +248,15 @@ public class CheckOutPublishService extends Service {
 			qb.addColumn("t.checkoutType", "checkoutType");
 
 			qb.addArgs("citype", qb.STRING, CheckingOutType.RealGoods.getCode());
-			if (key.isRealGoods()) {
+			qb.addArgs("citype1", qb.STRING, CheckingOutType.GoodsSplit.getCode());
+			if (key.isRealGoods()||key.isGoodsSplit()) {
+				if(key.isRealGoods())
 				qb.addEquals("t.checkoutType", "@citype");
+				else
+					qb.addEquals("t.checkoutType", "@citype1");
 			} else {
 				qb.addNotEquals("t.checkoutType", "@citype");
+				qb.addNotEquals("t.checkoutType", "@citype1");
 			}
 			// х╗оч
 			if (login.hasAuth(Auth.Boss) || key.isRealGoods()) {

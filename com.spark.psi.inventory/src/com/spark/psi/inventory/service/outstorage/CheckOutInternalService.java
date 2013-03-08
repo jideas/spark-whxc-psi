@@ -55,7 +55,14 @@ public class CheckOutInternalService extends Service {
 			String sheetNo = context.get(String.class, SheetNumberType.Checkout);
 			CreateCheckOutSheetTask sheet = new CreateCheckOutSheetTask();
 			sheet.setRECID(context.newRECID());
-			sheet.setCheckoutType(CheckingOutType.RealGoods.getCode());
+			if(null!=task.getCheckingOutType())
+			{
+				sheet.setCheckoutType(task.getCheckingOutType().getCode());
+			}
+			else
+			{
+				sheet.setCheckoutType(CheckingOutType.RealGoods.getCode());
+			}
 			sheet.setRelaBillsId(task.getRelaBillsId());
 			sheet.setRelaBillsNo(task.getRelaBillsNo());
 			sheet.setRemark(task.getRemark());
@@ -188,7 +195,6 @@ public class CheckOutInternalService extends Service {
 				sto.setCode(goods.getGoodsCode());
 			}
 			sto.setStoreId(sheet.getStoreId());
-			sto.setCode(item.getGoodsCode());
 			sto.setCreatedDate(System.currentTimeMillis());
 			sto.setCreatePerson(user.getName());
 			sto.setId(context.newRECID());
@@ -207,6 +213,10 @@ public class CheckOutInternalService extends Service {
 				sto.setLogType(InventoryLogType.OUTSTORAGE.getCode());
 				if (CheckingOutType.RealGoods.getCode().equals(sheet.getCheckoutType())) {
 					sto.setLogType(InventoryLogType.GoodsCheckout.getCode());
+				}
+				if(CheckingOutType.GoodsSplit.getCode().equals(sheet.getCheckoutType()))
+				{
+					sto.setLogType(InventoryLogType.GoodsSplitCheckout.getCode());
 				}
 			}
 			sto.setOrderId(sheet.getRECID());

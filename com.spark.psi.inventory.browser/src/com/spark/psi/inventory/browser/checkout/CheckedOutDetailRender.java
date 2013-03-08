@@ -30,7 +30,7 @@ public class CheckedOutDetailRender extends ExtendSimpleSheetPageRender {
 		int columnsSize = 6;
 		
 		String goodsTilte  = "材料";
-		if(info.getCheckoutType().equals(CheckingOutType.RealGoods.getCode())){
+		if(info.getCheckoutType().equals(CheckingOutType.RealGoods.getCode())||CheckingOutType.GoodsSplit.getCode().equals(info.getCheckoutType())){
 			goodsTilte  = "商品";
 		}
 
@@ -53,7 +53,7 @@ public class CheckedOutDetailRender extends ExtendSimpleSheetPageRender {
 	public String getText(Object element, int columnIndex) {
 		if (element instanceof CheckOutBaseInfoItem) {
 			CheckOutBaseInfoItem item = (CheckOutBaseInfoItem) element;
-			if (CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())) {
+			if (CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())||CheckingOutType.GoodsSplit.getCode().equals(info.getCheckoutType())) {
 				GoodsItemInfo goods = getContext().find(GoodsItemInfo.class, item.getGoodsId());
 				switch (columnIndex) {
 				case 0:
@@ -111,7 +111,7 @@ public class CheckedOutDetailRender extends ExtendSimpleSheetPageRender {
 		}
 		if (1 == row) {
 			if (0 == column) {
-				if (!CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())) {
+				if (!CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())&&!CheckingOutType.GoodsSplit.getCode().equals(info.getCheckoutType())) {
 					new Label(baseInfoArea).setText("提货人：");
 					Label t = new Label(baseInfoArea);
 					t.setID(CheckedOutDetailProcessor.ID_Text_DeliveryPerson);

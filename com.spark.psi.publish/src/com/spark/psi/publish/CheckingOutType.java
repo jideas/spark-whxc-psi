@@ -12,7 +12,8 @@ public enum CheckingOutType {
 	Mateiral_Take("05", "领料出库"), //
 	Mateiral_Return("06", "退料出库"), //
 	Joint("07", "联营出库"), //
-	Gift("08", "赠品出库");
+	Gift("08", "赠品出库"),
+	GoodsSplit("09","成品拆分");
 
 	/**
 	 * 代码
@@ -25,7 +26,7 @@ public enum CheckingOutType {
 	private String name;
 
 	public boolean isMaterialTakeOrReturn() {
-		return this == Mateiral_Take || this == Mateiral_Return || this == RealGoods;
+		return this == Mateiral_Take || this == Mateiral_Return || this == RealGoods||this==GoodsSplit;
 	}
 
 	public boolean isRealGoods() {
@@ -79,6 +80,9 @@ public enum CheckingOutType {
 			return Joint;
 		} else if (Gift.code.equals(code)) {
 			return Gift;
+		}
+		else if (GoodsSplit.code.equals(code)) {
+			return GoodsSplit;
 		}
 		return null;
 	}

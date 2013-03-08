@@ -117,7 +117,7 @@ public class CheckedOutDetailProcessor extends ExtendSimpleSheetPageProcessor<Ch
 		this.deliveryUnitText = this.createLabelControl(ID_Text_DeliveryUnit);
 		this.voucherNumberText = this.createLabelControl(ID_Text_VoucherNumber);
 
-		if (!CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())) {
+		if (!CheckingOutType.RealGoods.getCode().equals(info.getCheckoutType())&&!CheckingOutType.GoodsSplit.getCode().equals(info.getCheckoutType())) {
 			this.deliveryPersonText.setText(info.getTakePerson());
 			this.deliveryUnitText.setText(info.getTakeUnit());
 			this.voucherNumberText.setText(info.getVouchersNo());
@@ -131,7 +131,6 @@ public class CheckedOutDetailProcessor extends ExtendSimpleSheetPageProcessor<Ch
 				this.voucherNumberText.setText("нч");
 			}
 		}
-
 	}
 
 	/**
