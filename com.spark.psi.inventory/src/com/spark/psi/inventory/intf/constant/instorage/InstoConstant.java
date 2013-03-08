@@ -114,6 +114,7 @@ public abstract class InstoConstant {
 	}
 
 	/**
+	 * 
 	 * 根据长度 截取字符串
 	 * 
 	 * @param str
