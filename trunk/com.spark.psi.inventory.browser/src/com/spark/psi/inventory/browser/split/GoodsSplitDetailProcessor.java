@@ -314,6 +314,7 @@ public class GoodsSplitDetailProcessor extends
 				}
 				catch(Throwable t)
 				{
+					t.printStackTrace();
 					alert(t.getMessage());
 					return;
 				}

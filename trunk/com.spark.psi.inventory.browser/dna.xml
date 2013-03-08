@@ -95,6 +95,10 @@
 				title="成品出库列表页面*"
 				processor="com.spark.psi.inventory.browser.checkout.RealGoodsCheckOutListProcessor"
 				render="com.spark.psi.inventory.browser.checkout.RealGoodsCheckOutListRender" />
+			<page space="psi/inventory" name="GoodsSplitCheckOutListPage"
+				title="成品拆分出库列表页面*"
+				processor="com.spark.psi.inventory.browser.checkout.GoodsSplitCheckOutListProcessor"
+				render="com.spark.psi.inventory.browser.checkout.GoodsSplitCheckOutListRender" />
 			<page space="psi/inventory" name="PurchaseReturnCheckingOutListPage"
 				title="采购退货入库列表页面*"
 				processor="com.spark.psi.inventory.browser.checkout.PurchaseReturnCheckingOutListProcessor"

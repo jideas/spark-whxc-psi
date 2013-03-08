@@ -24,6 +24,7 @@ public class InventoryCheckoutFunction extends PSIFunction {
 		return new BaseFunction[] { new BaseFunction(new PageControllerInstance("SalesCheckingOutListPage"), "批发出库", true),
 				new BaseFunction(new PageControllerInstance("MaterialsCheckingOutListPage"), "材料出库"),
 				new BaseFunction(new PageControllerInstance("RealGoodsCheckOutListPage"), "成品出库"),
+				new BaseFunction(new PageControllerInstance("GoodsSplitCheckOutListPage"), "成品拆分出库"),
 				new BaseFunction(new PageControllerInstance("PurchaseReturnCheckingOutListPage"), "采购退货"),
 				new BaseFunction(new PageControllerInstance("KitCheckingOutDetailPage"), "其他出库"),
 				new BaseFunction(new PageControllerInstance("ProcessedCheckingOutListPage"), "出库记录") };

@@ -357,7 +357,7 @@ public class StoreCheckService extends Service {
 				InventoryBusTask oTask = new InventoryBusTask(checkInventory.getStoreGuid(), item.getGoodsGuid());
 				oTask.setChangeCount(DoubleUtil.round(DoubleUtil.sub(item.getRealCount(), item.getCarryCount())));
 				oTask.setCount(true);
-				oTask.setUpdateAvgPrice(true);
+				oTask.setUpdateAvgPrice(false);
 				if (null != oTask.getChangeCount() && oTask.getChangeCount() > 0) {
 					setShelfItem(oTask, task.getInventorysAdd(), checkInventory.getStoreGuid(), item.getGoodsGuid(),
 							false);
@@ -383,13 +383,13 @@ public class StoreCheckService extends Service {
 				stoStream.setInventoryType(InventoryType.Materials.getCode());
 				MaterialsItem materials = context.find(MaterialsItem.class, item.getGoodsGuid());
 				if (null != materials) {
-					stoStream.setProperties(MaterialsProperyUtil.subMaterialsPropertyToString(materials
-							.getMaterialProperties()));
+					stoStream.setProperties(materials.getSpec());
 					stoStream.setName(materials.getMaterialName());
 					stoStream.setCode(materials.getMaterialCode());
 					stoStream.setCategoryId(materials.getCategoryId());
 					stoStream.setScale(materials.getScale());
 					stoStream.setStockNo(materials.getMaterialNo());
+					stoStream.setUnit(materials.getMaterialUnit());
 				}
 
 				if (0 == oTask.getChangeCount()) {

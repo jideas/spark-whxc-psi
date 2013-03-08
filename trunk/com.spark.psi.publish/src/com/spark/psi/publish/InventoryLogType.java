@@ -47,6 +47,8 @@ public enum InventoryLogType {
 	GoodsCheckout("21","成品出库"),
 	/**成品入库**/
 	GoodsCheckin("22","成品入库"),
+	GoodsSplitCheckout("23","商品拆分出库"),
+	GoodsSplitCheckin("24","商品拆分入库"),
 	
 	
 	
@@ -140,6 +142,12 @@ public enum InventoryLogType {
 			break;
 		case 22:
 			typeEnum = InventoryLogType.GoodsCheckin;
+			break;
+		case 23:
+			typeEnum = InventoryLogType.GoodsSplitCheckout;
+			break;
+		case 24:
+			typeEnum = InventoryLogType.GoodsSplitCheckin;
 			break;
 		}
 		
