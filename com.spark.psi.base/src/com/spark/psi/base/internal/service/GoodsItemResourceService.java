@@ -217,6 +217,7 @@ public class GoodsItemResourceService extends
 			old.setAssessCost(_new.getAssessCost());
 			old.setGoodsNo(_new.getGoodsNo());
 			old.setSerialNumber(_new.getSerialNumber());
+			old.setOriginalPrice(_new.getOriginalPrice());
 //			old.setRecentPurchasePrice(_new.getRecentPurchasePrice());
 			context.postModifiedResource(old);
 			
