@@ -362,67 +362,6 @@ public class InsertService extends Service {
 		context.handle(avgTask);
 	}
 
-	/**
-	 * 生成盘点流水
-	 * 
-	 * @param context
-	 * @param cTask
-	 *            void
-	 */
-	private void insertCountInventoryLog(Context context, CheckInventoryTask cTask) {
-		for (CheckInventoryItem item : cTask.getList()) {
-			if (InventoryCountType.Kit.getCode().equals(cTask.getCheckInventoryEntity().getCheckObj())) {
-				OtherGoods otherGoods = new OtherGoods();
-				otherGoods.setDescription(item.getGoodsAttr());
-				otherGoods.setInit(false);
-				otherGoods.setName(item.getGoodsName());
-				otherGoods.setNumber(DoubleUtil.sub(item.getRealCount(), item.getCarryCount()));
-				otherGoods.setUnit(item.getUnit());
-
-			} else if (InventoryCountType.Materials.getCode().equals(
-					cTask.getCheckInventoryEntity().getCheckObj())) {
-				StoStreamTask sTask = new StoStreamTask();
-				InventoryLogEntity sto = new InventoryLogEntity();
-				sto.setCreatedDate(new Date().getTime());
-				sto.setCreatePerson(context.find(Employee.class, context.find(Login.class).getEmployeeId())
-						.getName());
-				sto.setCreatedDate(new Date().getTime());
-				sto.setStockId(item.getGoodsGuid());
-				sto.setStoreId(cTask.getCheckInventoryEntity().getStoreGuid());
-				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsGuid());
-				if (null != goods) {
-					sto.setCategoryId(goods.getCategoryId());
-					sto.setName(goods.getMaterialName());
-					sto.setProperties(goods.getSpec());
-					sto.setUnit(goods.getMaterialUnit());
-					sto.setCode(goods.getMaterialCode());
-					sto.setStockNo(goods.getMaterialNo());
-					sto.setScale(goods.getScale());
-					sto.setInventoryType(InventoryType.Materials.getCode());
-				}
-
-				if (0 == DoubleUtil.sub(item.getRealCount(), item.getCarryCount())) {
-					continue;
-				}
-				if (DoubleUtil.sub(item.getRealCount(), item.getCarryCount()) > 0) {
-					sto.setInstoCount(DoubleUtil.sub(item.getRealCount(), item.getCarryCount()));
-					sto.setLogType(InventoryLogType.CheckProfit.getCode());
-				} else {
-					sto.setOutstoCount(DoubleUtil.mul(-1, DoubleUtil.sub(item.getRealCount(), item
-							.getCarryCount())));
-					sto.setLogType(InventoryLogType.CheckDeficient.getCode());
-				}
-
-				sto.setOrderId(cTask.getCheckInventoryEntity().getRecid());
-				sto.setId(context.newRECID());
-
-				sTask.setStoStream(sto);
-
-				context.handle(sTask, StoStreamTask.Task.add);
-			}
-		}
-	}
-
 	public void insertLog(Context context, OutstoAddTask task) {
 		GUID logId = context.newRECID();
 		double sumCount = 0;
