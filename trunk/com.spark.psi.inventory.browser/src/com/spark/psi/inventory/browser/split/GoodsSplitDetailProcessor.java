@@ -61,7 +61,7 @@ public class GoodsSplitDetailProcessor extends
 	public static final String ID_Button_AddGoods = "Button_AddGoods";
 
 	public static enum GoodsColumnName {
-		goodsName, spec, count
+		goodsName, spec,unit, count
 	}
 
 	public static enum GoodsTableExtraValueName {
@@ -69,7 +69,7 @@ public class GoodsSplitDetailProcessor extends
 	}
 
 	public static enum MaterialColumnName {
-		materialName, spec, scount, count
+		materialName, spec,unit, scount, count
 	}
 
 	public static enum MaterialTableExtraValueName {
