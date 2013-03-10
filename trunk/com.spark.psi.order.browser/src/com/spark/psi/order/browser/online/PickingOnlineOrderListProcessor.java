@@ -57,7 +57,7 @@ public class PickingOnlineOrderListProcessor<Item> extends
 	public static final String ID_Area_Hide = "Area_Hide";
 
 	public static enum ColumnName {
-		code, goodsName, properties, count, customerName, amount, bookingTime, deliveredTime, station, isToDoor
+		code, goodsName, properties, count, customerName, amount, bookingTime, deliveredTime, station, isToDoor,isVantagesGoodsOrder
 	}
 
 	private Label countLabel = null;
@@ -444,6 +444,7 @@ public class PickingOnlineOrderListProcessor<Item> extends
 				showItem.setTotalAmount(item.getTotalAmount());
 				showItem.setConsignor(item.getDeliverPerson());
 				showItem.setToDoor(item.isToDoor());
+				showItem.setVantagesCost(item.getVantagesCost());
 
 				showItem.setGoodsName(infoItem.getGoodsName());
 				showItem.setGoodsSpec(infoItem.getGoodsSpec());

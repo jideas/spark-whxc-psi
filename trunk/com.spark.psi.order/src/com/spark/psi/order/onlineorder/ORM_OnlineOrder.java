@@ -39,6 +39,9 @@ public class ORM_OnlineOrder extends ORMDeclarator<com.spark.onlineorder.intf.en
 	public final QueryColumnDefine c_returnFlag;
 	public final QueryColumnDefine c_isToDoor;
 	public final QueryColumnDefine c_vantages;
+	public final QueryColumnDefine c_deliveryCost;
+	public final QueryColumnDefine c_vantagesCost;
+	public final QueryColumnDefine c_payType;
 
 	public ORM_OnlineOrder() {
 		this.arg_id = this.orm.getArguments().get(0);
@@ -72,5 +75,8 @@ public class ORM_OnlineOrder extends ORMDeclarator<com.spark.onlineorder.intf.en
 		this.c_returnFlag = this.orm.getColumns().get(27);
 		this.c_isToDoor = this.orm.getColumns().get(28);
 		this.c_vantages = this.orm.getColumns().get(29);
+		this.c_deliveryCost = this.orm.getColumns().get(30);
+		this.c_vantagesCost = this.orm.getColumns().get(31);
+		this.c_payType = this.orm.getColumns().get(32);
 	}
 }

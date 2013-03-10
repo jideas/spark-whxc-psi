@@ -42,7 +42,7 @@ public class ArrivaledOnlineOrderListRender extends PSIListPageRender {
 	
 	@Override
 	public STableColumn[] getColumns() {
-		STableColumn[] columns = new STableColumn[8];
+		STableColumn[] columns = new STableColumn[9];
 		int index = 0;
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.code.name(), 150, JWT.LEFT, "订单编号");
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.amount.name(), 120, JWT.RIGHT, "订单金额");
@@ -50,9 +50,10 @@ public class ArrivaledOnlineOrderListRender extends PSIListPageRender {
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.consignee.name(), 120, JWT.CENTER, "确认到货");
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.arriveTime.name(), 120, JWT.CENTER, "到货时间");
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.customerName.name(), 120, JWT.CENTER, "会员");
+		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.isVantagesGoodsOrder.name(), 80, JWT.CENTER, "积分商品");
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.isToDoor.name(), 80, JWT.CENTER, "送货上门");
 		columns[index++] = new STableColumn(ArrivaledOnlineOrderListProcessor.ColumnName.station.name(), 100, JWT.LEFT, "站点");
-		columns[7].setGrab(true);
+		columns[8].setGrab(true);
 		return columns;
 	}
 
@@ -73,8 +74,10 @@ public class ArrivaledOnlineOrderListRender extends PSIListPageRender {
 		case 5:
 			return item.getRealName();
 		case 6:
-			return item.isToDoor()?"是":"否";
+			return item.getTotalAmount()==0&&item.getVantagesCost()>0?"是":"否";
 		case 7:
+			return item.isToDoor()?"是":"否";
+		case 8:
 			return item.getStationName();
 		}
 		return null;

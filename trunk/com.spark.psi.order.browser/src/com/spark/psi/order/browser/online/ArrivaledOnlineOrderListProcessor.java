@@ -31,7 +31,7 @@ public class ArrivaledOnlineOrderListProcessor<Item> extends OnlinOrderListProce
 	public static final String ID_Search_Advanced = "Search_Advanced";
 	
 	public static enum ColumnName {
-		code, customerName, amount, bookingTime, station, consignee, arriveTime,isToDoor
+		code, customerName, amount, bookingTime, station, consignee, arriveTime,isToDoor,isVantagesGoodsOrder
 	}
 	
 	private Label countLabel       =  null;

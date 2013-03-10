@@ -41,7 +41,28 @@ public class OnlineOrderInfoImpl implements OnlineOrderInfo{
 	private String noVerificationReason;//	跳过验证原因
 	private boolean returnFlag;
 	private boolean isToDoor;
+	private double deliveryCost;
+	private double vantagesCost;
+	private String payType; 
 
+	public double getDeliveryCost() {
+		return deliveryCost;
+	}
+	public void setDeliveryCost(double deliveryCost) {
+		this.deliveryCost = deliveryCost;
+	}
+	public double getVantagesCost() {
+		return vantagesCost;
+	}
+	public void setVantagesCost(double vantagesCost) {
+		this.vantagesCost = vantagesCost;
+	}
+	public String getPayType() {
+		return payType;
+	}
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
 	private OnlineOrderInfoItem[] items;
 	
 	public GUID getConsignorId() {

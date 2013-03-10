@@ -49,7 +49,7 @@ public abstract class UnHandledOnlineOrderListProcessor<Item> extends OnlinOrder
 	public static final int MAX_SUMMARY_ORDER_COUNT = 200;
 
 	public static enum ColumnName {
-		code, goodsName, properties, count, customerName, amount, bookingTime, deliveredTime, station,isToDoor
+		code, goodsName, properties, count, customerName, amount, bookingTime, deliveredTime, station,isToDoor,isVantagesGoodsOrder
 	}
 
 	private Label countLabel = null;
@@ -242,6 +242,7 @@ public abstract class UnHandledOnlineOrderListProcessor<Item> extends OnlinOrder
 				showItem.setGoodsSpec(infoItem.getGoodsSpec());
 				showItem.setCount(infoItem.getCount());
 				showItem.setToDoor(item.isToDoor());
+				showItem.setVantagesCost(item.getVantagesCost());
 
 				showItemList.add(showItem);
 
