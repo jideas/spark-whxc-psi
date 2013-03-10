@@ -3,11 +3,11 @@
 <products>
 	<product id="LS_PSI001" title="标准版">
 		<auth-info>
-			<role code="99" mask="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17" name="董事长"
+			<role code="19" mask="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" name="董事长"
 				description="具有全部功能的操作权限" />
-			<role code="0" mask="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17" name="总经理"
+			<role code="0" mask="19,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" name="总经理"
 				description="具有全部功能的操作权限" />
-			<role code="1" mask="2,0" name="销售经理" description="管理下属员工，管理本部门的客户、销售订货，负责制定销售目标">
+			<role code="1" mask="2,0,19" name="销售经理" description="管理下属员工，管理本部门的客户、销售订货，负责制定销售目标">
 				<auth>0002</auth>
 				<auth>0003</auth>
 				<auth>1002</auth>
@@ -38,7 +38,7 @@
 				<auth>102204</auth>
 				<auth>1027</auth>
 			</role>
-			<role code="2" mask="1,0" name="销售员工" description="管理本人的客户、创建和跟踪销售订货、销售退货单">
+			<role code="2" mask="1,0,19" name="销售员工" description="管理本人的客户、创建和跟踪销售订货、销售退货单">
 				<auth>0003</auth>
 				<auth>1027</auth>
 				<auth>1006</auth>
@@ -62,7 +62,7 @@
 				<auth>102201</auth>
 				<auth>102204</auth>
 			</role>
-			<role code="3" mask="4,0" name="库管经理"
+			<role code="3" mask="4,0,19" name="库管经理"
 				description="管理下属员工，管理本部门所负责的仓库，在库存调拨环节，负责审批工作">
 				<auth>0008</auth>
 				<auth>0009</auth>
@@ -99,7 +99,7 @@
 				<auth>100502</auth>
 				<auth>100504</auth>
 			</role>
-			<role code="4" mask="3,0" name="库管员工" description="管理本人所负责的仓库，包括出库、入库、盘点、拆装和提出调拨申请">
+			<role code="4" mask="3,0,19" name="库管员工" description="管理本人所负责的仓库，包括出库、入库、盘点、拆装和提出调拨申请">
 				<auth>0009</auth>
 				<auth>1002</auth>
 				<auth>1003</auth>
@@ -132,7 +132,7 @@
 				<auth>101804</auth>
 				<auth>101806</auth>
 			</role>
-			<role code="5" mask="6,0" name="采购经理" description="管理下属员工，管理本部门的供应商、采购订货">
+			<role code="5" mask="6,0,19" name="采购经理" description="管理下属员工，管理本部门的供应商、采购订货">
 				<auth>0004</auth>
 				<auth>0005</auth>
 				<auth>1002</auth>
@@ -153,7 +153,7 @@
 				<auth>102102</auth>
 				<auth>102103</auth>
 			</role>
-			<role code="6" mask="5,0" name="采购员工" description="创建和跟踪采购订货、采购退货单">
+			<role code="6" mask="5,0,19" name="采购员工" description="创建和跟踪采购订货、采购退货单">
 				<auth>0005</auth>
 				<auth>1002</auth>
 				<auth>100202</auth>
@@ -168,7 +168,7 @@
 				<auth>102102</auth>
 				<auth>102103</auth>
 			</role>
-			<role code="7" mask="8,0" name="财务经理" description="管理下属员工，管理企业的收付款、往来款">
+			<role code="7" mask="8,0,19" name="财务经理" description="管理下属员工，管理企业的收付款、往来款">
 				<auth>0006</auth>
 				<auth>0007</auth>
 				<auth>1002</auth>
@@ -207,7 +207,7 @@
 				<auth>1050</auth>
 				<auth>1050002</auth>
 			</role>
-			<role code="8" mask="7,0" name="财务员工" description="管理企业的收付款、往来款">
+			<role code="8" mask="7,0,19" name="财务员工" description="管理企业的收付款、往来款">
 				<auth>0007</auth>
 				<auth>1006</auth>
 				<auth>1007</auth>
@@ -243,7 +243,7 @@
 				<auth>1050</auth>
 				<auth>1050002</auth>
 			</role>
-			<role code="10" mask="0" name="统计员" description="对销售订货单进行出库分配工作">
+			<role code="10" mask="0,19" name="统计员" description="对销售订货单进行出库分配工作">
 				<auth>0010</auth>
 				<auth>1002</auth>
 				<auth>1003</auth>
@@ -289,7 +289,7 @@
 				<auth>1050</auth>
 				<auth>1050003</auth>
 			</role>
-			<role code="11" mask="12,0" name="站点经理" description="管理下属员工，管理本部门的站点的收货，领货，退货等工作">
+			<role code="11" mask="12,0,19" name="站点经理" description="管理下属员工，管理本部门的站点的收货，领货，退货等工作">
 				<auth>0012</auth>
 				<auth>1003</auth>
 				<auth>1002</auth>
@@ -305,7 +305,7 @@
 				<auth>1040</auth>
 				<auth>1040001</auth>
 			</role>
-			<role code="12" mask="11,0" name="站点员工" description="管理本人负责的站点的收货，领货，退货等工作">
+			<role code="12" mask="11,0,19" name="站点员工" description="管理本人负责的站点的收货，领货，退货等工作">
 				<auth>0013</auth>
 				<auth>1003</auth>
 				<auth>1002</auth>
@@ -321,7 +321,7 @@
 				<auth>1040</auth>
 				<auth>1040001</auth>
 			</role>
-			<role code="13" mask="14,0" name="车间经理" description="管理下属员工，管理本部门的产品生产工作">
+			<role code="13" mask="14,0,19" name="车间经理" description="管理下属员工，管理本部门的产品生产工作">
 				<auth>0014</auth>
 				<auth>0015</auth>
 				<auth>1003</auth>
@@ -332,7 +332,7 @@
 				<auth>1050</auth>
 				<auth>1050001</auth>
 			</role>
-			<role code="14" mask="13,0" name="车间员工" description="管理本部门的产品生产工作">
+			<role code="14" mask="13,0,19" name="车间员工" description="管理本部门的产品生产工作">
 				<auth>0015</auth>
 				<auth>1003</auth>
 				<auth>1002</auth>
@@ -340,7 +340,7 @@
 				<auth>1034001</auth>
 				<auth>1034003</auth>
 			</role>
-			<role code="15" mask="16,0" name="配送经理" description="管理下属员工，管理本部门负责的配送工作">
+			<role code="15" mask="16,0,19" name="配送经理" description="管理下属员工，管理本部门负责的配送工作">
 				<auth>0016</auth>
 				<auth>0017</auth>
 				<auth>1003</auth>
@@ -355,7 +355,7 @@
 				<auth>1035102</auth>
 				<auth>1035103</auth>
 			</role>
-			<role code="16" mask="15,0" name="配送员工" description="管理本人负责的配送工作">
+			<role code="16" mask="15,0,19" name="配送员工" description="管理本人负责的配送工作">
 				<auth>0017</auth>
 				<auth>1003</auth>
 				<auth>1002</auth>
@@ -369,7 +369,7 @@
 				<auth>1035102</auth>
 				<auth>1035103</auth>
 			</role>
-			<role code="18" mask="0" name="客服" description="负责网上订单退货等工作">
+			<role code="18" mask="0,19" name="客服" description="负责网上订单退货等工作">
 				<auth>0018</auth>
 				<auth>1033</auth>
 				<auth>1040</auth> 
