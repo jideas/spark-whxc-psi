@@ -118,7 +118,7 @@ public class PurchasingGoodsSelectRender extends MaterialCategoryFramePageRender
 		@Override
 		public STableStyle getTableStyle() {
 			STableStyle tableStyle = new STableStyle();
-			tableStyle.setPageAble(true);
+			tableStyle.setPageAble(false);
 			tableStyle.setSelectionMode(SSelectionMode.Row);
 			return tableStyle;
 		}

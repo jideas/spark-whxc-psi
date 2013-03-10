@@ -254,7 +254,7 @@ public class PurchasingGoodsSelectProcessor extends MaterialCategoryFramePagePro
 			if (StringUtils.isEmpty(storeList.getText())) {
 				return null;
 			}
-			GetMaterialsInfoListKey key = new GetMaterialsInfoListKey(tablestatus.getBeginIndex(), tablestatus.getPageSize(), false);
+			GetMaterialsInfoListKey key = new GetMaterialsInfoListKey(0, JWT.MAXIMUM, false);
 			key.setSearchText(searchText);
 			key.setCateoryId(categoryId);
 			key.setJointVenture(false);
