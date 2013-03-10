@@ -38,4 +38,7 @@ public interface OnlineOrderItem {
 	public OnlineOrderInfoItem[] getItems();
 	public boolean isReturnFlag();
 	public boolean isToDoor();
+	public double getDeliveryCost();
+	public double getVantagesCost();
+	public String getPayType();
 }

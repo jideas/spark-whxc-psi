@@ -46,7 +46,7 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 	
 	@Override
 	public STableColumn[] getColumns() {
-		STableColumn[] columns = new STableColumn[10];
+		STableColumn[] columns = new STableColumn[11];
 		int index = 0;
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.code.name(), 150, JWT.LEFT, "订单编号");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.goodsName.name(), 150, JWT.LEFT, "商品名称", "订单商品");
@@ -54,12 +54,13 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.count.name(), 150, JWT.RIGHT, "商品数量", "订单商品");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.customerName.name(), 90, JWT.CENTER, "会员");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.amount.name(), 90, JWT.RIGHT, "订单金额");
+		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.isToDoor.name(), 80, JWT.CENTER, "积分商品");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.isToDoor.name(), 80, JWT.CENTER, "送货上门");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.deliverTime.name(), 100, JWT.CENTER, "发货时间");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.deliverPerson.name(), 90, JWT.CENTER, "发货人");
 		columns[index++] = new STableColumn(DeliveringOnlinOrderListProcessor.ColumnName.station.name(), 130, JWT.LEFT, "站点");
 		
-		columns[9].setGrab(true);
+		columns[10].setGrab(true);
 		return columns;
 	}
 
@@ -80,12 +81,14 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 		case 5:
 			return DoubleUtil.getRoundStr(order.getTotalAmount());
 		case 6:
-			return order.isToDoor()?"是":"否";
+			return order.getTotalAmount()==0&&order.getVantagesCost()>0?"是":"否";
 		case 7:
-			return DateUtil.dateFromat(order.getDeliverDate(), DateUtil.DATE_TIME_PATTERN);
+			return order.isToDoor()?"是":"否";
 		case 8:
-			return order.getConsignor();
+			return DateUtil.dateFromat(order.getDeliverDate(), DateUtil.DATE_TIME_PATTERN);
 		case 9:
+			return order.getConsignor();
+		case 10:
 			return order.getStationName();
 		}
 		return null;
@@ -95,7 +98,7 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 	public String getToolTipText(Object element, int columnIndex) {
 		OnlineOrderShowItem order = (OnlineOrderShowItem)element;
 		switch(columnIndex) {
-		case 7:
+		case 8:
 			return DateUtil.dateFromat(order.getDeliverDate(), DateUtil.DATE_TIME_PATTERN);
 		default:
 			return null;
@@ -117,6 +120,7 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 		case 7:
 		case 8:
 		case 9:
+		case 10:
 			return order.getRowSpan();
 		default:
 			return 0;
@@ -133,6 +137,7 @@ public class DeliveringOnlinOrderListRender extends PSIMultiItemListPageRender{
 		case 6:
 		case 7:
 		case 8:
+		case 9:
 			return true;
 		default:
 			return false;

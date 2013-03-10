@@ -33,7 +33,7 @@ public class FinishedOnlineOrderListProcessor<Item> extends
 	public static final String ID_Search_Advanced = "Search_Advanced";
 	
 	public static enum ColumnName {
-		code, customerName, amount, bookingTime, isToDoor,station, arriveTime, finishTime
+		code, customerName, amount, bookingTime, isToDoor,station, arriveTime, finishTime,isVantagesGoodsOrder
 	}
 	
 	private Label countLabel       =  null;

@@ -31,7 +31,10 @@ begin
 		t."verificationCode" as "verificationCode",
 		t.returnFlag as returnFlag,
 		t.toDoor as isToDoor,
-		t."vantages" as "vantages"
+		t."vantages" as "vantages",
+		t.deliveryCost as deliveryCost,
+		t.vantagesCost as vantagesCost,
+		t.payType as payType
 	from ERP_Sales_OnlineOrder as t
 	where t.RECID = @id
 end

@@ -37,7 +37,7 @@ public class DeliveringOnlinOrderListProcessor<Item> extends
 	
 	public static enum ColumnName {
 		code, goodsName, properties, count, customerName, 
-		amount, station, deliverTime, deliverPerson,isToDoor
+		amount, station, deliverTime, deliverPerson,isToDoor,isVantagesGoodsOrder
 	}
 	
 	private Label countLabel       =  null;
@@ -159,6 +159,7 @@ public class DeliveringOnlinOrderListProcessor<Item> extends
 				showItem.setGoodsName(infoItem.getGoodsName());
 				showItem.setGoodsSpec(infoItem.getGoodsSpec());
 				showItem.setCount(infoItem.getCount());
+				showItem.setVantagesCost(item.getVantagesCost());
 				
 				showItemList.add(showItem);
 				

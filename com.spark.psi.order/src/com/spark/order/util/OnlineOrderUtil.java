@@ -234,6 +234,10 @@ public final class OnlineOrderUtil {
 		impl.setNoVerificationReason(rs.getFields().get(index++).getString());
 		impl.setReturnFlag(rs.getFields().get(index++).getBoolean());
 		impl.setToDoor(rs.getFields().get(index++).getBoolean());
+		impl.setDeliveryCost(rs.getFields().get(index++).getDouble());
+		index++;
+		impl.setVantagesCost(rs.getFields().get(index++).getDouble());
+		impl.setPayType(rs.getFields().get(index++).getString());
 
 		List<OnlineOrderInfoItem> items = context.getList(OnlineOrderInfoItem.class, impl.getId());
 
@@ -251,6 +255,9 @@ public final class OnlineOrderUtil {
 				sql.append(" ").append(key.getSortType()).append("\n");
 			}
 		} else {
+			if(OnlineOrderStatus.Finished==key.getStatus()[0])
+				sql.append(" order by t.createDate desc, t.realName asc \n");
+			else
 			sql.append(" order by t.deliveryeDate asc, t.realName asc \n");
 		}
 		return sql;
@@ -323,7 +330,6 @@ public final class OnlineOrderUtil {
 		sql.append("t.returnFlag as returnFlag\n");
 		sql.append(",t.toDoor as toDoor\n");
 		sql.append(",t.deliveryCost as deliveryCost\n");
-		sql.append(",t.bagsCost as bagsCost\n");
 		sql.append(",t.vantages as vantages\n");
 		sql.append(",t.vantagesCost as vantagesCost\n");
 		sql.append(",t.payType as payType\n");
@@ -382,6 +388,9 @@ public final class OnlineOrderUtil {
 		i.setVerificationCode(e.getVerificationCode());
 		i.setReturnFlag(e.isReturnFlag());
 		i.setToDoor(e.isToDoor());
+		i.setDeliveryCost(e.getDeliveryCost());
+		i.setVantagesCost(e.getVantagesCost());
+		i.setPayType(e.getPayType());
 
 		List<OnlineOrderInfoItem> items = context.getList(OnlineOrderInfoItem.class, i.getId());
 		if (null != items && items.size() > 0)

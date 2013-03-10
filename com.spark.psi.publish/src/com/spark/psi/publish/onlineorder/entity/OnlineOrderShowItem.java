@@ -17,7 +17,16 @@ public class OnlineOrderShowItem extends MultItemRowObject {
 	// 发货日期
 	private long deliverDate;
 	private boolean isToDoor;
+	private double vantagesCost;
 	
+	public double getVantagesCost() {
+		return vantagesCost;
+	}
+
+	public void setVantagesCost(double vantagesCost) {
+		this.vantagesCost = vantagesCost;
+	}
+
 	public OnlineOrderShowItem(String id, int rowSpan, boolean isFirstItem) {
 		super(id, rowSpan, isFirstItem);
 	}
