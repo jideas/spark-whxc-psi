@@ -310,7 +310,7 @@ public class SplitGoodsSelectProcessor extends GoodsCategoryFramePageProcessor {
 					SelectedItem item = null;
 					if (selectedItemList.containsKey(id)) {
 						item = selectedItemList.get(id);
-						item.count = count;
+						item.count = item.count+count;
 					} else {
 						GoodsItemInfo itemInfo = getContext().find(GoodsItemInfo.class, GUID.tryValueOf(rowId));
 						item = new SelectedItem();
@@ -322,7 +322,7 @@ public class SplitGoodsSelectProcessor extends GoodsCategoryFramePageProcessor {
 						item.goodsItem = itemInfo;
 						selectedItemList.put(id, item);
 					}
-//					table.updateCell(rowId, "PurchaseCount", "", " ", item.getScale());
+					table.updateCell(rowId, "Count", "", " ", item.getScale());
 					table.renderUpate();
 					updateCountLabel();
 				} else {

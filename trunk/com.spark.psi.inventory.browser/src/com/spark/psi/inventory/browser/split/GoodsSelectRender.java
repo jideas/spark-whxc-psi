@@ -167,12 +167,15 @@ public class GoodsSelectRender extends GoodsCategoryFramePageRender {
 		}
 
 		public STableColumn[] getColumns() {
-			STableColumn[] columns = new STableColumn[2];
+			STableColumn[] columns = new STableColumn[4];
 			columns[0] = new STableColumn("GoodsName", 100, JWT.LEFT, "商品名称");
 			columns[1] = new STableColumn("GoodsProperties", 100, JWT.CENTER,
 					"规格");
+			columns[2] = new STableColumn("unit", 100, JWT.CENTER,
+			"单位");
+			columns[3] = new STableColumn("count", 100, JWT.CENTER,
+			"数量");
 			columns[0].setGrab(true);
-			columns[1].setGrab(true);
 //			columns[2] = new STableColumn("GoodsProperties", 100, JWT.CENTER,
 //			"数量");
 //			columns[2].setGrab(true);
@@ -193,6 +196,10 @@ public class GoodsSelectRender extends GoodsCategoryFramePageRender {
 				return item.goodsItem.getBaseInfo().getName();
 			case 1:
 				return  item.goodsItem.getItemData().getSpec();
+			case 2:
+				return  item.goodsItem.getItemData().getUnit();
+			case 3:
+				return  item.getCount()+"";
 //			case 2:
 //				return item.count+"";
 			}

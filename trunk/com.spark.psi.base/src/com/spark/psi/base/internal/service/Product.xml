@@ -3,6 +3,8 @@
 <products>
 	<product id="LS_PSI001" title="标准版">
 		<auth-info>
+			<role code="99" mask="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17" name="董事长"
+				description="具有全部功能的操作权限" />
 			<role code="0" mask="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17" name="总经理"
 				description="具有全部功能的操作权限" />
 			<role code="1" mask="2,0" name="销售经理" description="管理下属员工，管理本部门的客户、销售订货，负责制定销售目标">
