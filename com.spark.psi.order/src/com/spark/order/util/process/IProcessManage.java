@@ -30,12 +30,7 @@ public interface IProcessManage {
 	 * 获得订单变化后的部门，如果无变化返回null
 	 * @return GUID
 	 */
-	GUID getOrderDepartment();
-	/**
-	 * 获得订单变化后的审核部门，如果无变化返回null
-	 * @return GUID
-	 */
-	GUID getOrderExamDept();
+	GUID getOrderDepartment(); 
 	/**
 	 * 外部已有订单，放入订单，不在重新查询
 	 * @param order void

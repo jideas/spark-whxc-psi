@@ -26,16 +26,11 @@ abstract class ProcessManageImpl implements IProcessManage{
 		this.billsEnum = billsEnum;
 	}
 	
-	protected GUID orderDepartment;
-	protected GUID examDept;
+	protected GUID orderDepartment; 
 	
 	public GUID getOrderDepartment() {
 		return orderDepartment == null?orderInfo.getDeptId():orderDepartment;
-	}
-
-	public GUID getOrderExamDept() {
-		return examDept;
-	}
+	} 
 
 //	public StatusEnum next(GUID orderId) {
 //		// TODO Auto-generated method stub

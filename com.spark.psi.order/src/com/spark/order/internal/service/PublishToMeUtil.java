@@ -24,7 +24,6 @@ import com.spark.order.sales.intf.entity.SaleOrderInfo;
 import com.spark.order.sales.intf.entity.SaleOrderItem;
 import com.spark.order.sales2.SalesOrderItem2;
 import com.spark.order.service.util.OrderUtil;
-import com.spark.order.util.SalesUtil;
 import com.spark.psi.base.Employee;
 import com.spark.psi.base.Materials;
 import com.spark.psi.base.MaterialsItem;
@@ -385,9 +384,7 @@ public final class PublishToMeUtil {
 		info.setPartnerShortName(customer.getShortName());
 
 		info.setDeptId(BillsConstant.getUser(context).getDepartmentId());
-		info.setDisAmount(task.getDiscountAmount());
-		// …Û∫À≤ø√≈
-		info.setExamDeptGuid(SalesUtil.getInitSalesApproveDept(context));
+		info.setDisAmount(task.getDiscountAmount()); 
 		// info.sete
 		if (null != task.getContactPersonGuid()) {
 			ContactBookInfo contact = context.find(ContactBookInfo.class, task.getContactPersonGuid());

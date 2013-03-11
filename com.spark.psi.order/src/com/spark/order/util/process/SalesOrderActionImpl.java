@@ -68,8 +68,7 @@ public class SalesOrderActionImpl extends OrderActionImpl {
 		task.billsRECID = id;
 		task.oldstatus = this.orderInfo.getStatus();
 		task.newstatus = next.getKey();
-		task.info = this.orderInfo;
-		task.setExamDept(pm.getOrderExamDept());
+		task.info = this.orderInfo; 
 		context.handle(task);
 		if (StatusEnum.Store_N0 == next && task.isSucceed()) {
 			boolean isHaveStore = isHaveStore();
@@ -180,8 +179,7 @@ public class SalesOrderActionImpl extends OrderActionImpl {
 		task.billsRECID = id;
 		task.oldstatus = this.orderInfo.getStatus();
 		task.newstatus = next.getKey();
-		task.setDeptGuid(BillsConstant.getUser(context).getDepartmentId());
-		task.setExamDept(pm.getOrderExamDept());
+		task.setDeptGuid(BillsConstant.getUser(context).getDepartmentId()); 
 		context.handle(task);
 		if (StatusEnum.Store_N0 == next && task.isSucceed()) {
 			boolean isHaveStore = isHaveStore();
@@ -219,9 +217,7 @@ public class SalesOrderActionImpl extends OrderActionImpl {
 					isOk = false;
 				}
 			}
-		} else {
-			task.setExamDept(pm.getOrderExamDept());
-		}
+		} 
 		return task.isSucceed() && isOk;
 	}
 
@@ -240,8 +236,7 @@ public class SalesOrderActionImpl extends OrderActionImpl {
 		task.oldstatus = this.orderInfo.getStatus();
 		task.newstatus = next.getKey();
 		task.info = this.orderInfo;
-		task.cause = this.cause;
-		task.setExamDept(pm.getOrderExamDept());
+		task.cause = this.cause; 
 		context.handle(task);
 		return task.isSucceed();
 	}
