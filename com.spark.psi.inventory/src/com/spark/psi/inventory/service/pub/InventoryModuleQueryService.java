@@ -276,11 +276,11 @@ public class InventoryModuleQueryService extends Service {
 			StringBuilder dnaSql = new StringBuilder();
 			StringBuilder conditionSql = new StringBuilder();
 			List<Object> paramList = new ArrayList<Object>();
-			dnaSql.append("define query queryGoodsInventorySum()");
+			dnaSql.append("define query queryGoodsInventorySum(");
 			conditionSql.append(" where 1=1\n");
 			
 			if (CheckIsNull.isNotEmpty(key.getGoodsItemId())) {
-				dnaSql.append(",@stockId guid");
+				dnaSql.append("@stockId guid");
 				conditionSql.append(" and t.stockId=@stockId\n");
 				paramList.add(key.getGoodsItemId());
 			}
@@ -289,10 +289,9 @@ public class InventoryModuleQueryService extends Service {
 			dnaSql
 					.append("select sum(t.\"count\") as totalCount,sum(t.amount) as totalAmount,sum(t.toDeliverCount) as totalToDeliverCount\n");
 			dnaSql.append("from \n");
-			dnaSql.append(ERPTableNames.Inventory.Inventory.getTableName());
+			dnaSql.append(ERPTableNames.Inventory.Inventory.getTableName() +" as t " );
 			dnaSql.append(conditionSql);
 			dnaSql.append("end");
-
 			DBCommand db = context.prepareStatement(dnaSql);
 			for (int index = 0; index < paramList.size(); index++) {
 				db.setArgumentValue(index, paramList.get(index));
