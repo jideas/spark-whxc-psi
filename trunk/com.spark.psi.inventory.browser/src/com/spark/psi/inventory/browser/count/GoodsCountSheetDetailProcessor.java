@@ -539,6 +539,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 				for (int i = 0; i < countSheet.getGoodsCountItems().length; i++) {
 					InventoryCountSheetInfo.GoodsCountItem goodsCountItem = countSheet.getGoodsCountItems()[i];
 					Item item = new Item();
+					System.out.println(goodsCountItem.getGoodsItemName() + ",");
 					item.setGoodsCode(goodsCountItem.getGoodsCode());
 					item.setGoodsNo(goodsCountItem.getGoodsNo());
 					item.setGoodsItemId(goodsCountItem.getGoodsItemId());
