@@ -511,6 +511,11 @@ public abstract class SMessageShowUtil {
 			return new StringArray(item.getStringValue1() + "库存数量高于所有仓库的库存上限" + item.getStringValue3());
 		case DeliveryException01:
 			return new StringArray("配送异常 " + item.getStringValue1() + " 待处理");
+			
+		case ShelfLifeWarning01:
+			return new StringArray(item.getStringValue1());
+		case ShelfLifeWarning02:
+			return new StringArray(item.getStringValue1());
 		}
 		return null;
 	}

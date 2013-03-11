@@ -27,6 +27,7 @@
       <service space="SAAS" class="com.spark.psi.message.handles.SMessageSpecialService" />
       <service space="SAAS" class="com.spark.psi.message.handles.MessageService" />
       <service space="SAAS" class="com.spark.psi.message.provider.SMessageProvider" />
+      <service space="SAAS" class="com.spark.psi.message.handles.ShelfLifeWarningService"/>
     </services>
     <orms>
       <orm space="SAAS" class="com.spark.psi.report.queue.orm.Orm_ReportQueue" />

@@ -120,9 +120,7 @@ public class QueueRunService extends Service {
 		}
 	}
 
-	/**
-	 * 编译用方法 ，被访问时为错误情况
-	 * 
+	/** 
 	 * @throws Exception
 	 */
 	private void doThisRealTask(Context context, Object event, ReportQueue rq) throws Exception {
