@@ -16,7 +16,10 @@ public enum SMessageType {
 	UncheckinOrders("05", "待确认入库"), //
 	NearBirthday("06", "生日提醒"), //
 	NearOrderDate("07", "业务单据预警"), //
-	GoodsInventory("08", "商品库存预警"), DeliveryException("09", "配送异常");
+	GoodsInventory("08", "商品库存预警"), //
+	DeliveryException("09", "配送异常"), //
+	ShelfLifeWarning("10", "保质期预警");
+
 	private String code;
 	private String title;
 
@@ -63,6 +66,11 @@ public enum SMessageType {
 			return false;
 		case DeliveryException:
 			if (list.contains(Auth.Distribute)) {
+				return true;
+			}
+			return false;
+		case ShelfLifeWarning:
+			if (list.contains(Auth.StoreKeeper)) {
 				return true;
 			}
 			return false;
