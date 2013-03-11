@@ -11,6 +11,10 @@ public interface ShelfLifeWarningMaterialsItem {
 	public GUID getMaterialId();
 
 	public String getMaterialName();
+	
+	public String getMaterialCode();
+	
+	public String getMaterialNo();
 
 	public String getMaterialSpec();
 

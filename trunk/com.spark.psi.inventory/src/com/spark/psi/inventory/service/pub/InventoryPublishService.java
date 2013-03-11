@@ -24,6 +24,7 @@ import com.spark.psi.base.Employee;
 import com.spark.psi.base.GoodsCategory;
 import com.spark.psi.base.GoodsItem;
 import com.spark.psi.base.Inventory;
+import com.spark.psi.base.InventoryDet;
 import com.spark.psi.base.Login;
 import com.spark.psi.base.MaterialsCategory;
 import com.spark.psi.base.MaterialsItem;
@@ -61,6 +62,7 @@ import com.spark.psi.inventory.intf.entity.instorage.CheckInLog;
 import com.spark.psi.inventory.intf.entity.instorage.mod.Instorage;
 import com.spark.psi.inventory.intf.entity.instorage.mod.InstorageItem;
 import com.spark.psi.inventory.intf.entity.inventory.InventoryLog;
+import com.spark.psi.inventory.intf.entity.inventory.ShelfLifeWarningMaterialsItemImpl;
 import com.spark.psi.inventory.intf.entity.outstorage.CheckOutLog;
 import com.spark.psi.inventory.intf.entity.outstorage.mod.Outstorage;
 import com.spark.psi.inventory.intf.entity.outstorage.mod.OutstorageItem;
@@ -112,6 +114,7 @@ import com.spark.psi.publish.InventoryType;
 import com.spark.psi.publish.InventoryWarningType;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.ReportLossStatus;
+import com.spark.psi.publish.ShelfLifeWarningType;
 import com.spark.psi.publish.SortType;
 import com.spark.psi.publish.StoreStatus;
 import com.spark.psi.publish.base.store.entity.InitInventoryDetItem;
@@ -918,16 +921,57 @@ public class InventoryPublishService extends Service {
 	 * 查询保质期预警材料列表
 	 */
 	@Publish
-	protected class GetShelfLifeWarningMatrialsItems extends OneKeyResultListProvider<List<ShelfLifeWarningMaterialsItem>, GetShelfLifeWarningMaterialsKey>
+	protected class GetShelfLifeWarningMatrialsItems extends OneKeyResultListProvider<ShelfLifeWarningMaterialsItem, GetShelfLifeWarningMaterialsKey>
 	{
 
 		@Override
 		protected void provide(Context context,
 				GetShelfLifeWarningMaterialsKey key,
-				List<List<ShelfLifeWarningMaterialsItem>> resultList)
+				List<ShelfLifeWarningMaterialsItem> resultList)
 				throws Throwable {
-			// TODO Auto-generated method stub
-			
+			List<InventoryDet> dets = context.getList(InventoryDet.class);
+			for(InventoryDet d:dets)
+			{
+				Inventory inventory = context.find(Inventory.class,d.getInventoryId());
+				if(!(d.getCount()>0)||InventoryType.Goods.getCode().equals(inventory.getInventoryType()))
+				{
+					continue;
+				}
+				MaterialsItem mi = context.find(MaterialsItem.class, d.getStockId());
+				int shelfLife = mi.getShelfLife();
+				int warningDay = mi.getWarningDay();
+				Date produceDay = new Date(DateUtil.truncDay(d.getProduceDate()));
+				Date today = new Date(DateUtil.getToday());
+				long days = DateUtil.getDaysBetween(produceDay, today);
+				ShelfLifeWarningMaterialsItemImpl wmi = new ShelfLifeWarningMaterialsItemImpl();
+				wmi.setCount(d.getCount());
+				wmi.setMaterialId(d.getStockId());
+				wmi.setMaterialName(mi.getMaterialName());
+				wmi.setMaterialCode(mi.getMaterialCode());
+				wmi.setMaterialNo(mi.getMaterialNo());
+				wmi.setMaterialSpec(mi.getSpec());
+				wmi.setMaterialUnit(mi.getMaterialUnit());
+				wmi.setProduceDate(d.getProduceDate());
+				wmi.setShelfLife(mi.getShelfLife());
+				wmi.setStoreId(d.getStoreId());
+				Store store = context.find(Store.class, d.getStoreId());
+				wmi.setStoreName(store.getName());
+				wmi.setWarningDay(mi.getWarningDay());
+				if(days>shelfLife)
+				{
+					wmi.setShelfLifeWarningType(ShelfLifeWarningType.Overdue);
+					resultList.add(wmi);
+				}
+				else
+				{
+					if((days+warningDay)>=shelfLife)
+					{
+						wmi.setShelfLifeWarningType(ShelfLifeWarningType.Closeto);
+						resultList.add(wmi);
+					}
+				}
+				
+			}
 		}
 		
 	}

@@ -10,6 +10,8 @@ public class ShelfLifeWarningMaterialsItemImpl implements
 	private String storeName;
 	private GUID materialId;
 	private String materialName;
+	private String materialCode;
+	private String materialNo;
 	private String materialSpec;
 	private String materialUnit;
 	private double count;
@@ -17,6 +19,22 @@ public class ShelfLifeWarningMaterialsItemImpl implements
 	private long produceDate;
 	private int shelfLife;
 	private int warningDay;
+
+	public String getMaterialNo() {
+		return materialNo;
+	}
+
+	public void setMaterialNo(String materialNo) {
+		this.materialNo = materialNo;
+	}
+
+	public String getMaterialCode() {
+		return materialCode;
+	}
+
+	public void setMaterialCode(String materialCode) {
+		this.materialCode = materialCode;
+	}
 
 	public GUID getStoreId() {
 		return storeId;
