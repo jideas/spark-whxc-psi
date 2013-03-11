@@ -2,8 +2,10 @@ package com.spark.psi.inventory.browser.checkout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
@@ -102,8 +104,15 @@ public class NewJointCheckingOutProcessor extends PSIListPageProcessor<CheckingI
 				request.setResponseHandler(new ResponseHandler() {
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4) {
 						if (null != returnValue && returnValue instanceof MaterialsItemInfo[]) {
+							Set<String> rowIds = new HashSet<String>();
+							for (String rowId : table.getAllRowId()) {
+								rowIds.add(rowId);
+							}
 							MaterialsItemInfo[] selectedGoodsItems = (MaterialsItemInfo[]) returnValue;
 							for (MaterialsItemInfo goodsItem : selectedGoodsItems) {
+								if (rowIds.contains(goodsItem.getItemData().getId().toString())) {
+									continue;
+								}
 								table.addRow(goodsItem);
 								goodsItemStore.put(goodsItem.getItemData().getId().toString(), goodsItem);
 							}

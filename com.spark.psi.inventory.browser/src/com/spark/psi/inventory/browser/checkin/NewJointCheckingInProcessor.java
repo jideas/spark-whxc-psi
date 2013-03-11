@@ -2,8 +2,10 @@ package com.spark.psi.inventory.browser.checkin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
@@ -75,8 +77,8 @@ public class NewJointCheckingInProcessor extends PSIListPageProcessor<CheckingIn
 		storeList.getList().setSource(CheckInOutStoreSource);
 		storeList.getList().setInput(null);
 		if (CheckInOutStoreSource.getSize() == 1) {
-			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource.getFirstStoreId()
-					.toString());
+			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource
+					.getFirstStoreId().toString());
 		}
 		final Button addGoodsBtn = createControl(ID_Button_AddGoods, Button.class);
 		addGoodsBtn.addActionListener(new ActionListener() {
@@ -87,8 +89,15 @@ public class NewJointCheckingInProcessor extends PSIListPageProcessor<CheckingIn
 
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4) {
 						if (null != returnValue && returnValue instanceof MaterialsItemInfo[]) {
+							Set<String> rowIds = new HashSet<String>();
+							for (String rowId : table.getAllRowId()) {
+								rowIds.add(rowId);
+							}
 							MaterialsItemInfo[] selectedGoodsItems = (MaterialsItemInfo[]) returnValue;
 							for (MaterialsItemInfo goodsItem : selectedGoodsItems) {
+								if (rowIds.contains(goodsItem.getItemData().getId().toString())) {
+									continue;
+								}
 								table.addRow(goodsItem);
 								goodsItemStore.put(goodsItem.getItemData().getId().toString(), goodsItem);
 							}
@@ -118,7 +127,7 @@ public class NewJointCheckingInProcessor extends PSIListPageProcessor<CheckingIn
 		}
 		final JointCheckinTask task = new JointCheckinTask();
 		fillDataToTask(task);
-		if(task.getItems()==null||task.getItems().size()==0){
+		if (task.getItems() == null || task.getItems().size() == 0) {
 			alert("请填写材料入库数量！");
 			return false;
 		}
