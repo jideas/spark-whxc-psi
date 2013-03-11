@@ -273,7 +273,26 @@ public abstract class SMessageShowUtil {
 				createClicklable(panel, str);
 				addRow(comp, str6.substring(str.length()), null);
 			}
-
+			return;
+		case ShelfLifeWarning01:
+			String str7 = item.getStringValue1();
+			if (getMaxLength(str7) < Length) {
+				createClicklable(panel, str7);
+			} else {
+				String str = getMaxLength(str7, Length);
+				createClicklable(panel, str);
+				addRow(comp, str7.substring(str.length()), null);
+			}
+			return;
+		case ShelfLifeWarning02:
+			String str8 = item.getStringValue1();
+			if (getMaxLength(str8) < Length) {
+				createClicklable(panel, str8);
+			} else {
+				String str = getMaxLength(str8, Length);
+				createClicklable(panel, str);
+				addRow(comp, str8.substring(str.length()), null);
+			}
 			return;
 		}
 	}
@@ -511,7 +530,6 @@ public abstract class SMessageShowUtil {
 			return new StringArray(item.getStringValue1() + "库存数量高于所有仓库的库存上限" + item.getStringValue3());
 		case DeliveryException01:
 			return new StringArray("配送异常 " + item.getStringValue1() + " 待处理");
-			
 		case ShelfLifeWarning01:
 			return new StringArray(item.getStringValue1());
 		case ShelfLifeWarning02:
