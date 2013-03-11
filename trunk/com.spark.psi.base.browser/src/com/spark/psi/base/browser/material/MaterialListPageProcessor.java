@@ -248,6 +248,7 @@ public class MaterialListPageProcessor extends PSIGoodsListPageProcessor {
 				actionList.add(Action.OnSale.name());
 			}
 		}
+		if(loginInfo.hasAuth(Auth.StoreKeeperManager)||loginInfo.hasAuth(Auth.StoreKeeper))
 		actionList.add(Action.InventoryInfo.name());
 		actionList.add(Action.Delete.name());
 		return actionList.toArray(new String[actionList.size()]);
