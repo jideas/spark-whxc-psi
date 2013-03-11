@@ -139,6 +139,7 @@ import com.spark.psi.publish.inventory.entity.KitInventoryItem;
 import com.spark.psi.publish.inventory.entity.OrderCheckSheetItem;
 import com.spark.psi.publish.inventory.entity.ReportLossInfo;
 import com.spark.psi.publish.inventory.entity.ReportLossInfoItemDet;
+import com.spark.psi.publish.inventory.entity.ShelfLifeWarningMaterialsItem;
 import com.spark.psi.publish.inventory.key.GetAllocateItemDetBySheetIdKey;
 import com.spark.psi.publish.inventory.key.GetCheckingInListKey;
 import com.spark.psi.publish.inventory.key.GetCheckingOutListKey;
@@ -154,6 +155,7 @@ import com.spark.psi.publish.inventory.key.GetKitInventorySummaryKey;
 import com.spark.psi.publish.inventory.key.GetOrderCheckInSheetItemKey;
 import com.spark.psi.publish.inventory.key.GetOrderCheckOutSheetItemKey;
 import com.spark.psi.publish.inventory.key.GetReportLossInfoListKey;
+import com.spark.psi.publish.inventory.key.GetShelfLifeWarningMaterialsKey;
 import com.spark.psi.publish.inventory.key.GetWarningGoodsItemListKey;
 import com.spark.psi.publish.inventory.key.GetReportLossInfoListKey.ViewStatus;
 import com.spark.psi.publish.inventory.task.AdjustGoodsItemCostTask;
@@ -910,6 +912,24 @@ public class InventoryPublishService extends Service {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 查询保质期预警材料列表
+	 */
+	@Publish
+	protected class GetShelfLifeWarningMatrialsItems extends OneKeyResultListProvider<List<ShelfLifeWarningMaterialsItem>, GetShelfLifeWarningMaterialsKey>
+	{
+
+		@Override
+		protected void provide(Context context,
+				GetShelfLifeWarningMaterialsKey key,
+				List<List<ShelfLifeWarningMaterialsItem>> resultList)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 	/**
