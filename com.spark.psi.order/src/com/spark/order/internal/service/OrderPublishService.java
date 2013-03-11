@@ -155,6 +155,7 @@ public class OrderPublishService extends Service {
 	@Publish
 	protected class Pub_GetPurchaseOrderProvider extends OneKeyResultProvider<OrderListEntity, GetPurchaseOrderListKey> {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected OrderListEntity provide(Context context, GetPurchaseOrderListKey key) throws Throwable {
 			PageEnum pageEnum = null;
@@ -932,6 +933,7 @@ public class OrderPublishService extends Service {
 	@Publish
 	protected class Pub_GetSalesOrderProvider extends OneKeyResultProvider<OrderListEntity, GetSalesOrderListKey> {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected OrderListEntity provide(Context context, GetSalesOrderListKey key) throws Throwable {
 			PageEnum pageEnum = null;

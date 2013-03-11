@@ -75,7 +75,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 	}
 
 	private InventoryCountSheetInfo countSheet;
-	private Item[] items = null;
+	private List<Item> items = null;
 
 	/**
 	 * 创建选择材料按钮
@@ -113,6 +113,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 								if (!rowIds.contains(itemId)) {
 									rowIds.add(itemId);
 									table.addRow(item);
+									GoodsCountSheetDetailProcessor.this.items.add(item);
 								}
 							}
 							table.renderUpate();
@@ -353,7 +354,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 
 	@Override
 	public Object[] getElements(Context context, STableStatus tablestatus) {
-		return items;
+		return items.toArray();
 	}
 
 	@Override
@@ -482,7 +483,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 
 	private void initData() {
 		if (null != this.getArgument()) {
-			List<Item> sortlist = new ArrayList<Item>();
+			this.items = new ArrayList<Item>();
 			countSheet = (InventoryCountSheetInfo) this.getArgument();
 			if (null != this.getArgument2()) {
 				ExcelReadHelper excel = (ExcelReadHelper) this.getArgument2();
@@ -531,7 +532,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
 					item.setCountDecimal(goodsCountItem.getScale());
-					sortlist.add(item);
+					this.items.add(item);
 				}
 				return;
 			}
@@ -551,11 +552,10 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 					item.setMemo(goodsCountItem.getRemark());
 					item.setExistInventory(goodsCountItem.isExistInventory());
 					item.setCountDecimal(goodsCountItem.getScale());
-					sortlist.add(item);
+					this.items.add(item);
 				}
 			}
-			ComparatorUtils.sort(sortlist, "goodsCode", false);
-			this.items = sortlist.toArray(new Item[sortlist.size()]);
+			ComparatorUtils.sort(this.items, "goodsCode", false);
 		}
 
 	}
