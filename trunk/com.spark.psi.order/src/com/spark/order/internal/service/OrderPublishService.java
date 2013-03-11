@@ -260,7 +260,7 @@ public class OrderPublishService extends Service {
 			if (CheckIsNull.isNotEmpty(key.getQueryTerm())) {
 				oldKey.setStartDate(key.getQueryTerm().getStartTime());
 				oldKey.setEndDate(key.getQueryTerm().getEndTime());
-			} 
+			}
 			if (null == key.getSortField()) {
 				key.setSortField(GetPurchaseOrderBySupplierKey.SortField.CreateDate);
 			}
@@ -277,7 +277,7 @@ public class OrderPublishService extends Service {
 					}
 				}
 			}
-			oldKey.setSearch(key.getSearchText()); 
+			oldKey.setSearch(key.getSearchText());
 			oldKey.setLimitKey(key);
 			List<OrderInfo> oldList = context.getList(OrderInfo.class, oldKey);
 			CuspBillsEntity oldEntity = context.find(CuspBillsEntity.class, oldKey);
@@ -309,7 +309,8 @@ public class OrderPublishService extends Service {
 			OneKeyResultProvider<ListEntity<PurchaseGoodsItem>, GetPurchasingGoodsItemListKey> {
 
 		@Override
-		protected ListEntity<PurchaseGoodsItem> provide(Context context, GetPurchasingGoodsItemListKey key) throws Throwable {
+		protected ListEntity<PurchaseGoodsItem> provide(Context context, GetPurchasingGoodsItemListKey key)
+				throws Throwable {
 			List<PurchaseGoodsItem> dataList = new ArrayList<PurchaseGoodsItem>();
 			List<PurchaseGoods2> oldGoods = context.getList(PurchaseGoods2.class);
 			for (PurchaseGoods2 goodsInfo : oldGoods) {
@@ -425,20 +426,22 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_CreateSporadicallyPurchaseHandler extends SimpleTaskMethodHandler<CreateSporadicallyPurchaseTask> {
+	protected class Pub_CreateSporadicallyPurchaseHandler extends
+			SimpleTaskMethodHandler<CreateSporadicallyPurchaseTask> {
 
 		@Override
 		protected void handle(Context context, CreateSporadicallyPurchaseTask task) throws Throwable {
 			this.context = context;
-			ICreatePurchase util = CreatePurchaseFactory.getCreatePurchase(context, CreatePurchaseFactory.CreateEnum.Odd_Lot);
+			ICreatePurchase util = CreatePurchaseFactory.getCreatePurchase(context,
+					CreatePurchaseFactory.CreateEnum.Odd_Lot);
 			com.spark.order.purchase.intf.entity.PurchaseOrderInfo info = getInfo(task);
 			List<PurchaseOrderItem> dets = getDets(task);
 			if (util.create(info, dets)) {
-				new MeToModuleUtil(context).createInStore_odd_lot(info, dets,task.getInventoryItems());
+				new MeToModuleUtil(context).createInStore_odd_lot(info, dets, task.getInventoryItems());
 				context.dispatch(new PurchaseOrderChangedEvent(info.getRECID(), ChangedType.Effectual));
 			}
 		}
- 
+
 		private Context context;
 
 		private List<PurchaseOrderItem> getDets(CreateSporadicallyPurchaseTask task) {
@@ -671,7 +674,8 @@ public class OrderPublishService extends Service {
 			}
 
 			// 执行
-			ICreatePurchase util = CreatePurchaseFactory.getCreatePurchase(context, CreatePurchaseFactory.CreateEnum.Plan);
+			ICreatePurchase util = CreatePurchaseFactory.getCreatePurchase(context,
+					CreatePurchaseFactory.CreateEnum.Plan);
 			PublishToMeUtil pu = new PublishToMeUtil(context);
 			PurchaseOrder po = pu.getPurchaseOrder(task);
 			try {
@@ -680,7 +684,7 @@ public class OrderPublishService extends Service {
 					task.setId(po.getInfo().getRECID());
 					// ======
 					context.dispatch(new PurchaseOrderChangedEvent(task.getId(), ChangedType.SAVE));
-				 
+
 					for (Integer index : util.getDirectedIndexs()) {
 						task.addItemErrors(index, UpdatePurchaseOrderTask.Error.GoodsDirected, ErrorLevel.Tooltip);
 					}
@@ -894,7 +898,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_UpdatePurchaseReturnstatusHandler extends SimpleTaskMethodHandler<UpdatePurchaseReturnStatusTask> {
+	protected class Pub_UpdatePurchaseReturnstatusHandler extends
+			SimpleTaskMethodHandler<UpdatePurchaseReturnStatusTask> {
 
 		@Override
 		protected void handle(Context context, UpdatePurchaseReturnStatusTask task) throws Throwable {
@@ -943,7 +948,8 @@ public class OrderPublishService extends Service {
 				throw new Throwable("查询类型与后台无法对接！");
 			}
 			BillsEnum billsEnum = BillsEnum.SALE;
-			if (null != key.getOrderTypes() && 1 == key.getOrderTypes().length && OrderType.Return == key.getOrderTypes()[0]) {
+			if (null != key.getOrderTypes() && 1 == key.getOrderTypes().length
+					&& OrderType.Return == key.getOrderTypes()[0]) {
 				billsEnum = BillsEnum.SALE_CANCEL;
 				pageEnum = PageEnum.NEW_CANCEL;
 			}
@@ -1172,7 +1178,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_Create_SalesOrderHandler extends TaskMethodHandler<UpdateSalesOrderTask, UpdateSalesOrderTask.Method> {
+	protected class Pub_Create_SalesOrderHandler extends
+			TaskMethodHandler<UpdateSalesOrderTask, UpdateSalesOrderTask.Method> {
 
 		protected Pub_Create_SalesOrderHandler() {
 			super(UpdateSalesOrderTask.Method.Create);
@@ -1194,8 +1201,8 @@ public class OrderPublishService extends Service {
 
 				// 检查促销数量
 				if (null != item.getPromotionId()) {
-					sc = ServiceCheckFactory.getServiceCheck(context, new CheckParam(item.getPromotionId(), item.getCount(), item
-							.getPrice(), CheckEnum.promotion));
+					sc = ServiceCheckFactory.getServiceCheck(context, new CheckParam(item.getPromotionId(), item
+							.getCount(), item.getPrice(), CheckEnum.promotion));
 					if (sc.doError()) {
 						task.addItemErrors(i, UpdateSalesOrderTask.Error.promotion);
 						isError = true;
@@ -1230,7 +1237,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_Update_SalesOrderHandler extends TaskMethodHandler<UpdateSalesOrderTask, UpdateSalesOrderTask.Method> {
+	protected class Pub_Update_SalesOrderHandler extends
+			TaskMethodHandler<UpdateSalesOrderTask, UpdateSalesOrderTask.Method> {
 
 		protected Pub_Update_SalesOrderHandler() {
 			super(UpdateSalesOrderTask.Method.Update);
@@ -1252,8 +1260,8 @@ public class OrderPublishService extends Service {
 
 				// 检查促销数量
 				if (null != item.getPromotionId()) {
-					sc = ServiceCheckFactory.getServiceCheck(context, new CheckParam(item.getPromotionId(), item.getCount(), item
-							.getPrice(), CheckEnum.promotion));
+					sc = ServiceCheckFactory.getServiceCheck(context, new CheckParam(item.getPromotionId(), item
+							.getCount(), item.getPrice(), CheckEnum.promotion));
 					if (sc.doError()) {
 						task.addItemErrors(i, UpdateSalesOrderTask.Error.promotion);
 						isError = true;
@@ -1290,7 +1298,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_Create_SalesReturnHandler extends TaskMethodHandler<UpdateSalesReturnTask, UpdateSalesReturnTask.Method> {
+	protected class Pub_Create_SalesReturnHandler extends
+			TaskMethodHandler<UpdateSalesReturnTask, UpdateSalesReturnTask.Method> {
 
 		protected Pub_Create_SalesReturnHandler() {
 			super(UpdateSalesReturnTask.Method.Create);
@@ -1328,7 +1337,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_Update_SalesReturnHandler extends TaskMethodHandler<UpdateSalesReturnTask, UpdateSalesReturnTask.Method> {
+	protected class Pub_Update_SalesReturnHandler extends
+			TaskMethodHandler<UpdateSalesReturnTask, UpdateSalesReturnTask.Method> {
 
 		protected Pub_Update_SalesReturnHandler() {
 			super(UpdateSalesReturnTask.Method.Update);
@@ -1373,9 +1383,16 @@ public class OrderPublishService extends Service {
 			IOrderAction oa = OrderFactory.getOrderAction(context, BillsEnum.SALE);
 			oa.setCause(task.getCause());
 			oa.setPlanOutDate(task.getPlanOutDate());
-			if (oa.action(task.getId(), task.getActions())) {
+			boolean b = false;
+			try {
+				b = oa.action(task.getId(), task.getActions());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (b) {
 				context.dispatch(new SalesOrderChangedEvent(task.getId(), task.getActions()));
-				if (oa.getNewstatus().isIn(StatusEnum.Store_N0) && !task.getActions().isIn(OrderAction.Stop, OrderAction.Execut)) {
+				if (oa.getNewstatus().isIn(StatusEnum.Store_N0)
+						&& !task.getActions().isIn(OrderAction.Stop, OrderAction.Execut)) {
 					context.dispatch(new SalesOrderChangedEvent(task.getId(), ChangedType.Effectual));
 				}
 			} else {
@@ -1385,7 +1402,7 @@ public class OrderPublishService extends Service {
 					task.addError(UpdateSalesOrderStatusTask.Error.PromotionCountError);
 				}
 				task.setSuccess(false);
-				context.abort(); 
+				context.abort();
 			}
 		}
 
@@ -1404,7 +1421,8 @@ public class OrderPublishService extends Service {
 			oa.setCause(task.getCause());
 			if (oa.action(task.getId(), task.getActions())) {
 				context.dispatch(new SalesReturnChangedEvent(task.getId(), task.getActions()));
-				if (oa.getNewstatus().isIn(StatusEnum.Store_N0) && !task.getActions().isIn(OrderAction.Stop, OrderAction.Execut)) {
+				if (oa.getNewstatus().isIn(StatusEnum.Store_N0)
+						&& !task.getActions().isIn(OrderAction.Stop, OrderAction.Execut)) {
 					context.dispatch(new SalesReturnChangedEvent(task.getId(), ChangedType.Effectual));
 				}
 			} else {
@@ -1435,7 +1453,8 @@ public class OrderPublishService extends Service {
 	 * 
 	 */
 	@Publish
-	protected class Pub_GetPromotionItemProvider extends OneKeyResultProvider<ListEntity<PromotionItem>, GetPromotionListKey> {
+	protected class Pub_GetPromotionItemProvider extends
+			OneKeyResultProvider<ListEntity<PromotionItem>, GetPromotionListKey> {
 
 		@Override
 		protected ListEntity<PromotionItem> provide(Context context, GetPromotionListKey key) throws Throwable {

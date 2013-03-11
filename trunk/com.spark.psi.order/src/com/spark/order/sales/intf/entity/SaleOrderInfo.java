@@ -25,9 +25,7 @@ public class SaleOrderInfo extends OrderInfo{
 	@StructField
 	private String Address;//	收货地址	V(200)
 	@StructField
-	private double DisAmount;//	整单折扣	N
-	@StructField
-	private GUID examDeptGuid;//	审核部门
+	private double DisAmount;//	整单折扣	N 
 	@StructField
 	private boolean isAllot = false;//	是否分配
 	@StructField
@@ -52,13 +50,7 @@ public class SaleOrderInfo extends OrderInfo{
 	 */
 	public void setPlanOutDate(long planOutDate) {
 		this.planOutDate = planOutDate;
-	}
-	/**
-	 * @return the examDeptGuid
-	 */
-	public GUID getExamDeptGuid() {
-		return examDeptGuid;
-	}
+	} 
 	/**
 	 * @return the isAllot
 	 */
@@ -70,13 +62,7 @@ public class SaleOrderInfo extends OrderInfo{
 	 */
 	public GUID getTenantsGuidB() {
 		return tenantsGuidB;
-	}
-	/**
-	 * @param examDeptGuid the examDeptGuid to set
-	 */
-	public void setExamDeptGuid(GUID examDeptGuid) {
-		this.examDeptGuid = examDeptGuid;
-	}
+	} 
 	/**
 	 * @param isAllot the isAllot to set
 	 */
