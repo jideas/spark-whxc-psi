@@ -467,7 +467,7 @@ public class StorageService extends Service {
 
 		@Override
 		protected void handle(Context context, InventoryBusTask task) throws Throwable {
-			if (InventoryType.Materials.equals(task.getInventoryType())) {
+			if (InventoryType.Materials.equals(task.getInventoryType())&&null!=task.getChangeCount()) {
 				if (0 == task.getChangeCount() || null == task.getDets() || task.getDets().length < 1) {
 					throw new Throwable("数量||货位分配信息不能为空！");
 				}

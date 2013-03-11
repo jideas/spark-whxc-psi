@@ -191,7 +191,7 @@ public class CheckOutInternalService extends Service {
 				sto.setUnit(goods.getGoodsUnit());
 				sto.setStockNo(goods.getGoodsNo());
 				sto.setName(goods.getGoodsName());
-				sto.setStockId(goods.getId());
+				sto.setStockId(goods.getId()); 
 				sto.setCode(goods.getGoodsCode());
 			}
 			sto.setStoreId(sheet.getStoreId());

@@ -29,6 +29,7 @@ import com.spark.psi.inventory.intf.key.inventory.AverageInventoryCostKey;
 import com.spark.psi.inventory.intf.key.inventory.GoodsInventorySumKey;
 import com.spark.psi.publish.InventoryType;
 import com.spark.psi.publish.base.goods.entity.GoodsItemInfo;
+import com.spark.psi.publish.base.materials.entity.MaterialsItemInfo;
 import com.spark.psi.publish.inventory.task.AdjustGoodsItemCostTask;
 
 public class ChangeCostPageProcessor extends BaseFormPageProcessor{
@@ -50,7 +51,7 @@ public class ChangeCostPageProcessor extends BaseFormPageProcessor{
 	private Text goodsButton;
 	private Button sure;
 
-	private GoodsItemInfo goods;
+	private MaterialsItemInfo goods;
 	private GUID storeId;
 	private double count;
 	private Label goodsName, goodsAttr, goodsUnit, goodsCount, nowCost, nowInventoryAmount, willInventoryAmount;
@@ -151,13 +152,13 @@ public class ChangeCostPageProcessor extends BaseFormPageProcessor{
 		goodsButton.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e){
-				MsgRequest request = CommonSelectRequest.createSelectGoodsRequest(null, false, true, true);
+				MsgRequest request = CommonSelectRequest.createSelectMaterialsRequest(null,null);
 				request.setResponseHandler(new ResponseHandler(){
 
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4)
 					{
-						GoodsItemInfo[] itemList = (GoodsItemInfo[])returnValue;
-						for(GoodsItemInfo item : itemList){
+						MaterialsItemInfo[] itemList = (MaterialsItemInfo[])returnValue;
+						for(MaterialsItemInfo item : itemList){
 							goods = item;
 						}
 						selectedGoods();
@@ -226,7 +227,7 @@ public class ChangeCostPageProcessor extends BaseFormPageProcessor{
 		else{
 			count = 0;
 			this.goodsCount.setText(DoubleUtil.getRoundStr(0d, goods.getItemData().getScale()));
-			this.nowCost.setText(DoubleUtil.getRoundStr(goods.getItemData().getAverageCost()));
+			this.nowCost.setText(DoubleUtil.getRoundStr(goods.getItemData().getAvgBuyPrice()));
 			this.nowInventoryAmount.setText(DoubleUtil.getRoundStr(0d));
 			nowCost.getParent().getParent().layout();
 		}
