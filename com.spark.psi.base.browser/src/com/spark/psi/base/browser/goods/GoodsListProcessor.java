@@ -306,7 +306,7 @@ public abstract class GoodsListProcessor extends PSIGoodsListPageProcessor {
 	}
 
 	@Override
-	public void actionPerformed(String rowId, String actionName,
+	public void actionPerformed(final String rowId, String actionName,
 			String actionValue) {
 		if ("detail".equals(actionName)) {
 			editGoodsInfoDetail(GUID.valueOf(rowId)); // XXX：表格控件缺陷，无法直接获取到rowId
@@ -319,11 +319,18 @@ public abstract class GoodsListProcessor extends PSIGoodsListPageProcessor {
 			getContext().handle(onSaleTask);
 			table.render();
 		} else if (Action.Delete.name().equals(actionName)) {
-			DeleteGoodsTask delTask = new DeleteGoodsTask(GUID
-					.tryValueOf(rowId));
-			getContext().handle(delTask);
-			table.removeRow(rowId);
-			table.render();
+			Runnable confirmRun = new Runnable() {
+				
+				public void run() {
+					DeleteGoodsTask delTask = new DeleteGoodsTask(GUID
+							.tryValueOf(rowId));
+					getContext().handle(delTask);
+					table.removeRow(rowId);
+					table.render();
+				}
+			};
+			confirm("确定要删除该商品吗？", confirmRun);
+			
 		} 
 //		else if(Action.InventoryInfo.name().equals(actionName)) {
 //			PageController pc = new PageController(GoodsInventoryInfoProcessor.class, GoodsInventoryInfoRender.class);
