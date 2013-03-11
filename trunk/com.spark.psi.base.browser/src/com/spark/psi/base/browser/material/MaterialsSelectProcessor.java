@@ -108,7 +108,7 @@ public class MaterialsSelectProcessor extends MaterialCategoryFramePageProcessor
 		private Map<String, MaterialsItemInfo> selectedItemList = new LinkedHashMap<String, MaterialsItemInfo>();
 
 		private GUID storeId;
-		private boolean onsaleOnly;
+		private boolean onsaleOnly = true;
 		private boolean isSingleLimit;
 		private Boolean jointVenture;
 
@@ -121,7 +121,7 @@ public class MaterialsSelectProcessor extends MaterialCategoryFramePageProcessor
 				if (parameter.getStoreId() != null) {
 					this.storeId = parameter.getStoreId();
 				}
-				this.onsaleOnly = parameter.isOnsaleOnly();
+				//this.onsaleOnly = parameter.isOnsaleOnly();
 				this.isSingleLimit = parameter.isSingleLimit();
 				this.jointVenture = parameter.getJointVenture();
 			}

@@ -117,7 +117,7 @@ public class CommonSelectRequest {
 	 * @return
 	 */
 	public final static MsgRequest createSelectMaterialsRequest(GUID storeId, Boolean jointVenture) {
-		return createSelectMaterialsRequest(new MaterialsSelectParameters(storeId, false, false, false, jointVenture));
+		return createSelectMaterialsRequest(new MaterialsSelectParameters(storeId, true, false, false, jointVenture));
 	}
 
 	/**
