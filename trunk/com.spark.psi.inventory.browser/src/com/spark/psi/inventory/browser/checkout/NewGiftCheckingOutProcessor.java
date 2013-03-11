@@ -2,8 +2,10 @@ package com.spark.psi.inventory.browser.checkout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
@@ -82,8 +84,8 @@ public class NewGiftCheckingOutProcessor extends PSIListPageProcessor<CheckingIn
 		storeList.getList().setSource(CheckInOutStoreSource);
 		storeList.getList().setInput(null);
 		if (CheckInOutStoreSource.getSize() == 1) {
-			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource.getFirstStoreId()
-					.toString());
+			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource
+					.getFirstStoreId().toString());
 		}
 		storeList.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -102,8 +104,15 @@ public class NewGiftCheckingOutProcessor extends PSIListPageProcessor<CheckingIn
 				request.setResponseHandler(new ResponseHandler() {
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4) {
 						if (null != returnValue && returnValue instanceof MaterialsItemInfo[]) {
+							Set<String> rowIds = new HashSet<String>();
+							for (String rowId : table.getAllRowId()) {
+								rowIds.add(rowId);
+							}
 							MaterialsItemInfo[] selectedGoodsItems = (MaterialsItemInfo[]) returnValue;
 							for (MaterialsItemInfo goodsItem : selectedGoodsItems) {
+								if (rowIds.contains(goodsItem.getItemData().getId().toString())) {
+									continue;
+								}
 								table.addRow(goodsItem);
 								goodsItemStore.put(goodsItem.getItemData().getId().toString(), goodsItem);
 							}
@@ -201,7 +210,7 @@ public class NewGiftCheckingOutProcessor extends PSIListPageProcessor<CheckingIn
 			}
 			GUID goodsId = GUID.valueOf(rowId);
 			Inventory inventory = getContext().find(Inventory.class, GUID.valueOf(this.storeList.getText()), goodsId);
-			if (null!=inventory&&inventory.getCount() < count) {
+			if (null != inventory && inventory.getCount() < count) {
 				alert("出库数量不能大于当前库存数量！");
 				return false;
 			}

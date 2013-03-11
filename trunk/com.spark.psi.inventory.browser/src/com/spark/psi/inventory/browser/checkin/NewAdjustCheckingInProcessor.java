@@ -2,8 +2,10 @@ package com.spark.psi.inventory.browser.checkin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.situation.Situation;
@@ -38,14 +40,14 @@ import com.spark.psi.publish.inventory.sheet.task.AdjustCheckinTaskItem;
 public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingInItem> implements IDataProcessPrompt {
 
 	public static final String ID_Text_Provider = "Text_Provider";
-	public static final String ID_List_Store = "List_Store"; 
+	public static final String ID_List_Store = "List_Store";
 	public static final String ID_Button_AddGoods = "Button_AddGoods";
 	public static final String ID_Text_Memo = "Text_Memo";
 	public static final String ID_Label_Amount = "Label_Amount";
 	public static final String ID_Button_Confirm = "Button_Confirm";
 
 	public static enum Column {
-		code("材料编号"), number("材料条码"), name("材料名称"), property("规格"), unit("单位"),  amount("金额");
+		code("材料编号"), number("材料条码"), name("材料名称"), property("规格"), unit("单位"), amount("金额");
 
 		private String title;
 
@@ -61,7 +63,7 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 	private final Map<String, MaterialsItemInfo> goodsItemStore = new HashMap<String, MaterialsItemInfo>();
 
 	private LWComboList storeList;
-	private Text providerText; 
+	private Text providerText;
 	private Text memoText;
 
 	private GUID supplierId;
@@ -76,10 +78,11 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 		storeList.getList().setInput(null);
 
 		if (CheckInOutStoreSource.getSize() == 1) {
-			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource.getFirstStoreId().toString());
+			storeList.setSelection(CheckInOutStoreSource.getFirstStoreId() == null ? null : CheckInOutStoreSource
+					.getFirstStoreId().toString());
 		}
 
-		providerText = createControl(ID_Text_Provider, Text.class);   
+		providerText = createControl(ID_Text_Provider, Text.class);
 		providerText.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -102,13 +105,21 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 		addGoodsBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				MsgRequest request = CommonSelectRequest.createSelectMaterialsRequest(new MaterialsSelectParameters(null, false, false, false, false));
+				MsgRequest request = CommonSelectRequest.createSelectMaterialsRequest(new MaterialsSelectParameters(
+						null, false, false, false, false));
 				request.setResponseHandler(new ResponseHandler() {
 
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4) {
 						if (null != returnValue && returnValue instanceof MaterialsItemInfo[]) {
+							Set<String> rowIds = new HashSet<String>();
+							for (String rowId : table.getAllRowId()) {
+								rowIds.add(rowId);
+							}
 							MaterialsItemInfo[] selectedGoodsItems = (MaterialsItemInfo[]) returnValue;
 							for (MaterialsItemInfo goodsItem : selectedGoodsItems) {
+								if (rowIds.contains(goodsItem.getItemData().getId().toString())) {
+									continue;
+								}
 								table.addRow(goodsItem);
 								goodsItemStore.put(goodsItem.getItemData().getId().toString(), goodsItem);
 							}
@@ -118,7 +129,7 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 				});
 				context.bubbleMessage(request);
 			}
-		}); 
+		});
 		memoText = createControl(ID_Text_Memo, Text.class);
 
 		final Button confirmBtn = createControl(ID_Button_Confirm, Button.class);
@@ -133,7 +144,7 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 		});
 
 		registerNotEmptyValidator(providerText, "供应商");
-		registerNotEmptyValidator(storeList, "仓库"); 
+		registerNotEmptyValidator(storeList, "仓库");
 		registerInputValidator(new TableDataValidatorImpl());
 
 		table.addClientEventHandler(SEditTable.CLIENT_EVENT_VALUE_CHANGED, "InventoryClient.handleTableDataChanged");
@@ -152,7 +163,8 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 		} else if (StoreStatus.DISABLED.equals(store.getStatus())) {
 			alert("仓库处于未启用状态，不能使用。");
 			return false;
-		} else if (StoreStatus.ONCOUNTING.equals(store.getStatus()) || StoreStatus.STOPANDONCOUNTING.equals(store.getStatus())) {
+		} else if (StoreStatus.ONCOUNTING.equals(store.getStatus())
+				|| StoreStatus.STOPANDONCOUNTING.equals(store.getStatus())) {
 			alert("仓库处于盘点中状态，不能使用。");
 			return false;
 		} else if (StoreStatus.STOP.equals(store.getStatus())) {
@@ -165,16 +177,16 @@ public class NewAdjustCheckingInProcessor extends PSIListPageProcessor<CheckingI
 
 	private void fillDataToTask(AdjustCheckinTask task) {
 		task.setPartnerId(supplierId);
-		task.setStoreId(GUID.tryValueOf(storeList.getList().getSeleted())); 
-		task.setRemark(memoText.getText()); 
-		String[] rowIds = table.getAllRowId(); 
+		task.setStoreId(GUID.tryValueOf(storeList.getList().getSeleted()));
+		task.setRemark(memoText.getText());
+		String[] rowIds = table.getAllRowId();
 		List<AdjustCheckinTaskItem> items = new ArrayList<AdjustCheckinTaskItem>();
 		for (String rowId : rowIds) {
 			String amount = table.getEditValue(rowId, Column.amount.name())[0];
 			items.add(new AdjustCheckinTaskItem(GUID.valueOf(rowId), DoubleUtil.strToDouble(amount)));
 		}
 		task.setItems(items);
-	} 
+	}
 
 	@Override
 	public String getElementId(Object element) {
