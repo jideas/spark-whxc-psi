@@ -103,7 +103,7 @@ public enum SMessageTemplateEnum {
 			return DeliveryException01;
 		} else if (ShelfLifeWarning01.getCode().equals(code)) {
 			return ShelfLifeWarning01;
-		} else if (ShelfLifeWarning01.getCode().equals(code)) {
+		} else if (ShelfLifeWarning02.getCode().equals(code)) {
 			return ShelfLifeWarning02;
 		}
 		return null;

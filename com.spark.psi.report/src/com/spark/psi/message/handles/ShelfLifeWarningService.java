@@ -55,7 +55,6 @@ public class ShelfLifeWarningService extends Service {
 		@Override
 		protected void handle(Context context, ShelfLifeQueueStartTask task) throws Throwable {
 			while (true) {
-				System.out.println("================");
 				Thread.sleep(300000);
 				if (isRunning) {
 					continue;
