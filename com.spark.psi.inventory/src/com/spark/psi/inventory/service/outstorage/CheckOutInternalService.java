@@ -177,12 +177,13 @@ public class CheckOutInternalService extends Service {
 				MaterialsItem goods = context.find(MaterialsItem.class, item.getGoodsId());
 				sto.setCategoryId(goods.getCategoryId());
 				sto.setProperties(goods.getSpec());
-				sto.setScale(goods.getScale());
+				sto.setScale(goods.getScale()); 
 				sto.setUnit(goods.getMaterialUnit());
 				sto.setStockNo(goods.getMaterialNo());
 				sto.setName(goods.getMaterialName());
 				sto.setStockId(goods.getId());
 				sto.setCode(goods.getMaterialCode());
+				item.setAvgCost(goods.getAvgBuyPrice());
 			} else {
 				GoodsItem goods = context.find(GoodsItem.class, item.getGoodsId());
 				sto.setCategoryId(goods.getCategoryId());
@@ -193,12 +194,13 @@ public class CheckOutInternalService extends Service {
 				sto.setName(goods.getGoodsName());
 				sto.setStockId(goods.getId()); 
 				sto.setCode(goods.getGoodsCode());
+				item.setAvgCost(goods.getAvgCost());
 			}
 			sto.setStoreId(sheet.getStoreId());
 			sto.setCreatedDate(System.currentTimeMillis());
 			sto.setCreatePerson(user.getName());
 			sto.setId(context.newRECID());
-			sto.setOutstoAmount(item.getAmount());
+			sto.setOutstoAmount(DoubleUtil.mul(item.getRealCount(), item.getAvgCost()));
 			sto.setOutstoCount(item.getRealCount());
 			sto.setInventoryType(inventoryType.getCode());
 			if (sheet.getCheckoutType().equals(CheckingOutType.RealGoods.getCode())) {
