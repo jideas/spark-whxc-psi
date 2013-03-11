@@ -102,17 +102,22 @@ public class MaterialListPageProcessor extends PSIGoodsListPageProcessor {
 		deleteButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (table.getSelection() == null) {
-					alert("请先选择材料！");
-					return;
-				}
-				deleteGoods(table.getSelections());
+				confirm("确定要删除所选材料吗？", new Runnable() {
+					
+					public void run() {
+						if (table.getSelection() == null) {
+							alert("请先选择材料！");
+							return;
+						}
+						deleteGoods(table.getSelections());
+					}
+				});
 			}
 		});
 
 		table.addActionListener(new SActionListener() {
 
-			public void actionPerformed(String rowId, String actionName,
+			public void actionPerformed(final String rowId, String actionName,
 					String actionValue) {
 				if (Action.OffSale.name().equals(actionName)) {
 					changeGoodsState(new String[] { rowId });
@@ -123,11 +128,15 @@ public class MaterialListPageProcessor extends PSIGoodsListPageProcessor {
 					getContext().handle(onSaleTask);
 					table.render();
 				} else if (Action.Delete.name().equals(actionName)) {
-					DeleteMaterialsTask delTask = new DeleteMaterialsTask(GUID
-							.tryValueOf(rowId));
-					getContext().handle(delTask);
-					table.removeRow(rowId);
-					table.render();
+					confirm("确定要删除该材料吗？", new Runnable() {
+						public void run() {
+							DeleteMaterialsTask delTask = new DeleteMaterialsTask(GUID
+									.tryValueOf(rowId));
+							getContext().handle(delTask);
+							table.removeRow(rowId);
+							table.render();
+						}
+					});
 				} else if(Action.InventoryInfo.name().equals(actionName)) {
 					PageController pc = new PageController(MaterialInventoryInfoProcessor.class, MaterialInventoryInfoRender.class);
 					PageControllerInstance pci = new PageControllerInstance(pc, GUID.tryValueOf(rowId), false);
