@@ -364,7 +364,8 @@ public class MessageTipMain extends Page {
 			label.setText("当前分类下，记录数为 0。");
 			label.setForeground(new Color(0xc6c6c6));
 		} else {
-			for(SMessageItem item : messageItems) {
+			System.out.println();
+			for(SMessageItem item : messageItems.size()>10?messageItems.subList(0, 10):messageItems) {
 				SMessageShowUtil.show(composite, item);
 			}
 		}
