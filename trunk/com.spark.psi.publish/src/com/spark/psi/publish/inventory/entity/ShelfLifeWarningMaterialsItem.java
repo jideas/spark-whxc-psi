@@ -31,4 +31,8 @@ public interface ShelfLifeWarningMaterialsItem {
 	public int getShelfLife();
 
 	public int getWarningDay();
+	
+	public int getShelfNo();
+
+	public int getTiersNo();
 }

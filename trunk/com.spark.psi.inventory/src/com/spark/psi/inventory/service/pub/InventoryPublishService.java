@@ -954,6 +954,8 @@ public class InventoryPublishService extends Service {
 				wmi.setProduceDate(d.getProduceDate());
 				wmi.setShelfLife(mi.getShelfLife());
 				wmi.setStoreId(d.getStoreId());
+				wmi.setShelfNo(d.getShelfNo());
+				wmi.setTiersNo(d.getTiersNo());
 				Store store = context.find(Store.class, d.getStoreId());
 				wmi.setStoreName(store.getName());
 				wmi.setWarningDay(mi.getWarningDay());
