@@ -32,12 +32,13 @@ import com.spark.psi.query.intf.publish.entity.MaterialsCheckInListEntity;
 import com.spark.psi.query.intf.publish.key.GetMaterialsCheckInListKey;
 
 public class ShelfLifeWarningMaterialsListProcessor<Item> extends
-AbstractShelfLifeWarningProcessor<Item> {
+		AbstractShelfLifeWarningProcessor<Item> {
 
 	public static enum ColumnName {
-		storeName("仓库"), materialName("材料名称"), materialCode("材料编号"), materailNo("材料条码"), spec(
-				"规格"), unit("单位"), count("数量"), shelfLifeWarningType("状态"), produceDate(
-				"生产日期"), shelfLife("保质期"), warningDay("预警天数");
+		storeName("仓库"), materialName("材料名称"), materialCode("材料编号"), materailNo(
+				"材料条码"), spec("规格"), unit("单位"), count("数量"), shelfLifeWarningType(
+				"状态"), produceDate("生产日期"), shelfLife("保质期"), warningDay("预警天数"), shelfNo(
+				"货位"), tiersNo("层号");
 
 		private String title = null;
 
@@ -70,21 +71,22 @@ AbstractShelfLifeWarningProcessor<Item> {
 		key = new GetShelfLifeWarningMaterialsKey(tablestatus.getBeginIndex(),
 				tablestatus.getPageSize(), true);
 		GUID storeId = null;
-		if(null!=storeList.getText()&&!storeSource.getFirstStoreId().equals(storeList.getText()))
-		{
+		if (null != storeList.getText()
+				&& !storeSource.getFirstStoreId().equals(storeList.getText())) {
 			storeId = GUID.valueOf(storeList.getText());
 		}
 		key.setStoreId(storeId);
 		ShelfLifeWarningType shelfLifeWarningType = null;
-		if(null!=statusList.getText()&&!"00".equals(statusList.getText()))
-		{
-			shelfLifeWarningType = ShelfLifeWarningType.getShelfLifeWarningType(statusList.getText());
+		if (null != statusList.getText() && !"00".equals(statusList.getText())) {
+			shelfLifeWarningType = ShelfLifeWarningType
+					.getShelfLifeWarningType(statusList.getText());
 		}
 		key.setShelfLifeWarningType(shelfLifeWarningType);
 		ListEntity<ShelfLifeWarningMaterialsItem> listEntity = getListEntity();
 		setRecordCount(tablestatus.getPageNo() == STableStatus.FIRSTPAGE,
 				listEntity.getTotalCount());
-		return listEntity.getItemList().toArray(new ShelfLifeWarningMaterialsItem[0]);
+		return listEntity.getItemList().toArray(
+				new ShelfLifeWarningMaterialsItem[0]);
 	}
 
 	@Override
@@ -145,56 +147,67 @@ AbstractShelfLifeWarningProcessor<Item> {
 								case 0:
 									return item.getStoreName();
 								case 1:
-									return item.getMaterialName();
+									return item.getShelfNo() + "";
 								case 2:
-									return item.getMaterialCode();
+									return item.getTiersNo() + "";
 								case 3:
-									return item.getMaterialNo();
+									return item.getMaterialName();
 								case 4:
-									return item.getMaterialSpec();
+									return item.getMaterialCode();
 								case 5:
-									return item.getMaterialUnit();
+									return item.getMaterialNo();
 								case 6:
-									return DoubleUtil.getRoundStr(item.getCount());
+									return item.getMaterialSpec();
 								case 7:
-									return item.getShelfLifeWarningType().getName();
+									return item.getMaterialUnit();
 								case 8:
-									return DateUtil.dateFromat(item.getProduceDate());
+									return DoubleUtil.getRoundStr(item
+											.getCount());
 								case 9:
-									return item.getShelfLife()+"";
+									return item.getShelfLifeWarningType()
+											.getName();
 								case 10:
-									return item.getWarningDay()+"";
-								
+									return DateUtil.dateFromat(item
+											.getProduceDate());
+								case 11:
+									return item.getShelfLife() + "";
+								case 12:
+									return item.getWarningDay() + "";
+
 								}
 								return null;
 							}
 
 							@Override
 							protected String[] getHead() {
-								String[] columns = new String[11];
+								String[] columns = new String[13];
 								columns[0] = ShelfLifeWarningMaterialsListProcessor.ColumnName.storeName
 										.getTitle();
-								columns[1] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materialName
+								columns[1] = ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfNo
 										.getTitle();
-								columns[2] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materialCode
+								columns[2] = ShelfLifeWarningMaterialsListProcessor.ColumnName.tiersNo
 										.getTitle();
-								columns[3] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materailNo
+								columns[3] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materialName
 										.getTitle();
-								columns[4] = ShelfLifeWarningMaterialsListProcessor.ColumnName.spec
+								columns[4] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materialCode
 										.getTitle();
-								columns[5] = ShelfLifeWarningMaterialsListProcessor.ColumnName.unit
+								columns[5] = ShelfLifeWarningMaterialsListProcessor.ColumnName.materailNo
 										.getTitle();
-								columns[6] = ShelfLifeWarningMaterialsListProcessor.ColumnName.count
+								columns[6] = ShelfLifeWarningMaterialsListProcessor.ColumnName.spec
 										.getTitle();
-								columns[7] = ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLifeWarningType
+								columns[7] = ShelfLifeWarningMaterialsListProcessor.ColumnName.unit
 										.getTitle();
-								columns[8] = ShelfLifeWarningMaterialsListProcessor.ColumnName.produceDate
+								columns[8] = ShelfLifeWarningMaterialsListProcessor.ColumnName.count
 										.getTitle();
-								columns[9] = ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLife
+								columns[9] = ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLifeWarningType
 										.getTitle();
-								columns[10] = ShelfLifeWarningMaterialsListProcessor.ColumnName.warningDay
+								columns[10] = ShelfLifeWarningMaterialsListProcessor.ColumnName.produceDate
 										.getTitle();
-								
+								columns[11] = ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLife
+										.getTitle();
+								columns[12] = ShelfLifeWarningMaterialsListProcessor.ColumnName.warningDay
+										.getTitle();
+
 								return columns;
 							}
 						};

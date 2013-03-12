@@ -10,30 +10,35 @@ public class ShelfLifeWarningMaterialsListRender extends AbstractShelfLifeWarnin
 
 	@Override
 	public STableColumn[] getColumns() {
-		STableColumn[] columns = new STableColumn[11];
-		columns[0] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.storeName.name(), 150, 
+		STableColumn[] columns = new STableColumn[13];
+		int index = 0 ;
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.storeName.name(), 150, 
 				JWT.LEFT, ShelfLifeWarningMaterialsListProcessor.ColumnName.storeName.getTitle());
-		columns[1] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materialName.name(), 150, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfNo.name(), 40, 
+				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfNo.getTitle());
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.tiersNo.name(), 40, 
+				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.tiersNo.getTitle());
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materialName.name(), 150, 
 				JWT.LEFT, ShelfLifeWarningMaterialsListProcessor.ColumnName.materialName.getTitle());
-		columns[2] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materialCode.name(), 120, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materialCode.name(), 120, 
 				JWT.LEFT, ShelfLifeWarningMaterialsListProcessor.ColumnName.materialCode.getTitle());
-		columns[3] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materailNo.name(), 120, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.materailNo.name(), 120, 
 				JWT.LEFT, ShelfLifeWarningMaterialsListProcessor.ColumnName.materailNo.getTitle());
-		columns[4] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.spec.name(), 100, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.spec.name(), 100, 
 				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.spec.getTitle());
-		columns[5] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.unit.name(), 80, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.unit.name(), 80, 
 				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.unit.getTitle());
-		columns[6] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.count.name(), 120, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.count.name(), 120, 
 				JWT.RIGHT, ShelfLifeWarningMaterialsListProcessor.ColumnName.count.getTitle());
-		columns[7] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLifeWarningType.name(), 80, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLifeWarningType.name(), 80, 
 				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLifeWarningType.getTitle());
-		columns[8] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.produceDate.name(), 100, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.produceDate.name(), 100, 
 				JWT.CENTER, ShelfLifeWarningMaterialsListProcessor.ColumnName.produceDate.getTitle());
-		columns[9] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLife.name(), 80, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLife.name(), 80, 
 				JWT.RIGHT, ShelfLifeWarningMaterialsListProcessor.ColumnName.shelfLife.getTitle());
-		columns[10] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.warningDay.name(), 80, 
+		columns[index++] = new STableColumn(ShelfLifeWarningMaterialsListProcessor.ColumnName.warningDay.name(), 80, 
 				JWT.RIGHT, ShelfLifeWarningMaterialsListProcessor.ColumnName.warningDay.getTitle());
-		columns[1].setGrab(true);
+		columns[3].setGrab(true);
 		return columns;
 	}
 
@@ -44,24 +49,28 @@ public class ShelfLifeWarningMaterialsListRender extends AbstractShelfLifeWarnin
 		case 0:
 			return item.getStoreName();
 		case 1:
-			return item.getMaterialName();
+			return item.getShelfNo()+"";
 		case 2:
-			return item.getMaterialCode();
+			return item.getTiersNo()+"";
 		case 3:
-			return item.getMaterialNo();
+			return item.getMaterialName();
 		case 4:
-			return item.getMaterialSpec();
+			return item.getMaterialCode();
 		case 5:
-			return item.getMaterialUnit();
+			return item.getMaterialNo();
 		case 6:
-			return DoubleUtil.getRoundStr(item.getCount());
+			return item.getMaterialSpec();
 		case 7:
-			return item.getShelfLifeWarningType().getName();
+			return item.getMaterialUnit();
 		case 8:
-			return DateUtil.dateFromat(item.getProduceDate());
+			return DoubleUtil.getRoundStr(item.getCount());
 		case 9:
-			return item.getShelfLife()+"";
+			return item.getShelfLifeWarningType().getName();
 		case 10:
+			return DateUtil.dateFromat(item.getProduceDate());
+		case 11:
+			return item.getShelfLife()+"";
+		case 12:
 			return item.getWarningDay()+"";
 		}
 		return null;

@@ -20,6 +20,24 @@ public class ShelfLifeWarningMaterialsItemImpl implements
 	private int shelfLife;
 	private int warningDay;
 	private GUID id;
+	private int shelfNo;
+	private int tiersNo;
+
+	public int getShelfNo() {
+		return shelfNo;
+	}
+
+	public void setShelfNo(int shelfNo) {
+		this.shelfNo = shelfNo;
+	}
+
+	public int getTiersNo() {
+		return tiersNo;
+	}
+
+	public void setTiersNo(int tiersNo) {
+		this.tiersNo = tiersNo;
+	}
 
 	public GUID getId() {
 		return id;
