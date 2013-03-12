@@ -26,7 +26,6 @@ import com.jiuqi.util.StringUtils;
 import com.jiuqi.util.json.JSONArray;
 import com.jiuqi.util.json.JSONObject;
 import com.spark.common.components.db.ERPTableNames;
-import com.spark.common.utils.BeanCopy;
 import com.spark.common.utils.ComparatorUtils;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.character.PinyinHelper;
@@ -1312,7 +1311,10 @@ public class GoodsPublishService extends Service {
 					entity.getGoodsName(), entity.getGoodsNo(), entity
 							.getSpec(), entity.getGoodsUnit(), entity
 							.getOriginalPrice());
-			dbc3.executeUpdate();
+			int result = dbc3.executeUpdate();
+			if (result < 1) {
+				System.out.println("商品同步出错。。。。。");
+			}
 		}
 	}
 
