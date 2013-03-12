@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content name="ShelfLifeWarningStatus">
+	<item code="00" name="全部"/>
+	<item code="01" name="临近"/>
+	<item code="02" name="过期"/> 
+</content>

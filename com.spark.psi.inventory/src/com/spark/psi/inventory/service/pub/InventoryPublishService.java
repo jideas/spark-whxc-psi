@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.resource.ResourceToken;
 import com.jiuqi.dna.core.service.Publish;
@@ -944,6 +943,7 @@ public class InventoryPublishService extends Service {
 				Date today = new Date(DateUtil.getToday());
 				long days = DateUtil.getDaysBetween(produceDay, today);
 				ShelfLifeWarningMaterialsItemImpl wmi = new ShelfLifeWarningMaterialsItemImpl();
+				wmi.setId(d.getId());
 				wmi.setCount(d.getCount());
 				wmi.setMaterialId(d.getStockId());
 				wmi.setMaterialName(mi.getMaterialName());
@@ -975,7 +975,46 @@ public class InventoryPublishService extends Service {
 		}
 		
 	}
+	
+	/**
+	 * 保质期预警材料分页查询
+	 */
+	@Publish
+	protected class GetShelfLifeWarningMaterialsListEntity extends OneKeyResultProvider<ListEntity<ShelfLifeWarningMaterialsItem>, GetShelfLifeWarningMaterialsKey>
+	{
 
+		@Override
+		protected ListEntity<ShelfLifeWarningMaterialsItem> provide(
+				Context context, GetShelfLifeWarningMaterialsKey key)
+				throws Throwable {
+			List<ShelfLifeWarningMaterialsItem> list = context.getList(ShelfLifeWarningMaterialsItem.class, key);
+			List<ShelfLifeWarningMaterialsItem> rList = new ArrayList<ShelfLifeWarningMaterialsItem>();
+			List<ShelfLifeWarningMaterialsItem> l = new ArrayList<ShelfLifeWarningMaterialsItem>();
+			for(ShelfLifeWarningMaterialsItem item:list)
+			{
+				if(null!=key.getStoreId()&&!item.getStoreId().equals(key.getStoreId()))
+				{
+					continue;
+				}
+				if(null!=key.getShelfLifeWarningType()&&!(item.getShelfLifeWarningType()==key.getShelfLifeWarningType()))
+				{
+					continue;
+				}
+				rList.add(item);
+			}
+			if(key.getCount()>0)
+			{
+				int toIndex = key.getOffset()+key.getCount();
+				if(toIndex>rList.size())
+					toIndex = rList.size();
+				if(key.getOffset()<=rList.size())
+				l = rList.subList(key.getOffset(), toIndex);
+			}
+			ListEntity<ShelfLifeWarningMaterialsItem> entity = new ListEntity<ShelfLifeWarningMaterialsItem>(l, rList.size());
+			return entity;
+		}
+		
+	}
 	/**
 	 * 查询库存异常商品详细数据
 	 * 

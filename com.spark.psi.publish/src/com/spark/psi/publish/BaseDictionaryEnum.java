@@ -29,6 +29,7 @@ public enum BaseDictionaryEnum {
 	 * 
 	 */
 	DeliveryHour("Config_DeliveryHour"),
+	ShelfLifeWarningStatus("Config_ShelfLifeWarningStatus"),
 	;
 
 	private String xmlName;

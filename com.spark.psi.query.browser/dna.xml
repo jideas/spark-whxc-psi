@@ -34,6 +34,9 @@
 			<page space="psi/query" name="CalculateGoodsMaterialPage"
 				processor="com.spark.psi.query.browser.QueryGoodsMaterialPageProcessor"
 				render="com.spark.psi.query.browser.QueryGoodsMaterialPageRender" />
+			<page space="psi/query" name="ShelfLifeWarningMaterials"
+				processor="com.spark.psi.query.browser.ShelfLifeWarningMaterialsListProcessor"
+				render="com.spark.psi.query.browser.ShelfLifeWarningMaterialsListRender" />
 			
 		</saas-pages>
 		
