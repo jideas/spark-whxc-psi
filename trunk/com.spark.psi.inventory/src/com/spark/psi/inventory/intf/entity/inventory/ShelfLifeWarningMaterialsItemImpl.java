@@ -19,6 +19,15 @@ public class ShelfLifeWarningMaterialsItemImpl implements
 	private long produceDate;
 	private int shelfLife;
 	private int warningDay;
+	private GUID id;
+
+	public GUID getId() {
+		return id;
+	}
+
+	public void setId(GUID id) {
+		this.id = id;
+	}
 
 	public String getMaterialNo() {
 		return materialNo;

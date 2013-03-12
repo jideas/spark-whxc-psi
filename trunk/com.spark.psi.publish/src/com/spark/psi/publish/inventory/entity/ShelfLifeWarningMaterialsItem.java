@@ -4,6 +4,8 @@ import com.jiuqi.dna.core.type.GUID;
 import com.spark.psi.publish.ShelfLifeWarningType;
 
 public interface ShelfLifeWarningMaterialsItem {
+	public GUID getId();
+	
 	public GUID getStoreId();
 
 	public String getStoreName();

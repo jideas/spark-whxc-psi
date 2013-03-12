@@ -72,7 +72,7 @@ public class ShelfLifeWarningService extends Service {
 			isRunning = true;
 			context.handle(new SMessageDelTask(SMessageType.ShelfLifeWarning, null));
 			List<ShelfLifeWarningMaterialsItem> list = context.getList(ShelfLifeWarningMaterialsItem.class,
-					new com.spark.psi.publish.inventory.key.GetShelfLifeWarningMaterialsKey());
+					new com.spark.psi.publish.inventory.key.GetShelfLifeWarningMaterialsKey(0,20,false));
 			if (null == list || list.isEmpty()) {
 				return;
 			}

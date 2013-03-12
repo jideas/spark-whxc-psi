@@ -31,6 +31,8 @@ public class QueryMangeFunction extends PSIFunction {
 						"GoodsDeliverSummary"), "成品发货单") ,
 				new BaseFunction(new PageControllerInstance(
 						"OnlineSalesSummary"), "线上销售"),
+						new BaseFunction(new PageControllerInstance(
+						"ShelfLifeWarningMaterials"), "保质期预警材料"),
 				new BaseFunction(new PageControllerInstance(
 						"CalculateGoodsMaterialPage"), "材料计算"),
 						
