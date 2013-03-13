@@ -9,6 +9,7 @@ import com.jiuqi.dna.ui.wt.layouts.GridData;
 import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
+import com.spark.psi.order.browser.delivery.DeliverDetailPageProcessor;
 import com.spark.psi.order.browser.util.OrderDetailProcessor.Cloumns;
 import com.spark.psi.order.browser.util.OrderDetailProcessor.View;
 import com.spark.psi.order.browser.util.OrderDetailRender;
@@ -41,7 +42,16 @@ public class PurchaseOrderDetailRender extends OrderDetailRender {
 		}
 		return -1;
 	}
-
+	@Override
+	protected void renderSheetButtonArea(Composite sheetButtonArea) {
+		Composite hideArea = new Composite(sheetButtonArea);
+		GridData gdHide = new GridData();
+		gdHide.exclude = true;
+		hideArea.setLayoutData(gdHide);
+		hideArea.setVisible(false);
+		hideArea.setID(DeliverDetailPageProcessor.ID_Area_Hide);
+		super.renderSheetButtonArea(sheetButtonArea);
+	}
 	@Override
 	protected String getText(Object element, Cloumns columnEnum) {
 		return super.getText(element, columnEnum);

@@ -450,8 +450,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 		columns[10] = new PrintColumn("金额", 70, JWT.RIGHT);
 		String tableTitle0 = "客户名称：" + orderInfo.getPartnerInfo().getShortName() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户联系人：" + (orderInfo.getLinkman() == null ? "无" : orderInfo.getLinkman()) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
 				+ "交货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryDate()) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单据状态：" + orderInfo.getOrderStatus().getName();
-		String tableTitle1 = "收货地址：" + orderInfo.getPartnerInfo().getAddress();
-//		String tableTitle2 = "包装箱数：" + deliverInfo.getDeliveredPackageCount();
+		String tableTitle1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收货地址：" + (orderInfo.getPartnerInfo().getAddress() == null ? "无" : orderInfo.getPartnerInfo().getAddress());
 		
 		String tableBottom1 = "备注：" + (orderInfo.getRemark() == null ? "无" : orderInfo.getRemark());
 		String tableBottom2 = getSheetCreateInfo() + (getSheetApprovalInfo() == null ? "" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + getSheetApprovalInfo());
