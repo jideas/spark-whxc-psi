@@ -6,11 +6,13 @@ package com.spark.psi.order.browser.sales;
 import com.jiuqi.dna.core.situation.Situation;
 import com.jiuqi.dna.ui.wt.graphics.Color;
 import com.jiuqi.dna.ui.wt.graphics.Cursor;
+import com.jiuqi.dna.ui.wt.layouts.GridData;
 import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.controls.text.SDatePicker;
 import com.spark.common.utils.date.DateUtil;
+import com.spark.psi.order.browser.delivery.DeliverDetailPageProcessor;
 import com.spark.psi.order.browser.util.OrderDetailProcessor.View;
 import com.spark.psi.publish.OrderStatus;
 import com.spark.psi.publish.order.entity.SalesOrderInfo;
@@ -35,6 +37,18 @@ public class SalesOrderDetailRender extends AbstractSalesOrderDetailRender {
 		return 2;
 	}
 	
+	
+	@Override
+	protected void renderSheetButtonArea(Composite sheetButtonArea) {
+		Composite hideArea = new Composite(sheetButtonArea);
+		GridData gdHide = new GridData();
+		gdHide.exclude = true;
+		hideArea.setLayoutData(gdHide);
+		hideArea.setVisible(false);
+		hideArea.setID(DeliverDetailPageProcessor.ID_Area_Hide);
+		super.renderSheetButtonArea(sheetButtonArea);
+	}
+
 
 	@Override
 	protected void fillBaseInfoCellControl(Composite baseInfoArea, int row,
