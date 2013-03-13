@@ -156,8 +156,8 @@ public class OnlineSalesSummaryProcessor extends
 		@Override
 		protected Object[] getElements(Context context, String searchText,
 				GUID categoryId, STableStatus tablestatus) {
-			GetOnlineSalesListKey key = new GetOnlineSalesListKey(0,
-					Integer.MAX_VALUE, true);
+			GetOnlineSalesListKey key = new GetOnlineSalesListKey(tablestatus.getPageNo(),
+					tablestatus.getPageSize(), true);
 			key.setGoodsCategoryId(categoryId);
 			key.setSearchText(searchText);
 			GUID stationId = GUID.emptyID;

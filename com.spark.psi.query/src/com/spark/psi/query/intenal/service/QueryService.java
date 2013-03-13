@@ -827,6 +827,77 @@ public class QueryService extends Service {
 				qb.addCondition(sql.toString());
 			}
 			qb.addGroupBy("d.goodsId");
+			
+			QuerySqlBuilder qb1 = new QuerySqlBuilder(context);
+			qb1.addTable(ERPTableNames.Sales.OnlineOrder_Det.getTableName(), "d");
+			qb1.addTable(ERPTableNames.Sales.OnlineOrder.getTableName(), "t");
+			qb1.addEquals("d.billsId", "t.recid");
+//			qb1.addColumn("d.goodsId", "goodsId");
+//			qb1.addColumn("d.goodsCode", "goodsCode");
+//			qb1.addColumn("d.goodsNo", "goodsNo");
+//			qb1.addColumn("d.goodsName", "goodsName");
+//			qb.addColumn("d.goodsSpec", "goodsSpec");
+//			qb.addColumn("d.unit", "unit");
+//			qb.addColumn("sum(d.\"count\")", "\"count\"");
+			qb1.addColumn("sum(d.amount)", "amount");
+			qb1.addArgs("status", qb1.STRING, OnlineOrderStatus.Finished.getCode());
+			qb1.addEquals("t.status", "@status");
+			if (null != key.getGoodsCategoryId()) {
+				GoodsCategory gc = context.find(GoodsCategory.class, key.getGoodsCategoryId());
+				if (null != gc) {
+					GoodsItem[] goods = gc.getGoodsItems(context);
+
+					if (null != goods && goods.length > 0) {
+						List<String> params = new ArrayList<String>();
+						for (int i = 0; i < goods.length; i++) {
+							params.add("@goodsId" + i);
+							qb1.addArgs("goodsId" + i, qb1.guid, goods[i].getId());
+						}
+						qb1.addIn("d.goodsId", params);
+					} else {
+						qb1.addCondition(" 1<>1 ");
+					}
+				}
+			}
+			if (CheckIsNull.isNotEmpty(key.getCustomerName())) {
+				qb1.addArgs("customerName", qb1.STRING, key.getCustomerName().trim());
+				qb1.addLike("t.realName", "@customerName");
+			}
+			if (CheckIsNull.isNotEmpty(key.getGoodsName())) {
+				qb1.addArgs("getGoodsName", qb1.STRING, key.getGoodsName().trim());
+				qb1.addLike("d.goodsName", "@getGoodsName");
+			}
+			if (CheckIsNull.isNotEmpty(key.getGoodsCode())) {
+				qb1.addArgs("getGoodsCode", qb1.STRING, key.getGoodsCode().trim());
+				qb1.addLike("d.goodsCode", "@getGoodsCode");
+			}
+			if (CheckIsNull.isNotEmpty(key.getGoodsNo())) {
+				qb1.addArgs("getGoodsNo", qb1.STRING, key.getGoodsNo().trim());
+				qb1.addLike("d.goodsNo", "@getGoodsNo");
+			}
+			if (CheckIsNull.isNotEmpty(key.getStationId())) {
+				qb1.addArgs("stationId", qb1.guid, key.getStationId());
+				qb1.addEquals("t.stationId", "@stationId");
+			}
+			if (key.getDeliverDateBegin() > 0) {
+				qb1.addArgs("cBegin", qb1.DATE, key.getDeliverDateBegin());
+				qb1.addGreaterThan("t.consignedDate", "@cBegin");
+			}
+			if (key.getCreateDateEnd() > 0) {
+				qb1.addArgs("cEnd", qb1.DATE, key.getCreateDateEnd()+24*3600000-1);
+				qb1.addLessThan("t.consignedDate", "@cEnd");
+			}
+			if (null != key.getSearchText()) {
+				String searchText = key.getSearchText().trim();
+				StringBuffer sql = new StringBuffer();
+				// sql.append(" (t.realName like '%").append(searchText).append("%' ");
+				sql.append(" (d.goodsCode like '%").append(searchText).append("%' ");
+				sql.append(" or d.goodsNo like '%").append(searchText).append("%' ");
+				sql.append(" or d.goodsName like '%").append(searchText).append("%') ");
+				// sql.append(" or d.stationName like '%").append(searchText).append("%') ");
+				qb1.addCondition(sql.toString());
+			}
+			qb1.addGroupBy("d.goodsId");
 
 			RecordSet rs = null;
 			if (key.getCount() > 0) {
@@ -847,8 +918,14 @@ public class QueryService extends Service {
 				impl.setCount(rs.getFields().get(index++).getDouble());
 				impl.setAmount(rs.getFields().get(index++).getDouble());
 
-				totalAmount += impl.getAmount();
+//				totalAmount += impl.getAmount();
 				list.add(impl);
+			}
+			RecordSet rs1 = null;
+			rs1 = qb1.getRecord();
+			while(rs1.next())
+			{
+				totalAmount= DoubleUtil.sum(totalAmount,rs1.getFields().get(0).getDouble());
 			}
 			OnlineSalesListEntity listEntity = new OnlineSalesListEntity(list, list.size());
 			listEntity.setTotalAmount(totalAmount);
