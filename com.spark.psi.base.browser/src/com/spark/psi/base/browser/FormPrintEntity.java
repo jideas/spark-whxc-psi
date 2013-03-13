@@ -111,7 +111,7 @@ public class FormPrintEntity {
 		return tableFooters;
 	}
 
-	public void setTableFooters(String[] tableFooters) {
+	public void setTableFooters(String... tableFooters) {
 		this.tableFooters = tableFooters;
 	}
 	
