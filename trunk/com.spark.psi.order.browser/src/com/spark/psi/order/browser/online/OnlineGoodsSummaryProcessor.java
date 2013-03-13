@@ -141,12 +141,12 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 	
 	private void printAction() {
 		PrintColumn[] columns = new PrintColumn[6];
-		columns[0] = new PrintColumn("商品编号", 120, JWT.LEFT);
-		columns[1] = new PrintColumn("商品条码", 120, JWT.LEFT);
-		columns[2] = new PrintColumn("商品名称", 200, JWT.LEFT);
+		columns[0] = new PrintColumn("商品编号", 100, JWT.LEFT);
+		columns[1] = new PrintColumn("商品条码", 100, JWT.LEFT);
+		columns[2] = new PrintColumn("商品名称", 180, JWT.LEFT);
 		columns[3] = new PrintColumn("规格", 100, JWT.LEFT);
-		columns[4] = new PrintColumn("单价", 100, JWT.RIGHT);
-		columns[5] = new PrintColumn("数量", 80, JWT.RIGHT);
+		columns[4] = new PrintColumn("数量", 80, JWT.RIGHT);
+		columns[5] = new PrintColumn("单价", 100, JWT.RIGHT);
 		String station = stationProvider.getText(stationProvider.getElementId(stationList.getText()));
 		String time = timeSource.getText(timeSource.getElementById(timeList.getText()));
 		String tableTitle0 = "站点：" + station + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交货日期：" + DateUtil.dateFromat(dateBegin.getDate().getTime())
@@ -172,9 +172,10 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 				case 3:
 					return item.getSpec();
 				case 4:
-					return DoubleUtil.getRoundStr(item.getPrice());
-				case 5:
 					return DoubleUtil.getRoundStr(item.getCount(), 0);
+				case 5:
+					return DoubleUtil.getRoundStr(item.getPrice());
+					
 				}
 				return null;
 			}
@@ -418,11 +419,12 @@ class PrintProvider implements PrintContentProvider {
 	
 	public String getContentHtml() {
 		StringBuffer buffer = new StringBuffer();
+		buffer.append("<div style='margin: 40px 0px 0 40px;'>");
 		for (String commonRow : printEntity.getTableTitles()) {
 			buffer.append("<span height='" + FormPrintEntity.COMMON_ROW_HEIGHT + "'><font size='" + FormPrintEntity.FONT_COMMON_SIZE + "'>").append(commonRow).append("</font></span> \n <br/>");
 		}
-		buffer.append("\n<div style='height:1px;width: " + getWidth() + ";border-bottom: solid red 1px;'></div> \n");
-		buffer.append("<table> \n");
+//		buffer.append("\n<div style='height:1px;width: " + getWidth() + ";border-bottom: solid 1px;'></div> \n");
+		buffer.append("<table border='1' cellspacing=0px style='border-collapse:collapse'> \n");
 		// 表头
 		buffer.append("<tr> \n");
 		for (PrintColumn column : printEntity.getColumns()) {
@@ -441,6 +443,7 @@ class PrintProvider implements PrintContentProvider {
 			buffer.append("</tr> \n");
 		}
 		buffer.append("</table> \n");
+		buffer.append("</div>");
 		return buffer.toString();
 	}
 	private String getTableAlign(int align) {
