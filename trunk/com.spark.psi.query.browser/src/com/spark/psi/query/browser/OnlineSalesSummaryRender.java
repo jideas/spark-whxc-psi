@@ -75,7 +75,7 @@ public class OnlineSalesSummaryRender extends GoodsCategoryFramePageRender{
 		@Override
 		public STableStyle getTableStyle(){
 			STableStyle sTableStyle = new STableStyle();
-			sTableStyle.setPageAble(false);
+			sTableStyle.setPageAble(true);
 //			sTableStyle.setSortAll(true);
 			return sTableStyle;
 		}
