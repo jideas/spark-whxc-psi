@@ -15,16 +15,21 @@ import com.jiuqi.dna.core.invoke.AsyncTask;
 import com.jiuqi.dna.core.situation.Situation;
 import com.jiuqi.dna.core.spi.application.SituationSPI;
 import com.jiuqi.dna.core.type.GUID;
+import com.jiuqi.dna.ui.common.constants.JWT;
 import com.jiuqi.dna.ui.custom.combo.DatePicker;
 import com.jiuqi.dna.ui.wt.events.ActionEvent;
 import com.jiuqi.dna.ui.wt.events.ActionListener;
 import com.jiuqi.dna.ui.wt.events.MouseClickListener;
 import com.jiuqi.dna.ui.wt.events.MouseEvent;
+import com.jiuqi.dna.ui.wt.graphics.Color;
+import com.jiuqi.dna.ui.wt.layouts.GridData;
+import com.jiuqi.dna.ui.wt.widgets.Browser;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Display;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Display.ExporterWithContext;
+import com.spark.common.components.table.SLabelProvider;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.common.utils.excel.BillsWriter;
@@ -33,6 +38,9 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.CommonSelectRequest;
+import com.spark.psi.base.browser.FormPrintEntity;
+import com.spark.psi.base.browser.PSIPrinter;
+import com.spark.psi.base.browser.PrintColumn;
 import com.spark.psi.base.browser.material.MaterialsSelectParameters;
 import com.spark.psi.order.browser.common.OrderCheckInfoWindow;
 import com.spark.psi.order.browser.util.SalesMaterialsUtil;
@@ -66,6 +74,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 	public final static String ID_CustomerSelect_Button = "CustomerSelect_Button";
 	public final static String ID_OrderStatusLabel = "OrderStatusLabel";
 	public final static String ID_CheckInfoLabel = "CheckInfoLabel";
+	public static final String ID_Area_Hide = "Area_Hide";
 
 	private Composite customerInfoArea;
 	private Composite deliveryInfoArea;
@@ -420,4 +429,90 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 		return true;
 	}
 
+	@Override
+	protected boolean isNeedPrint() {
+		return true;
+	}
+
+	@Override
+	protected void printAction() {
+		PrintColumn[] columns = new PrintColumn[11];
+		columns[0] = new PrintColumn("材料编号", 100, JWT.LEFT);
+		columns[1] = new PrintColumn("材料条码", 100, JWT.LEFT);
+		columns[2] = new PrintColumn("材料名称", 120, JWT.LEFT);
+		columns[3] = new PrintColumn("规格", 60, JWT.CENTER);
+		columns[4] = new PrintColumn("单位", 45, JWT.CENTER);
+		columns[5] = new PrintColumn("数量", 50, JWT.RIGHT);
+		columns[6] = new PrintColumn("原价", 50, JWT.RIGHT);
+		columns[7] = new PrintColumn("单价", 50, JWT.RIGHT);
+		columns[8] = new PrintColumn("折扣率", 50, JWT.RIGHT);
+		columns[9] = new PrintColumn("折扣额", 50, JWT.RIGHT);
+		columns[10] = new PrintColumn("金额", 70, JWT.RIGHT);
+		String tableTitle0 = "客户名称：" + orderInfo.getPartnerInfo().getShortName() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客户联系人：" + (orderInfo.getLinkman() == null ? "无" : orderInfo.getLinkman()) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
+				+ "交货日期：" + DateUtil.dateFromat(orderInfo.getDeliveryDate()) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单据状态：" + orderInfo.getOrderStatus().getName();
+		String tableTitle1 = "收货地址：" + orderInfo.getPartnerInfo().getAddress();
+//		String tableTitle2 = "包装箱数：" + deliverInfo.getDeliveredPackageCount();
+		
+		String tableBottom1 = "备注：" + (orderInfo.getRemark() == null ? "无" : orderInfo.getRemark());
+		String tableBottom2 = getSheetCreateInfo() + (getSheetApprovalInfo() == null ? "" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + getSheetApprovalInfo());
+		String[] extraInfo = getSheetExtraInfo();
+		if (null != extraInfo) {
+			for (String info : extraInfo) {
+				tableBottom2 += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + info;
+			}
+		}
+		FormPrintEntity fpe = new FormPrintEntity("销售单", columns, orderInfo.getSalesOrderGoodsItems(), tableTitle0, tableTitle1);
+		fpe.setTableFooters(tableBottom1, tableBottom2);
+		fpe.setLabelProvider(new SLabelProvider() {
+			
+			public String getToolTipText(Object element, int columnIndex) {
+				return null;
+			}
+			
+			public String getText(Object element, int columnIndex) {
+				SalesOrderGoodsItem item = (SalesOrderGoodsItem)element;
+				switch(columnIndex) {
+				case 0:
+					return item.getGoodsCode();
+				case 1:
+					return item.getGoodsNo();
+				case 2:
+					return item.getName();
+				case 3:
+					return item.getSpec();
+				case 4:
+					return item.getUnit();
+				case 5:
+					return DoubleUtil.getRoundStr(item.getCount(), 0);
+				case 6:
+					return DoubleUtil.getRoundStr(item.getPlanPrice(), 2);
+				case 7:
+					return DoubleUtil.getRoundStr(item.getGoodsItemPrice(), 2);
+				case 8:
+					return DoubleUtil.getRoundStr(item.getDiscountCount(), 2);
+				case 9:
+					return DoubleUtil.getRoundStr(item.getDiscountAmount(), 2);
+				case 10:
+					return DoubleUtil.getRoundStr(item.getAmount(), 2);
+				}
+				return null;
+			}
+			
+			public Color getForeground(Object element, int columnIndex) {
+				return null;
+			}
+			
+			public Color getBackground(Object element, int columnIndex) {
+				return null;
+			}
+		});
+		SalesOrderPrintContentProvider pProvider = new SalesOrderPrintContentProvider(fpe);
+		PSIPrinter printer = new PSIPrinter(pProvider);
+		printer.setNeedPreview(true);
+		Composite hideArea = createControl(ID_Area_Hide, Composite.class);
+		Browser browser = new Browser(hideArea);
+		browser.setLayoutData(GridData.INS_FILL_BOTH);
+		browser.applyHTML(printer.getPrinterContent());
+		hideArea.layout();
+	}
 }
