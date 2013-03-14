@@ -417,6 +417,22 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 	}
 	
 	
+	
+	
+	@Override
+	protected void exportAction() {
+		if (null == supplierInfo) {
+			alert("没有数据可导出。");
+			return;
+		}
+		table.exportDatas("联营结算-" + supplierInfo.getShortName() + ".xls", "application/vnd.ms-excel", 102400000, supplierInfo.getShortName() + "销售情况");
+	}
+
+	@Override
+	protected boolean isNeedExport() {
+		return true;
+	}
+
 	private List<RecordShowItem> getShowItemListWithGroupByGoodsIdAndPercentage(List<JointVentureRecordItem> sourceList) {
 		List<RecordShowItem> showItemList = new ArrayList<RecordShowItem>();
 		Map<GUID, List<JointVentureRecordItem>> groupByGoodsList = getRecordGroupByGoodsId(sourceList);
