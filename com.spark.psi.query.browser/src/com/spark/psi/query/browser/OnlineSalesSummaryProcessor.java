@@ -156,7 +156,7 @@ public class OnlineSalesSummaryProcessor extends
 		@Override
 		protected Object[] getElements(Context context, String searchText,
 				GUID categoryId, STableStatus tablestatus) {
-			GetOnlineSalesListKey key = new GetOnlineSalesListKey(tablestatus.getPageNo(),
+			GetOnlineSalesListKey key = new GetOnlineSalesListKey(tablestatus.getBeginIndex(),
 					tablestatus.getPageSize(), true);
 			key.setGoodsCategoryId(categoryId);
 			key.setSearchText(searchText);
@@ -189,6 +189,7 @@ public class OnlineSalesSummaryProcessor extends
 			}
 			OnlineSalesListEntity le = getContext().find(OnlineSalesListEntity.class, key);
 
+			amountLabel.setText(DoubleUtil.getRoundStr(le.getTotalAmount()));
 			List<OnlineSalesItem> list = le.getItemList();
 			if (CheckIsNull.isNotEmpty(list)) {
 				OnlineSalesItem[] items = new OnlineSalesItem[list.size()];
@@ -196,10 +197,9 @@ public class OnlineSalesSummaryProcessor extends
 				for (OnlineSalesItem item : list) {
 					items[index++] = item;
 				}
-				amountLabel.setText(DoubleUtil.getRoundStr(le.getTotalAmount()));
 				return items;
 			}
-			amountLabel.setText("0.00");
+			
 			return null;
 		}
 
