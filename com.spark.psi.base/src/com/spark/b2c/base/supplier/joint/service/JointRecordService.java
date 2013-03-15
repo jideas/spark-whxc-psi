@@ -207,7 +207,7 @@ public class JointRecordService extends Service {
 				b = ub.execute() == task.getIdList().size();
 			}
 			if (!b) {
-				throw new Exception("变更联营交易记录结算状态失败，请检查！");
+				throw new Exception("联营交易记录信息已过时，请检查！");
 			}
 		}
 	}

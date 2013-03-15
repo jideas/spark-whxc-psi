@@ -47,7 +47,7 @@ debugger;
 		adjustAmount = getNumberValueWithoQFW(adjustAmountStr);
 	}
 	
-	payingAmountText.setText("" + SComponent.trimNumber((totalSalesAmount - totalPercentageAmount - adjustAmount),2));
+	payingAmountText.setText("" + SComponent.trimNumber((totalSalesAmount - totalPercentageAmount + adjustAmount),2));
 	payingAmountText.parent().layout();
 };
 

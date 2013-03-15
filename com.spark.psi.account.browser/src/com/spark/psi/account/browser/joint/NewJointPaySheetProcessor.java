@@ -89,7 +89,7 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 	private double totalSaleAmount = 0.0;
 	private double totalPercentageAmount = 0.0;
 	
-	private StringBuffer recordItemIds = new StringBuffer();
+	private StringBuffer recordItemIds = null;
 	
 	private List<RecordShowItem> showItemList = null;
 	
@@ -106,7 +106,7 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 		totalSaleAmountLabel = createLabelControl(ID_Label_TotalSaleAmount);
 		percetageAmountLabel = createLabelControl(ID_Label_TotalPercentageAmount);
 		memoText = createMemoText();
-		
+		initData();
 		adjustAmountText.addClientEventHandler(JWT.CLIENT_EVENT_DOCUMENT, "Account.handleAdjustDocChange");
 		totalPayingAmountText.setEnabled(false);
 		
@@ -166,8 +166,6 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 				getContext().bubbleMessage(new MsgResponse(true));
 			}
 		});
-		
-		initData();
 	}
 	
 	private void initData() {
@@ -181,6 +179,9 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 		adjustAmountText.setText(DoubleUtil.getRoundStr(info.getAdjustAmount()));
 		memoText.setText(info.getRemark());
 		totalSaleAmount = info.getSalesAmount();
+		totalPercentageAmount = info.getPercentageAmount();
+		recordItemIds = new StringBuffer();
+		recordItemIds.append(info.getRecordIds());
 		
 		supplierInfo = getContext().find(SupplierInfo.class, info.getSupplierId());
 		supplierText.setText(supplierInfo == null ? "" : supplierInfo.getShortName());
@@ -193,11 +194,11 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 		if (StringUtils.isNotEmpty(adjustAmountStr)) {
 			adjustAmount = DoubleUtil.strToDouble(adjustAmountStr);
 		}
-		double totalPayingAmount = 0.0;
-		String totalPayingAmountStr = totalPayingAmountText.getText();
-		if (StringUtils.isNotEmpty(totalPayingAmountStr)) {
-			totalPayingAmount = DoubleUtil.strToDouble(totalPayingAmountStr);
-		}
+		double totalPayingAmount = DoubleUtil.sum(adjustAmount, DoubleUtil.sub(totalSaleAmount, totalPercentageAmount));
+//		String totalPayingAmountStr = totalPayingAmountText.getText();
+//		if (StringUtils.isNotEmpty(totalPayingAmountStr)) {
+//			totalPayingAmount = DoubleUtil.strToDouble(totalPayingAmountStr);
+//		}
 		JointSettlementTask task = new JointSettlementTask();
 		
 		task.setSupplierName(supplierInfo.getName());
@@ -274,7 +275,7 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 			return false;
 		}
 		
-		if (null == info || info.getItems().length < 1) {
+		if (!(table.getAllRowId().length>0)) {
 			alert("无销售记录，不能进行结算。");
 			return false;
 		}
@@ -394,9 +395,10 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 		ListEntity<JointVentureRecordItem> listEntity = context.find(JointVentureRecordListEntity.class, key);
 		if (null == listEntity) return null;
 		totalSaleAmount = 0.0;
+		recordItemIds = new StringBuffer();
 		for (int index = 0; index < listEntity.getItemList().size(); index++) {
 			JointVentureRecordItem item = listEntity.getItemList().get(index);
-			totalSaleAmount += item.getAmount();
+			totalSaleAmount = DoubleUtil.sum(totalSaleAmount, item.getAmount());
 			recordItemIds.append(item.getRECID().toString());
 			if (index != listEntity.getItemList().size() - 1) {
 				recordItemIds.append(",");
@@ -408,11 +410,16 @@ public class NewJointPaySheetProcessor<TItem> extends SimpleSheetPageProcessor<T
 		
 		totalPercentageAmount = 0.0;
 		for (RecordShowItem item : showItemList) {
-			totalPercentageAmount += item.getPercentageAmount();
+			totalPercentageAmount = DoubleUtil.sum(totalPercentageAmount, item.getPercentageAmount());
 		}
 		percetageAmountLabel.setText(DoubleUtil.getRoundStr(totalPercentageAmount));
 		
-		totalPayingAmountText.setText(DoubleUtil.getRoundStr(DoubleUtil.sub(totalSaleAmount, totalPercentageAmount)));
+		double adjustAmount = 0d;
+		String adjustAmountStr = adjustAmountText.getText();
+		if (StringUtils.isNotEmpty(adjustAmountStr)) {
+			adjustAmount = DoubleUtil.strToDouble(adjustAmountStr);
+		}
+		totalPayingAmountText.setText(DoubleUtil.getRoundStr(DoubleUtil.sum(adjustAmount,DoubleUtil.sub(totalSaleAmount, totalPercentageAmount))));
 		return showItemList.toArray(new RecordShowItem[0]);
 	}
 	

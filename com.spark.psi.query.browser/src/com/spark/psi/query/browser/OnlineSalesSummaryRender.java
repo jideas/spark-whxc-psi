@@ -41,6 +41,10 @@ public class OnlineSalesSummaryRender extends GoodsCategoryFramePageRender{
 			Button advance = new Button(headerRightArea,JWT.APPEARANCE3);
 			advance.setText("高级搜索");
 			advance.setID(OnlineSalesListProcessor.ID_BUTTON_ADVANCE);
+			
+			Button button = new Button(headerRightArea, JWT.APPEARANCE3);
+			button.setText(" 清空搜索条件 ");
+			button.setID(OnlineSalesListProcessor.ID_BUTTON_RESETADVANCE);
 		}
 
 		public STableColumn[] getColumns(){

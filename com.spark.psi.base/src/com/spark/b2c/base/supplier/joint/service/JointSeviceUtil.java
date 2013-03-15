@@ -12,6 +12,7 @@ import com.spark.b2c.publish.JointVenture.key.GetJointVentureLogListKey;
 import com.spark.b2c.publish.JointVenture.key.GetJointVentureRecordListKey;
 import com.spark.common.components.db.ERPTableNames;
 import com.spark.common.utils.character.CheckIsNull;
+import com.spark.common.utils.date.DateUtil;
 import com.spark.common.utils.dnasql.QuerySqlBuilder;
 import com.spark.psi.base.publicimpl.JointVentureLogItemImpl;
 import com.spark.psi.base.publicimpl.JointVentureRecordItemImpl;
@@ -124,6 +125,17 @@ public final class JointSeviceUtil {
 		if (key.isNeverSettlement()) {
 			qb.addArgs("already", qb.BOOLEAN, false);
 			qb.addEquals("t.alreadySettlement", "@already");
+		}
+		
+		if(key.getBeginTime()>0)
+		{
+			qb.addArgs("beginDate", qb.DATE, DateUtil.getDayStartTime(key.getBeginTime()));
+			qb.addGreaterThanOrEquals("t.createDate", "@beginDate");
+		}
+		if(key.getEndTime()>0)
+		{
+			qb.addArgs("endDate", qb.DATE, DateUtil.getDayEndTime(key.getEndTime()));
+			qb.addLessThan("t.createDate", "@endDate");
 		}
 
 		qb.addOrderBy(" t.createDate desc");

@@ -89,6 +89,8 @@ public class OnlineSalesSummaryProcessor extends
 		// 商品数量
 		public final static String ID_BUTTON_ADVANCE = "Button_Advance";
 		
+		public final static String ID_BUTTON_RESETADVANCE = "Button_ResetAdvance";
+		
 //		public final static String ID_viewInventory = "viewInventory";
 
 		private Label amountLabel;
@@ -118,6 +120,15 @@ public class OnlineSalesSummaryProcessor extends
 				stationList.setSelection(stationId);
 			}
 			advance = this.createControl(ID_BUTTON_ADVANCE,Button.class);
+			Button reset = this.createButtonControl(ID_BUTTON_RESETADVANCE);
+			reset.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					condtion = null;
+					table.render();
+				}
+			});
 			
 			amountLabel = this.createControl(ID_LABEL_TOTALAMOUNT,
 					Label.class, JWT.NONE);
@@ -145,7 +156,7 @@ public class OnlineSalesSummaryProcessor extends
 								return;
 							condtion = (OnlineSalesSearchCondition) returnValue;
 							table.render();
-							condtion = null;
+//							condtion = null;
 						}
 					});
 					getContext().bubbleMessage(request);
