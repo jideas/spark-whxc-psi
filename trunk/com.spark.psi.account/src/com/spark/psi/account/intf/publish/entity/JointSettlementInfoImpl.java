@@ -29,6 +29,13 @@ public class JointSettlementInfoImpl implements JointSettlementInfo {
 	private JointSettlementStatus status;
 	private JointSettlementInfoItemImpl[] items;
 	private JointSettlementLogImpl[] logs;
+	private String recordIds;
+	public String getRecordIds() {
+		return recordIds;
+	}
+	public void setRecordIds(String recordIds) {
+		this.recordIds = recordIds;
+	}
 	public GUID getId() {
 		return id;
 	}

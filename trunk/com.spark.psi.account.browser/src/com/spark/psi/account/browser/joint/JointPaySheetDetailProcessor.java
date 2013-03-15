@@ -90,7 +90,14 @@ public class JointPaySheetDetailProcessor<TItem> extends SimpleSheetPageProcesso
 			public void actionPerformed(ActionEvent e) {
 				// Åú×¼
 				UpdateJointSettlementStatusTask task = new UpdateJointSettlementStatusTask(info.getId());
-				getContext().handle(task, UpdateJointSettlementStatusTask.Method.Approve);
+				try{
+					getContext().handle(task, UpdateJointSettlementStatusTask.Method.Approve);
+				}
+				catch (Throwable t) {
+					t.printStackTrace();
+					alert(t.getMessage());
+					return;
+				}
 				getContext().bubbleMessage(new MsgResponse(true));
 			}
 		});

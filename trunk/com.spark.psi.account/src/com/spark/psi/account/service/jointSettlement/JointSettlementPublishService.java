@@ -120,6 +120,10 @@ public class JointSettlementPublishService extends Service {
 			entity.setPercentageAmount(task.getPercentageAmount());
 			entity.setSalesAmount(task.getSalesAmount());
 			entity.setRemark(task.getRemark());
+			if(CheckIsNull.isNotEmpty(task.getRecordIds()))
+			{
+				entity.setRecordIds(task.getRecordIds());
+			}
 
 			if (orm.update(entity)) {
 				deleteDets(context, entity.getId());

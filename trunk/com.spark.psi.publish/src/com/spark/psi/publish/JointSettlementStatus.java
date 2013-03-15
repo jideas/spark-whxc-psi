@@ -11,7 +11,7 @@ public enum JointSettlementStatus {
 	/**
 	 * 待提交
 	 */
-	Submitting("01","待付款"),
+	Submitting("01","待提交"),
 	/**
 	 * 待审核
 	 */

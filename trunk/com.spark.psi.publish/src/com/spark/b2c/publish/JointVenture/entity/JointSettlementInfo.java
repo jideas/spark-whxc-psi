@@ -28,4 +28,5 @@ public interface JointSettlementInfo {
 	public String getDenyReason();
 	public JointSettlementInfoItem[] getItems();
 	public JointSettlementLog[] getLogs();
+	public String getRecordIds();
 }

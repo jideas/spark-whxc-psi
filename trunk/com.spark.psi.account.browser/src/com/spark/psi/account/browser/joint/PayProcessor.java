@@ -57,7 +57,7 @@ public class PayProcessor extends BaseFormPageProcessor {
 				if (StringUtils.isNotEmpty(currMolingText.getText())) {
 					molingAmount = DoubleUtil.strToDouble(currMolingText.getText());
 				}
-				if ((molingAmount + payAmount + info.getPaidAmount() + info.getMolingAmount()) > info.getAmount()) {
+				if (DoubleUtil.sum(DoubleUtil.sum(molingAmount,payAmount), DoubleUtil.sum(info.getPaidAmount(), info.getMolingAmount())) > info.getAmount()) {
 					return false;
 				}
 				return true;
