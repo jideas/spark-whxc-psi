@@ -29,10 +29,10 @@ public enum SMessageTemplateEnum {
 			"0805", "商品库存预警", "金额大于总上线", null), GoodsInventory06("0806", "商品库存预警", "数量小于总下线", null), GoodsInventory07(
 			"0807", "商品库存预警", "数量大于总上线", null),
 
-	DeliveryException01("0901", "配送异常", "", null),//
-	
-	ShelfLifeWarning01("1001", "临近保质期", "", null),
-	ShelfLifeWarning02("1002", "已过保质期", "", null);
+	DeliveryException01("0901", "配送异常", "", null), //
+
+	// ShelfLifeWarning01("1001", "临近保质期", "", null),
+	// ShelfLifeWarning02("1002", "已过保质期", "", null);
 	;
 
 	private String code;
@@ -101,11 +101,12 @@ public enum SMessageTemplateEnum {
 			return GoodsInventory07;
 		} else if (DeliveryException01.getCode().equals(code)) {
 			return DeliveryException01;
-		} else if (ShelfLifeWarning01.getCode().equals(code)) {
-			return ShelfLifeWarning01;
-		} else if (ShelfLifeWarning02.getCode().equals(code)) {
-			return ShelfLifeWarning02;
 		}
+		// else if (ShelfLifeWarning01.getCode().equals(code)) {
+		// return ShelfLifeWarning01;
+		// } else if (ShelfLifeWarning02.getCode().equals(code)) {
+		// return ShelfLifeWarning02;
+		// }
 		return null;
 	}
 }
