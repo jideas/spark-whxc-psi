@@ -218,10 +218,10 @@ public class SMessageProvider extends Service {
 				list.add(new SMessageTypeItem(SMessageType.DeliveryException, set
 						.getBuddling(SMessageType.DeliveryException)));
 			}
-			if(boss||storeKeeperManager||storeKeeper){
-				list.add(new SMessageTypeItem(SMessageType.ShelfLifeWarning, set
-						.getBuddling(SMessageType.ShelfLifeWarning)));
-			}
+//			if(boss||storeKeeperManager||storeKeeper){
+//				list.add(new SMessageTypeItem(SMessageType.ShelfLifeWarning, set
+//						.getBuddling(SMessageType.ShelfLifeWarning)));
+//			}
 		}
 	}
 
