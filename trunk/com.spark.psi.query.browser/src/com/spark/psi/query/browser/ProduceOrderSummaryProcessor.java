@@ -67,7 +67,8 @@ public class ProduceOrderSummaryProcessor<Item> extends AbstractSummaryProcessor
 	@Override
 	public String getElementId(Object element) {
 		ProduceItem item = (ProduceItem) element;
-		return item.getBillsId().toString();
+//		return item.getBillsId().toString();
+		return item.getBillsId().toString() + "-" + item.getGoodsId().toString();
 	}
 	GetProduceListKey key;
 	@Override
@@ -75,7 +76,7 @@ public class ProduceOrderSummaryProcessor<Item> extends AbstractSummaryProcessor
 		key = new GetProduceListKey(tablestatus.getBeginIndex(), tablestatus.getPageSize(), true);
 		ListEntity<ProduceItem> listEntity = getListEntity();
 		for (ProduceItem item : listEntity.getItemList()) {
-			itemMap.put(item.getBillsId().toString(), item);
+			itemMap.put(item.getBillsId().toString() + "-" + item.getGoodsId().toString(), item);
 		}
 		setRecordCount(tablestatus.getPageNo() == STableStatus.FIRSTPAGE, listEntity.getItemList().size());
 		return listEntity.getItemList().toArray(new ProduceItem[0]);
