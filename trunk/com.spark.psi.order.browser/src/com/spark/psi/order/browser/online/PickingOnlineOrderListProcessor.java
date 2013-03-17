@@ -136,8 +136,8 @@ public class PickingOnlineOrderListProcessor<Item> extends
 				PageController pc = new PageController(
 						OnlineGoodsSummaryProcessor.class,
 						OnlineGoodsSummaryRender.class);
-				PageControllerInstance pci = new PageControllerInstance(pc);
-				MsgRequest request = new MsgRequest(pci, "商品统计");
+				PageControllerInstance pci = new PageControllerInstance(pc, OnlineOrderStatus.Picking);
+				MsgRequest request = new MsgRequest(pci, "商品统计（拣货中）");
 				getContext().bubbleMessage(request);
 			}
 		});

@@ -13,6 +13,10 @@ public class EffectedOnlineOrderListRender extends UnHandledOnlineOrderListRende
 		summaryBtn.setText("  ¼ð »õ  ");
 		summaryBtn.setID(EffectedOnlineOrderListProcessor.ID_Button_Summarizing);
 		
+		Button button = new Button(footerRightArea, JWT.APPEARANCE3);
+		button.setText("  Í³ ¼Æ  ");
+		button.setID(EffectedOnlineOrderListProcessor.ID_Button_Summary);
+		
 //		Button button = new Button(footerLeftArea, JWT.APPEARANCE3);
 //		button.setText("  Test  ");
 //		button.addActionListener(new ActionListener() {
