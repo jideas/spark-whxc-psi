@@ -54,6 +54,7 @@ public class GoodsCategoryDetailProcessor extends PageProcessor implements IData
 		tableStyle = new SEditTableStyle();
 		tableStyle.setSelectionMode(SSelectionMode.Row);
 		tableStyle.setAutoAddRow(true);
+		tableStyle.setPageAble(false);
 	}
 
 	private Label categoryNameLabel;
