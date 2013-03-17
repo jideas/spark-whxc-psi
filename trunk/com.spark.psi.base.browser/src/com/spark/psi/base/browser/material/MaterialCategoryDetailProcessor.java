@@ -53,6 +53,7 @@ public class MaterialCategoryDetailProcessor extends PageProcessor implements ID
 		tableStyle = new SEditTableStyle();
 		tableStyle.setSelectionMode(SSelectionMode.Row);
 		tableStyle.setAutoAddRow(true);
+		tableStyle.setPageAble(false);
 	}
 
 	private Label categoryNameLabel;
