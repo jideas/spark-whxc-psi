@@ -112,6 +112,7 @@ import com.spark.psi.publish.InventoryLogType;
 import com.spark.psi.publish.InventoryType;
 import com.spark.psi.publish.InventoryWarningType;
 import com.spark.psi.publish.ListEntity;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.ReportLossStatus;
 import com.spark.psi.publish.ShelfLifeWarningType;
 import com.spark.psi.publish.SortType;
@@ -3202,6 +3203,9 @@ public class InventoryPublishService extends Service {
 	@SuppressWarnings("unchecked")
 	public boolean storeIsEnableOrCounting(Context context, Inventory goodsInventory) {
 		GetStoreListKey key = new GetStoreListKey(StoreStatus.ENABLE, StoreStatus.ONCOUNTING);
+		if(context.find(LoginInfo.class).hasAuth(Auth.Boss,Auth.Account)){
+			key.setAllStore(true);
+		}
 		ListEntity<StoreItem> listEntity = context.find(ListEntity.class, key);
 		if (CheckIsNull.isEmpty(listEntity.getItemList())) {
 			return true;
