@@ -10,6 +10,7 @@ import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.order.browser.common.DistributeGoodsItem;
 import com.spark.psi.publish.Auth;
+import com.spark.psi.publish.OnlineOrderStatus;
 import com.spark.psi.publish.OnlineOrderType;
 import com.spark.psi.publish.ProduceOrderStatus;
 import com.spark.psi.publish.onlineorder.entity.TotalMaterialsItem;
@@ -18,6 +19,7 @@ import com.spark.psi.publish.produceorder.task.CreateProduceOrderTask;
 public class EffectedOnlineOrderListProcessor<Item> extends
 	UnHandledOnlineOrderListProcessor<Item> { 
 	public static final String ID_Button_Summarizing = "Button_Summarizing";
+	public static final String ID_Button_Summary = "Button_Summary";
 	
 	@Override
 	public void process(final Situation context) {
@@ -28,6 +30,21 @@ public class EffectedOnlineOrderListProcessor<Item> extends
 		} else {
 			summaryBtn.dispose();
 		}
+		
+		final Button button = createButtonControl(ID_Button_Summary);
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 统计商品
+				PageController pc = new PageController(
+						OnlineGoodsSummaryProcessor.class,
+						OnlineGoodsSummaryRender.class);
+				PageControllerInstance pci = new PageControllerInstance(pc, OnlineOrderStatus.Effected);
+				MsgRequest request = new MsgRequest(pci, "商品统计（新订单）");
+				getContext().bubbleMessage(request);
+			}
+		});
 	}
 
 	private void addSummaryAction(Button button) {

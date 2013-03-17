@@ -71,6 +71,17 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 	private List<SummaryGoods> summaryList = new ArrayList<SummaryGoods>();
 	private StationProvider stationProvider;
 	private TimeSource timeSource;
+	private OnlineOrderStatus status;
+	
+	@Override
+	public void init(Situation context) {
+		super.init(context);
+		if (null == getArgument()) {
+			status = OnlineOrderStatus.Effected;
+		} else {
+			status = (OnlineOrderStatus) getArgument();
+		}
+	}
 
 	@Override
 	public void process(Situation context) {
@@ -129,7 +140,12 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 
 	@Override
 	protected String getExportFileTitle() {
-		return "拣货中-商品统计";
+		if (OnlineOrderStatus.Effected == status) {
+			return "新订单-商品统计";
+		} else if (OnlineOrderStatus.Picking == status) {
+			return "拣货中-商品统计";
+		}
+		return "";
 	}
 
 	@Override
@@ -207,7 +223,7 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 //			return null;
 //		}
 		GetOnlineOrderListKey key = new GetOnlineOrderListKey(0, Integer.MAX_VALUE, true);
-		key.setStatus(OnlineOrderStatus.Picking);
+		key.setStatus(status);
 		GUID stationId = null;
 		if (!StringUtils.isEmpty(stationList.getList().getSeleted())
 				&& !ID_List_Total.equals(stationList.getList().getSeleted())) {
