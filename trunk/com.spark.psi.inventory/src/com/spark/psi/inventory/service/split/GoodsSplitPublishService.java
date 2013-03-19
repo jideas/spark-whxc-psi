@@ -620,8 +620,8 @@ public class GoodsSplitPublishService extends Service {
 			ri.setGoodsScale(gi.getScale());
 			ri.setGoodsNo(gi.getGoodsNo());
 			ri.setGoodsUnit(gi.getGoodsUnit());
-			ri.setPrice(gi.getStandardCost());
-			ri.setAmount(ri.getCount() * ri.getPrice());
+			ri.setPrice(gi.getAvgCost());
+			ri.setAmount(DoubleUtil.mul(ri.getCount(), ri.getPrice()));
 
 			items.add(ri);
 

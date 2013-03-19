@@ -115,14 +115,11 @@ public class CheckOutInternalService extends Service {
 			InventoryType inventoryType) {
 		// ¸üÐÂ¿â´æ
 		InventoryBusTask task = new InventoryBusTask(sheet.getStoreId(), item.getGoodsId());
+		task.setUpdateAvgPrice(false);
 		task.setInventoryType(inventoryType);
 		task.setChangeCountAndAmount(DoubleUtil.sub(0, item.getRealCount()), DoubleUtil.sub(0, item.getAmount()));
 		if (null != inventoryItems) {
 			setShelfItem(task, inventoryItems, sheet, item.getGoodsId());
-		}
-		if(InventoryType.Goods.equals(inventoryType))
-		{
-			task.setUpdateAvgPrice(true);
 		}
 		context.handle(task);
 		
