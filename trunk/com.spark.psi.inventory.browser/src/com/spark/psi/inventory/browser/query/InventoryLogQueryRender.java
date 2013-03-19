@@ -45,13 +45,13 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 			GridData gd = new GridData();
 			gd.widthHint = 100;
 			label.setLayoutData(gd);
-			isStoreKeeper = isStoreKeeper();
+//			isStoreKeeper = isStoreKeeper();
 		}
 
 		public STableColumn[] getColumns() {
 
 			int size = 12;
-			if (isStoreKeeper()) {
+			if (isStoreKeeper) {
 				size = 10;
 			}
 
@@ -89,10 +89,10 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 			return columns;
 		}
 
-		private boolean isStoreKeeper() {
-			return getContext().find(Boolean.class, Auth.StoreKeeper) && !getContext().find(Boolean.class, Auth.Boss)
-					&& !getContext().find(Boolean.class, Auth.StoreKeeperManager);
-		}
+//		private boolean isStoreKeeper() {
+//			return getContext().find(Boolean.class, Auth.StoreKeeper) && !getContext().find(Boolean.class, Auth.Boss)
+//					&& !getContext().find(Boolean.class, Auth.StoreKeeperManager);
+//		}
 
 		@Override
 		public STableStyle getTableStyle() {
