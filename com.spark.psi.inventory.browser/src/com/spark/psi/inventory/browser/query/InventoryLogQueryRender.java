@@ -23,6 +23,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 
 	public final static class InventoryLogQueryListRender extends PSIGoodsListPageRender {
 
+		private boolean isStoreKeeper = false;
 		@Override
 		protected void afterFooterRender() {
 			super.afterFooterRender();
@@ -44,6 +45,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 			GridData gd = new GridData();
 			gd.widthHint = 100;
 			label.setLayoutData(gd);
+			isStoreKeeper = isStoreKeeper();
 		}
 
 		public STableColumn[] getColumns() {
@@ -68,7 +70,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 
 			columns[7] = new STableColumn(InventoryLogQueryProcessor.Columns.Type.name(), 100, JWT.CENTER, "流水类型");
 
-			if (isStoreKeeper()) {
+			if (isStoreKeeper) {
 				columns[8] = new STableColumn(InventoryLogQueryProcessor.Columns.CheckedInCount.name(), 100, JWT.RIGHT,
 						"入库数量");
 				columns[9] = new STableColumn(InventoryLogQueryProcessor.Columns.CheckedOutCount.name(), 100,
@@ -105,7 +107,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 		@Override
 		public int getDecimal(Object element, int columnIndex) {
 			if (element instanceof InventoryLogItem) {
-				if (isStoreKeeper()) {
+				if (isStoreKeeper) {
 					switch (columnIndex) {
 					case 7:
 					case 8:
@@ -124,7 +126,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 
 		public String getText(Object element, int columnIndex) {
 			InventoryLogItem item = (InventoryLogItem) element;
-			if (isStoreKeeper()) {
+			if (isStoreKeeper) {
 				switch (columnIndex) {
 				case 0:
 					return DateUtil.dateFromat(item.getOccorDate());
@@ -223,7 +225,7 @@ public class InventoryLogQueryRender extends MaterialCategoryFramePageRender {
 		@Override
 		public String getToolTipText(Object element, int columnIndex) {
 			InventoryLogItem item = (InventoryLogItem) element;
-			if (isStoreKeeper()) {
+			if (isStoreKeeper) {
 				switch (columnIndex) {
 				case 3:
 					return item.getGoodsItemName();
