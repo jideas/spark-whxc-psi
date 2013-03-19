@@ -6,6 +6,7 @@ import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.da.DBCommand;
 import com.jiuqi.dna.core.da.RecordSet;
 import com.spark.common.components.db.ERPTableNames;
+import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.reflection.BeanUtils;
 import com.spark.deliver.intf.entity.DeliverDetEntity;
 import com.spark.deliver.intf.entity.DeliverEntity;
@@ -253,7 +254,7 @@ public final class DeliverServiceUtil {
 				ri.setGoodsNo(gi.getGoodsNo());
 				ri.setGoodsUnit(gi.getGoodsUnit());
 				ri.setPrice(gi.getStandardCost());
-				ri.setAmount(ri.getCount() * ri.getPrice());
+				ri.setAmount(DoubleUtil.mul(ri.getCount() , ri.getPrice()));
 
 				items.add(ri);
 			}
