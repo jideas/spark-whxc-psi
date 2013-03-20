@@ -768,7 +768,7 @@ public class OrderPublishService extends Service {
 			item.setCreateDate(System.currentTimeMillis());
 			item.setCreator(BillsConstant.getUserName(context));
 			GoodsItem gi = context.find(GoodsItem.class, goods.getGoodsItemId());
-			item.setGoodsSpec(gi.getPropertiesWithoutUnit());
+			item.setGoodsSpec(gi.getSpec());
 			item.setScale(gi.getScale());
 			item.setGoodsId(gi.getId());
 			item.setGoodsName(gi.getGoodsName());
@@ -777,7 +777,7 @@ public class OrderPublishService extends Service {
 			item.setPrice(goods.getPrice());
 			item.setRECID(context.newRECID());
 			item.setUnit(gi.getGoodsUnit());
-			item.setAmount(item.getCount() * item.getPrice());
+			item.setAmount(DoubleUtil.mul(item.getCount() , item.getPrice()));
 			return item;
 		}
 
