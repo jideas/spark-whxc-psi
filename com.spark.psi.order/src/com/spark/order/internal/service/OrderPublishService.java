@@ -767,16 +767,16 @@ public class OrderPublishService extends Service {
 			PurchaseOrderItem item = new PurchaseOrderItem();
 			item.setCreateDate(System.currentTimeMillis());
 			item.setCreator(BillsConstant.getUserName(context));
-			GoodsItem gi = context.find(GoodsItem.class, goods.getGoodsItemId());
+			MaterialsItem gi = context.find(MaterialsItem.class, goods.getGoodsItemId());
 			item.setGoodsSpec(gi.getSpec());
 			item.setScale(gi.getScale());
 			item.setGoodsId(gi.getId());
-			item.setGoodsName(gi.getGoodsName());
-			item.setGoodsNo(gi.getGoodsCode());
+			item.setGoodsName(gi.getMaterialName());
+			item.setGoodsNo(gi.getMaterialCode());
 			item.setCount(goods.getCount());
 			item.setPrice(goods.getPrice());
 			item.setRECID(context.newRECID());
-			item.setUnit(gi.getGoodsUnit());
+			item.setUnit(gi.getMaterialUnit());
 			item.setAmount(DoubleUtil.mul(item.getCount() , item.getPrice()));
 			return item;
 		}
