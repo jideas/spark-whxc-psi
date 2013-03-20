@@ -239,7 +239,8 @@ public class GoodsItemImpl implements GoodsItem {
 		this.goods = goods;
 	}
 	public String getPropertiesWithoutUnit() {
-		return GoodsProperyUtil.splitPropertyWithoutUnit(GoodsProperyUtil.subGoodsPropertyToString(this.goodsProperties));
+		return this.spec;
+//		return GoodsProperyUtil.splitPropertyWithoutUnit(GoodsProperyUtil.subGoodsPropertyToString(this.goodsProperties));
 	}
 	public String getSerialNumber() {
 		return serialNumber;
