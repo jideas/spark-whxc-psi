@@ -482,7 +482,7 @@ public class StorageService extends Service {
 
 			SqlBuildHelper sqlHelper = new SqlBuildHelper();
 			// 如果即没有传入单价也没有传入改变的金额，就默认为平均库存成本乘以改变数量
-			if (null == task.getChangeAmount() && null == task.getNewCost() && !task.isCount()) {
+			if (null == task.getChangeAmount() && null == task.getNewCost()) {
 
 				Double cost = null;
 				if (InventoryType.Goods.equals(task.getInventoryType())) {
