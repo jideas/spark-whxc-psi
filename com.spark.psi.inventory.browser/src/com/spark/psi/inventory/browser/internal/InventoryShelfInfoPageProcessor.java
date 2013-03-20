@@ -138,6 +138,12 @@ public class InventoryShelfInfoPageProcessor extends PageProcessor {
 			public Object[] getElements(Context context, STableStatus tablestatus) {
 				GetInventoryDetByStoreAndStockIdKey key = new GetInventoryDetByStoreAndStockIdKey(storeInfo.getId(), dbtItem.getStockId(), InventoryType.Materials);
 				List<InventoryDetItem> resultList = context.getList(InventoryDetItem.class, key);
+				for(int i=resultList.size()-1;i>=0;i--){
+					InventoryDetItem ii =resultList.get(i);
+					if(ii.getCount()<=0){
+						resultList.remove(i);
+					}
+				}
 				return resultList.toArray(new InventoryDetItem[0]);
 			}
 			

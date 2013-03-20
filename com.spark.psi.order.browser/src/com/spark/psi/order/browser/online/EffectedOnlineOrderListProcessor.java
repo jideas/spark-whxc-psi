@@ -34,7 +34,6 @@ public class EffectedOnlineOrderListProcessor<Item> extends
 		final Button button = createButtonControl(ID_Button_Summary);
 		button.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 统计商品
 				PageController pc = new PageController(
