@@ -357,7 +357,7 @@ public class StoreCheckService extends Service {
 				InventoryBusTask oTask = new InventoryBusTask(checkInventory.getStoreGuid(), item.getGoodsGuid());
 				oTask.setChangeCount(DoubleUtil.round(DoubleUtil.sub(item.getRealCount(), item.getCarryCount())));
 				oTask.setCount(true);
-				oTask.setUpdateAvgPrice(true);
+				oTask.setUpdateAvgPrice(false);
 				System.out.println(item.getGoodsName());
 				if (null != oTask.getChangeCount() && oTask.getChangeCount() > 0) {
 					setShelfItem(oTask, task.getInventorysAdd(), checkInventory.getStoreGuid(), item.getGoodsGuid(),
