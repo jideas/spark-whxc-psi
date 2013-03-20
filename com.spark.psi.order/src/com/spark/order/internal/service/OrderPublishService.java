@@ -75,7 +75,6 @@ import com.spark.order.util.process.OrderFactory;
 import com.spark.order.util.purchase.CreatePurchaseFactory;
 import com.spark.order.util.purchase.ICreatePurchase;
 import com.spark.psi.base.Employee;
-import com.spark.psi.base.GoodsItem;
 import com.spark.psi.base.MaterialsItem;
 import com.spark.psi.base.Partner;
 import com.spark.psi.base.Store;
@@ -1789,7 +1788,7 @@ public class OrderPublishService extends Service {
 		private Promotion2 pubToMe(Promotion p) {
 			Promotion2 p2 = new Promotion2();
 			// p2.setApprovalDate(approvalDate);
-			GoodsItem gi = context.find(GoodsItem.class, p.getGoodsItemId());
+			MaterialsItem gi = context.find(MaterialsItem.class, p.getGoodsItemId());
 			p2.setCountDecimal(gi.getScale());
 			p2.setCreateDate(System.currentTimeMillis());
 			Employee user = BillsConstant.getUser(context);
@@ -1798,8 +1797,8 @@ public class OrderPublishService extends Service {
 			p2.setDeptId(user.getDepartmentId());
 			p2.setEndDate(p.getEndDate());
 			p2.setGoodsItemId(p.getGoodsItemId());
-			p2.setGoodsName(gi.getGoodsName());
-			p2.setGoodsProperties(gi.getGoodsProperties().toString());
+			p2.setGoodsName(gi.getMaterialName());
+			p2.setGoodsProperties(gi.getMaterialProperties().toString());
 			p2.setPrice_goods(gi.getSalePrice());
 			p2.setPrice_promotion(p.getPromotionPrice());
 			// p2.setPromotionCause();
