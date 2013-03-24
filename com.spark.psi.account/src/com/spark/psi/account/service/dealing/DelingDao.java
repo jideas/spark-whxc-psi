@@ -146,7 +146,8 @@ public class DelingDao extends Service {
 				if (isReturn(partner, item)) {
 					item.setRealAmount(DoubleUtil.mul(-1, item.getRealAmount(), 2));
 				}
-				dealing.setAmount(DoubleUtil.sum(dealing.getAmount(), DoubleUtil.sub(item.getPlanAmount(), item.getRealAmount())));
+				dealing.setAmount(DoubleUtil.sum(dealing.getAmount(), DoubleUtil.sub(item.getPlanAmount(), item
+						.getRealAmount())));
 				item.setBalance(dealing.getAmount());
 				try {
 					orm.update(dealing);
@@ -165,10 +166,10 @@ public class DelingDao extends Service {
 		 */
 		private boolean isReturn(Partner partner, DealingItem item) {
 
-			return (PartnerType.Customer.equals(partner.getPartnerType()) && DealingsType.CUS_XSTK.getCode().equals(item.getBillsType()) && item
-					.getRealAmount() > 0)
-					|| (PartnerType.Supplier.equals(partner.getPartnerType()) && DealingsType.PRO_CGTK.getCode().equals(item.getBillsType()) && item
-							.getRealAmount() > 0);
+			return (PartnerType.Customer.equals(partner.getPartnerType())
+					&& DealingsType.CUS_XSTK.getCode().equals(item.getBillsType()) && item.getRealAmount() > 0)
+					|| (PartnerType.Supplier.equals(partner.getPartnerType())
+							&& DealingsType.PRO_CGTK.getCode().equals(item.getBillsType()) && item.getRealAmount() > 0);
 		}
 	}
 
@@ -469,7 +470,8 @@ public class DelingDao extends Service {
 			if (null != key.getSearchText()) {
 				conditionSql.append(" and (");
 				conditionSql.append(" t.partnerName like '%'+'").append(key.getSearchText().trim()).append("'+'%'");
-				conditionSql.append(" or t.partnerShortName like '%'+'").append(key.getSearchText().trim()).append("'+'%'");
+				conditionSql.append(" or t.partnerShortName like '%'+'").append(key.getSearchText().trim()).append(
+						"'+'%'");
 				if (ReceiptType.RECEIPT_CGTK.getName().indexOf(key.getSearchText()) != -1) {
 					conditionSql.append(" or t.type='").append(PartnerType.Supplier.getCode()).append("'");
 				}
@@ -629,7 +631,8 @@ public class DelingDao extends Service {
 			Long endDate = DateUtil.getDayEndTime(key.getEndTime());
 
 			StringBuilder definedSql = new StringBuilder();
-			definedSql.append(" define query QD_FinanceCusdealList(@partnerId guid not null,@beginDate date,@endDate date)");
+			definedSql
+					.append(" define query QD_FinanceCusdealList(@partnerId guid not null,@beginDate date,@endDate date)");
 			definedSql.append(" begin");
 			definedSql.append(" select ");
 			definedSql.append(getDealingItemColums());
@@ -657,7 +660,8 @@ public class DelingDao extends Service {
 				itemList.add(fillDealingItem(rs));
 				if (1 == itemList.size()) {
 					DealingItem item = itemList.get(0);
-					oldBalance = DoubleUtil.sub(DoubleUtil.sum(item.getBalance(), item.getRealAmount()), item.getPlanAmount());
+					oldBalance = DoubleUtil.sub(DoubleUtil.sum(item.getBalance(), item.getRealAmount()), item
+							.getPlanAmount());
 				}
 			}
 			if (rs.isEmpty()) {
@@ -666,10 +670,12 @@ public class DelingDao extends Service {
 					oldBalance = dealing.getAmount();
 				}
 			}
-			DealingItem item = new DealingItem();
-			item.setBillsNo("ÆÚ³õÓà¶î");
-			item.setBalance(oldBalance);
-			list.add(item);
+			if (key.getOffSet() == 0) {
+				DealingItem item = new DealingItem();
+				item.setBillsNo("ÆÚ³õÓà¶î");
+				item.setBalance(oldBalance);
+				list.add(item);
+			}
 			list.addAll(itemList);
 
 		}
@@ -783,9 +789,12 @@ public class DelingDao extends Service {
 	 */
 	public boolean isIrregularOrRetail(DealingItem item) {
 
-		return DealingsType.CUS_LSCK.getCode().equals(item.getBillsType()) || DealingsType.CUS_LSSK.getCode().equals(item.getBillsType())
-				|| DealingsType.CUS_LSTH.getCode().equals(item.getBillsType()) || DealingsType.CUS_LSTK.getCode().equals(item.getBillsType())
-				|| DealingsType.PRO_LCFK.getCode().equals(item.getBillsType()) || DealingsType.PRO_LXCG.getCode().equals(item.getBillsType());
+		return DealingsType.CUS_LSCK.getCode().equals(item.getBillsType())
+				|| DealingsType.CUS_LSSK.getCode().equals(item.getBillsType())
+				|| DealingsType.CUS_LSTH.getCode().equals(item.getBillsType())
+				|| DealingsType.CUS_LSTK.getCode().equals(item.getBillsType())
+				|| DealingsType.PRO_LCFK.getCode().equals(item.getBillsType())
+				|| DealingsType.PRO_LXCG.getCode().equals(item.getBillsType());
 	}
 
 	/**
@@ -947,7 +956,8 @@ public class DelingDao extends Service {
 			dnaSql.append("end");
 
 			DBCommand db = context.prepareStatement(dnaSql);
-			db.setArgumentValues(context.find(Login.class).getTenantId(), key.getPartnerType() == null ? null : key.getPartnerType().getCode());
+			db.setArgumentValues(context.find(Login.class).getTenantId(), key.getPartnerType() == null ? null : key
+					.getPartnerType().getCode());
 			try {
 
 				RecordSet rs = db.executeQuery();
@@ -977,7 +987,8 @@ public class DelingDao extends Service {
 			sb.append(" define query QD_CusproviderPyList(@tenantsGuid guid not null)");
 			sb.append(" begin");
 			sb.append(" select t.cusproType as cusproType,count(1) as c from SA_CUSPROVIDER_INFO as t");
-			sb.append(" where t.tenantsGuid = @tenantsGuid and (t.isReflag is null or t.isReflag = false) group by t.cusproType");
+			sb
+					.append(" where t.tenantsGuid = @tenantsGuid and (t.isReflag is null or t.isReflag = false) group by t.cusproType");
 			sb.append(" end");
 
 			DBCommand db = context.prepareStatement(sb);

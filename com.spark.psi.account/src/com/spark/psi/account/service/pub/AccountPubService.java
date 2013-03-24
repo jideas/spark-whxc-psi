@@ -183,7 +183,6 @@ public class AccountPubService extends Service {
 			lKey.setStartTime(key.getStartDate());
 			lKey.setEndTime(key.getEndDate());
 			lKey.setPartnerId(key.getPartnerId());
-
 			List<DealingItem> list = context.getList(DealingItem.class, lKey);
 			if (CheckIsNull.isNotEmpty(list)) {
 				for (DealingItem item : list) {
