@@ -5,6 +5,7 @@ import com.spark.common.components.pages.ControllerPage;
 import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.pages.PageRender;
 import com.spark.psi.publish.OrderStatus;
+import com.spark.psi.publish.constant.PSICommonConstant;
 import com.spark.psi.publish.order.entity.OrderListEntity;
 import com.spark.psi.publish.order.key.GetPurchaseOrderListKey;
 
@@ -17,7 +18,7 @@ public class PurchaseListCreatePageRender extends PageRender {
 
 	@Override
 	protected void doRender() {
-		GetPurchaseOrderListKey key = new GetPurchaseOrderListKey(0, JWT.MAXIMUM, false);
+		GetPurchaseOrderListKey key = new GetPurchaseOrderListKey(0, PSICommonConstant.MAXIMUM, false);
 		key.setOrderStatus(OrderStatus.Submit, OrderStatus.Denied); 
 		OrderListEntity listEntity = getContext().find(OrderListEntity.class, key);
 		String pageName;

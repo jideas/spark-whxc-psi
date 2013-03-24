@@ -22,6 +22,7 @@ import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
+import com.spark.common.components.controls.text.PSIConstant;
 import com.spark.common.components.pages.BaseListPageProcessor;
 import com.spark.common.components.pages.ControllerPage;
 import com.spark.common.components.pages.PageController;
@@ -43,6 +44,7 @@ import com.spark.psi.publish.base.goods.entity.GoodsInfo;
 import com.spark.psi.publish.base.goods.entity.GoodsItemData;
 import com.spark.psi.publish.base.goods.entity.GoodsItemInfo;
 import com.spark.psi.publish.base.goods.key.GetGoodsInfoListKey;
+import com.spark.psi.publish.constant.PSICommonConstant;
 import com.spark.psi.publish.inventory.entity.InventoryInfo;
 import com.spark.psi.publish.inventory.key.GetInventoryInfoListKey;
 
@@ -252,7 +254,7 @@ public class SplitGoodsSelectProcessor extends GoodsCategoryFramePageProcessor {
 //			if (StringUtils.isEmpty(storeList.getText())) {
 //				return null;
 //			}
-			GetGoodsInfoListKey key = new GetGoodsInfoListKey(0, JWT.MAXIMUM, false);
+			GetGoodsInfoListKey key = new GetGoodsInfoListKey(0, PSICommonConstant.MAXIMUM, false);
 			key.setSearchText(searchText);
 			key.setCateoryId(categoryId);
 			key.setJointVenture(false);

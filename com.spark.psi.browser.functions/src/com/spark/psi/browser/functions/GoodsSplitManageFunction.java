@@ -27,7 +27,7 @@ public class GoodsSplitManageFunction extends PSIFunction {
 		List<BaseFunction> list = new ArrayList<BaseFunction>();
 		LoginInfo login = context.find(LoginInfo.class);
 		if (login.hasAuth(Auth.SubFunction_GoodsSplitManage_Create)
-				&& login.hasAuth(Auth.SubFunction_GoodsSplitManage_Approval)) {
+				&& (login.hasAuth(Auth.SubFunction_GoodsSplitManage_Approval)||login.hasAuth(Auth.ProduceManager))) {
 			//同时具有创建和审批权限
 			list.add(new BaseFunction(new PageControllerInstance("NewGoodsSplitList"), "新拆分单",
 					false));

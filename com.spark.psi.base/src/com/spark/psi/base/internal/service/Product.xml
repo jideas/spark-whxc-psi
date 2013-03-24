@@ -331,6 +331,7 @@
 				<auth>1034003</auth>
 				<auth>1050</auth>
 				<auth>1050001</auth>
+				<auth>1040003</auth> 
 			</role>
 			<role code="14" mask="13,0,19" name="车间员工" description="管理本部门的产品生产工作">
 				<auth>0015</auth>

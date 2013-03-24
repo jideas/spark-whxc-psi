@@ -33,6 +33,7 @@ import com.spark.common.components.table.STableStatus;
 import com.spark.common.components.table.edit.SEditContentProvider;
 import com.spark.common.components.table.edit.SEditTable;
 import com.spark.common.components.table.edit.SNameValue;
+import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.psi.publish.ListEntity;
@@ -110,6 +111,7 @@ public class DistributeProcessor extends BaseFormPageProcessor implements
 
 		GetStoreListKey storeKey = new GetStoreListKey(true,
 				StoreStatus.ENABLE, StoreStatus.ONCOUNTING);
+		storeKey.setAllStore(true);
 		List<StoreItem> storeList = context.find(ListEntity.class, storeKey)
 				.getItemList();
 		stores = storeList.toArray(new StoreItem[0]);
@@ -616,6 +618,7 @@ public class DistributeProcessor extends BaseFormPageProcessor implements
 				}
 			}
 			entity.setDets(dets);
+			if(CheckIsNull.isNotEmpty(entity.getDets()))
 			list.add(entity);
 		}
 		GoodsSplitDistributTask task = new GoodsSplitDistributTask(orderInfo
