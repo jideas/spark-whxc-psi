@@ -166,6 +166,9 @@ public class SupplierDealingsListProcessor extends PSIListPageProcessor<BalanceI
 	public SNameValue[] getExtraData(Object element) {
 		if (element instanceof BalanceInfoItem) {
 			BalanceInfoItem item = (BalanceInfoItem) element;
+			if(null==item||null==item.getAccountBillsId()){
+				return new SNameValue[] { new SNameValue("accountBillsId", "") };
+			}
 			return new SNameValue[] { new SNameValue("accountBillsId", item.getAccountBillsId().toString()) };
 		}
 		return super.getExtraData(element);
