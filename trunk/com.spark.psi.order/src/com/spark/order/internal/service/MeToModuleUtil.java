@@ -125,6 +125,7 @@ public class MeToModuleUtil {
 			} else {
 				det.setPrice(((PurchaseOrderItem) orderDet).getPrice());
 			}
+			det.setGoodsCode(orderDet.getGoodsCode());
 			det.setGoodsSpec(orderDet.getGoodsSpec());
 			det.setGoodsId(orderDet.getGoodsId());
 			det.setGoodsName(orderDet.getGoodsName());
