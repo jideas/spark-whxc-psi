@@ -398,9 +398,11 @@ public class StoreCheckService extends Service {
 				}
 				if (oTask.getChangeCount() > 0) {
 					stoStream.setInstoCount(oTask.getChangeCount());
+					stoStream.setInstoAmount(DoubleUtil.mul(stoStream.getInstoCount(), materials.getAvgBuyPrice()));
 					stoStream.setLogType(InventoryLogType.CheckProfit.getCode());
 				} else {
 					stoStream.setOutstoCount(DoubleUtil.mul(-1, oTask.getChangeCount()));
+					stoStream.setOutstoAmount(DoubleUtil.mul(stoStream.getOutstoCount(), materials.getAvgBuyPrice()));
 					stoStream.setLogType(InventoryLogType.CheckDeficient.getCode());
 				}
 
