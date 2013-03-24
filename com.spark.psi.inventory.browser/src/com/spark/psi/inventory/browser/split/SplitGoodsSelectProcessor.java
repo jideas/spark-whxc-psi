@@ -256,6 +256,7 @@ public class SplitGoodsSelectProcessor extends GoodsCategoryFramePageProcessor {
 			key.setSearchText(searchText);
 			key.setCateoryId(categoryId);
 			key.setJointVenture(false);
+			key.setQueryAll(true);
 			@SuppressWarnings("unchecked")
 			ListEntity<GoodsInfo> listEntity = context.find(ListEntity.class, key);
 			List<GoodsInfo> goodsList = listEntity.getItemList();
