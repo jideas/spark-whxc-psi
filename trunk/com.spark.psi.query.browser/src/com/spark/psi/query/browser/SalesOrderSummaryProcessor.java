@@ -18,7 +18,7 @@ public class SalesOrderSummaryProcessor<Item> extends AbstractSummaryProcessor<I
 
 	public static enum ColumnName {
 		customerNo("客户编码"), customerName("客户名称"), sheetNo("销售订单号"), createDate("下单日期"), deliveryDate("订单交货日期"), goodsCode(
-				"材料编码"), goodsNo("材料条码"), goodsName("材料名称"), price("单价"), count("订单数量"), amount("订单金额"), checkedoutCount(
+				"材料编码"), goodsNo("材料条码"), goodsName("材料名称"), price("单价"), count("订单数量"), amount("整单金额"), checkedoutCount(
 				"交货数量"), checkedoutAmount("交货金额"), checkoutCount("未交货数量"), checkoutAmount("未交货金额");
 
 		private String title = null;

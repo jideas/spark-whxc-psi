@@ -25,7 +25,9 @@ import com.spark.portal.browser.ResponseHandler;
 import com.spark.psi.base.browser.PSIListPageProcessor;
 import com.spark.psi.base.browser.PSIProcessorUtils;
 import com.spark.psi.publish.Action;
+import com.spark.psi.publish.Auth;
 import com.spark.psi.publish.ListEntity;
+import com.spark.psi.publish.LoginInfo;
 import com.spark.psi.publish.QueryTerm;
 import com.spark.psi.publish.SortType;
 import com.spark.psi.publish.split.constant.GoodsSplitStatus;
@@ -66,7 +68,6 @@ public class ApprovalGoodsSplitListProcessor extends
 	@Override
 	public void process(Situation situation) {
 		super.process(situation);
-
 		queryTermList = this.createControl(ID_COMBOLIST_DATEITEM,
 				LWComboList.class);
 		PSIProcessorUtils.initQueryTermSource(queryTermList);
@@ -89,7 +90,11 @@ public class ApprovalGoodsSplitListProcessor extends
 
 	@Override
 	public String[] getTableActionIds() {
+		LoginInfo login = getContext().find(LoginInfo.class);
+		if(login.hasAuth(Auth.SubFunction_GoodsSplitManage_Approval))
 		return new String[]{Action.Approval.name()};
+		else
+			return null;
 	}
 
 	/*

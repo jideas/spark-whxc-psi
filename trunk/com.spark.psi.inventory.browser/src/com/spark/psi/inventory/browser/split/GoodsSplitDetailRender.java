@@ -33,8 +33,8 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 		goodsTable.setLabelProvider(new EditableGoodsTableLabelProvider());
 		materialTable = new SEditTable(tableArea,
 				getEditableMaterialTableColumns(), tableStyle, null);
-		 materialTable.setLabelProvider(new
-		 EditableMaterialTableLabelProvider());
+		materialTable
+				.setLabelProvider(new EditableMaterialTableLabelProvider());
 		// } else if (ProduceOrderStatus.Finished.equals(orderInfo.getStatus()))
 		// {
 		// goodsTable = new SEditTable(tableArea, getGoodsTableColumns(),
@@ -69,20 +69,24 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 		lb.setLayoutData(gd);
 
 		Button button = null;
-//		button = new Button(footerLeftArea,JWT.APPEARANCE2);
-//		button.setText("添加商品");
-//		button.setID(NewGoodsSplitDetailProcessor.ID_Button_AddGoods);
-		if(orderInfo.getStatus()==GoodsSplitStatus.Approvaling&&(loginInfo.hasAuth(Auth.AccountManager)||loginInfo.hasAuth(Auth.Account)||loginInfo.hasAuth(Auth.Boss)))
-		{
+		// button = new Button(footerLeftArea,JWT.APPEARANCE2);
+		// button.setText("添加商品");
+		// button.setID(NewGoodsSplitDetailProcessor.ID_Button_AddGoods);
+		if (orderInfo.getStatus() == GoodsSplitStatus.Approvaling
+				&& (loginInfo.hasAuth(Auth.AccountManager)
+						|| loginInfo.hasAuth(Auth.Account) || loginInfo
+						.hasAuth(Auth.Boss))) {
 			button = new Button(footerRightArea, JWT.APPEARANCE3);
 			button.setText("  批准  ");
 			button.setID(GoodsSplitDetailProcessor.ID_Button_Approval);
 			button = new Button(footerRightArea, JWT.APPEARANCE3);
 			button.setText("  驳回  ");
 			button.setID(GoodsSplitDetailProcessor.ID_Button_Deny);
-		}
-		else if(orderInfo.getStatus()==GoodsSplitStatus.Approvaled&&(loginInfo.hasAuth(Auth.StoreKeeperManager)||loginInfo.hasAuth(Auth.Boss)))
-		{
+		} else if (orderInfo.getStatus() == GoodsSplitStatus.Approvaled
+				&& (loginInfo.hasAuth(Auth.StoreKeeperManager)
+						|| loginInfo.hasAuth(Auth.Boss)
+						|| loginInfo.hasAuth(Auth.ProduceManager) || loginInfo
+						.hasAuth(Auth.Distribute))) {
 			button = new Button(footerRightArea, JWT.APPEARANCE3);
 			button.setText("  分配  ");
 			button.setID(GoodsSplitDetailProcessor.ID_Button_Distribut);
@@ -114,14 +118,14 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 				NewGoodsSplitDetailProcessor.MaterialColumnName.spec.name(),
 				140, JWT.RIGHT, "规格");
 		columns[2] = new STableColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.unit
-						.name(), 100, JWT.CENTER, "单位");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.unit.name(),
+				100, JWT.CENTER, "单位");
 		columns[3] = new STableColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.scount
-						.name(), 100, JWT.CENTER, "参考数量");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.scount.name(),
+				100, JWT.CENTER, "参考数量");
 		columns[4] = new SNumberEditColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.count
-						.name(), 100, JWT.CENTER, "数量");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.count.name(),
+				100, JWT.CENTER, "数量");
 		columns[0].setGrab(true);
 		return columns;
 	}
@@ -153,14 +157,14 @@ public class GoodsSplitDetailRender extends AbstractGoodsSplitOrderRender {
 				NewGoodsSplitDetailProcessor.MaterialColumnName.spec.name(),
 				140, JWT.RIGHT, "规格");
 		columns[2] = new STableColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.unit
-						.name(), 100, JWT.CENTER, "单位");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.unit.name(),
+				100, JWT.CENTER, "单位");
 		columns[3] = new STableColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.scount
-						.name(), 100, JWT.CENTER, "参考数量");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.scount.name(),
+				100, JWT.CENTER, "参考数量");
 		columns[4] = new SNumberEditColumn(
-				NewGoodsSplitDetailProcessor.MaterialColumnName.count
-						.name(), 100, JWT.CENTER, "数量");
+				NewGoodsSplitDetailProcessor.MaterialColumnName.count.name(),
+				100, JWT.CENTER, "数量");
 		columns[0].setGrab(true);
 		return columns;
 	}

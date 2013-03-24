@@ -48,6 +48,7 @@ import com.spark.psi.publish.base.materials.entity.MaterialsInfo;
 import com.spark.psi.publish.base.materials.entity.MaterialsItemData;
 import com.spark.psi.publish.base.materials.entity.MaterialsItemInfo;
 import com.spark.psi.publish.base.materials.key.GetMaterialsInfoListKey;
+import com.spark.psi.publish.constant.PSICommonConstant;
 import com.spark.psi.publish.inventory.entity.InventoryInfo;
 import com.spark.psi.publish.inventory.key.GetInventoryInfoListKey;
 
@@ -254,7 +255,7 @@ public class PurchasingGoodsSelectProcessor extends MaterialCategoryFramePagePro
 			if (StringUtils.isEmpty(storeList.getText())) {
 				return null;
 			}
-			GetMaterialsInfoListKey key = new GetMaterialsInfoListKey(0, JWT.MAXIMUM, false);
+			GetMaterialsInfoListKey key = new GetMaterialsInfoListKey(0, PSICommonConstant.MAXIMUM, false);
 			key.setSearchText(searchText);
 			key.setCateoryId(categoryId);
 			key.setJointVenture(false);
