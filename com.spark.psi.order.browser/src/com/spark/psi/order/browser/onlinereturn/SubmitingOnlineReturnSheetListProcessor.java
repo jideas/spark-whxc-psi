@@ -21,6 +21,7 @@ import com.spark.portal.browser.WindowStyle;
 import com.spark.psi.publish.Action;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.onlinereturn.entity.OnlineReturnItem;
+import com.spark.psi.publish.onlinereturn.entity.OnlineReturnListEntity;
 import com.spark.psi.publish.onlinereturn.key.GetOnlineReturnListKey;
 import com.spark.psi.publish.onlinereturn.key.GetOnlineReturnListKey.OnlineReturnTab;
 import com.spark.psi.publish.onlinereturn.task.DeleteOnlineReturnTask;
@@ -170,9 +171,9 @@ public class SubmitingOnlineReturnSheetListProcessor extends OnlineReturnSheetLi
 	public Object[] getElements(Context context, STableStatus tablestatus) {
 		GetOnlineReturnListKey key = new GetOnlineReturnListKey(0, Integer.MAX_VALUE, true, OnlineReturnTab.Submiting);
 		key.setSearchText(search.getText());
-		ListEntity<OnlineReturnItem> listEntity = context.find(ListEntity.class, key);
+		OnlineReturnListEntity listEntity = context.find(OnlineReturnListEntity.class, key);
 		if (null == listEntity) return null;
-		countLabel.setText("" + listEntity.getItemList().size());
+		countLabel.setText("" + listEntity.getTotalCount());
 		return listEntity.getItemList().toArray();
 	}
 

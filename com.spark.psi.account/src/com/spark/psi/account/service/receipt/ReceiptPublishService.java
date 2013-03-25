@@ -239,9 +239,9 @@ public class ReceiptPublishService extends Service {
 				throw new Throwable("status²»ÄÜÎª¿Õ£¡");
 			}
 
-			List<ReceiptItem> list = ReceiptServiceUtil.getReceiptItemList(context, key);
+//			List<ReceiptItem> list = ReceiptServiceUtil.getReceiptItemList(context, key);
 
-			return new ReceiptListEntity(list, list.size());
+			return ReceiptServiceUtil.getReceiptItemList(context, key);
 		}
 	}
 

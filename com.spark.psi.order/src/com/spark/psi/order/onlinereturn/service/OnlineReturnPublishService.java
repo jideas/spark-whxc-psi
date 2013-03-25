@@ -34,6 +34,7 @@ import com.spark.psi.publish.inventory.sheet.task.RealGoodsCheckinTaskItem;
 import com.spark.psi.publish.onlinereturn.entity.OnlineReturnDet;
 import com.spark.psi.publish.onlinereturn.entity.OnlineReturnInfo;
 import com.spark.psi.publish.onlinereturn.entity.OnlineReturnItem;
+import com.spark.psi.publish.onlinereturn.entity.OnlineReturnListEntity;
 import com.spark.psi.publish.onlinereturn.key.GetOnlineReturnListKey;
 import com.spark.psi.publish.onlinereturn.task.ApproveOnlineReturnTask;
 import com.spark.psi.publish.onlinereturn.task.DeleteOnlineReturnTask;
@@ -217,9 +218,9 @@ public class OnlineReturnPublishService extends Service {
 	 * ≤È—Ø¡–±Ì
 	 */
 	@Publish
-	protected class OnlineReturnListProvider extends OneKeyResultProvider<ListEntity<OnlineReturnItem>, GetOnlineReturnListKey> {
+	protected class OnlineReturnListProvider extends OneKeyResultProvider<OnlineReturnListEntity, GetOnlineReturnListKey> {
 		@Override
-		protected ListEntity<OnlineReturnItem> provide(Context context, GetOnlineReturnListKey key) throws Throwable {
+		protected OnlineReturnListEntity provide(Context context, GetOnlineReturnListKey key) throws Throwable {
 			Login login = context.find(Login.class);
 			Employee user = context.find(Employee.class, login.getEmployeeId());
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
@@ -309,10 +310,32 @@ public class OnlineReturnPublishService extends Service {
 					ss.append(" t.onlineBillsNo like '%'+@text+'%' ");
 					ss.append(" or t.billsNo like '%'+@text+'%' ");
 					ss.append(" or t.memberName like '%'+@text+'%' ");
+					ss.append(" or t.stationName like '%'+@text+'%' ");
 					ss.append(" or t.creator like '%'+@text+'%' ");
 					ss.append(")");
 					qb.addCondition(ss.toString());
 				}
+			}
+			
+			if(key.getCreateDateBegin()>0)
+			{
+				qb.addArgs("createDateBegin", qb.DATE, key.getCreateDateBegin());
+				qb.addGreaterThanOrEquals("t.createDate", "@createDateBegin");
+			}
+			if(key.getCreateDateEnd()>0)
+			{
+				qb.addArgs("createDateEnd", qb.DATE, key.getCreateDateEnd());
+				qb.addLessThan("t.createDate", "@createDateEnd");
+			}
+			if(CheckIsNull.isNotEmpty(key.getRealName()))
+			{
+				qb.addArgs("realName", qb.STRING, key.getRealName());
+				qb.addLike("t.memberName", "@realName");
+			}
+			if(CheckIsNull.isNotEmpty(key.getStationName()))
+			{
+				qb.addArgs("stationName", qb.STRING, key.getStationName());
+				qb.addLike("t.stationName", "@stationName");
 			}
 
 			qb.addOrderBy("t.createDate desc");
@@ -340,7 +363,123 @@ public class OnlineReturnPublishService extends Service {
 				item.setStatus(rs.getFields().get(index++).getString());
 				items.add(item);
 			}
-			return new ListEntity<OnlineReturnItem>(items, items.size());
+			
+			QuerySqlBuilder qb1 = new QuerySqlBuilder(context);
+			qb1.addTable(ERPTableNames.Sales.OnlineReturn.getTableName(), "t");
+			qb1.addColumn("count(t.RECID)", "c");
+			qb1.addColumn("sum(t.amount)", "amount");
+			switch (key.getTab()) {
+			case Submiting:
+				qb1.addArgs("userId", qb1.guid, login.getEmployeeId());
+				qb1.addEquals("t.creatorId", "@userId");
+				qb1.addArgs("status1", qb1.STRING, OnlineReturnStatus.Submitting.getCode());
+				qb1.addArgs("status2", qb1.STRING, OnlineReturnStatus.Rejected.getCode());
+				qb1.addCondition("t.status in (@status1,@status2)");
+				break;
+			case Approving:
+				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)&&!login.hasAuth(Auth.AccountManager)) {
+					List<Employee> list = context.getList(Employee.class,
+							new GetChildrenDeptEmployeeListByAuthKey(user.getDepartmentId(), Auth.Sales));
+					List<String> params = new ArrayList<String>();
+					int index = 0;
+					for (Employee emp : list) {
+						qb1.addArgs("creator" + index, qb1.guid, emp.getId());
+						params.add("@creator" + index++);
+					}
+					qb1.addArgs("creator" + index, qb1.guid, user.getId());
+					params.add("@creator" + index++);
+					qb1.addIn("t.creatorId", params);
+				}
+				qb1.addArgs("status1", qb1.STRING, OnlineReturnStatus.Approving.getCode());
+				qb1.addEquals("t.status", "@status1");
+				break;
+			case Processing:
+				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)&&!login.hasAuth(Auth.ProduceManager)&&!login.hasAuth(Auth.AccountManager)) {
+					List<Employee> list = context.getList(Employee.class,
+							new GetChildrenDeptEmployeeListByAuthKey(user.getDepartmentId(), Auth.Sales));
+					List<String> params = new ArrayList<String>();
+					int index = 0;
+					for (Employee emp : list) {
+						qb1.addArgs("creator" + index, qb1.guid, emp.getId());
+						params.add("@creator" + index++);
+					}
+					qb1.addArgs("creator" + index, qb1.guid, user.getId());
+					params.add("@creator" + index++);
+					qb1.addIn("t.creatorId", params);
+				}
+				qb1.addArgs("userId", qb1.guid, user.getId());
+				qb1.addArgs("status1", qb1.STRING, OnlineReturnStatus.Processing.getCode());
+				// qb.addArgs("status2", qb.STRING,
+				// OnlineReturnStatus.Approving.getCode());
+				qb1.addCondition("(t.status = @status1)");
+				break;
+			case Finished:
+				if (!login.hasAuth(Auth.Boss)&&!login.hasAuth(Auth.CustomerService)&&!login.hasAuth(Auth.ProduceManager)&&!login.hasAuth(Auth.AccountManager)) {
+					List<Employee> list = context.getList(Employee.class,
+							new GetChildrenDeptEmployeeListByAuthKey(user.getDepartmentId(), Auth.Sales));
+					List<String> params = new ArrayList<String>();
+					int index = 0;
+					for (Employee emp : list) {
+						qb1.addArgs("creator" + index, qb1.guid, emp.getId());
+						params.add("@creator" + index++);
+					}
+					qb1.addArgs("creator" + index, qb1.guid, user.getId());
+					params.add("@creator" + index++);
+					qb1.addIn("t.creatorId", params);
+				}
+				qb1.addArgs("status1", qb1.STRING, OnlineReturnStatus.Finished.getCode());
+				qb1.addArgs("status2", qb1.STRING, OnlineReturnStatus.Stopped.getCode());
+				qb1.addCondition("t.status in (@status1,@status2)");
+				break;
+			default:
+				break;
+			}
+
+			if (CheckIsNull.isNotEmpty(key.getSearchText())) {
+				if (CheckIsNull.isNotEmpty(key.getSearchText())) {
+					qb1.addArgs("text", qb1.STRING, key.getSearchText());
+					StringBuilder ss = new StringBuilder("( ");
+					ss.append(" t.onlineBillsNo like '%'+@text+'%' ");
+					ss.append(" or t.billsNo like '%'+@text+'%' ");
+					ss.append(" or t.memberName like '%'+@text+'%' ");
+					ss.append(" or t.stationName like '%'+@text+'%' ");
+					ss.append(" or t.creator like '%'+@text+'%' ");
+					ss.append(")");
+					qb1.addCondition(ss.toString());
+				}
+			}
+			
+			if(key.getCreateDateBegin()>0)
+			{
+				qb1.addArgs("createDateBegin", qb1.DATE, key.getCreateDateBegin());
+				qb1.addGreaterThanOrEquals("t.createDate", "@createDateBegin");
+			}
+			if(key.getCreateDateEnd()>0)
+			{
+				qb1.addArgs("createDateEnd", qb1.DATE, key.getCreateDateEnd());
+				qb1.addLessThan("t.createDate", "@createDateEnd");
+			}
+			if(CheckIsNull.isNotEmpty(key.getRealName()))
+			{
+				qb1.addArgs("realName", qb1.STRING, key.getRealName());
+				qb1.addLike("t.memberName", "@realName");
+			}
+			if(CheckIsNull.isNotEmpty(key.getStationName()))
+			{
+				qb1.addArgs("stationName", qb1.STRING, key.getStationName());
+				qb1.addLike("t.stationName", "@stationName");
+			}
+			RecordSet rs1 = qb1.getRecord();
+			int totalCount = 0;
+			double totalAmount =0;
+			while(rs1.next())
+			{
+				totalCount = rs1.getFields().get(0).getInt();
+				totalAmount = rs1.getFields().get(1).getDouble();
+			}
+			OnlineReturnListEntity entity = new OnlineReturnListEntity(items, totalCount);
+			entity.setTotalAmount(totalAmount);
+			return entity;
 		}
 	}
 

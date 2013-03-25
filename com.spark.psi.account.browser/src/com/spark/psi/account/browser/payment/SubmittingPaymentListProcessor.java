@@ -81,10 +81,11 @@ public class SubmittingPaymentListProcessor<Item> extends
 		GetPaymentListKey key = new GetPaymentListKey(0, Integer.MAX_VALUE, true);
 		key.setSearchText(search.getText());
 		key.setStatus(PaymentStatus.Submitting, PaymentStatus.Deny);
-		ListEntity<PaymentItem> listEntity = context.find(PaymentListEntity.class, key);
+		PaymentListEntity listEntity = context.find(PaymentListEntity.class, key);
+		countLabel.setText("" + listEntity.getTotalCount());
 		if (null == listEntity) return null;
 		List<PaymentItem> resultList = listEntity.getItemList();
-		countLabel.setText("" + resultList.size());
+		
 		return resultList.toArray(new PaymentItem[0]);
 	}
 

@@ -19,7 +19,7 @@ public abstract class OnlineReturnSheetListProcessor extends PSIListPageProcesso
 
 	public enum OlReturnColumns {
 		CreateDate("退货日期"), Customer("会员"), billsNo("退货单号"), OnlineBillsNo("相关单据"), Creator("创建人"), Status(
-				"处理状态"), Amount("金额")// , Station("退货站点")
+				"处理状态"), Amount("金额") , Station("站点")
 		;
 		private String title;
 

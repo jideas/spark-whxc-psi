@@ -20,6 +20,7 @@ import com.spark.psi.publish.Action;
 import com.spark.psi.publish.Auth;
 import com.spark.psi.publish.ListEntity;
 import com.spark.psi.publish.onlinereturn.entity.OnlineReturnItem;
+import com.spark.psi.publish.onlinereturn.entity.OnlineReturnListEntity;
 import com.spark.psi.publish.onlinereturn.key.GetOnlineReturnListKey;
 import com.spark.psi.publish.onlinereturn.key.GetOnlineReturnListKey.OnlineReturnTab;
 
@@ -72,16 +73,16 @@ public class ApprovingOnlineReturnSheetListProcessor extends OnlineReturnSheetLi
 	public Object[] getElements(Context context, STableStatus tablestatus) {
 		GetOnlineReturnListKey key = new GetOnlineReturnListKey(tablestatus.getBeginIndex(), tablestatus.getPageSize(), true, OnlineReturnTab.Approving);
 		key.setSearchText(search.getText());
-		ListEntity<OnlineReturnItem> listEntity = context.find(ListEntity.class, key);
+		OnlineReturnListEntity listEntity = context.find(OnlineReturnListEntity.class, key);
 		if (null == listEntity) return null;
-		int size = listEntity.getItemList().size();
-		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
-			String preSize = countLabel.getText();
-			if (StringHelper.isNotEmpty(preSize)) {
-				size += Integer.parseInt(preSize);
-			}
-		}
-		countLabel.setText(String.valueOf(size));
+//		int size = listEntity.getItemList().size();
+//		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
+//			String preSize = countLabel.getText();
+//			if (StringHelper.isNotEmpty(preSize)) {
+//				size += Integer.parseInt(preSize);
+//			}
+//		}
+		countLabel.setText(listEntity.getTotalCount()+"");
 		return listEntity.getItemList().toArray();
 	}
 	

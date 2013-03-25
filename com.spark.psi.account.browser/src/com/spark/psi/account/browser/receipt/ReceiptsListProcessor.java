@@ -65,7 +65,7 @@ public class ReceiptsListProcessor extends PSIListPageProcessor<RetailSubmitingI
 		key.setStatus(ReceiptStatus.Receipting);
 		ListEntity<ReceiptItem> listEntity = context.find(ReceiptListEntity.class, key);
 		if (null == listEntity) return null;
-		updateRecordCount(listEntity.getItemList().size());
+		updateRecordCount(listEntity.getTotalCount());
 		return listEntity.getItemList().toArray(new ReceiptItem[0]);
 	}
 
@@ -115,7 +115,7 @@ public class ReceiptsListProcessor extends PSIListPageProcessor<RetailSubmitingI
 		return null;
 	}
 
-	private void updateRecordCount(int count) {
+	private void updateRecordCount(long count) {
 		countLabel.setText("" + count);
 	}
 	

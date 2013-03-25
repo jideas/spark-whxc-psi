@@ -78,7 +78,7 @@ public class OnlineReturnSheetDetailRender extends SimpleSheetPageRender {
 				Text text = new Text(baseInfoArea,JWT.APPEARANCE3);
 				text.setID(OnlineReturnSheetDetailProcessor.ID_Text_Vantages);
 				text.setLayoutData(gdLabel);
-				text.setRegExp(TextRegexp.NUMBER);
+				text.setRegExp(TextRegexp.ALLNUMBER);
 			} else if (column == 1) {
 				new Label(baseInfoArea).setText("µ¥¾Ý×´Ì¬£º");
 				new Label(baseInfoArea).setID(OnlineReturnSheetDetailProcessor.ID_Label_Status);

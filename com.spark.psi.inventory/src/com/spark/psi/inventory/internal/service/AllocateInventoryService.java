@@ -536,6 +536,11 @@ public class AllocateInventoryService extends Service {
 							.getTime());
 					task.setUpdateResult(db.executeUpdate());
 				}
+				else
+				{
+					lockGoodsInventory(context, task.getAllocateGuid(),
+							true);
+				}
 			} finally {
 				db.unuse();
 			}
@@ -1047,7 +1052,8 @@ public class AllocateInventoryService extends Service {
 			MaterialsItem materials = context
 					.find(MaterialsItem.class, item.getStockId());
 			if (null != materials) {
-				stoStream.setProperties(MaterialsProperyUtil.subMaterialsPropertyToString(materials.getMaterialProperties()));
+				stoStream.setProperties(materials.getSpec());
+				stoStream.setUnit(materials.getMaterialUnit());
 				stoStream.setName(materials.getMaterialName());
 				stoStream.setCode(materials.getMaterialCode());
 				stoStream.setCategoryId(materials.getCategoryId());
@@ -1144,7 +1150,8 @@ public class AllocateInventoryService extends Service {
 		MaterialsItem materials = context
 				.find(MaterialsItem.class, stockId);
 		if (null != materials) {
-			stoStream.setProperties(MaterialsProperyUtil.subMaterialsPropertyToString(materials.getMaterialProperties()));
+			stoStream.setProperties(materials.getSpec());
+			stoStream.setUnit(materials.getMaterialUnit());
 			stoStream.setName(materials.getMaterialName());
 			stoStream.setCode(materials.getMaterialCode());
 			stoStream.setCategoryId(materials.getCategoryId());

@@ -33,14 +33,15 @@ public class ApprovingOnlineReturnSheetListRender extends PSIListPageRender {
 
 	@Override
 	public STableColumn[] getColumns() {
-		STableColumn[] columns = new STableColumn[7];
+		STableColumn[] columns = new STableColumn[8];
 		columns[0] = new STableColumn(OlReturnColumns.billsNo.name(), 150, JWT.LEFT, OlReturnColumns.billsNo .title());
 		columns[1] = new STableColumn(OlReturnColumns.OnlineBillsNo.name(), 150, JWT.LEFT, OlReturnColumns.OnlineBillsNo.title());
 		columns[2] = new STableColumn(OlReturnColumns.Customer.name(), 180, JWT.LEFT, OlReturnColumns.Customer .title());
 		columns[3] = new STableColumn(OlReturnColumns.Amount.name(), 120, JWT.RIGHT, OlReturnColumns.Amount .title()); 
 		columns[4] = new STableColumn(OlReturnColumns.CreateDate.name(), 120, JWT.CENTER, OlReturnColumns.CreateDate.title());
 		columns[5] = new STableColumn(OlReturnColumns.Creator.name(),120, JWT.LEFT, OlReturnColumns.Creator .title());
-		columns[6] = new STableColumn(OlReturnColumns.Status.name(), 120, JWT.CENTER, OlReturnColumns.Status .title());
+		columns[6] = new STableColumn(OlReturnColumns.Status.name(), 120, JWT.CENTER, OlReturnColumns.Station.title());
+		columns[7] = new STableColumn(OlReturnColumns.Status.name(), 120, JWT.CENTER, OlReturnColumns.Status .title());
 		columns[2].setGrab(true);
 		return columns;
 	}
@@ -65,6 +66,8 @@ public class ApprovingOnlineReturnSheetListRender extends PSIListPageRender {
 		case 5:
 			return item.getCreator();
 		case 6:
+			return item.getStationName();
+		case 7:
 			return item.getStatus().getTitle();
 		
 		}

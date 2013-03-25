@@ -189,7 +189,7 @@ public class ReceiptDetailRender extends SimpleSheetPageRender {
 			if (info.getStatus() == ReceiptStatus.Receipting
 					|| info.getStatus() == ReceiptStatus.Receipted) {
 				Label label = new Label(baseInfoArea);
-				label.setText("付款记录");
+				label.setText("收款记录");
 				label.setID(ReceiptDetailProcessor.ID_Label_Log);
 				label.setForeground(Color.COLOR_BLUE);
 			}

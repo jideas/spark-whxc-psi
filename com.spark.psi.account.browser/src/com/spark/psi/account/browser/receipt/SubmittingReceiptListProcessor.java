@@ -79,9 +79,9 @@ public class SubmittingReceiptListProcessor<Item> extends
 		GetReceiptListKey key = new GetReceiptListKey(0, Integer.MAX_VALUE, true);
 		key.setStatus(ReceiptStatus.Submitting);
 		key.setSearchText(search.getText());
-		ListEntity<ReceiptItem> listEntity = context.find(ReceiptListEntity.class, key);
+		ReceiptListEntity listEntity = context.find(ReceiptListEntity.class, key);
 		if (null == listEntity) return null;
-		updateRecordCount(listEntity.getItemList().size());
+		updateRecordCount(listEntity.getTotalCount());
 		return listEntity.getItemList().toArray(new ReceiptItem[0]);
 	}
 
@@ -121,7 +121,7 @@ public class SubmittingReceiptListProcessor<Item> extends
 		}
 	}
 
-	private void updateRecordCount(int count) {
+	private void updateRecordCount(long count) {
 		countLabel.setText("" + count);
 	}
 
