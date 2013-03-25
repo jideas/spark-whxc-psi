@@ -118,7 +118,7 @@ abstract class PurchaseOrderListProcessor<T extends OrderItem> extends
 
 	@Override
 	public Object[] getElements(Context context, STableStatus tablestatus) {
-		itemMap.clear();
+//		itemMap.clear();
 		return getOrderItem(tablestatus);
 	}
 	
