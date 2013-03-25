@@ -179,7 +179,7 @@ public class BuyOrdDetService extends Service {
 			DelSql sql = new BuyDetDelByBillsGuidSql(context);
 			DBCommand db = sql.getDB(null);
 //			"@tenants guid, @bills guid"
-			db.setArgumentValues(BillsConstant.getTenantsGuid(context), task.billsGuid);
+			db.setArgumentValues(task.billsGuid);
 			db.executeUpdate();
 		}
 	}
