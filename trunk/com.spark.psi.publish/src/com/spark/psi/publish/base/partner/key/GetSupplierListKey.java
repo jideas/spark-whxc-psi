@@ -18,7 +18,7 @@ public class GetSupplierListKey extends GetPartnerListKey{
 	private boolean queryAll;
 	
 	public GetSupplierListKey(){
-		super(0,20,false);
+		super(0,0,false);
 	    this.sortType = SortType.Desc;
 	}
 	
