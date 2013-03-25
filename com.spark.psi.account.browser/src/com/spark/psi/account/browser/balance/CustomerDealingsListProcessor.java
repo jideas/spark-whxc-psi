@@ -35,6 +35,7 @@ import com.spark.psi.publish.account.entity.BalanceInfo;
 import com.spark.psi.publish.account.entity.BalanceInfoItem;
 import com.spark.psi.publish.account.key.GetDealingsListKey;
 import com.spark.psi.publish.base.partner.entity.PartnerInfo;
+import com.spark.psi.publish.constant.PSICommonConstant;
 
 /**
  * 客户往来明细列表处理器
@@ -145,7 +146,7 @@ public class CustomerDealingsListProcessor extends PSIListPageProcessor<BalanceI
 	}
 
 	public Object[] getElements(Context context, STableStatus tablestatus) {
-		GetDealingsListKey key = new GetDealingsListKey(tablestatus.getBeginIndex(), tablestatus.getPageSize(), false);
+		GetDealingsListKey key = new GetDealingsListKey(0, PSICommonConstant.MAXIMUM, false);
 		key.setPartnerId(customerId);
 		key.setStartDate(startDatePicker.getDate().getTime());
 		key.setEndDate(endDatePicker.getDate().getTime());
