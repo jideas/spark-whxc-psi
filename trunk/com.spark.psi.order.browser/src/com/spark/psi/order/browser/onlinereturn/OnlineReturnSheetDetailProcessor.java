@@ -234,6 +234,18 @@ public class OnlineReturnSheetDetailProcessor<TItem> extends SimpleSheetPageProc
 	}
 
 	private boolean validate() {
+		String vatages = vantagesText.getText();
+		String remark = remarkText.getText();
+		if(CheckIsNull.isEmpty(vatages))
+		{
+			alert("ÇëÌîÐ´¿Û³ý»ý·Ö£¡");
+			return false;
+		}
+		if(CheckIsNull.isEmpty(remark))
+		{
+			alert("ÇëÌîÐ´±¸×¢£¡");
+			return false;
+		}
 		String[] rowIds = table.getAllRowId();
 		int emptyCount = 0;
 		for (int rowIndex = 0; rowIndex < rowIds.length; rowIndex++) {

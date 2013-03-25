@@ -65,9 +65,13 @@ public class TextRegexp {
 	public static final String NUMBER_EIGHT_TWO = "(^(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\.)(\\d)?(\\d)?$)|(^(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?(\\d)?$)";
 
 	/**
-	 * 全局静态只能输入数字
+	 * 全局静态只能输入数字(正整数)
 	 */
 	public static final String NUMBER = "^[0-9]+$";
+	/**
+	 * 全局静态只能输入数字(整数)
+	 */
+	public static final String ALLNUMBER = "^-?\\d+$";
 
 	/**
 	 * 全局静态只能输入数字和字母

@@ -75,29 +75,29 @@ public class ReceiptLogListProcessor extends PSIListPageProcessor<ReceiptItem> {
 		if(queryTermList != null) {
 			key.setQueryTerm(getContext().find(QueryTerm.class,queryTermList.getText()));
 		}
-		ListEntity<ReceiptItem> listEntity = context.find(ReceiptListEntity.class, key);
+		ReceiptListEntity listEntity = context.find(ReceiptListEntity.class, key);
 		if (null == listEntity) return null;
 		
-		List<ReceiptItem> resultList = listEntity.getItemList();
-		double receiptAmount = 0.00;
-		for(ReceiptItem item : resultList) {
-			receiptAmount += item.getAmount();
-		}
-		
-		int size = resultList.size();
-		double amount = receiptAmount;
-		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
-			String preSize = countLabel.getText();
-			if (StringHelper.isNotEmpty(preSize)) {
-				size += Integer.parseInt(preSize);
-			}
-			String preAmount = amountLabel.getText();
-			if (StringHelper.isNotEmpty(preAmount)) {
-				amount = DoubleUtil.sub(amount, DoubleUtil.strToDouble(preAmount));
-			}
-		}
-		countLabel.setText(String.valueOf(size));
-		amountLabel.setText(DoubleUtil.getRoundStr(amount));
+//		List<ReceiptItem> resultList = listEntity.getItemList();
+//		double receiptAmount = 0.00;
+//		for(ReceiptItem item : resultList) {
+//			receiptAmount += item.getAmount();
+//		}
+//		
+//		int size = resultList.size();
+//		double amount = receiptAmount;
+//		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
+//			String preSize = countLabel.getText();
+//			if (StringHelper.isNotEmpty(preSize)) {
+//				size += Integer.parseInt(preSize);
+//			}
+//			String preAmount = amountLabel.getText();
+//			if (StringHelper.isNotEmpty(preAmount)) {
+//				amount = DoubleUtil.sub(amount, DoubleUtil.strToDouble(preAmount));
+//			}
+//		}
+		countLabel.setText(listEntity.getTotalCount()+"");
+		amountLabel.setText(DoubleUtil.getRoundStr(listEntity.getTotalAmount()));
 		return listEntity.getItemList().toArray(new ReceiptItem[0]);
 	}
 

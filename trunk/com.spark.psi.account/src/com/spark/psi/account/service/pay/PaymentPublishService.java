@@ -323,10 +323,7 @@ public class PaymentPublishService extends Service {
 			if (null == key.getStatus() || key.getStatus().length < 1) {
 				throw new Throwable("status²»ÄÜÎª¿Õ£¡");
 			}
-
-			List<PaymentItem> list = PaymentServiceUtil.getPaymentItemList(context, key);
-
-			return new PaymentListEntity(list, list.size());
+			return PaymentServiceUtil.getPaymentItemList(context, key);
 		}
 	}
 

@@ -1,13 +1,14 @@
-package com.spark.psi.publish.account.entity;
+package com.spark.psi.publish.onlinereturn.entity;
 
 import java.util.List;
 
 import com.spark.psi.publish.ListEntity;
 
-public class PaymentListEntity extends ListEntity<PaymentItem> {
+public class OnlineReturnListEntity extends ListEntity<OnlineReturnItem> {
 
 	private double totalAmount;
-	public PaymentListEntity(List<PaymentItem> dataList, long totalCount) {
+	public OnlineReturnListEntity(List<OnlineReturnItem> dataList,
+			long totalCount) {
 		super(dataList, totalCount);
 	}
 	public double getTotalAmount() {
@@ -17,4 +18,5 @@ public class PaymentListEntity extends ListEntity<PaymentItem> {
 		this.totalAmount = totalAmount;
 	}
 
+	
 }

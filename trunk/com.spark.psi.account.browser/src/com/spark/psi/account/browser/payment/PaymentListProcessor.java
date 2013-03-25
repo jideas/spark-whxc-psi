@@ -123,28 +123,29 @@ public class PaymentListProcessor extends PSIListPageProcessor<PaymentItem> {
 				key.setSortType(SortType.Desc);
 			}
 		}	
-		ListEntity<PaymentItem> listEntity = context.find(PaymentListEntity.class, key);
+		PaymentListEntity listEntity = context.find(PaymentListEntity.class, key);
+		countLabel.setText(String.valueOf(listEntity.getTotalCount()));
+		amountLabel.setText(DoubleUtil.getRoundStr(listEntity.getTotalAmount()));
 		if (null == listEntity) return null;
 		List<PaymentItem> resultList = listEntity.getItemList();
-		double payAmount = 0.0;
-		for(PaymentItem item : resultList) {
-			payAmount += item.getAmount();
-		}
+//		double payAmount = 0.0;
+//		for(PaymentItem item : resultList) {
+//			payAmount += item.getAmount();
+//		}
 		
-		int size = resultList.size();
-		double amount = payAmount;
-		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
-			String preSize = countLabel.getText();
-			if (StringHelper.isNotEmpty(preSize)) {
-				size += Integer.parseInt(preSize);
-			}
-			String preAmount = amountLabel.getText();
-			if (StringHelper.isNotEmpty(preAmount)) {
-				amount = DoubleUtil.sub(amount, DoubleUtil.strToDouble(preAmount));
-			}
-		}
-		countLabel.setText(String.valueOf(size));
-		amountLabel.setText(DoubleUtil.getRoundStr(amount));
+//		int size = resultList.size();
+//		double amount = payAmount;
+//		if (tablestatus.getPageNo() != STableStatus.FIRSTPAGE) {
+//			String preSize = countLabel.getText();
+//			if (StringHelper.isNotEmpty(preSize)) {
+//				size += Integer.parseInt(preSize);
+//			}
+//			String preAmount = amountLabel.getText();
+//			if (StringHelper.isNotEmpty(preAmount)) {
+//				amount = DoubleUtil.sub(amount, DoubleUtil.strToDouble(preAmount));
+//			}
+//		}
+		
 		return resultList.toArray(new PaymentItem[0]);
 	}
 

@@ -21,6 +21,7 @@ import com.spark.psi.publish.PaymentStatus;
 import com.spark.psi.publish.PaymentType;
 import com.spark.psi.publish.account.entity.PaymentInfo;
 import com.spark.psi.publish.account.entity.PaymentItem;
+import com.spark.psi.publish.account.entity.PaymentListEntity;
 import com.spark.psi.publish.account.key.GetPaymentListKey;
 
 public final class PaymentServiceUtil {
@@ -29,7 +30,7 @@ public final class PaymentServiceUtil {
 	final static String paymentDetTable = ERPTableNames.Account.Payment_Det.getTableName();
 	final static String paymentLogTable = ERPTableNames.Account.Payment_Log.getTableName();
 
-	public static List<PaymentItem> getPaymentItemList(Context context, GetPaymentListKey key) {
+	public static PaymentListEntity getPaymentItemList(Context context, GetPaymentListKey key) {
 		List<PaymentItem> list = new ArrayList<PaymentItem>();
 
 		StringBuffer sql = new StringBuffer();
@@ -65,7 +66,43 @@ public final class PaymentServiceUtil {
 		while (rs.next()) {
 			list.add(fillPayment(context, rs));
 		}
-		return list;
+		
+		StringBuffer sql1 = new StringBuffer();
+		sql1.append("define query getOrderItemList(\n");
+		sql1.append("@startTime date,@endTime date");
+		sql1.append(")\n");
+		sql1.append("begin\n");
+		sql1.append("select \n");
+		sql1.append(" count(t.recid) as c,sum(t.amount) as totalAmount ");
+		sql1.append("from\n");
+		sql1.append(paymentTable);
+		sql1.append(" as t\n");
+		sql1.append(" where 1=1 \n");
+		sql1.append(getStatusSql(key));
+		sql1.append(getSearchSql(key));
+		if (CheckIsNull.isNotEmpty(key.getQueryTerm())) {
+			sql1.append(" and (t.createDate>@startTime").append(" or t.createDate=@startTime").append(")\n");
+			sql1.append(" and (t.createDate<@endTime").append(" or t.createDate=@endTime").append(")\n");
+		}
+//		sql1.append(getOrderSql(key));
+		sql1.append(" end");
+
+		DBCommand db1 = context.prepareStatement(sql1);
+		if (CheckIsNull.isNotEmpty(key.getQueryTerm())) {
+			db1.setArgumentValues(key.getQueryTerm().getStartTime(),key.getQueryTerm().getEndTime());
+		} 
+		RecordSet rs1 = db1.executeQuery();
+		int count = 0;
+		double totalAmount = 0;
+		while (rs1.next()) {
+			count = rs1.getFields().get(0).getInt();
+			totalAmount = rs1.getFields().get(1).getDouble();
+			
+		}
+		PaymentListEntity entity = new PaymentListEntity(list, count);
+		entity.setTotalAmount(totalAmount);
+		
+		return entity;
 	}
 
 	private static PaymentItem fillPayment(Context context, RecordSet rs) {
@@ -102,7 +139,7 @@ public final class PaymentServiceUtil {
 				sql.append(" ").append(key.getSortType()).append("\n");
 			}
 		} else {
-			sql.append(" order by t.createDate asc \n");
+			sql.append(" order by t.createDate desc \n");
 		}
 		return sql;
 	}

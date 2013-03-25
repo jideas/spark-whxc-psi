@@ -204,7 +204,7 @@ public class InventoryViewWindow extends SMenuWindow {
 		if (storeIds != null && storeIds.length > 0) {
 			for (GUID storeId : storeIds) {
 				for (SummaryItem item : summary.getItems()) {
-					if (storeId.equals(item.getStoreId())) {
+					if (storeId.equals(item.getStoreId())&&item.getCount()>0) {
 						itemList.add(item);
 						break;
 					}
@@ -212,6 +212,7 @@ public class InventoryViewWindow extends SMenuWindow {
 			}
 		} else {
 			for (SummaryItem item : summary.getItems()) {
+				if(item.getCount()>0)
 				itemList.add(item);
 			}
 		}

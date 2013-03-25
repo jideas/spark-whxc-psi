@@ -66,10 +66,11 @@ public class PayingListProcessor extends PSIListPageProcessor<PaymentItem> {
 		GetPaymentListKey key = new GetPaymentListKey(0, Integer.MAX_VALUE, true);
 		key.setSearchText(search.getText() == null ? null : search.getText().trim());
 		key.setStatus(PaymentStatus.Paying);
-		ListEntity<PaymentItem> listEntity = context.find(PaymentListEntity.class, key);
+		PaymentListEntity listEntity = context.find(PaymentListEntity.class, key);
+		countLabel.setText("" + listEntity.getTotalCount());
 		if (null == listEntity) return null;
 		List<PaymentItem> resultList = listEntity.getItemList();
-		countLabel.setText("" + resultList.size());
+		
 //		double payAmount = 0.0;
 //		for(PaymentItem item : resultList) {
 //			payAmount += item.getAmount();

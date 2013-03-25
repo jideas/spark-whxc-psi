@@ -20,6 +20,7 @@ import com.spark.psi.publish.ReceiptStatus;
 import com.spark.psi.publish.ReceiptType;
 import com.spark.psi.publish.account.entity.ReceiptInfo;
 import com.spark.psi.publish.account.entity.ReceiptItem;
+import com.spark.psi.publish.account.entity.ReceiptListEntity;
 import com.spark.psi.publish.account.key.GetReceiptListKey;
 
 public final class ReceiptServiceUtil {
@@ -28,7 +29,7 @@ public final class ReceiptServiceUtil {
 	final static String receiptDetTable = ERPTableNames.Account.Receipts_Det.getTableName();
 	final static String receiptLogTable = ERPTableNames.Account.Receipts_Log.getTableName();
 
-	public static List<ReceiptItem> getReceiptItemList(Context context, GetReceiptListKey key) {
+	public static ReceiptListEntity getReceiptItemList(Context context, GetReceiptListKey key) {
 		List<ReceiptItem> list = new ArrayList<ReceiptItem>();
 
 		StringBuffer sql = new StringBuffer();
@@ -64,7 +65,41 @@ public final class ReceiptServiceUtil {
 		while (rs.next()) {
 			list.add(fillReceipt(context, rs));
 		}
-		return list;
+		
+		StringBuffer sql1 = new StringBuffer();
+		sql1.append("define query getOrderItemList(\n");
+		sql1.append("@startTime date,@endTime date");
+		sql1.append(")\n");
+		sql1.append("begin\n");
+		sql1.append("select \n");
+		sql1.append(" count(t.recid) as c,sum(t.amount) as totalamount ");
+		sql1.append("from\n");
+		sql1.append(receiptTable);
+		sql1.append(" as t\n");
+		sql1.append(" where 1=1 \n");
+		sql1.append(getStatusSql(key));
+		sql1.append(getSearchSql(key));
+		if (CheckIsNull.isNotEmpty(key.getQueryTerm())) {
+			sql1.append(" and (t.createDate>@startTime").append(" or t.createDate=@startTime").append(")\n");
+			sql1.append(" and (t.createDate<@endTime").append(" or t.createDate=@endTime").append(")\n");
+		}
+//		sql1.append(getOrderSql(key));
+		sql1.append("end");
+
+		DBCommand db1 = context.prepareStatement(sql1);
+		if (CheckIsNull.isNotEmpty(key.getQueryTerm())) {
+			db1.setArgumentValues(key.getQueryTerm().getStartTime(),key.getQueryTerm().getEndTime());
+		}
+		RecordSet rs1 = db1.executeQuery();
+		int totalCount = 0;
+		double totalAmount = 0;
+		while (rs1.next()) {
+			totalCount = rs1.getFields().get(0).getInt();
+			totalAmount = rs1.getFields().get(1).getDouble();
+		}
+		ReceiptListEntity entity = new ReceiptListEntity(list, totalCount);
+		entity.setTotalAmount(totalAmount);
+		return entity;
 	}
 
 	private static ReceiptItem fillReceipt(Context context, RecordSet rs) {
@@ -98,7 +133,7 @@ public final class ReceiptServiceUtil {
 				sql.append(" ").append(key.getSortType()).append("\n");
 			}
 		} else {
-			sql.append(" order by t.createDate asc \n");
+			sql.append(" order by t.createDate desc ");
 		}
 		return sql;
 	}

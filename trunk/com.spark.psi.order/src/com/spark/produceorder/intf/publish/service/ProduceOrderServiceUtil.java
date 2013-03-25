@@ -96,7 +96,7 @@ public final class ProduceOrderServiceUtil {
 				sql.append(" asc \n");
 			}
 		} else {
-			sql.append(" order by t.planDate asc \n");
+			sql.append(" order by t.planDate desc \n");
 		}
 		return sql;
 	}
