@@ -255,17 +255,17 @@ public class OnlineGoodsSummaryProcessor<Item> extends
 		for (OnlineOrderItem item : orderList) {
 			//SummaryGoods goods = goodsMap.get(item.get)
 			for (OnlineOrderInfoItem goodsItem : item.getItems()) {
-				SummaryGoods goods = goodsMap.get(goodsItem.getGoodsId().toString());
+				SummaryGoods goods = goodsMap.get(goodsItem.getGoodsId().toString()+goodsItem.getPrice());
 				if (null == goods) {
 					goods = new SummaryGoods();
-					goods.setId(goodsItem.getGoodsId().toString());
+					goods.setId(goodsItem.getGoodsId().toString()+goodsItem.getPrice());
 					goods.setGoodsCode(goodsItem.getGoodsCode());
 					goods.setGoodsNo(goodsItem.getGoodsNo());
 					goods.setGoodsName(goodsItem.getGoodsName());
 					goods.setSpec(goodsItem.getGoodsSpec());
 					goods.setPrice(goodsItem.getPrice());
 					goods.setCount(goodsItem.getCount());
-					goodsMap.put(goodsItem.getGoodsId().toString(), goods);
+					goodsMap.put(goodsItem.getGoodsId().toString()+goodsItem.getPrice(), goods);
 				} else {
 					goods.setCount(DoubleUtil.sum(goods.getCount(), goodsItem.getCount()));
 				}
