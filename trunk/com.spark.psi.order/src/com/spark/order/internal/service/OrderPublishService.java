@@ -776,6 +776,7 @@ public class OrderPublishService extends Service {
 			item.setPrice(goods.getPrice());
 			item.setRECID(context.newRECID());
 			item.setUnit(gi.getMaterialUnit());
+			item.setGoodsCode(gi.getMaterialCode());
 			item.setAmount(DoubleUtil.mul(item.getCount() , item.getPrice()));
 			return item;
 		}
