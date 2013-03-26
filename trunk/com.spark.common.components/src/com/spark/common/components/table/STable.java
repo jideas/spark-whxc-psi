@@ -165,7 +165,7 @@ public class STable extends Composite {
 
 		// 表体样式和控件初始化,客户端方法
 		if (tableStyle.isNoScroll()) {
-			scrolledPanel = new ScrolledPanel(this, JWT.NONE);
+			scrolledPanel = new ScrolledPanel(this, JWT.V_SCROLL);
 		} else {
 			scrolledPanel = new ScrolledPanel(this);
 		}
