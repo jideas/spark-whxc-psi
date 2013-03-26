@@ -35,6 +35,18 @@ public class STableStyle {
 	private boolean noScroll = false;
 	
 	/**
+	 * ½ûÖ¹ºáÏò¹ö¶¯Ìõ
+	 */
+	private boolean noHScroll = false;
+	public boolean isNoHScroll() {
+		return noHScroll;
+	}
+
+	public void setNoHScroll(boolean noHScroll) {
+		this.noHScroll = noHScroll;
+	}
+
+	/**
 	 * @return the headerVisible
 	 */
 	public boolean isHeaderVisible() {
