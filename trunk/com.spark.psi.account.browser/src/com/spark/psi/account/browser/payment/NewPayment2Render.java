@@ -160,7 +160,7 @@ public class NewPayment2Render extends AbstractBoxPageRender {
 		SEditTableStyle tableStyle = new SEditTableStyle();
 		tableStyle.setAutoAddRow(false);
 		tableStyle.setPageAble(false);
-		tableStyle.setNoScroll(true);
+		tableStyle.setNoHScroll(true);
 		tableStyle.setSelectionMode(SSelectionMode.Multi);
 
 		SEditTable table = new SEditTable(comp, getColumns(), tableStyle, null);

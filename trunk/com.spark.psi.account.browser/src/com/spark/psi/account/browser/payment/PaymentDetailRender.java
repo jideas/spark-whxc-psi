@@ -172,7 +172,7 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 	public STableStyle getTableStyle() {
 		SEditTableStyle tableStyle = new SEditTableStyle();
 		tableStyle.setAutoAddRow(false);
-		tableStyle.setNoScroll(true);
+		tableStyle.setNoHScroll(true);
 		tableStyle.setPageAble(false);
 		if (PaymentStatus.Deny == info.getStatus()
 				|| PaymentStatus.Submitting == info.getStatus()) {
