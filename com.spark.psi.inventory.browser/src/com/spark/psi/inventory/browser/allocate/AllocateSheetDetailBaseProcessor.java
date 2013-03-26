@@ -15,6 +15,7 @@ import com.spark.common.utils.character.StringHelper;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.psi.base.browser.SimpleSheetPageProcessor;
 import com.spark.psi.publish.inventory.entity.InventoryAllocateSheetInfo;
+import com.spark.psi.publish.inventory.key.GetAvailableCountKey;
 
 /**
  * <p>调拔单详情基类处理器</p>
@@ -252,7 +253,7 @@ public class AllocateSheetDetailBaseProcessor extends
 		AllocateShowItem item = new AllocateShowItem();
 		if(CheckIsNull.isNotEmpty(goodItem)){
 			item.setAllocateCount(goodItem.getAllocateCount());
-			item.setAvailableCount(goodItem.getAvailableCount());
+			item.setAvailableCount(getAvailableCount(info.getSourceStoreId(), goodItem.getGoodsItemId()));
 			item.setStockItemCode(goodItem.getGoodsItemCode());
 			item.setStockItemId(goodItem.getGoodsItemId());
 			item.setStockItemName(goodItem.getGoodsItemName());
@@ -264,15 +265,18 @@ public class AllocateSheetDetailBaseProcessor extends
 		return item;
 	}
 
+	
 	/**
 	 * 获得某材料在仓库的可用数量
 	 */
-//	private Double getAvailableCount(GUID guid){
-//		//获得仓库ID
-//		GUID allocateOutStoreGuid = info.getSourceStoreId();
-//		GetAvailableCountKey key = new GetAvailableCountKey(allocateOutStoreGuid, guid);
-//		return getContext().find(Double.class, key);
-//	}
+	private Double getAvailableCount(GUID storeId, GUID stockId) {
+		// 获得仓库ID
+//		GUID allocateOutStoreGuid = GUID.valueOf(allocateOutStoreList.getText());
+		GetAvailableCountKey key = new GetAvailableCountKey(storeId, stockId);
+		Double availableCountD = getContext().find(Double.class, key);
+		double availableCount = availableCountD == null ? 0.0 : availableCountD.doubleValue();
+		return availableCount > 0 ? availableCount : 0;
+	}
 	
 	/**
 	 * 刷新制单人及状态信息
