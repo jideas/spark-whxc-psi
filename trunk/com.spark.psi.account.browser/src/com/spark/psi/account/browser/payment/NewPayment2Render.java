@@ -108,7 +108,11 @@ public class NewPayment2Render extends AbstractBoxPageRender {
 		Label parterLabel = new Label(rightArea);
 		parterLabel.setID(NewPayment2Processor.ID_Label_Partner);
 		parterLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
-
+		GridData gdPartnerName = new GridData();
+		gdPartnerName.widthHint = 210;
+		parterLabel.setLayoutData(gdPartnerName);
+		
+		
 		String tempStr = "      ";
 		new Label(rightArea).setText(tempStr);
 		

@@ -210,6 +210,7 @@ public final class PaymentServiceUtil {
 		i.setApprovePerson(e.getApprovePerson());
 		i.setApprovePersonName(e.getApprovePersonName());
 		i.setCreator(e.getCreator());
+		i.setCreateDate(e.getCreateDate());
 		i.setCreatorId(e.getCreatorId());
 		i.setId(e.getId());
 		i.setPaidAmount(e.getPaidAmount());

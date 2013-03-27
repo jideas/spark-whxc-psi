@@ -83,6 +83,7 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 	private LWComboList wayList;
 	private Text amountText;
 	private Text memoText;
+	private Label createDateLabel;
 
 	private ReceiptInfo info = null;
 
@@ -95,6 +96,7 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 		wayList = createControl(ID_List_Way, LWComboList.class);
 		amountText = createControl(ID_Text_TotalAmount, Text.class);
 		memoText = createMemoText();
+		createDateLabel = createLabelControl(ID_Label_Label_ExtraInfo);
 
 		wayList.getList().setSource(new DealingsWaySource());
 		wayList.getList().setInput(null);
@@ -107,6 +109,7 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 		datePicker.setDate(new Date());
 		partnerLabel.setText(info.getPartnerName());
 		amountText.setEnabled(false);
+		createDateLabel.setText("ÖÆµ¥£º" + DateUtil.dateFromat(info.getCreateDate()));
 		if (ReceiptStatus.Submitting == info.getStatus()
 				|| ReceiptStatus.Receipted == info.getStatus()) {
 			amountText.setText(DoubleUtil.getRoundStr(info.getAmount()));

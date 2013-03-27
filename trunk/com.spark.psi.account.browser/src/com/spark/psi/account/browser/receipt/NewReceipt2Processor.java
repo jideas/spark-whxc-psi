@@ -190,7 +190,7 @@ public class NewReceipt2Processor extends PageProcessor {
 			receiptType = ReceiptType.RECEIPT_CGTK;
 		}
 		
-		partnerLabel.setText(partnerInfo.getShortName());
+		partnerLabel.setText(partnerInfo.getName());
 		table.render();
 	}
 	

@@ -33,6 +33,9 @@ public class PaymentInfoImpl implements PaymentInfo {
 	public GUID getId() {
 		return id;
 	}
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
+	}
 	public void setId(GUID id) {
 		this.id = id;
 	}

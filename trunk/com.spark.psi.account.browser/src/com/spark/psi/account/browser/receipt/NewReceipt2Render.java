@@ -98,7 +98,7 @@ public class NewReceipt2Render extends AbstractBoxPageRender {
 		parterLabel.setID(NewReceipt2Processor.ID_Label_Partner);
 		parterLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		GridData gdPartnerName = new GridData();
-		gdPartnerName.widthHint = 150;
+		gdPartnerName.widthHint = 210;
 		parterLabel.setLayoutData(gdPartnerName);
 
 		String tempStr = "      ";
