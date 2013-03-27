@@ -16,7 +16,8 @@ begin
 		t."goodsSpec" as "goodsSpec",
 		t."price" as "price",
 		t."promotionId" as "promotionId",
-		t."unit" as "unit"
+		t."unit" as "unit",
+		t."vantagesCost" as "vantagesCost"
 	from ERP_Sales_OnlineOrder_Det as t
 	
 	where t.billsId = @id

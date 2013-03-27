@@ -25,4 +25,5 @@ public interface OnlineOrderInfoItem {
 	public double getDisAmount();
 	public double getAmount();
 	public GUID getPromotionId();
+	public double getVantagesCost();
 }

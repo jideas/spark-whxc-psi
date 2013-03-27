@@ -24,6 +24,7 @@ public class ORM_OnlineOrderDetByOrderId extends ORMDeclarator<com.spark.onlineo
 	public final QueryColumnDefine c_price;
 	public final QueryColumnDefine c_promotionId;
 	public final QueryColumnDefine c_unit;
+	public final QueryColumnDefine c_vantagesCost;
 
 	public ORM_OnlineOrderDetByOrderId() {
 		this.arg_id = this.orm.getArguments().get(0);
@@ -42,5 +43,6 @@ public class ORM_OnlineOrderDetByOrderId extends ORMDeclarator<com.spark.onlineo
 		this.c_price = this.orm.getColumns().get(12);
 		this.c_promotionId = this.orm.getColumns().get(13);
 		this.c_unit = this.orm.getColumns().get(14);
+		this.c_vantagesCost = this.orm.getColumns().get(15);
 	}
 }

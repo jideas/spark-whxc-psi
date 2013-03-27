@@ -142,6 +142,9 @@ public class OnlineOrderDetailProcessor<TItem> extends SimpleSheetPageProcessor<
 				case 2:
 					return DoubleUtil.getRoundStr(item.getCount(), 0);
 				case 3:
+					if(item.getVantagesCost()>0)
+						return DoubleUtil.getRoundStr(item.getVantagesCost(),0)+"»ý·Ö";
+					else
 					return DoubleUtil.getRoundStr(item.getAmount());
 //					return DoubleUtil.getRoundStr(1666.00);
 //				case 4:

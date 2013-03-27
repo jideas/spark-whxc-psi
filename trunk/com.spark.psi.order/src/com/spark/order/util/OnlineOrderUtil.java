@@ -354,6 +354,7 @@ public final class OnlineOrderUtil {
 		impl.setPrice(det.getPrice());
 		impl.setPromotionId(det.getPromotionId());
 		impl.setUnit(det.getUnit());
+		impl.setVantagesCost(det.getVantagesCost());
 		return impl;
 	}
 
