@@ -80,7 +80,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 	public final static String ID_Button_Approval = "Button_Approval";
 	public final static String ID_Button_Deny = "Button_Deny";
 
-	public final static String ID_Button_Pay = "Button_Pay";
+	public final static String ID_Button_Pay = "Button_Pay"; 
 
 	public enum Columns {
 		checkDate, sheetNo, relateSheetNo, amount, askedAmount, applyAmount, paidAmount, molingedAmount, unpaidAmount, currentPayAmount, molingAmount
@@ -99,6 +99,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 	private LWComboList wayList;
 	private Text amountText;
 	private Text memoText;
+	private Label createDateLabel;
 
 	@Override
 	public void init(Situation context) {
@@ -124,6 +125,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 
 		partnerLabel.setText(info.getPartnerName());
 		memoText.setText(info.getRemark());
+		createDateLabel = createLabelControl(ID_Label_Label_ExtraInfo);
 
 		table.addClientEventHandler(SEditTable.CLIENT_EVENT_VALUE_CHANGED, "Account.handleTableDataChanged");
 		if (info.getStatus() == PaymentStatus.Paying) {
@@ -165,6 +167,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 			amountText.setText(DoubleUtil.getRoundStr(info.getAmount()));
 		}
 		memoText.setText(info.getRemark());
+		createDateLabel.setText("ÖÆµ¥£º" + DateUtil.dateFromat(info.getCreateDate()));
 		if (PaymentStatus.Submitting == info.getStatus() || PaymentStatus.Deny == info.getStatus()) {
 			wayList.getList().setSource(new DealingsWaySource());
 			wayList.getList().setInput(null);

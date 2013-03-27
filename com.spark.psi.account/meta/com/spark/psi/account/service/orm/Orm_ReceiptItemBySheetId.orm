@@ -14,5 +14,5 @@ begin
 		t."sheetNo" as "sheetNo"
 		
 	from PSI_ACCOUNT_Receipts_Det as t
-	where t.receiptsId = @id
+	where t.receiptsId = @id order by t."relevantBillNo",t."sheetNo"
 end

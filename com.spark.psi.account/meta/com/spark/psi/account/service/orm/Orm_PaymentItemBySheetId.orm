@@ -15,5 +15,5 @@ begin
 		t."relevantBillNo" as "relevantBillNo",
 		t."sheetNo" as "sheetNo"
 	from PSI_ACCOUNT_Payment_Det as t
-	where t.paymentId = @id
+	where t.paymentId = @id order by t."relevantBillNo",t."sheetNo"
 end

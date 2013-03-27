@@ -386,7 +386,7 @@ public abstract class PageProcessor {
 		if (firstControl != null) {
 			firstControl.forceFocus();
 			return false;
-		} else {
+		} else { 
 			return true;
 		}
 	}
