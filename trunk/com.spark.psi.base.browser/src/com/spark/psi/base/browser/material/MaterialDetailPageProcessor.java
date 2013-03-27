@@ -401,10 +401,12 @@ public class MaterialDetailPageProcessor extends BaseFormPageProcessor {
 			item.setId(materialsInfo.getItems()[0].getId());
 			item.setMaterialsNo(numberText.getText());
 			if (materialsInfo.isRefFlag()) { // 已引用 属性值 和规格值 不能修改
-				item.setPropertyValues(materialsInfo.getItems()[0].getPropertyValues());
+//				item.setPropertyValues(materialsInfo.getItems()[0].getPropertyValues());
+				item.setPropertyValues(values);
+				item.setUnit(values[0]);
 				item.setMaterialsSpec(materialsInfo.getItems()[0].getMaterialSpec());
 				item.setMaterialsNo(materialsInfo.getItems()[0].getMaterialNo());
-				item.setUnit(materialsInfo.getItems()[0].getUnit());
+//				item.setUnit(materialsInfo.getItems()[0].getUnit());
 			} else {
 				item.setPropertyValues(values);
 				item.setUnit(values[0]);
@@ -679,7 +681,7 @@ public class MaterialDetailPageProcessor extends BaseFormPageProcessor {
 				inList.setInput("");
 				if (items != null && items.length > 0 && items[0].getPropertyValues().length > propertyIndex) {
 					list.setSelection(items[0] == null ? "" : items[0].getPropertyValues()[propertyIndex]);
-					if (items[0].isRefFlag())
+					if (items[0].isRefFlag()&&propertyIndex != 0)
 						list.setEnabled(false);
 				}
 				propertyDefineControlList.add(list);
