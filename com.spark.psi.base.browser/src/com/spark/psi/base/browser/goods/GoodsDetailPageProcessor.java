@@ -716,14 +716,32 @@ public class GoodsDetailPageProcessor extends PageProcessor implements IDataProc
 					// 对被引用的条目，属性值从原数据中获取
 					if ("1"
 							.equals(itemTable.getExtraData(rowIds[i], "isRef")[0])) {
+						String[] propertyValues = itemTable.getEditValue(
+								rowIds[i], propertyColumns);
+						for (GoodsInfoTask.Item preItem : itemList) {
+//							if (preItem.getGoodsNo().equals(item.getGoodsNo()) ) {
+//								alert("商品明细条码不能重复。");
+//								return null;
+//							}
+							if (preItem.getGoodsSpec().equals(item.getGoodsSpec())
+									&& preItem.getPropertyValues()[0].equals(item.getPropertyValues()[0])) {
+								alert("商品明细的规格和单位不能同时重复。");
+								return null;
+							}
+//							if (preItem.getGoodsNo().equals(item.getGoodsNo())
+//									&& preItem.getGoodsSpec().equals(item.getGoodsSpec())) {
+//								alert("商品条码和商品规格不能同时重复。");
+//								return null;
+//							}
+						}
+						item.setUnit(propertyValues[0]);
 						if (null != itemData) {
 							item
-									.setPropertyValues(itemData
-											.getPropertyValues());
-							item.setUnit(itemData.getUnit());
-							itemList.add(item);
+									.setPropertyValues(propertyValues);
+//							item.setUnit(itemData.getUnit());
 							item.setGoodsNo(itemData.getGoodsItemNo());
 							item.setGoodsSpec(itemData.getSpec());
+							itemList.add(item);
 						}
 					} else {
 						String[] propertyValues = itemTable.getEditValue(
@@ -896,7 +914,7 @@ public class GoodsDetailPageProcessor extends PageProcessor implements IDataProc
 				}
 			} else if (element instanceof GoodsItemData) {
 				GoodsItemData item = (GoodsItemData) element;
-				if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
+//				if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
 					PropertyDefine[] propertyDefines = propertiedCategoryInfo
 							.getPropertyDefines();
 					for (int i = 0; i < propertyDefines.length; i++) {
@@ -905,7 +923,7 @@ public class GoodsDetailPageProcessor extends PageProcessor implements IDataProc
 							return item.getPropertyValues()[i];
 						}
 					}
-				}
+//				}
 				if (columnName.equals("price")
 						&& loginInfo
 								.hasAuth(Auth.SubFunction_GoodsMange_EditSalesAmount)) {

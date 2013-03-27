@@ -230,14 +230,14 @@ public class GoodsItemShowList {
 					}
 				} else if (element instanceof GoodsItemData) {
 					GoodsItemData item = (GoodsItemData) element;
-					if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
+//					if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
 						for (int i = 0; i < propertyDefines.length; i++) {
 							PropertyDefine define = propertyDefines[i];
 							if (define.getName().equals(columnName)) {
 								return item.getPropertyValues()[i];
 							}
 						}
-					}
+//					}
 					if (item.isRefFlag() && !editableWheneverColumnList.contains(columnName)) {
 						return null;
 					}
