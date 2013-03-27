@@ -39,8 +39,7 @@ import com.spark.psi.publish.base.goods.entity.GoodsItemData;
 import com.spark.psi.publish.base.goods.entity.PropertyDefine;
 
 public class GoodsItemShowList {
-	
-	
+
 	public static final String COLUMN_NAME_NUMBER = "numberName";
 	public static final String COLUMN_NAME_SPEC = "specName";
 	public static final String COLUMN_NAME_PRICE = "price";
@@ -48,57 +47,69 @@ public class GoodsItemShowList {
 	public static final String COLUMN_NAME_ORIGINALPRICE = "originalPrice";
 	public static final String COLUMN_NAME_LOSSRATE = "lossRate";
 	public static final String COLUMN_NAME_STATUS = "status";
-	
-	final static STableColumn COLUMN_NUMBER = new SNumberEditColumn(COLUMN_NAME_NUMBER, 120,JWT.CENTER, "条码");
-	final static STableColumn COLUMN_SPEC = new STextEditColumn(COLUMN_NAME_SPEC, 120,JWT.CENTER, "规格");
-	final static STableColumn COLUMN_PRICE = new SNumberEditColumn(COLUMN_NAME_PRICE, 70, JWT.RIGHT, "销售价格");
-	final static STableColumn COLUMN_STANDARDCOST = new SNumberEditColumn(COLUMN_NAME_STANDARDCOST, 70, JWT.RIGHT, "标准成本");
-	final static STableColumn COLUMN_ORIGINALPRICE = new SNumberEditColumn(COLUMN_NAME_ORIGINALPRICE, 70, JWT.RIGHT, "原价");
-	final static STableColumn COLUMN_LOSSRATE = new SNumberEditColumn(COLUMN_NAME_LOSSRATE, 55,JWT.CENTER, "损耗率");
-	final static STableColumn COLUMN_STATUS = new STableColumn(COLUMN_NAME_STATUS, 55,JWT.CENTER, "状态");
-	
+	public static final String COLUMN_NAME_HALFKGPRICE = "halfkgPrice";
+
+	final static STableColumn COLUMN_NUMBER = new SNumberEditColumn(
+			COLUMN_NAME_NUMBER, 120, JWT.CENTER, "条码");
+	final static STableColumn COLUMN_SPEC = new STextEditColumn(
+			COLUMN_NAME_SPEC, 120, JWT.CENTER, "规格");
+	final static STableColumn COLUMN_PRICE = new SNumberEditColumn(
+			COLUMN_NAME_PRICE, 70, JWT.RIGHT, "销售价格");
+	final static STableColumn COLUMN_STANDARDCOST = new SNumberEditColumn(
+			COLUMN_NAME_STANDARDCOST, 70, JWT.RIGHT, "标准成本");
+	final static STableColumn COLUMN_ORIGINALPRICE = new SNumberEditColumn(
+			COLUMN_NAME_ORIGINALPRICE, 70, JWT.RIGHT, "原价");
+	final static STableColumn COLUMN_LOSSRATE = new SNumberEditColumn(
+			COLUMN_NAME_LOSSRATE, 55, JWT.CENTER, "损耗率");
+	final static STableColumn COLUMN_STATUS = new STableColumn(
+			COLUMN_NAME_STATUS, 55, JWT.CENTER, "状态");
+	final static STableColumn COLUMN_HALFKGPRICE = new SNumberEditColumn(
+			COLUMN_NAME_HALFKGPRICE, 70, JWT.RIGHT, "元/斤");
+
 	protected final static List<String> editableWheneverColumnList = new ArrayList<String>();
-	static  {
+	static {
 		editableWheneverColumnList.add(COLUMN_NAME_PRICE);
 		editableWheneverColumnList.add(COLUMN_NAME_STANDARDCOST);
 		editableWheneverColumnList.add(COLUMN_NAME_ORIGINALPRICE);
 		editableWheneverColumnList.add(COLUMN_NAME_LOSSRATE);
+		editableWheneverColumnList.add(COLUMN_NAME_HALFKGPRICE);
 	}
 
-	private Composite parent                    = null;
-	
-	private LoginInfo loginInfo                 = null;
-	private GoodsInfo goodsInfo                 = null;
-	private PropertyDefine[] propertyDefines    = null;
-	private Text salePriceText 	        = null;
-	
-	private SEditTable itemTable                = null;
-	
+	private Composite parent = null;
+
+	private LoginInfo loginInfo = null;
+	private GoodsInfo goodsInfo = null;
+	private PropertyDefine[] propertyDefines = null;
+	private Text salePriceText = null;
+
+	private SEditTable itemTable = null;
+
 	private final List<STableColumn> columnList = new ArrayList<STableColumn>();
 	private final List<String> deletedRowIdList = new ArrayList<String>();
-	private STableColumn unitColumn             = null;
-	
-	public GoodsItemShowList(Composite parent, GoodsInfo goodsInfo, PropertyDefine[] propertyDefines, Text salePriceText) {
+	private STableColumn unitColumn = null;
+
+	public GoodsItemShowList(Composite parent, GoodsInfo goodsInfo,
+			PropertyDefine[] propertyDefines, Text salePriceText) {
 		this.loginInfo = parent.getContext().find(LoginInfo.class);
 		this.parent = parent;
 		this.goodsInfo = goodsInfo;
 		this.propertyDefines = propertyDefines;
 		this.salePriceText = salePriceText;
-		
+
 		build();
 	}
-	
+
 	public SEditTable getItemTable() {
 		return this.itemTable;
 	}
-	
+
 	public List<String> getDeleteRowIdList() {
 		return this.deletedRowIdList;
 	}
-	
+
 	private void build() {
 		unitColumn = createColumn(propertyDefines[0], 55);
-		
+
 		columnList.add(COLUMN_NUMBER);
 		columnList.add(COLUMN_SPEC);
 		columnList.add(unitColumn);
@@ -111,21 +122,23 @@ public class GoodsItemShowList {
 			columnList.add(COLUMN_PRICE);
 			columnList.add(COLUMN_STANDARDCOST);
 			columnList.add(COLUMN_ORIGINALPRICE);
+			columnList.add(COLUMN_HALFKGPRICE);
 		}
-		if (loginInfo
-				.hasAuth(Auth.SubFunction_GoodsMange_ChangeGoodsStatus)) {
+		if (loginInfo.hasAuth(Auth.SubFunction_GoodsMange_ChangeGoodsStatus)) {
 			columnList.add(COLUMN_STATUS);
 		}
 
 		for (STableColumn column : columnList) {
 			column.setGrab(true);
 		}
-		itemTable = new SEditTable(parent, columnList.toArray(new STableColumn[0]), getTableStyle(),
+		itemTable = new SEditTable(parent, columnList
+				.toArray(new STableColumn[0]), getTableStyle(),
 				getTableActions());
 		itemTable.setID("goodsItemTable");
 		JSONObject operation = new JSONObject();
 		try {
-			operation.append("priceIndex", String.valueOf(columnList.indexOf(COLUMN_PRICE)));
+			operation.append("priceIndex", String.valueOf(columnList
+					.indexOf(COLUMN_PRICE)));
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
@@ -139,13 +152,11 @@ public class GoodsItemShowList {
 							"isNew", "isRef");
 					boolean isNew = "1".equals(extraDatas[0]);
 					boolean isRef = "1".equals(extraDatas[1]);
-					itemTable.updateCell(rowId, "status",
-							GoodsStatus.ON_SALE.getCode(),
-							GoodsStatus.ON_SALE.getName());
+					itemTable.updateCell(rowId, "status", GoodsStatus.ON_SALE
+							.getCode(), GoodsStatus.ON_SALE.getName());
 					if (isNew || !isRef) {
-						itemTable.updateRowActions(rowId,
-								new String[] { Action.OffSale.name(),
-										Action.Delete.name() });
+						itemTable.updateRowActions(rowId, new String[] {
+								Action.OffSale.name(), Action.Delete.name() });
 					} else {
 						itemTable.updateRowActions(rowId,
 								new String[] { Action.OffSale.name() });
@@ -158,13 +169,13 @@ public class GoodsItemShowList {
 							"isNew", "isRef");
 					boolean isNew = "1".equals(extraDatas[0]);
 					boolean isRef = "1".equals(extraDatas[1]);
-					itemTable.updateCell(rowId, GoodsItemShowList.COLUMN_NAME_STATUS,
+					itemTable.updateCell(rowId,
+							GoodsItemShowList.COLUMN_NAME_STATUS,
 							GoodsStatus.STOP_SALE.getCode(),
 							GoodsStatus.STOP_SALE.getName());
 					if (isNew || !isRef) {
-						itemTable.updateRowActions(rowId,
-								new String[] { Action.OnSale.name(),
-										Action.Delete.name() });
+						itemTable.updateRowActions(rowId, new String[] {
+								Action.OnSale.name(), Action.Delete.name() });
 					} else {
 						itemTable.updateRowActions(rowId,
 								new String[] { Action.OnSale.name() });
@@ -176,10 +187,11 @@ public class GoodsItemShowList {
 					deletedRowIdList.add(rowId);
 				}
 				itemTable.renderUpate();
-				
-//				if (itemTable.getAllRowId() == null || itemTable.getAllRowId().length == 0) {
-//					itemTable.addRow(GUID.randomID().toString());
-//				}
+
+				// if (itemTable.getAllRowId() == null ||
+				// itemTable.getAllRowId().length == 0) {
+				// itemTable.addRow(GUID.randomID().toString());
+				// }
 			}
 		});
 		//
@@ -187,33 +199,33 @@ public class GoodsItemShowList {
 		setTableLabelProvider();
 		itemTable.render();
 	}
-	
-	
+
 	private void setTableContentProvider() {
 		itemTable.setContentProvider(new SEditContentProvider() {
-			
+
 			public boolean isSelected(Object element) {
 				return false;
 			}
-			
+
 			public boolean isSelectable(Object element) {
 				return false;
 			}
-			
-			public Object[] getElements(Context context, STableStatus tablestatus) {
+
+			public Object[] getElements(Context context,
+					STableStatus tablestatus) {
 				return goodsInfo == null ? null : goodsInfo.getItems();
 			}
-			
+
 			public String getElementId(Object element) {
 				if (element instanceof String) {
-					return (String)element;
+					return (String) element;
 				} else if (element instanceof GoodsItemData) {
-					GoodsItemData itemData = (GoodsItemData)element;
+					GoodsItemData itemData = (GoodsItemData) element;
 					return itemData.getId().toString();
 				}
 				return null;
 			}
-			
+
 			public String getValue(Object element, String columnName) {
 				if (element instanceof String) {
 					if (columnName.equals(GoodsItemShowList.COLUMN_NAME_PRICE)) {
@@ -223,63 +235,79 @@ public class GoodsItemShowList {
 						} catch (Throwable t) {
 							return "";
 						}
-					} else if (columnName.equals(GoodsItemShowList.COLUMN_NAME_STATUS)) {
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_STATUS)) {
 						return GoodsStatus.ON_SALE.getCode(); // 初始状态
 					} else {
 						return "";
 					}
 				} else if (element instanceof GoodsItemData) {
 					GoodsItemData item = (GoodsItemData) element;
-//					if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
-						for (int i = 0; i < propertyDefines.length; i++) {
-							PropertyDefine define = propertyDefines[i];
-							if (define.getName().equals(columnName)) {
-								return item.getPropertyValues()[i];
-							}
+					// if (!item.isRefFlag()) { // 仅没有引用时可以修改属性值
+					for (int i = 0; i < propertyDefines.length; i++) {
+						PropertyDefine define = propertyDefines[i];
+						if (define.getName().equals(columnName)) {
+							return item.getPropertyValues()[i];
 						}
-//					}
-					if (item.isRefFlag() && !editableWheneverColumnList.contains(columnName)) {
+					}
+					// }
+					if (item.isRefFlag()
+							&& !editableWheneverColumnList.contains(columnName)) {
 						return null;
 					}
 					if (columnName.equals(GoodsItemShowList.COLUMN_NAME_NUMBER)) {
 						return item.getGoodsItemNo();
-					} else if (columnName.equals(GoodsItemShowList.COLUMN_NAME_SPEC)) {
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_SPEC)) {
 						return item.getSpec();
-					} else  if (columnName.equals(GoodsItemShowList.COLUMN_NAME_PRICE)) {
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_PRICE)) {
 						if (item.getSalePrice() > 0) {
 							return String.valueOf(item.getSalePrice());
 						} else {
 							return "";
 						}
-					} else  if (columnName.equals(GoodsItemShowList.COLUMN_NAME_STANDARDCOST)) {
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_HALFKGPRICE)) {
+						if (item.getHalfkgPrice() > 0) {
+							return String.valueOf(item.getHalfkgPrice());
+						} else {
+							return "";
+						}
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_STANDARDCOST)) {
 						if (item.getStandardCost() > 0) {
 							return String.valueOf(item.getStandardCost());
 						} else {
 							return "";
 						}
-					} else if (columnName.equals(GoodsItemShowList.COLUMN_NAME_ORIGINALPRICE)){
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_ORIGINALPRICE)) {
 						if (item.getOriginalPrice() > 0) {
-							return DoubleUtil.getRoundStr(item.getOriginalPrice());
+							return DoubleUtil.getRoundStr(item
+									.getOriginalPrice());
 						} else {
 							return "";
 						}
-					} else if (columnName.equals(GoodsItemShowList.COLUMN_NAME_LOSSRATE)){
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_LOSSRATE)) {
 						if (item.getLossRate() > 0) {
 							return DoubleUtil.getRoundStr(item.getLossRate());
 						} else {
 							return "";
 						}
-					} else if (columnName.equals(GoodsItemShowList.COLUMN_NAME_STATUS)) {
+					} else if (columnName
+							.equals(GoodsItemShowList.COLUMN_NAME_STATUS)) {
 						return item.getStatus().getCode();
 					}
 				}
 				return null;
 			}
-			
+
 			public Object getNewElement() {
 				return GUID.randomID().toString();
 			}
-			
+
 			public SNameValue[] getExtraData(Object element) {
 				if (element instanceof String) {
 					return new SNameValue[] { new SNameValue("isNew", "1") };
@@ -289,7 +317,7 @@ public class GoodsItemShowList {
 				}
 				return null;
 			}
-			
+
 			public String[] getActionIds(Object element) {
 				if (element instanceof String) {
 					if (loginInfo
@@ -311,7 +339,8 @@ public class GoodsItemShowList {
 						}
 					}
 
-					if (loginInfo.hasAuth(Auth.SubFunction_GoodsMange_UpdateGoods)
+					if (loginInfo
+							.hasAuth(Auth.SubFunction_GoodsMange_UpdateGoods)
 							&& !item.isRefFlag()) {
 						actionList.add(Action.Delete.name());
 					}
@@ -321,33 +350,33 @@ public class GoodsItemShowList {
 			}
 		});
 	}
-	
+
 	private void setTableLabelProvider() {
 		itemTable.setLabelProvider(new GoodsItemLabelProvider());
 	}
-	
+
 	private STableStyle getTableStyle() {
 		SEditTableStyle tableStyle = new SEditTableStyle();
 		tableStyle.setAutoAddRow(true);
 		tableStyle.setRowHeight(24);
 		return tableStyle;
 	}
-	
+
 	private SActionInfo[] getTableActions() {
 		SActionInfo[] actionInfos = new SActionInfo[] {
-				new SActionInfo(Action.OnSale.name(), Action.OnSale
-						.getTitle(), null, null),
+				new SActionInfo(Action.OnSale.name(), Action.OnSale.getTitle(),
+						null, null),
 				new SActionInfo(Action.OffSale.name(), Action.OffSale
 						.getTitle(), null, null),
-				new SActionInfo(Action.Delete.name(), Action.Delete
-						.getTitle(), null, null) };
+				new SActionInfo(Action.Delete.name(), Action.Delete.getTitle(),
+						null, null) };
 		return actionInfos;
 	}
-	
+
 	private SEditColumn createColumn(PropertyDefine propertyDefine) {
 		return createColumn(propertyDefine, 80);
 	}
-	
+
 	public boolean isEmptyItemRow(String rowId) {
 		boolean isEmpty = true;
 		if ("1".equals(itemTable.getExtraData(rowId, "isRef")[0])) {
@@ -364,8 +393,9 @@ public class GoodsItemShowList {
 				return false;
 			}
 		}
-		String[] baseValues = itemTable.getEditValue(rowId, COLUMN_NAME_NUMBER, COLUMN_NAME_SPEC, 
-				COLUMN_NAME_ORIGINALPRICE, COLUMN_NAME_LOSSRATE);
+		String[] baseValues = itemTable.getEditValue(rowId, COLUMN_NAME_NUMBER,
+				COLUMN_NAME_SPEC, COLUMN_NAME_ORIGINALPRICE,
+				COLUMN_NAME_LOSSRATE);
 		for (String columnValue : baseValues) {
 			if (!StringHelper.isEmpty(columnValue)) {
 				return false;
@@ -386,9 +416,9 @@ public class GoodsItemShowList {
 			return column;
 		}
 	}
-	
+
 	class GoodsItemLabelProvider implements SLabelProvider,
-		SNumberLabelProvider {
+			SNumberLabelProvider {
 
 		public Color getBackground(Object element, int columnIndex) {
 			return null;
@@ -426,28 +456,39 @@ public class GoodsItemShowList {
 						} else {
 							return "";
 						}
-					} else if (columnList.indexOf(COLUMN_STANDARDCOST) == columnIndex){
+					} else if (columnList.indexOf(COLUMN_HALFKGPRICE) == columnIndex) {
+						if (item.getHalfkgPrice() > 0) {
+							return DoubleUtil
+									.getRoundStr(item.getHalfkgPrice());
+						} else {
+							return "";
+						}
+					} else if (columnList.indexOf(COLUMN_STANDARDCOST) == columnIndex) {
 						if (item.getStandardCost() > 0) {
-							return DoubleUtil.getRoundStr(item.getStandardCost());
+							return DoubleUtil.getRoundStr(item
+									.getStandardCost());
 						} else {
 							return "";
 						}
-					} else if (columnList.indexOf(COLUMN_ORIGINALPRICE) == columnIndex){
+					} else if (columnList.indexOf(COLUMN_ORIGINALPRICE) == columnIndex) {
 						if (item.getOriginalPrice() > 0) {
-							return DoubleUtil.getRoundStr(item.getOriginalPrice());
+							return DoubleUtil.getRoundStr(item
+									.getOriginalPrice());
 						} else {
 							return "";
 						}
-					} else if (columnList.indexOf(COLUMN_LOSSRATE) == columnIndex){
+					} else if (columnList.indexOf(COLUMN_LOSSRATE) == columnIndex) {
 						if (item.getLossRate() > 0) {
-							return DoubleUtil.getRoundStr(item.getLossRate(), 4);
+							return DoubleUtil
+									.getRoundStr(item.getLossRate(), 4);
 						} else {
 							return "";
 						}
 					} else if (columnList.indexOf(COLUMN_STATUS) == columnIndex) {
 						return item.getStatus().getName();
 					}
-					if (propertyDefines.length > 1 && null != propertyDefines[0]) {
+					if (propertyDefines.length > 1
+							&& null != propertyDefines[0]) {
 						try {
 							return item.getPropertyValues()[columnIndex - 3];
 						} catch (Throwable t) {
@@ -464,7 +505,10 @@ public class GoodsItemShowList {
 		}
 
 		public int getDecimal(Object element, int columnIndex) {
-			if (columnList.indexOf(COLUMN_PRICE) == columnIndex) {
+			if (columnList.indexOf(COLUMN_PRICE) == columnIndex
+					|| columnList.indexOf(COLUMN_HALFKGPRICE) == columnIndex
+					|| columnList.indexOf(COLUMN_NAME_ORIGINALPRICE) == columnIndex
+					|| columnList.indexOf(COLUMN_STANDARDCOST) == columnIndex) {
 				return 2;
 			} else if (columnList.indexOf(COLUMN_LOSSRATE) == columnIndex) {
 				return 4;

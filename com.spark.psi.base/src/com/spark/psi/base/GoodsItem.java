@@ -41,6 +41,7 @@ public interface GoodsItem {
 	public Goods getGoods();
 	public String getPropertiesWithoutUnit();
 	public String getSerialNumber();
+	public double getHalfkgPrice();
 	
 	
 	/**

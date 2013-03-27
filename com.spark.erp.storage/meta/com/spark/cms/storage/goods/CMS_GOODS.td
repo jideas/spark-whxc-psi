@@ -53,6 +53,11 @@
         <const type="boolean" value="false" />
       </default>
     </field>
+    <field dbtable="CMS_GOODS" name="halfkgPrice" name-db="halfkgPrice" type="numeric(17,2)" primary-key="false" keep-valid="false" author="" title="元/斤" description="" ID="2DBC88EE72A7CBDD678D595EA6A14270">
+      <default>
+        <const type="numeric(17,2)" value="0" />
+      </default>
+    </field>
   </fields>
   <indexs />
   <hierarchies />

@@ -1264,6 +1264,7 @@ public class GoodsPublishService extends Service {
 			entity.setWarningDay(goodsInfo.getWarningDay());
 			entity.setGoodsUnit(goodsItem.getUnit());
 			entity.setStandardCost(goodsItem.getStandardCost());
+			entity.setHalfkgPrice(goodsItem.getHalfkgPrice());
 
 			if (resource == null) {
 				entity.setCreateDate(System.currentTimeMillis());
@@ -1292,7 +1293,7 @@ public class GoodsPublishService extends Service {
 			StringBuffer updateCmsSql = new StringBuffer(
 					"define update modifyCmsGoods(");
 			updateCmsSql
-					.append("@RECID guid,@realPrice double, @goodsname string,@goodsNo string,@goodsSpec string,@goodsUnit string,@originalPrice double)");
+					.append("@RECID guid,@realPrice double, @goodsname string,@goodsNo string,@goodsSpec string,@goodsUnit string,@originalPrice double,@halfkgPrice double)");
 			updateCmsSql.append(" begin");
 			updateCmsSql.append(" update cms_goods ").append("  as a");
 			updateCmsSql.append(" set realPrice=@realPrice");
@@ -1301,6 +1302,7 @@ public class GoodsPublishService extends Service {
 			updateCmsSql.append(", goodsSpec=@goodsSpec");
 			updateCmsSql.append(", goodsUnit=@goodsUnit");
 			updateCmsSql.append(", originalPrice=@originalPrice");
+			updateCmsSql.append(", halfkgPrice=@halfkgPrice");
 			if (GoodsStatus.STOP_SALE.getCode().equals(entity.getStatus())) {
 				updateCmsSql.append(", isPublished=false ");
 			}
@@ -1310,7 +1312,7 @@ public class GoodsPublishService extends Service {
 			dbc3.setArgumentValues(entity.getId(), entity.getSalePrice(),
 					entity.getGoodsName(), entity.getGoodsNo(), entity
 							.getSpec(), entity.getGoodsUnit(), entity
-							.getOriginalPrice());
+							.getOriginalPrice(),entity.getHalfkgPrice());
 			int result = dbc3.executeUpdate();
 			if (result < 1) {
 				System.out.println("商品同步出错。。。。。");

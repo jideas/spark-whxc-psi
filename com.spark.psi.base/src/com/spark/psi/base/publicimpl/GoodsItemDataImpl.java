@@ -26,7 +26,7 @@ public class GoodsItemDataImpl implements GoodsItemData {
 	 */
 	protected double recentPurchasePrice;
 
-	private double standardCost;//	标准成本;
+	private double standardCost;// 标准成本;
 	private double averageCost;
 
 	/**
@@ -78,8 +78,18 @@ public class GoodsItemDataImpl implements GoodsItemData {
 	public String goodsItemNo;
 
 	public double lossRate;
-	
+
 	private String serialNumber;
+
+	private double halfkgPrice;
+
+	public double getHalfkgPrice() {
+		return halfkgPrice;
+	}
+
+	public void setHalfkgPrice(double halfkgPrice) {
+		this.halfkgPrice = halfkgPrice;
+	}
 
 	public String getUnit() {
 		return this.getPropertyValues()[0];
@@ -281,5 +291,5 @@ public class GoodsItemDataImpl implements GoodsItemData {
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
-	
+
 }
