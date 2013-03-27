@@ -26,7 +26,14 @@ public class OnlineOrderInfoItemImpl implements  OnlineOrderInfoItem{
 	private double disAmount;//	折扣额
 	private double amount;//	金额
 	private GUID promotionId;//	促销商品Guid
+	private double vantagesCost;
 	
+	public double getVantagesCost() {
+		return vantagesCost;
+	}
+	public void setVantagesCost(double vantagesCost) {
+		this.vantagesCost = vantagesCost;
+	}
 	public GUID getId() {
 		return id;
 	}
