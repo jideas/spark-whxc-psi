@@ -111,6 +111,16 @@
 				render="com.spark.psi.order.browser.deliverticket.DeliverTicketListRender" />
 
 			<!-- 销售 -->
+				<page space="psi/order/purchase" name="Psi_SalesOrderDetailPages"
+				title="销售订单详情"
+				processor="com.spark.psi.order.browser.sales.SalesOrderDetailProcessor"
+				render="com.spark.psi.order.browser.sales.SalesOrderDetailRender" />
+			<page space="psi/order/purchase" name="Psi_SalesReturnOrderDetailPages"
+				title="销售退货单详情"
+				processor="com.spark.psi.order.browser.sales.SalesReturnSheetDetailProcessor"
+				render="com.spark.psi.order.browser.sales.SalesReturnSheetDetailRender" />
+			
+
 			<page space="psi/order/sales" name="SubmitingSalesOrderListPage"
 				title="待提交的销售订单列表*"
 				processor="com.spark.psi.order.browser.sales.SubmitingSalesOrderListProcessor"
@@ -142,6 +152,16 @@
 				render="com.spark.psi.order.browser.sales.SalesOrderCheckOutLogRender" />
 
 			<!-- 采购 -->
+
+			<page space="psi/order/purchase" name="Psi_PruchaseOrderDetailPages"
+				title="采购订单详情"
+				processor="com.spark.psi.order.browser.purchase.PurchaseOrderDetailProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseOrderDetailRender" />
+			<page space="psi/order/purchase" name="Psi_PruchaseReturnOrderDetailPages"
+				title="采购退货单详情"
+				processor="com.spark.psi.order.browser.purchase.PurchaseReturnSheetDetailProcessor"
+				render="com.spark.psi.order.browser.purchase.PurchaseReturnSheetDetailRender" />
+ 
 			<page space="psi/order/purchase" name="PurchaseListJumpPage"
 				title="采购新建跳转页面"
 				processor="com.spark.psi.order.browser.purchase.PurchaseListCreatePageProcessor"

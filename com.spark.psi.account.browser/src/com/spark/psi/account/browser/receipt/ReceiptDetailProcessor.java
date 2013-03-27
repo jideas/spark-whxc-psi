@@ -30,6 +30,7 @@ import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.jiuqi.dna.ui.wt.widgets.Display.ExporterWithContext;
 import com.jiuqi.util.StringUtils;
 import com.spark.common.components.controls.text.SDatePicker;
+import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.table.SContentProvider;
 import com.spark.common.components.table.SLabelProvider;
 import com.spark.common.components.table.STable;
@@ -38,13 +39,16 @@ import com.spark.common.components.table.STableStatus;
 import com.spark.common.components.table.STableStyle;
 import com.spark.common.components.table.edit.SEditTable;
 import com.spark.common.components.table.edit.SNameValue;
+import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.common.utils.excel.BillsWriter;
+import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.portal.browser.SMenuWindow;
 import com.spark.psi.account.browser.DealingsWaySource;
 import com.spark.psi.base.browser.SimpleSheetPageProcessor;
+import com.spark.psi.publish.Action;
 import com.spark.psi.publish.ReceiptStatus;
 import com.spark.psi.publish.ReceiptType;
 import com.spark.psi.publish.account.entity.ReceiptInfo;
@@ -54,7 +58,11 @@ import com.spark.psi.publish.account.entity.ReceiptingOrPayingItem;
 import com.spark.psi.publish.account.task.ReceiptTask;
 import com.spark.psi.publish.account.task.SubmitReceiptTask;
 import com.spark.psi.publish.account.task.UpdateReceiptTask;
+import com.spark.psi.publish.inventory.checkin.entity.CheckInBaseInfo;
 import com.spark.psi.publish.inventory.checkin.key.GetReceiptingInventorySheetKey;
+import com.spark.psi.publish.inventory.checkout.entity.CheckOutBaseInfo;
+import com.spark.psi.publish.order.entity.PurchaseReturnInfo;
+import com.spark.psi.publish.order.entity.SalesOrderInfo;
 
 public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TItem> {
 
@@ -75,6 +83,47 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 
 	public static enum TableExtraValueName {
 		checkoutSheetId, sheetNo, relevantBillId, relevantBillNo, checkoutDate, askedAmount, amount
+	}
+
+	@Override
+	public void actionPerformed(String rowId, String actionName, String actionValue) {
+		if ((Action.Detail.name() + "1").equals(actionName)) {
+			String[] extraValues = table.getExtraData(rowId, TableExtraValueName.checkoutSheetId.name(),
+					TableExtraValueName.sheetNo.name());
+			String sheetId = extraValues[0];
+			String sheetNo = extraValues[1];
+			if (CheckIsNull.isEmpty(sheetNo)) {
+				return;
+			}
+			if (sheetNo.startsWith("RKD")) {
+				CheckInBaseInfo info = getContext().find(CheckInBaseInfo.class, GUID.valueOf(sheetId));
+				PageControllerInstance pci = new PageControllerInstance("PSI_CheckInDetailPages", info, sheetId);
+				MsgRequest request = new MsgRequest(pci, "入库单详情");
+				getContext().bubbleMessage(request);
+			} else if (sheetNo.startsWith("CKD")) {
+				CheckOutBaseInfo info = getContext().find(CheckOutBaseInfo.class, GUID.valueOf(sheetId));
+				PageControllerInstance pci = new PageControllerInstance("PSI_CheckoutDetailPages", info, sheetId);
+				MsgRequest request = new MsgRequest(pci, "出库单详情");
+				getContext().bubbleMessage(request);
+			}
+		} else if ((Action.Detail.name() + "2").equals(actionName)) {
+			// 打开详情界面
+			String[] extraValues = table.getExtraData(rowId, TableExtraValueName.relevantBillId.name(),
+					TableExtraValueName.relevantBillNo.name());
+			String sheetId = extraValues[0];
+			String sheetNo = extraValues[1];
+			if (sheetNo.startsWith("XSD")) {
+				SalesOrderInfo info = getContext().find(SalesOrderInfo.class, GUID.valueOf(sheetId));
+				PageControllerInstance pci = new PageControllerInstance("Psi_SalesOrderDetailPages", info);
+				MsgRequest request = new MsgRequest(pci, "销售订单明细");
+				getContext().bubbleMessage(request);
+			} else if (sheetNo.startsWith("CTD")) {
+				PurchaseReturnInfo info = getContext().find(PurchaseReturnInfo.class, GUID.valueOf(sheetId));
+				PageControllerInstance pci = new PageControllerInstance("Psi_PruchaseReturnOrderDetailPages", info);
+				MsgRequest request = new MsgRequest(pci, "采购退货单明细");
+				getContext().bubbleMessage(request);
+			}
+		}
 	}
 
 	private Label partnerLabel;
@@ -110,8 +159,7 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 		partnerLabel.setText(info.getPartnerName());
 		amountText.setEnabled(false);
 		createDateLabel.setText("制单：" + DateUtil.dateFromat(info.getCreateDate()));
-		if (ReceiptStatus.Submitting == info.getStatus()
-				|| ReceiptStatus.Receipted == info.getStatus()) {
+		if (ReceiptStatus.Submitting == info.getStatus() || ReceiptStatus.Receipted == info.getStatus()) {
 			amountText.setText(DoubleUtil.getRoundStr(info.getAmount()));
 		}
 		memoText.setText(info.getRemark());

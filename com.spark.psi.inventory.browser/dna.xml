@@ -7,6 +7,21 @@
 
 		<!-- 页面列表，用于开发和测试 -->
 		<saas-pages>
+			<page space="psi/inventory" name="PSI_CheckInDetailPages"
+				title="入库单详情"
+				processor="com.spark.psi.inventory.browser.checkin.ShowCheckedInDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkin.ShowCheckedInDetailRender" />
+			
+			<page space="psi/inventory" name="PSI_CheckoutDetailPages"
+				title="出库单详情"
+				processor="com.spark.psi.inventory.browser.checkout.CheckedOutDetailProcessor"
+				render="com.spark.psi.inventory.browser.checkout.CheckedOutDetailRender" />
+			
+			
+			
+			
+			
+			
 			<page space="psi/inventory" name="PSI_ChangeCostPage"
 				title="调整成本"
 				processor="com.spark.psi.inventory.browser.query.ChangeCostPageProcessor"

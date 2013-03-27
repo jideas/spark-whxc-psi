@@ -26,6 +26,7 @@ import com.spark.common.components.controls.text.SSearchText2;
 import com.spark.common.components.pages.PageProcessor;
 import com.spark.common.components.table.SLabelProvider;
 import com.spark.common.components.table.STableStatus;
+import com.spark.common.components.table.StableUtil;
 import com.spark.common.components.table.edit.SEditContentProvider;
 import com.spark.common.components.table.edit.SEditTable;
 import com.spark.common.components.table.edit.SNameValue;
@@ -36,6 +37,7 @@ import com.spark.psi.account.browser.DealingsWaySource;
 import com.spark.psi.account.browser.PartnerSearchMsg;
 import com.spark.psi.account.browser.PartnerSelectPage;
 import com.spark.psi.account.browser.PartnerSelectionMsg;
+import com.spark.psi.publish.Action;
 import com.spark.psi.publish.DealingsWay;
 import com.spark.psi.publish.PartnerType;
 import com.spark.psi.publish.PaymentType;
@@ -49,49 +51,49 @@ import com.spark.psi.publish.inventory.checkin.key.GetReceiptingInventorySheetKe
  * 新增付款界面处理器（需要选择付款对象）
  */
 public class NewPayment2Processor extends PageProcessor {
-	
+
 	public final static String ID_Search = "Search";
 	public final static String ID_Label_Partner = "Label_Partner";
 	public final static String ID_Date_Date = "Date_Date";
 	public final static String ID_Label_Type = "Label_Type";
 	public final static String ID_List_Way = "List_Way";
-	
+
 	public static final String ID_Table = "Table";
 	public final static String ID_Text_Remark = "Text_Remark";
 	public static final String ID_Text_TotalAmount = "Label_TotalAmount";
-	
+
 	public final static String ID_Button_Save = "Button_Save";
 	public final static String ID_Button_Submit = "Button_Submit";
 	public final static String ID_PartnerPage = "PartnerPage";
-	
+
 	public enum Columns {
 		checkDate, sheetNo, relateSheetNo, amount, askedAmount, applyAmount
 	}
-	
+
 	public static enum TableExtraValueName {
 		checkinSheetId, sheetNo, relevantBillId, relevantBillNo, checkinDate, askedAmount, amount
 	}
-	
+
 	private Label partnerLabel;
 	private SDatePicker datePicker;
-//	private LWComboList payTypeList;
+	// private LWComboList payTypeList;
 	private Label payTypeLabel;
 	private LWComboList wayList;
-	private SEditTable table   = null;
+	private SEditTable table = null;
 	private Text amountText;
 	private Text memoText;
 	private PartnerSelectPage partnerPage;
 
 	private PartnerInfo partnerInfo = null;
-	private PaymentType payType     = null;
+	private PaymentType payType = null;
 
 	@Override
 	public void process(final Situation situation) {
-		
+
 		partnerPage = createControl(ID_PartnerPage, PartnerSelectPage.class);
 		partnerLabel = createControl(ID_Label_Partner, Label.class);
 		datePicker = createControl(ID_Date_Date, SDatePicker.class);
-//		payTypeList = createControl(ID_Label_Type, LWComboList.class);
+		// payTypeList = createControl(ID_Label_Type, LWComboList.class);
 		payTypeLabel = createLabelControl(ID_Label_Type);
 		wayList = createControl(ID_List_Way, LWComboList.class);
 		table = createControl(ID_Table, SEditTable.class);
@@ -103,42 +105,39 @@ public class NewPayment2Processor extends PageProcessor {
 		wayList.getList().setSource(new DealingsWaySource());
 		wayList.getList().setInput(null);
 		wayList.setSelection(DealingsWay.Cash.getCode());
-		
-//		payTypeList.getList().setSource(new ReasonSource());
-//		payTypeList.getList().setInput(null);
-//		payTypeList.setSelection(PaymentType.PAY_CGFK);
-		
+
+		// payTypeList.getList().setSource(new ReasonSource());
+		// payTypeList.getList().setInput(null);
+		// payTypeList.setSelection(PaymentType.PAY_CGFK);
+
 		datePicker.setDate(new Date());
-		
+
 		table.setContentProvider(new TableContentProvider());
 		table.setLabelProvider(new TableLabelProvider());
-		
+
 		amountText.setEnabled(false);
-		
-		
+
 		initDataShow(partnerPage.getDefaultSelectId());
-		
+
 		situation.regMessageListener(PartnerSelectionMsg.class, new MessageListener<PartnerSelectionMsg>() {
 
-			public void onMessage(Situation context,
-					PartnerSelectionMsg message,
+			public void onMessage(Situation context, PartnerSelectionMsg message,
 					MessageTransmitter<PartnerSelectionMsg> transmitter) {
 				initDataShow(message.getPartnerId());
 			}
 		});
-		
+
 		final SSearchText2 search = createControl(ID_Search, SSearchText2.class);
 		search.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				situation.broadcastMessage(new PartnerSearchMsg(search
-						.getText()));
+				situation.broadcastMessage(new PartnerSearchMsg(search.getText()));
 				initDataShow(partnerPage.getDefaultSelectId());
 			}
 		});
-		
+
 		saveButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 保存
 				GUID sheetId = doSave();
@@ -147,9 +146,9 @@ public class NewPayment2Processor extends PageProcessor {
 				}
 			}
 		});
-		
+
 		subitButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				// 提交
 				GUID sheetId = doSave();
@@ -160,23 +159,23 @@ public class NewPayment2Processor extends PageProcessor {
 				}
 			}
 		});
-		
+
 		table.addClientEventHandler(SEditTable.CLIENT_EVENT_VALUE_CHANGED, "Account.handleTableDataChanged");
 		table.addSelectionListener(new SelectionListener() {
-			
+
 			public void widgetSelected(SelectionEvent e) {
 				calTotalApplyAmount();
 			}
 		});
 		table.addClientNotifyListener(new ClientNotifyListener() {
-			
+
 			public void notified(ClientNotifyEvent e) {
 				calTotalApplyAmount();
 			}
 		});
-		
+
 	}
-	
+
 	private void calTotalApplyAmount() {
 		double totalAmount = 0.0;
 		String[] selectedRowIds = table.getSelections();
@@ -184,7 +183,8 @@ public class NewPayment2Processor extends PageProcessor {
 			totalAmount = 0.0;
 		} else {
 			for (String rowId : selectedRowIds) {
-				// String amountStr = table.getExtraData(rowId, TableExtraValueName.amount.name())[0];
+				// String amountStr = table.getExtraData(rowId,
+				// TableExtraValueName.amount.name())[0];
 				String applyAmountStr = table.getEditValue(rowId, Columns.applyAmount.name())[0];
 				if (StringUtils.isNotEmpty(applyAmountStr)) {
 					totalAmount += DoubleUtil.strToDouble(applyAmountStr);
@@ -193,7 +193,7 @@ public class NewPayment2Processor extends PageProcessor {
 		}
 		amountText.setText(DoubleUtil.getRoundStr(totalAmount));
 	}
-	
+
 	private GUID doSave() {
 		if (!validateInput_This()) {
 			return null;
@@ -202,7 +202,7 @@ public class NewPayment2Processor extends PageProcessor {
 		task.setId(GUID.randomID());
 		task.setPartnerName(partnerInfo.getName());
 		task.setPartnerId(partnerInfo.getId());
-//		task.setPaymentType(payTypeList.getList().getSeleted());
+		// task.setPaymentType(payTypeList.getList().getSeleted());
 		task.setPaymentType(payType.getCode());
 		task.setPayDate(datePicker.getDate().getTime());
 		task.setAmount(DoubleUtil.strToDouble(amountText.getText()));
@@ -219,8 +219,8 @@ public class NewPayment2Processor extends PageProcessor {
 					TableExtraValueName.amount.name());
 			String askedAmountStr = table.getEditValue(rowId, Columns.applyAmount.name())[0];
 			item = task.new Item(GUID.tryValueOf(extraValues[0]), extraValues[1], GUID.tryValueOf(extraValues[2]),
-					extraValues[3], Long.parseLong(extraValues[4]), DoubleUtil.strToDouble(extraValues[5]), 
-					DoubleUtil.strToDouble(askedAmountStr), 0);
+					extraValues[3], Long.parseLong(extraValues[4]), DoubleUtil.strToDouble(extraValues[5]), DoubleUtil
+							.strToDouble(askedAmountStr), 0);
 			items[rowIndex] = item;
 			rowIndex++;
 		}
@@ -228,7 +228,7 @@ public class NewPayment2Processor extends PageProcessor {
 		getContext().handle(task);
 		return task.getId();
 	}
-	
+
 	private boolean validateInput_This() {
 		String[] selectedRowIds = table.getSelections();
 		if (null == selectedRowIds || selectedRowIds.length < 1) {
@@ -242,17 +242,19 @@ public class NewPayment2Processor extends PageProcessor {
 				return false;
 			}
 			String amountStr = table.getExtraData(rowId, TableExtraValueName.amount.name())[0];
-			String askedAmountStr = table.getExtraData(rowId, TableExtraValueName.askedAmount.name())[0]; 
-			if (DoubleUtil.strToDouble(applyAmountStr) + DoubleUtil.strToDouble(askedAmountStr) > DoubleUtil.strToDouble(amountStr)) {
+			String askedAmountStr = table.getExtraData(rowId, TableExtraValueName.askedAmount.name())[0];
+			if (DoubleUtil.strToDouble(applyAmountStr) + DoubleUtil.strToDouble(askedAmountStr) > DoubleUtil
+					.strToDouble(amountStr)) {
 				alert("申请金额不能大于入库金额。");
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	private void initDataShow(GUID partnerId) {
-		if(partnerId == null) return; 
+		if (partnerId == null)
+			return;
 		partnerInfo = getContext().find(PartnerInfo.class, partnerId);
 		if (PartnerType.Customer.equals(partnerInfo.getPartnerType())) {
 			payTypeLabel.setText(PaymentType.PAY_XSTK.getName());
@@ -261,33 +263,33 @@ public class NewPayment2Processor extends PageProcessor {
 			payTypeLabel.setText(PaymentType.PAY_CGFK.getName());
 			payType = PaymentType.PAY_CGFK;
 		}
-		
+
 		partnerLabel.setText(partnerInfo.getName());
 		table.render();
 	}
-	
-//	private class ReasonSource extends ListSourceAdapter {
-//
-//		public String getElementId(Object element) {
-//			PaymentType payType = (PaymentType)element;
-//			return payType.getCode();
-//		}
-//
-//		public Object getElementById(String id) {
-//			return PaymentType.getPaymentType(id);
-//		}
-//
-//		public String getText(Object element) {
-//			PaymentType payType = (PaymentType)element;
-//			return payType.getName();
-//		}
-//
-//		public Object[] getElements(Object inputElement) {
-//			return new PaymentType[] {PaymentType.PAY_CGFK, PaymentType.PAY_XSTK};
-//		}
-//		
-//	}
-	
+
+	// private class ReasonSource extends ListSourceAdapter {
+	//
+	// public String getElementId(Object element) {
+	// PaymentType payType = (PaymentType)element;
+	// return payType.getCode();
+	// }
+	//
+	// public Object getElementById(String id) {
+	// return PaymentType.getPaymentType(id);
+	// }
+	//
+	// public String getText(Object element) {
+	// PaymentType payType = (PaymentType)element;
+	// return payType.getName();
+	// }
+	//
+	// public Object[] getElements(Object inputElement) {
+	// return new PaymentType[] {PaymentType.PAY_CGFK, PaymentType.PAY_XSTK};
+	// }
+	//		
+	// }
+
 	private class TableContentProvider implements SEditContentProvider {
 
 		public String[] getActionIds(Object element) {
@@ -295,14 +297,15 @@ public class NewPayment2Processor extends PageProcessor {
 		}
 
 		public SNameValue[] getExtraData(Object element) {
-			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem)element;
-			return new SNameValue[] {new SNameValue(TableExtraValueName.checkinSheetId.name(), item.getSheetId().toString()),
+			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem) element;
+			return new SNameValue[] {
+					new SNameValue(TableExtraValueName.checkinSheetId.name(), item.getSheetId().toString()),
 					new SNameValue(TableExtraValueName.sheetNo.name(), item.getSheetNo()),
 					new SNameValue(TableExtraValueName.relevantBillId.name(), item.getRelaBillsId().toString()),
 					new SNameValue(TableExtraValueName.relevantBillNo.name(), item.getRelaBillsNo()),
 					new SNameValue(TableExtraValueName.checkinDate.name(), String.valueOf(item.getCheckInOrOutDate())),
 					new SNameValue(TableExtraValueName.askedAmount.name(), String.valueOf(item.getAskedAmount())),
-					new SNameValue(TableExtraValueName.amount.name(), String.valueOf(item.getAmount()))};
+					new SNameValue(TableExtraValueName.amount.name(), String.valueOf(item.getAmount())) };
 		}
 
 		public Object getNewElement() {
@@ -317,7 +320,7 @@ public class NewPayment2Processor extends PageProcessor {
 		}
 
 		public String getElementId(Object element) {
-			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem)element;
+			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem) element;
 			return item.getSheetId().toString();
 		}
 
@@ -325,7 +328,8 @@ public class NewPayment2Processor extends PageProcessor {
 			if (null == partnerInfo) {
 				return null;
 			} else {
-//				PaymentType payType = PaymentType.getPaymentType(payTypeList.getList().getSeleted());
+				// PaymentType payType =
+				// PaymentType.getPaymentType(payTypeList.getList().getSeleted());
 				GetReceiptingInventorySheetKey key = new GetReceiptingInventorySheetKey(partnerInfo.getId(), payType);
 				List<ReceiptingOrPayingItem> list = context.getList(ReceiptingOrPayingItem.class, key);
 				return list.toArray();
@@ -340,7 +344,7 @@ public class NewPayment2Processor extends PageProcessor {
 			return false;
 		}
 	}
-	
+
 	private class TableLabelProvider implements SLabelProvider {
 
 		public Color getBackground(Object element, int columnIndex) {
@@ -354,14 +358,22 @@ public class NewPayment2Processor extends PageProcessor {
 		}
 
 		public String getText(Object element, int columnIndex) {
-			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem)element;
+			ReceiptingOrPayingItem item = (ReceiptingOrPayingItem) element;
 			switch (columnIndex) {
 			case 0:
 				return DateUtil.dateFromat(item.getCheckInOrOutDate());
+
 			case 1:
 				return item.getSheetNo();
 			case 2:
 				return item.getRelaBillsNo();
+				//				
+				// case 1:
+				// return StableUtil.toLink(Action.Detail.name()+"1", "",
+				// item.getSheetNo());
+				// case 2:
+				// return StableUtil.toLink(Action.Detail.name()+"2", "",
+				// item.getRelaBillsNo());
 			case 3:
 				return DoubleUtil.getRoundStr(item.getAmount());
 			case 4:
@@ -374,6 +386,6 @@ public class NewPayment2Processor extends PageProcessor {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	}
 }
