@@ -270,9 +270,9 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 			case 0:
 				return DateUtil.dateFromat(item.getCheckInOrOutDate());
 			case 1:
-				return item.getSheetNo();
+				return  StableUtil.toLink(Action.Detail.name()+"1", "", item.getSheetNo());
 			case 2:
-				return item.getRelaBillsNo();
+				return StableUtil.toLink(Action.Detail.name()+"2", "", item.getRelaBillsNo());
 			case 3:
 				return DoubleUtil.getRoundStr(item.getAmount());
 			case 4:
