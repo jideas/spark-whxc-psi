@@ -33,6 +33,7 @@ public class GoodsHelper{
 		entity.setStandardCost(item.getStandardCost());
 		entity.setAverageCost(item.getAvgCost());
 		entity.setSerialNumber(item.getSerialNumber());
+		entity.setHalfkgPrice(item.getHalfkgPrice());
 //		entity.setTotalStoreLowerLimit(item.getTotalStoreLowerLimit());
 //		entity.setTotalStoreUpperLimit(item.getTotalStoreUpperLimit());
 		return entity;

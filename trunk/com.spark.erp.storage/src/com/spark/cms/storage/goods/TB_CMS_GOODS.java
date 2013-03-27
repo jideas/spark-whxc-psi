@@ -42,6 +42,7 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 	public final TableFieldDefine f_publishPersonName;
 	public final TableFieldDefine f_publishDate;
 	public final TableFieldDefine f_isPromotion;
+	public final TableFieldDefine f_halfkgPrice;
 
 	public static final String FN_goodsCode ="goodsCode";
 	public static final String FN_goodsNo ="goodsNo";
@@ -75,6 +76,7 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 	public static final String FN_publishPersonName ="publishPersonName";
 	public static final String FN_publishDate ="publishDate";
 	public static final String FN_isPromotion ="isPromotion";
+	public static final String FN_halfkgPrice ="halfkgPrice";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_CMS_GOODS() {
@@ -151,6 +153,9 @@ public final class TB_CMS_GOODS extends TableDeclarator {
 		this.f_isPromotion = field = this.table.newField(FN_isPromotion, TypeFactory.BOOLEAN);
 		field.setTitle("是否有促销");
 		field.setDefault(ConstExpression.builder.expOf(false));
+		this.f_halfkgPrice = field = this.table.newField(FN_halfkgPrice, TypeFactory.NUMERIC(17,2));
+		field.setTitle("元/斤");
+		field.setDefault(ConstExpression.builder.expOf(0.0));
 	}
 
 }

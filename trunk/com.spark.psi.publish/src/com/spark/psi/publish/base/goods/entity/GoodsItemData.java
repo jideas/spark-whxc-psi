@@ -122,4 +122,6 @@ public interface GoodsItemData {
 	public String getUnit();
 	
 	public String getSerialNumber();
+	
+	public double getHalfkgPrice();
 }

@@ -44,6 +44,15 @@ public class GoodsItemImpl implements GoodsItem {
 	private GUID goodsId;//	…Ã∆∑id
 	private Goods goods;
 	private String serialNumber;
+	private double halfkgPrice;
+
+	public double getHalfkgPrice() {
+		return halfkgPrice;
+	}
+
+	public void setHalfkgPrice(double halfkgPrice) {
+		this.halfkgPrice = halfkgPrice;
+	}
 //	private boolean jointVenture;
 	
 	public GUID getId() {

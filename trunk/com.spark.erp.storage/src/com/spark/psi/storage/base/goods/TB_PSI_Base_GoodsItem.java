@@ -39,6 +39,7 @@ public final class TB_PSI_Base_GoodsItem extends TableDeclarator {
 	public final TableFieldDefine f_creator;
 	public final TableFieldDefine f_goodsId;
 	public final TableFieldDefine f_serialNumber;
+	public final TableFieldDefine f_halfkgPrice;
 
 	public static final String FN_goodsCode ="goodsCode";
 	public static final String FN_goodsNo ="goodsNo";
@@ -70,6 +71,7 @@ public final class TB_PSI_Base_GoodsItem extends TableDeclarator {
 	public static final String FN_creator ="creator";
 	public static final String FN_goodsId ="goodsId";
 	public static final String FN_serialNumber ="serialNumber";
+	public static final String FN_halfkgPrice ="halfkgPrice";
 
 	//不可调用该构造方法.当前类只能由框架实例化.
 	private TB_PSI_Base_GoodsItem() {
@@ -137,6 +139,8 @@ public final class TB_PSI_Base_GoodsItem extends TableDeclarator {
 		field.setTitle("商品id");
 		this.f_serialNumber = field = this.table.newField(FN_serialNumber, TypeFactory.NVARCHAR(30));
 		field.setTitle("序号");
+		this.f_halfkgPrice = field = this.table.newField(FN_halfkgPrice, TypeFactory.NUMERIC(17,2));
+		field.setTitle("价格/斤");
 	}
 
 }

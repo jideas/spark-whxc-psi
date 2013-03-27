@@ -232,6 +232,14 @@ public class GoodsInfoTask extends Task<GoodsInfoTask.Method> {
 		private double originalPrice;//	原价
 		private double lossRate;// 	损耗率
 		private String goodsSpec;//规格
+		private double halfkgPrice;
+		
+		public double getHalfkgPrice() {
+			return halfkgPrice;
+		}
+		public void setHalfkgPrice(double halfkgPrice) {
+			this.halfkgPrice = halfkgPrice;
+		}
 
 		/**
 		 * @return the id

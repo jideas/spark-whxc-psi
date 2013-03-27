@@ -31,6 +31,7 @@
     <field dbtable="PSI_Base_GoodsItem" name="creator" name-db="creator" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="创建人" description="" ID="93D9A417642A241FE0D3B3D0C01E1340" />
     <field dbtable="PSI_Base_GoodsItem" name="goodsId" name-db="goodsId" type="guid" primary-key="false" keep-valid="false" author="" title="商品id" description="" ID="40F2620841A1C3ECA7ABB65492C31095" />
     <field dbtable="PSI_Base_GoodsItem" name="serialNumber" name-db="serialNumber" type="nvarchar(30)" primary-key="false" keep-valid="false" author="" title="序号" description="" ID="1936FDF277E4789EBFCAC5FD084E7E02" />
+    <field dbtable="PSI_Base_GoodsItem" name="halfkgPrice" name-db="halfkgPrice" type="numeric(17,2)" primary-key="false" keep-valid="false" author="" title="价格/斤" description="" ID="9009DAB56AA68BD2D10CA0BC9D76DEA7" />
   </fields>
   <indexs />
   <hierarchies />

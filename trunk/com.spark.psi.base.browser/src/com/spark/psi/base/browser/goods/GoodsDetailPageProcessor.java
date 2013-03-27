@@ -688,7 +688,7 @@ public class GoodsDetailPageProcessor extends PageProcessor implements IDataProc
 							GoodsItemShowList.COLUMN_NAME_NUMBER, GoodsItemShowList.COLUMN_NAME_SPEC, 
 							GoodsItemShowList.COLUMN_NAME_PRICE, GoodsItemShowList.COLUMN_NAME_ORIGINALPRICE, 
 							GoodsItemShowList.COLUMN_NAME_LOSSRATE, GoodsItemShowList.COLUMN_NAME_STATUS,
-							GoodsItemShowList.COLUMN_NAME_STANDARDCOST);
+							GoodsItemShowList.COLUMN_NAME_STANDARDCOST,GoodsItemShowList.COLUMN_NAME_HALFKGPRICE);
 					
 					item.setGoodsNo(otherValues[0]);
 					item.setGoodsSpec(otherValues[1]);
@@ -696,6 +696,7 @@ public class GoodsDetailPageProcessor extends PageProcessor implements IDataProc
 					item.setOriginalPrice(DoubleUtil.strToDouble(StringUtils.isEmpty(otherValues[3]) ? "0" : otherValues[3]));
 					item.setLossRate(DoubleUtil.strToDouble(StringUtils.isEmpty(otherValues[4]) ? "0" : otherValues[4], 4));
 					item.setStandardCost(DoubleUtil.strToDouble(otherValues[6]));
+					item.setHalfkgPrice(DoubleUtil.strToDouble(StringUtils.isEmpty(otherValues[7]) ? "0" : otherValues[7]));
 					if (otherValues[5] == null) {
 						if (itemData == null
 								|| itemData.getStatus().equals(

@@ -100,6 +100,7 @@ public class GoodsItemResourceService extends
 		sql.append("t.creator as creator, ");
 		sql.append("t.goodsId as goodsId, ");
 		sql.append("t.serialNumber as serialNumber ");
+		sql.append(",t.halfkgPrice as halfkgPrice ");
 		sql.append(" from ");
 		sql.append(GoodsItemTable);
 		sql.append(" as t");
@@ -218,6 +219,7 @@ public class GoodsItemResourceService extends
 			old.setGoodsNo(_new.getGoodsNo());
 			old.setSerialNumber(_new.getSerialNumber());
 			old.setOriginalPrice(_new.getOriginalPrice());
+			old.setHalfkgPrice(_new.getHalfkgPrice());
 //			old.setRecentPurchasePrice(_new.getRecentPurchasePrice());
 			context.postModifiedResource(old);
 			
@@ -309,6 +311,7 @@ public class GoodsItemResourceService extends
 		sql.append("t.creator as creator, ");
 		sql.append("t.goodsId as goodsId, ");
 		sql.append("t.serialNumber as serialNumber ");
+		sql.append(",t.halfkgPrice as halfkgPrice ");
 		sql.append(" from ");
 		sql.append(GoodsItemTable);
 		sql.append(" as t");
@@ -398,6 +401,7 @@ public class GoodsItemResourceService extends
 		g.setCreator(rs.getFields().get(i++).getString());
 		g.setGoodsId(rs.getFields().get(i++).getGUID());
 		g.setSerialNumber(rs.getFields().get(i++).getString());
+		g.setHalfkgPrice(rs.getFields().get(i++).getDouble());
 		
 		g.setGoods(context.find(Goods.class, g.getGoodsId()));
 //		g.setJointVenture(g.getGoods().isJointVenture());

@@ -35,7 +35,14 @@ public class GoodsItemOrmEntity{
 	private String creator;//	创建人
 	private GUID goodsId;//	商品id
 	private String serialNumber; //序号(主要用于导出)
+	private double halfkgPrice;
 	
+	public double getHalfkgPrice() {
+		return halfkgPrice;
+	}
+	public void setHalfkgPrice(double halfkgPrice) {
+		this.halfkgPrice = halfkgPrice;
+	}
 	public GUID getId() {
 		return id;
 	}
