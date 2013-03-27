@@ -14,11 +14,13 @@ import com.spark.common.components.controls.text.SDatePicker;
 import com.spark.common.components.table.SSelectionMode;
 import com.spark.common.components.table.STableColumn;
 import com.spark.common.components.table.STableStyle;
+import com.spark.common.components.table.StableUtil;
 import com.spark.common.components.table.edit.SEditTableStyle;
 import com.spark.common.components.table.edit.SNumberEditColumn;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.psi.base.browser.SimpleSheetPageRender;
+import com.spark.psi.publish.Action;
 import com.spark.psi.publish.PaymentStatus;
 import com.spark.psi.publish.account.entity.PaymentInfo;
 import com.spark.psi.publish.account.entity.PaymentInfoItem;
@@ -225,9 +227,9 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 				case 0:
 					return DateUtil.dateFromat(item.getCheckinDate());
 				case 1:
-					return item.getSheetNo();
+					return  StableUtil.toLink(Action.Detail.name()+"1", "", item.getSheetNo());
 				case 2:
-					return item.getRelevantBillNo();
+					return StableUtil.toLink(Action.Detail.name()+"2", "", item.getRelevantBillNo());
 				case 3:
 					return DoubleUtil.getRoundStr(item.getAmount());
 				case 4:
@@ -244,9 +246,9 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 				case 0:
 					return DateUtil.dateFromat(item.getCheckinDate());
 				case 1:
-					return item.getSheetNo();
+					return  StableUtil.toLink(Action.Detail.name()+"1", "", item.getSheetNo());
 				case 2:
-					return item.getRelevantBillNo();
+					return StableUtil.toLink(Action.Detail.name()+"2", "", item.getRelevantBillNo());
 				case 3:
 					return DoubleUtil.getRoundStr(item.getAmount());
 				case 4:
