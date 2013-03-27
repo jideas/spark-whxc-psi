@@ -316,7 +316,17 @@ public class EditAllocateSheetProcesser extends SimpleSheetPageProcessor<Allocat
 	private boolean validateDataBeforeSave() {
 		if (!validateInput()) {
 			return false;
+		}else{
+			String[] rowIds = table.getAllRowId();
+			for (int i = 0; i < rowIds.length; i++) {
+				String value = table.getEditValue(rowIds[i], Columns.allocateCount.name())[0];
+				if(CheckIsNull.isEmpty(value)||DoubleUtil.strToDouble(value)<=0){
+					alert("请填写材料调拨数量！");
+					return false;
+				}
+			}
 		}
+		
 		if (!validateStore()) {
 			return false;
 		}

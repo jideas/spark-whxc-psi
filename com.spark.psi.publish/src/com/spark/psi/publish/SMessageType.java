@@ -60,10 +60,10 @@ public enum SMessageType {
 			}
 			return false;
 		case GoodsInventory:
-			if (!list.contains(Auth.Boss)) {
+//			if (!list.contains(Auth.Boss)) {
 				return true;
-			}
-			return false;
+//			}
+//			return false;
 		case DeliveryException:
 			if (list.contains(Auth.Distribute)) {
 				return true;
