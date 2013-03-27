@@ -511,7 +511,7 @@ public class OnlineReturnPublishService extends Service {
 			OnlineReturnInfo info = context.find(OnlineReturnInfo.class, task.getId());
 			// Èë¿â
 			createCheckInSheet(context, info);
-			if (info.getVantages() > 0) {
+			if (info.getVantages() != 0) {
 				deductVantages(context, info);
 			}
 			if(info.getAmount()>0)
