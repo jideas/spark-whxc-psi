@@ -179,7 +179,7 @@ public abstract class AbstractSalesOrderDetailProcessor extends OrderDetailProce
 			item.setGoodsItemId(goods.getGoodsItemId());
 			item.setId(goods.getId());
 			// ========================价格==============
-			item.setPlanPrice(goods.getPrice());// EditValue(rowId,
+			item.setBuyAvgPrice(goods.getBuyAvgPrice());// EditValue(rowId,
 			item.setPrice(Double.valueOf(table.getEditValue(rowId, Cloumns.Price.name())[0]));
 			if (item.getPrice() == 0) {
 				alert("销售价格不能为零，请检查！");

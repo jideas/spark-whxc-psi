@@ -685,7 +685,7 @@ public final class DataConverterUtil {
 			item.setGoodsItemId(det.getGoodsId());
 			item.setName(det.getGoodsName());
 			item.setPrice(det.getPrice());
-			item.setPlanPrice(det.getPlanPrice());
+			item.setBuyAvgPrice(det.getBuyAvgPrice());
 			item.setProperties(det.getGoodsSpec());
 			item.setUnit(det.getUnit());
 			item.setDiscountAmount(det.getDisAmount());

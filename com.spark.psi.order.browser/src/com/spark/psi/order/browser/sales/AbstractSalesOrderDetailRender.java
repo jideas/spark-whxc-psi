@@ -25,7 +25,7 @@ public abstract class AbstractSalesOrderDetailRender extends OrderDetailRender {
 	@Override
 	protected final Cloumns[] getColumnsEnumList() {
 		return new Cloumns[] { Cloumns.GoodsItemCode, Cloumns.GoodsNo, Cloumns.GoodsName, Cloumns.GoodsProperties,
-				Cloumns.GoodsUnit, Cloumns.Count, Cloumns.Plan_Price, Cloumns.Price, Cloumns.DisCount,
+				Cloumns.GoodsUnit, Cloumns.Count, Cloumns.Buy_Avg_Price, Cloumns.Price, Cloumns.DisCount,
 				Cloumns.DisAmount, Cloumns.Amount };
 	}
 
@@ -58,8 +58,8 @@ public abstract class AbstractSalesOrderDetailRender extends OrderDetailRender {
 			return DoubleUtil.getRoundStr(item.getDiscountCount() * 100);
 		case DisAmount:
 			return DoubleUtil.getRoundStr(item.getDiscountAmount());
-		case Plan_Price:
-			return DoubleUtil.getRoundStr(item.getPlanPrice());
+		case Buy_Avg_Price:
+			return DoubleUtil.getRoundStr(item.getBuyAvgPrice());
 		case Price:
 			return DoubleUtil.getRoundStr(item.getPrice());
 		default:

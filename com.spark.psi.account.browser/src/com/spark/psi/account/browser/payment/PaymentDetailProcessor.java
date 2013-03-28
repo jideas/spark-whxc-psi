@@ -232,7 +232,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 			String[] extraValues = table.getExtraData(rowId, TableExtraValueName.relevantBillId.name(),
 					TableExtraValueName.relevantBillNo.name());
 			String sheetId = extraValues[0];
-			String sheetNo = extraValues[1]; 
+			String sheetNo = extraValues[1];
 			if (CheckIsNull.isEmpty(sheetNo)) {
 				return;
 			}
@@ -732,6 +732,14 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 					new SNameValue(TableExtraValueName.checkinDate.name(), String.valueOf(item.getCheckInOrOutDate())),
 					new SNameValue(TableExtraValueName.askedAmount.name(), String.valueOf(item.getAskedAmount())),
 					new SNameValue(TableExtraValueName.amount.name(), String.valueOf(item.getAmount())) };
+		} else if (element instanceof PaymentInfoItem) {
+			PaymentInfoItem item = (PaymentInfoItem) element;
+			return new SNameValue[] {
+					new SNameValue(TableExtraValueName.checkinSheetId.name(), item.getCheckinSheetId().toString()),
+					new SNameValue(TableExtraValueName.sheetNo.name(), item.getSheetNo()),
+					new SNameValue(TableExtraValueName.relevantBillId.name(), item.getRelevantBillId()!=null?item.getRelevantBillId().toString():""),
+					new SNameValue(TableExtraValueName.relevantBillNo.name(), item.getRelevantBillNo()==null?"":item.getRelevantBillNo()),
+					new SNameValue(TableExtraValueName.checkinDate.name(), String.valueOf(item.getCheckinDate())) };
 		} else {
 			return null;
 		}

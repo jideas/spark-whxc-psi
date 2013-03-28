@@ -443,7 +443,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 		columns[3] = new PrintColumn("规格", 60, JWT.CENTER);
 		columns[4] = new PrintColumn("单位", 45, JWT.CENTER);
 		columns[5] = new PrintColumn("数量", 50, JWT.RIGHT);
-		columns[6] = new PrintColumn("原价", 50, JWT.RIGHT);
+		columns[6] = new PrintColumn("平均采购价", 50, JWT.RIGHT);
 		columns[7] = new PrintColumn("单价", 50, JWT.RIGHT);
 		columns[8] = new PrintColumn("折扣率", 50, JWT.RIGHT);
 		columns[9] = new PrintColumn("折扣额", 50, JWT.RIGHT);
@@ -484,7 +484,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 				case 5:
 					return DoubleUtil.getRoundStr(item.getCount(), 0);
 				case 6:
-					return DoubleUtil.getRoundStr(item.getPlanPrice(), 2);
+					return DoubleUtil.getRoundStr(item.getBuyAvgPrice(), 2);
 				case 7:
 					return DoubleUtil.getRoundStr(item.getGoodsItemPrice(), 2);
 				case 8:

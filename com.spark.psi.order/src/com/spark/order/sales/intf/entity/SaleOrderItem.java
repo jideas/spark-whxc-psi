@@ -18,10 +18,10 @@ import com.spark.order.intf.entity.OrderDet;
 public class SaleOrderItem extends OrderDet{
 	@StructField
 	private double disRate;//	折扣率	Num(5,4)
-	private double planPrice;
+	private double buyAvgPrice;
 	@StructField
 	private double disAmount;//	折扣额	NUM(17,2)
-	private double goodsPrice;//商品原价格
+	private double goodsPrice;//商品价格
 	
 	private GUID promotionGuid;//促销GUID
 	/**
@@ -37,13 +37,12 @@ public class SaleOrderItem extends OrderDet{
 	 */
 	public void setPromotionGuid(GUID promotionGuid) {
 		this.promotionGuid = promotionGuid;
+	} 
+	public double getBuyAvgPrice() {
+		return buyAvgPrice;
 	}
-	
-	public double getPlanPrice() {
-		return planPrice;
-	}
-	public void setPlanPrice(double planPrice) {
-		this.planPrice = planPrice;
+	public void setBuyAvgPrice(double buyAvgPrice) {
+		this.buyAvgPrice = buyAvgPrice;
 	}
 	/**
 	 * @return the goodsPrice

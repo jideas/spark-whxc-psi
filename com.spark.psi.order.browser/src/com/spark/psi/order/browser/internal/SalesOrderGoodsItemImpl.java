@@ -18,7 +18,7 @@ public class SalesOrderGoodsItemImpl extends OrderGoodsItemImpl implements com.s
 	
 	@StructField
 	private double discountCount;//	’€ø€¬ 	Num(5,4)
-	private double planPrice;
+	private double BuyAvgPrice;
 	@StructField
 	private double discountAmount;//	’€ø€∂Ó	NUM(17,2)
 	private PromotionItem[] promotionList;//
@@ -38,12 +38,12 @@ public class SalesOrderGoodsItemImpl extends OrderGoodsItemImpl implements com.s
     }
 	public double getDiscountAmount(){
     	return discountAmount;
-    }
-	public double getPlanPrice() {
-		return planPrice;
+    } 
+	public double getBuyAvgPrice() {
+		return BuyAvgPrice;
 	}
-	public void setPlanPrice(double planPrice) {
-		this.planPrice = planPrice;
+	public void setBuyAvgPrice(double buyAvgPrice) {
+		BuyAvgPrice = buyAvgPrice;
 	}
 	/**
 	 * @param discountCount the discountCount to set

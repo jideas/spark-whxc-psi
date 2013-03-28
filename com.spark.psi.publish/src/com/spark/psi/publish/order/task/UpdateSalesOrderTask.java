@@ -233,7 +233,7 @@ public final class UpdateSalesOrderTask extends PsiMethodTask<UpdateSalesOrderTa
 		private double count;//	数量	NUM(10,2)
 		
 		private double price;//单价
-		private double planPrice;
+		private double buyAvgPrice;
 		
 		private double amount;//	金额	NUM(17,2
 		
@@ -247,12 +247,12 @@ public final class UpdateSalesOrderTask extends PsiMethodTask<UpdateSalesOrderTa
         }
 		public void setId(GUID id){
         	this.id = id;
-        }
-		public double getPlanPrice() {
-			return planPrice;
+        } 
+		public double getBuyAvgPrice() {
+			return buyAvgPrice;
 		}
-		public void setPlanPrice(double planPrice) {
-			this.planPrice = planPrice;
+		public void setBuyAvgPrice(double buyAvgPrice) {
+			this.buyAvgPrice = buyAvgPrice;
 		}
 		public GUID getGoodsItemId(){
         	return goodsItemId;

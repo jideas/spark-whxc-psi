@@ -17,6 +17,7 @@ import com.spark.common.components.table.STableStyle;
 import com.spark.common.components.table.StableUtil;
 import com.spark.common.components.table.edit.SEditTableStyle;
 import com.spark.common.components.table.edit.SNumberEditColumn;
+import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.psi.base.browser.SimpleSheetPageRender;
@@ -109,6 +110,9 @@ public class ReceiptDetailRender extends SimpleSheetPageRender {
 			case 1:
 				return StableUtil.toLink(Action.Detail.name() + "1", "", item.getSheetNo());
 			case 2:
+				if(CheckIsNull.isEmpty(item.getRelaBillsNo())){
+					return "";
+				}
 				return StableUtil.toLink(Action.Detail.name() + "2", "", item.getRelaBillsNo());
 			case 3:
 				return DoubleUtil.getRoundStr(item.getAmount());
@@ -122,6 +126,9 @@ public class ReceiptDetailRender extends SimpleSheetPageRender {
 				case 1:
 					return StableUtil.toLink(Action.Detail.name() + "1", "", item.getSheetNo());
 				case 2:
+					if(CheckIsNull.isEmpty(item.getRelevantBillNo())){
+						return "";
+					}
 					return StableUtil.toLink(Action.Detail.name() + "2", "", item.getRelevantBillNo());
 				case 3:
 					return DoubleUtil.getRoundStr(item.getAmount());
@@ -141,6 +148,9 @@ public class ReceiptDetailRender extends SimpleSheetPageRender {
 				case 1:
 					return StableUtil.toLink(Action.Detail.name() + "1", "", item.getSheetNo());
 				case 2:
+					if(CheckIsNull.isEmpty(item.getRelevantBillNo())){
+						return "";
+					}
 					return StableUtil.toLink(Action.Detail.name() + "2", "", item.getRelevantBillNo());
 				case 3:
 					return DoubleUtil.getRoundStr(item.getAmount());

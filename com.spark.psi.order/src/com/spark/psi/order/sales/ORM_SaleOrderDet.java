@@ -20,7 +20,7 @@ public class ORM_SaleOrderDet extends ORMDeclarator<com.spark.order.sales.intf.e
 	public final QueryColumnDefine c_goodsNo;
 	public final QueryColumnDefine c_goodsSpec;
 	public final QueryColumnDefine c_price;
-	public final QueryColumnDefine c_planPrice;
+	public final QueryColumnDefine c_buyAvgPrice;
 	public final QueryColumnDefine c_scale;
 	public final QueryColumnDefine c_unit;
 
@@ -37,7 +37,7 @@ public class ORM_SaleOrderDet extends ORMDeclarator<com.spark.order.sales.intf.e
 		this.c_goodsNo = this.orm.getColumns().get(7);
 		this.c_goodsSpec = this.orm.getColumns().get(8);
 		this.c_price = this.orm.getColumns().get(9);
-		this.c_planPrice = this.orm.getColumns().get(10);
+		this.c_buyAvgPrice = this.orm.getColumns().get(10);
 		this.c_scale = this.orm.getColumns().get(11);
 		this.c_unit = this.orm.getColumns().get(12);
 	}
