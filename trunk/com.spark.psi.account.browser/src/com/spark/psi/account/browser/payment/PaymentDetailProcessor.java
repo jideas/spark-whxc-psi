@@ -232,7 +232,7 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 			String[] extraValues = table.getExtraData(rowId, TableExtraValueName.relevantBillId.name(),
 					TableExtraValueName.relevantBillNo.name());
 			String sheetId = extraValues[0];
-			String sheetNo = extraValues[1];
+			String sheetNo = extraValues[1]; 
 			if (CheckIsNull.isEmpty(sheetNo)) {
 				return;
 			}
@@ -243,7 +243,8 @@ public class PaymentDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 				getContext().bubbleMessage(request);
 			} else if (sheetNo.startsWith("XTD")) {
 				SalesReturnInfo info = getContext().find(SalesReturnInfo.class, GUID.valueOf(sheetId));
-				PageControllerInstance pci = new PageControllerInstance("Psi_SalesReturnOrderDetailPages", info, sheetId);
+				PageControllerInstance pci = new PageControllerInstance("Psi_SalesReturnOrderDetailPages", info,
+						sheetId);
 				MsgRequest request = new MsgRequest(pci, "销售退货单明细");
 				getContext().bubbleMessage(request);
 			}
