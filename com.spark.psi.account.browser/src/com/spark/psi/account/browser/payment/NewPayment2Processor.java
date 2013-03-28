@@ -23,15 +23,19 @@ import com.jiuqi.dna.ui.wt.widgets.Text;
 import com.jiuqi.util.StringUtils;
 import com.spark.common.components.controls.text.SDatePicker;
 import com.spark.common.components.controls.text.SSearchText2;
+import com.spark.common.components.pages.PageControllerInstance;
 import com.spark.common.components.pages.PageProcessor;
+import com.spark.common.components.table.SActionListener;
 import com.spark.common.components.table.SLabelProvider;
 import com.spark.common.components.table.STableStatus;
 import com.spark.common.components.table.StableUtil;
 import com.spark.common.components.table.edit.SEditContentProvider;
 import com.spark.common.components.table.edit.SEditTable;
 import com.spark.common.components.table.edit.SNameValue;
+import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
+import com.spark.portal.browser.MsgRequest;
 import com.spark.portal.browser.MsgResponse;
 import com.spark.psi.account.browser.DealingsWaySource;
 import com.spark.psi.account.browser.PartnerSearchMsg;
@@ -45,7 +49,11 @@ import com.spark.psi.publish.account.entity.ReceiptingOrPayingItem;
 import com.spark.psi.publish.account.task.CreatePaymentTask;
 import com.spark.psi.publish.account.task.UpdatePaymentStatusTask;
 import com.spark.psi.publish.base.partner.entity.PartnerInfo;
+import com.spark.psi.publish.inventory.checkin.entity.CheckInBaseInfo;
 import com.spark.psi.publish.inventory.checkin.key.GetReceiptingInventorySheetKey;
+import com.spark.psi.publish.inventory.checkout.entity.CheckOutBaseInfo;
+import com.spark.psi.publish.order.entity.PurchaseOrderInfo;
+import com.spark.psi.publish.order.entity.SalesReturnInfo;
 
 /**
  * 新增付款界面处理器（需要选择付款对象）
@@ -162,18 +170,60 @@ public class NewPayment2Processor extends PageProcessor {
 
 		table.addClientEventHandler(SEditTable.CLIENT_EVENT_VALUE_CHANGED, "Account.handleTableDataChanged");
 		table.addSelectionListener(new SelectionListener() {
-
 			public void widgetSelected(SelectionEvent e) {
 				calTotalApplyAmount();
 			}
 		});
 		table.addClientNotifyListener(new ClientNotifyListener() {
-
 			public void notified(ClientNotifyEvent e) {
 				calTotalApplyAmount();
 			}
 		});
+		table.addActionListener(new SActionListener() {
 
+			public void actionPerformed(String rowId, String actionName, String actionValue) {
+
+				if ((Action.Detail.name() + "1").equals(actionName)) {
+					String[] extraValues = table.getExtraData(rowId, TableExtraValueName.checkinSheetId.name(),
+							TableExtraValueName.sheetNo.name());
+					String sheetId = extraValues[0];
+					String sheetNo = extraValues[1];
+					if (CheckIsNull.isEmpty(sheetNo)) {
+						return;
+					}
+					if (sheetNo.startsWith("RKD")) {
+						CheckInBaseInfo info = getContext().find(CheckInBaseInfo.class, GUID.valueOf(sheetId));
+						PageControllerInstance pci = new PageControllerInstance("PSI_CheckInDetailPages", info, sheetId);
+						MsgRequest request = new MsgRequest(pci, "入库单详情");
+						getContext().bubbleMessage(request);
+					} else if (sheetNo.startsWith("CKD")) {
+						CheckOutBaseInfo info = getContext().find(CheckOutBaseInfo.class, GUID.valueOf(sheetId));
+						PageControllerInstance pci = new PageControllerInstance("PSI_CheckoutDetailPages", info,
+								sheetId);
+						MsgRequest request = new MsgRequest(pci, "出库单详情");
+						getContext().bubbleMessage(request);
+					}
+				} else if ((Action.Detail.name() + "2").equals(actionName)) {
+					// 打开详情界面
+					String[] extraValues = table.getExtraData(rowId, TableExtraValueName.relevantBillId.name(),
+							TableExtraValueName.relevantBillNo.name());
+					String sheetId = extraValues[0];
+					String sheetNo = extraValues[1];
+					if (sheetNo.startsWith("CGD")) {
+						PurchaseOrderInfo info = getContext().find(PurchaseOrderInfo.class, GUID.valueOf(sheetId));
+						PageControllerInstance pci = new PageControllerInstance("Psi_PruchaseOrderDetailPages", info);
+						MsgRequest request = new MsgRequest(pci, "采购明细");
+						getContext().bubbleMessage(request);
+					} else if (sheetNo.startsWith("XTD")) {
+						SalesReturnInfo info = getContext().find(SalesReturnInfo.class, GUID.valueOf(sheetId));
+						PageControllerInstance pci = new PageControllerInstance("Psi_SalesReturnOrderDetailPages",
+								info, sheetId);
+						MsgRequest request = new MsgRequest(pci, "销售退货单明细");
+						getContext().bubbleMessage(request);
+					}
+				}
+			}
+		});
 	}
 
 	private void calTotalApplyAmount() {
@@ -363,17 +413,15 @@ public class NewPayment2Processor extends PageProcessor {
 			case 0:
 				return DateUtil.dateFromat(item.getCheckInOrOutDate());
 
-			case 1:
-				return item.getSheetNo();
-			case 2:
-				return item.getRelaBillsNo();
-				//				
 				// case 1:
-				// return StableUtil.toLink(Action.Detail.name()+"1", "",
-				// item.getSheetNo());
+				// return item.getSheetNo();
 				// case 2:
-				// return StableUtil.toLink(Action.Detail.name()+"2", "",
-				// item.getRelaBillsNo());
+				// return item.getRelaBillsNo();
+
+			case 1:
+				return StableUtil.toLink(Action.Detail.name() + "1", "", item.getSheetNo());
+			case 2:
+				return StableUtil.toLink(Action.Detail.name() + "2", "", item.getRelaBillsNo());
 			case 3:
 				return DoubleUtil.getRoundStr(item.getAmount());
 			case 4:
