@@ -112,6 +112,9 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 					TableExtraValueName.relevantBillNo.name());
 			String sheetId = extraValues[0];
 			String sheetNo = extraValues[1];
+			if (CheckIsNull.isEmpty(sheetNo)) {
+				return;
+			}
 			if (sheetNo.startsWith("XSD")) {
 				SalesOrderInfo info = getContext().find(SalesOrderInfo.class, GUID.valueOf(sheetId));
 				PageControllerInstance pci = new PageControllerInstance("Psi_SalesOrderDetailPages", info);
