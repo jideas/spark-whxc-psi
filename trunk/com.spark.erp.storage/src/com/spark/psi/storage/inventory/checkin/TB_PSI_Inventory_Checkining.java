@@ -76,7 +76,7 @@ public final class TB_PSI_Inventory_Checkining extends TableDeclarator {
 		field.setTitle("拼音");
 		this.f_partnerShortName = field = this.table.newField(FN_partnerShortName, TypeFactory.VARCHAR(20));
 		field.setTitle("简称");
-		this.f_relaBillsId = field = this.table.newField(FN_relaBillsId, TypeFactory.GUID);
+		this.f_relaBillsId = field = this.table.newField(FN_relaBillsId, TypeFactory.NTEXT);
 		field.setTitle("相关单据recid");
 		this.f_relaBillsNo = field = this.table.newField(FN_relaBillsNo, TypeFactory.NVARCHAR(20));
 		field.setTitle("相关单据编号");
