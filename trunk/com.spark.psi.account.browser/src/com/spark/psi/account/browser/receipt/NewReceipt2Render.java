@@ -105,7 +105,7 @@ public class NewReceipt2Render extends AbstractBoxPageRender {
 		new Label(rightArea).setText(tempStr);
 		
 		Label label4 = new Label(rightArea);
-		label4.setText("收款日期：");
+		label4.setText("预计收款日期：");
 		label4.setLayoutData(gdLabel);
 		SDatePicker receiptDate = new SDatePicker(rightArea);
 		receiptDate.setID(NewReceipt2Processor.ID_Date_Date);

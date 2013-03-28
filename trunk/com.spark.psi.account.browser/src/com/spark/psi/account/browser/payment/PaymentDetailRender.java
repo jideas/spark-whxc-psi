@@ -64,7 +64,7 @@ public class PaymentDetailRender extends SimpleSheetPageRender {
 			if (PaymentStatus.Submitting == info.getStatus()
 					|| PaymentStatus.Deny == info.getStatus()) {
 				Label label4 = new Label(baseInfoArea);
-				label4.setText("付款日期：");
+				label4.setText("预计付款日期：");
 				label4.setLayoutData(gdLabel);
 				SDatePicker receiptDate = new SDatePicker(baseInfoArea);
 				receiptDate.setID(PaymentDetailProcessor.ID_Date_Date);

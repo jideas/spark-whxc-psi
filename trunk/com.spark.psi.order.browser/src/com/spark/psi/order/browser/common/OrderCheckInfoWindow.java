@@ -106,8 +106,8 @@ public class OrderCheckInfoWindow extends SDelayLoadMenuWindow {
 			{
 				htmlBuffer.append(sheetItem.getStoreName());
 				htmlBuffer.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-				htmlBuffer.append(checkName + "µ¥ºÅ£º");
-				htmlBuffer.append(sheetItem.getCheckedSerialNos());
+//				htmlBuffer.append(checkName + "µ¥ºÅ£º");
+//				htmlBuffer.append(sheetItem.getCheckedSerialNos());
 				if (orderInfo instanceof SalesOrderInfo
 						|| orderInfo instanceof PurchaseOrderInfo) {
 					htmlBuffer.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");

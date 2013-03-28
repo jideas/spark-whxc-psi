@@ -169,7 +169,7 @@ public class ReceiptDetailRender extends SimpleSheetPageRender {
 			new Label(baseInfoArea).setText(tempStr);
 
 			Label label4 = new Label(baseInfoArea);
-			label4.setText("收款日期：");
+			label4.setText("预计收款日期：");
 			label4.setLayoutData(gdLabel);
 			SDatePicker receiptDate = new SDatePicker(baseInfoArea);
 			receiptDate.setID(ReceiptDetailProcessor.ID_Date_Date);

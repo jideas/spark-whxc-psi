@@ -117,7 +117,7 @@ public class NewPayment2Render extends AbstractBoxPageRender {
 		new Label(rightArea).setText(tempStr);
 		
 		Label label4 = new Label(rightArea);
-		label4.setText("付款日期：");
+		label4.setText("预计付款日期：");
 		label4.setLayoutData(gdLabel);
 		SDatePicker receiptDate = new SDatePicker(rightArea);
 		receiptDate.setID(NewPayment2Processor.ID_Date_Date);
