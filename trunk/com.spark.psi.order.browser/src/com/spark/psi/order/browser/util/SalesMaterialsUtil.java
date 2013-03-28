@@ -49,7 +49,7 @@ public final class SalesMaterialsUtil {
 		item.setId(GUID.randomID());
 		List<PromotionItem> promotions = context.getList(PromotionItem.class, Materials.getItemData().getId());
 		item.setPromotionList(promotions.toArray(new PromotionItem[promotions.size()]));
-		item.setPlanPrice(Materials.getItemData().getSalePrice());
+		item.setBuyAvgPrice(Materials.getItemData().getAvgBuyPrice());
 	 
 		if (count != 0) {
 			item.setCount(count);

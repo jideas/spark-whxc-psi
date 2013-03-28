@@ -20,14 +20,13 @@ public class SalesOrderGoodsItemImpl extends OrderGoodsItemImpl implements com.s
 	
 	@StructField
 	private double discountCount;//	’€ø€¬ 	Num(5,4)
-	private double planPrice;
-
-	public double getPlanPrice() {
-		return planPrice;
+	private double buyAvgPrice;
+ 
+	public double getBuyAvgPrice() {
+		return buyAvgPrice;
 	}
-
-	public void setPlanPrice(double planPrice) {
-		this.planPrice = planPrice;
+	public void setBuyAvgPrice(double buyAvgPrice) {
+		this.buyAvgPrice = buyAvgPrice;
 	}
 	@StructField
 	private double discountAmount;//	’€ø€∂Ó	NUM(17,2)

@@ -164,7 +164,7 @@ public abstract class OrderDetailProcessor<T extends OrderGoodsItem> extends Sim
 		/**
 		 * 
 		 */
-		Plan_Price(100, JWT.RIGHT, "原价",null, true),
+		Buy_Avg_Price(100, JWT.RIGHT, "平均采购价",null, true),
 		/**
 		 * 
 		 */

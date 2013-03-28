@@ -56,14 +56,13 @@ public class SalesOrderGoodsItemImpl2 extends OrderGoodsItemImpl2<SalesOrderItem
 		return promotionList.toArray(new PromotionItem[promotionList.size()]);
 	}
 
-	private double planPrice;
-
-	public double getPlanPrice() {
-		return planPrice;
+	private double buyAvgPrice;
+	 
+	public double getBuyAvgPrice() {
+		return buyAvgPrice;
 	}
-
-	public void setPlanPrice(double planPrice) {
-		this.planPrice = planPrice;
+	public void setBuyAvgPrice(double buyAvgPrice) {
+		this.buyAvgPrice = buyAvgPrice;
 	}
 
 }

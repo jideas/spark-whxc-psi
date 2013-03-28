@@ -426,7 +426,7 @@ public final class PublishToMeUtil {
 		det.setGoodsPrice(goods.getSalePrice());
 		det.setCount(task.getCount());
 		det.setPrice(task.getPrice());
-		det.setPlanPrice(task.getPlanPrice());
+		det.setBuyAvgPrice(task.getBuyAvgPrice());
 		det.setPromotionGuid(task.getPromotionId());
 		det.setRECID(task.getId() == null ? context.newRECID() : task.getId());
 		det.setUnit(goods.getMaterialUnit());

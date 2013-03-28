@@ -12,7 +12,7 @@ begin
 		t."goodsNo" as "goodsNo",
 		t."goodsSpec" as "goodsSpec",
 		t."price" as "price",
-		t."planPrice" as "planPrice",
+		t."planPrice" as "buyAvgPrice",
 		t."goodsScale" as "scale", 
 		t."unit" as "unit"
 	from PSI_Sales_Order_Det as t

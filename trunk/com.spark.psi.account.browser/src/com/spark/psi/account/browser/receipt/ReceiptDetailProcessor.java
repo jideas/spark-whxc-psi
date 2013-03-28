@@ -571,6 +571,16 @@ public class ReceiptDetailProcessor<TItem> extends SimpleSheetPageProcessor<TIte
 					new SNameValue(TableExtraValueName.checkoutDate.name(), String.valueOf(item.getCheckInOrOutDate())),
 					new SNameValue(TableExtraValueName.askedAmount.name(), String.valueOf(item.getAskedAmount())),
 					new SNameValue(TableExtraValueName.amount.name(), String.valueOf(item.getAmount())) };
+		} else if (element instanceof ReceiptInfoItem) {
+			ReceiptInfoItem item = (ReceiptInfoItem) element;
+			return new SNameValue[] {
+					new SNameValue(TableExtraValueName.checkoutSheetId.name(), item.getCheckoutSheetId().toString()),
+					new SNameValue(TableExtraValueName.sheetNo.name(), item.getSheetNo()),
+					new SNameValue(TableExtraValueName.relevantBillId.name(), item.getRelevantBillId() != null ? item
+							.getRelevantBillId().toString() : ""),
+					new SNameValue(TableExtraValueName.relevantBillNo.name(), item.getRelevantBillNo() == null ? ""
+							: item.getRelevantBillNo()),
+					new SNameValue(TableExtraValueName.checkoutDate.name(), String.valueOf(item.getCheckoutDate())) };
 		} else {
 			return null;
 		}

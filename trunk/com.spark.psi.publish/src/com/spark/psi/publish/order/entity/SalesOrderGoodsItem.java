@@ -20,7 +20,7 @@ public interface SalesOrderGoodsItem extends OrderGoodsItem{
 //	@StructField
 //	private double discountAmount;//	уш©ш╤Н	NUM(17,2)
 
-	public double getPlanPrice();
+	public double getBuyAvgPrice();
 	public double getDiscountCount();
 	public double getDiscountAmount();
 	/**
