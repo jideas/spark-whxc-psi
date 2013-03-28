@@ -197,7 +197,7 @@ public abstract class GoodsListProcessor extends PSIGoodsListPageProcessor {
 		PageControllerInstance newPci = new PageControllerInstance(pc, goodsId,
 				getCategoryId(), isViewJointOnly());
 		WindowStyle windowStyle = new WindowStyle(JWT.CLOSE | JWT.MODAL);
-		windowStyle.setSize(800, 500);
+		windowStyle.setSize(850, 500);
 		MsgRequest newGoodsWinRequest = new MsgRequest(newPci, "…Ã∆∑œÍ«È",
 				windowStyle);
 		newGoodsWinRequest.setResponseHandler(new ResponseHandler() {
