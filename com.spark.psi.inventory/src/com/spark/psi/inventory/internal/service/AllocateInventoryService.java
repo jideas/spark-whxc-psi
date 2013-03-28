@@ -1111,7 +1111,7 @@ public class AllocateInventoryService extends Service {
 			List<AllocateItemDet> goodsDetList = goodsDets.get(goodsId);
 			double count = 0.0;
 			for (AllocateItemDet det : goodsDetList) {
-				count += det.getCount();
+				count = DoubleUtil.sum(count, det.getCount());
 			}
 			updateInventoryOnAllocateIn(context, al.getAllocateInStoreId(), goodsId, goodsDetList.toArray(new AllocateItemDet[0]));
 			createInventoryLogOnAllocateIn(context, al, goodsId, count);
