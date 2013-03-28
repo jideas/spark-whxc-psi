@@ -1128,7 +1128,7 @@ public class AllocateInventoryService extends Service {
 			AllocateItemDet itemDet = shelfInfos[itemDetIndex];
 			iDetItem = task.new DetItem(itemDet.getShelfId(), itemDet.getShelfNo(), itemDet.getTiersNo(), 
 					itemDet.getStockId(), itemDet.getCount(), itemDet.getProduceDate(), storeId);
-			count += itemDet.getCount();
+			count = DoubleUtil.sum(count, itemDet.getCount());
 			iDetItems[itemDetIndex] = iDetItem;
 		}
 		task.setDets(iDetItems);
