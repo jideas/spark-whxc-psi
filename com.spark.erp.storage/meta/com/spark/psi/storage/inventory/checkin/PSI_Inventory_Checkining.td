@@ -7,7 +7,7 @@
     <field dbtable="PSI_Inventory_Checkining" name="partnerName" name-db="partnerName" type="varchar(100)" primary-key="false" keep-valid="false" author="" title="供应商/客户名称" description="" ID="BA925088840DCA795A81FA04299FBBBC" />
     <field dbtable="PSI_Inventory_Checkining" name="namePY" name-db="namePY" type="varchar(30)" primary-key="false" keep-valid="false" author="" title="拼音" description="" ID="A98000273CF2EDF36B326CCE8AD1FD2D" />
     <field dbtable="PSI_Inventory_Checkining" name="partnerShortName" name-db="partnerShortName" type="varchar(20)" primary-key="false" keep-valid="false" author="" title="简称" description="" ID="77862F73F8CB944B3C66DA3568F5A286" />
-    <field dbtable="PSI_Inventory_Checkining" name="relaBillsId" name-db="relaBillsId" type="guid" primary-key="false" keep-valid="false" author="" title="相关单据recid" description="" ID="C1950C95FF5DCFB3C71195941ACB1DC3" />
+    <field dbtable="PSI_Inventory_Checkining" name="relaBillsId" name-db="relaBillsId" type="ntext" primary-key="false" keep-valid="false" author="" title="相关单据recid" description="" ID="C1950C95FF5DCFB3C71195941ACB1DC3" />
     <field dbtable="PSI_Inventory_Checkining" name="relaBillsNo" name-db="relaBillsNo" type="nvarchar(20)" primary-key="false" keep-valid="false" author="" title="相关单据编号" description="" ID="3B07D3131996473EBCE0989196BB39E1" />
     <field dbtable="PSI_Inventory_Checkining" name="storeId" name-db="storeId" type="guid" primary-key="false" keep-valid="false" author="" title="仓库recid" description="" ID="A66F0AAD31FB0E14CAD3B112C1181B44" />
     <field dbtable="PSI_Inventory_Checkining" name="isStoped" name-db="isStoped" type="boolean" primary-key="false" keep-valid="false" author="" title="是否中止" description="" ID="51B99070A2A3F70D57AA2A68ED91E721" />

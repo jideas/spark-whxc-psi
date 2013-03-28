@@ -50,7 +50,8 @@ public final class PaymentServiceUtil {
 			sql.append(" and (t.createDate>@startTime").append(" or t.createDate=@startTime").append(")\n");
 			sql.append(" and (t.createDate<@endTime").append(" or t.createDate=@endTime").append(")\n");
 		}
-		sql.append(getOrderSql(key));
+//		sql.append(getOrderSql(key));
+		sql.append(" order by t.createDate desc \n");
 		sql.append(" end");
 
 		DBCommand db = context.prepareStatement(sql);

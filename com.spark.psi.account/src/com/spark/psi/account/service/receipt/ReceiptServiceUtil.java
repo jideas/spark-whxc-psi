@@ -84,6 +84,7 @@ public final class ReceiptServiceUtil {
 			sql1.append(" and (t.createDate<@endTime").append(" or t.createDate=@endTime").append(")\n");
 		}
 //		sql1.append(getOrderSql(key));
+		sql.append(" order by t.createDate desc ");
 		sql1.append("end");
 
 		DBCommand db1 = context.prepareStatement(sql1);
