@@ -654,12 +654,12 @@ public class InventoryModuleQueryService extends Service {
 			if (null != token && null != token.getFacade()) {
 				double availableCount = DoubleUtil.sub(token.getFacade().getCount(), DoubleUtil.sum(token.getFacade()
 						.getToDeliverCount(), token.getFacade().getLockedCount()));
-				GetPurchaseOrderGoodsCountByGoodsIdKey oKey = new GetPurchaseOrderGoodsCountByGoodsIdKey(key.getGoodsItemId(),
-						key.getStoreId());
-				Double orderCount = context.find(Double.class, oKey);
-				if (null != orderCount) {
-					availableCount = DoubleUtil.sub(availableCount, orderCount);
-				}
+//				GetPurchaseOrderGoodsCountByGoodsIdKey oKey = new GetPurchaseOrderGoodsCountByGoodsIdKey(key.getGoodsItemId(),
+//						key.getStoreId());
+//				Double orderCount = context.find(Double.class, oKey);
+//				if (null != orderCount) {
+//					availableCount = DoubleUtil.sub(availableCount, orderCount);
+//				}
 				return availableCount;
 			}
 			return null;
