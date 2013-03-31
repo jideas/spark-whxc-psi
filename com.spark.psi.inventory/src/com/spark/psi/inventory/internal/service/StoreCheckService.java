@@ -445,17 +445,17 @@ public class StoreCheckService extends Service {
 	public void deleteDetailList(Context context, CheckInventoryTask task) {
 
 		StringBuilder dnaSql = new StringBuilder();
-		dnaSql.append("define delete deleteInventoryCountDet(@tenantsId guid,@sheetId guid)\n");
+		dnaSql.append("define delete deleteInventoryCountDet( @sheetId guid)\n");
 		dnaSql.append("begin\n");
 		dnaSql.append("delete from sa_store_check_det as t\n");
-		dnaSql.append("where t.tenantsGuid=@tenantsId\n");
-		dnaSql.append("and t.checkOrdGuid=@sheetId\n");
+		dnaSql.append("where t.checkOrdGuid=@sheetId\n");
 		dnaSql.append("end");
 
 		DBCommand db = context.prepareStatement(dnaSql);
-		db.setArgumentValues(context.find(Login.class).getTenantId(), task.getCheckInventoryEntity().getRecid());
+		db.setArgumentValues( task.getCheckInventoryEntity().getRecid());
 		try {
-			db.executeUpdate();
+			int count = db.executeUpdate();
+			System.out.println(count);
 		} finally {
 			db.unuse();
 		}

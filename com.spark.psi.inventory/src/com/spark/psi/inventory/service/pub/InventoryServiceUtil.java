@@ -2,11 +2,14 @@ package com.spark.psi.inventory.service.pub;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.jiuqi.dna.core.Context;
 import com.jiuqi.dna.core.da.RecordSet;
 import com.jiuqi.dna.core.resource.ResourceToken;
+import com.jiuqi.dna.core.type.GUID;
 import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.psi.base.Employee;
@@ -520,7 +523,6 @@ public final class InventoryServiceUtil {
 		impl.setStoreId(checkInventory.getStoreGuid());
 		impl.setStoreName(checkInventory.getStoreName());
 		impl.setName(checkInventory.getCheckPerson());
-
 		List<CheckInventoryItem> rList = new ArrayList<CheckInventoryItem>();
 		if (InventoryCountStatus.Counted.getCode().equals(checkInventory.getCheckOrdState())) {
 			for (CheckInventoryItem item : list) {
@@ -530,10 +532,10 @@ public final class InventoryServiceUtil {
 			}
 		} else {
 			rList.addAll(list);
-		}
+		} 
 		if (InventoryCountType.Materials.getCode().equals(checkInventory.getCheckObj())) {
 			if (list.size() > 0) {
-				GoodsCountItemImpl[] goodsCountItems = new GoodsCountItemImpl[rList.size()];
+				List<GoodsCountItemImpl> goodsCountItems = new ArrayList<GoodsCountItemImpl>();
 				for (int index = 0; index < rList.size(); index++) {
 					CheckInventoryItem checkInventoryItem = rList.get(index);
 					GoodsCountItemImpl itemImpl = new GoodsCountItemImpl();
@@ -547,15 +549,15 @@ public final class InventoryServiceUtil {
 					itemImpl.setGoodsItemProperties(checkInventoryItem.getGoodsAttr());
 					itemImpl.setGoodsItemUnit(checkInventoryItem.getUnit());
 					itemImpl.setMemo(checkInventoryItem.getRemark());
-
+//					if(!gset.add(checkInventoryItem.get))
 					ResourceToken<Inventory> token = context.findResourceToken(Inventory.class, checkInventory
 							.getStoreGuid(), checkInventoryItem.getGoodsGuid());
 					if (null != token) {
 						itemImpl.setExistInventory(true);
 					}
-					goodsCountItems[index] = itemImpl;
+					goodsCountItems.add(itemImpl);
 				}
-				impl.setGoodsCountItems(goodsCountItems);
+				impl.setGoodsCountItems(goodsCountItems.toArray(new GoodsCountItemImpl[goodsCountItems.size()]));
 			} else {
 				GetGoodsInventoryByStoreIdKey key = new GetGoodsInventoryByStoreIdKey(checkInventory.getStoreGuid());
 				List<Inventory> detList = context.getList(Inventory.class, key);
