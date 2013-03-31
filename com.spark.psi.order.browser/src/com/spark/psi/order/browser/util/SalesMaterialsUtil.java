@@ -44,9 +44,9 @@ public final class SalesMaterialsUtil {
 		item.setGoodsItemId(Materials.getItemData().getId());
 		item.setName(Materials.getBaseInfo().getName());
 		item.setGoodsNo(Materials.getItemData().getMaterialNo());
-		item.setSpec(Materials.getItemData().getPropertiesWithoutUnit());
-		item.setUnit(Materials.getItemData().getPropertyValues()[0]);
-		item.setId(GUID.randomID());
+		item.setSpec(Materials.getItemData().getMaterialSpec());
+		item.setUnit(Materials.getItemData().getUnit());
+		item.setId(Materials.getItemData().getId());
 		List<PromotionItem> promotions = context.getList(PromotionItem.class, Materials.getItemData().getId());
 		item.setPromotionList(promotions.toArray(new PromotionItem[promotions.size()]));
 		item.setBuyAvgPrice(Materials.getItemData().getAvgBuyPrice());
