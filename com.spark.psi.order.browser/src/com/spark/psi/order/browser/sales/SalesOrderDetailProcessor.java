@@ -349,6 +349,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 							}
 						}
 						table.renderUpate();
+						table.getParent().layout();
 					}
 				});
 				getContext().bubbleMessage(request);
