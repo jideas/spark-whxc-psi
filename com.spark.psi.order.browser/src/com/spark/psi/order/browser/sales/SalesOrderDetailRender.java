@@ -11,6 +11,7 @@ import com.jiuqi.dna.ui.wt.layouts.GridLayout;
 import com.jiuqi.dna.ui.wt.widgets.Composite;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.spark.common.components.controls.text.SDatePicker;
+import com.spark.common.components.table.STableStyle;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.psi.order.browser.delivery.DeliverDetailPageProcessor;
 import com.spark.psi.order.browser.util.OrderDetailProcessor.View;
@@ -47,6 +48,16 @@ public class SalesOrderDetailRender extends AbstractSalesOrderDetailRender {
 		hideArea.setVisible(false);
 		hideArea.setID(DeliverDetailPageProcessor.ID_Area_Hide);
 		super.renderSheetButtonArea(sheetButtonArea);
+	}
+
+
+	@Override
+	public STableStyle getTableStyle() {
+		STableStyle sTableStyle =  new STableStyle();
+		sTableStyle.setSortAll(false);
+		sTableStyle.setPageAble(false);
+		sTableStyle.setNoHScroll(true);
+		return sTableStyle;
 	}
 
 
