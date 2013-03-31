@@ -72,7 +72,7 @@ public class ShelfLifeWarningMaterialsListProcessor<Item> extends
 				tablestatus.getPageSize(), true);
 		GUID storeId = null;
 		if (null != storeList.getText()
-				&& !storeSource.getFirstStoreId().equals(storeList.getText())) {
+				&& null != storeSource.getFirstStoreId()&&!storeSource.getFirstStoreId().equals(storeList.getText())) {
 			storeId = GUID.valueOf(storeList.getText());
 		}
 		key.setStoreId(storeId);
