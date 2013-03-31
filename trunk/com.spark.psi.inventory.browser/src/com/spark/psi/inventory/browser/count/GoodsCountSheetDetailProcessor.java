@@ -324,9 +324,9 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 		for (int i = 0; i < rowIds.length; i++) {
 			String value = table.getEditValue(rowIds[i], Columns.AcutalCount.name())[0];
 			String memo = table.getEditValue(rowIds[i], Columns.Memo.name())[0];
-			if (CheckIsNull.isNotEmpty(value) && Double.valueOf(value) > 0) {
-				list.add(new TaskGoodsCountItem(GUID.valueOf(rowIds[i]), Double.valueOf(value), memo));
-			}
+			// if (CheckIsNull.isNotEmpty(value) && Double.valueOf(value) > 0) {
+			list.add(new TaskGoodsCountItem(GUID.valueOf(rowIds[i]), Double.valueOf(value), memo));
+			// }
 		}
 		TaskGoodsCountItem[] items = new TaskGoodsCountItem[list.size()];
 		for (int i = 0; i < list.size(); i++) {
@@ -540,7 +540,6 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 				for (int i = 0; i < countSheet.getGoodsCountItems().length; i++) {
 					InventoryCountSheetInfo.GoodsCountItem goodsCountItem = countSheet.getGoodsCountItems()[i];
 					Item item = new Item();
-					System.out.println(goodsCountItem.getGoodsItemName() + ",");
 					item.setGoodsCode(goodsCountItem.getGoodsCode());
 					item.setGoodsNo(goodsCountItem.getGoodsNo());
 					item.setGoodsItemId(goodsCountItem.getGoodsItemId());
