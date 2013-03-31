@@ -6,6 +6,7 @@ package com.spark.psi.order.browser.sales;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,8 @@ import com.jiuqi.dna.ui.wt.widgets.Display;
 import com.jiuqi.dna.ui.wt.widgets.Label;
 import com.jiuqi.dna.ui.wt.widgets.Display.ExporterWithContext;
 import com.spark.common.components.table.SLabelProvider;
+import com.spark.common.components.table.STableStatus;
+import com.spark.common.utils.character.CheckIsNull;
 import com.spark.common.utils.character.DoubleUtil;
 import com.spark.common.utils.date.DateUtil;
 import com.spark.common.utils.excel.BillsWriter;
@@ -90,6 +93,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 
 	//
 	private DatePicker deliveryDatePicker;
+	private List<SalesOrderGoodsItem> salesOrderGoodsItems = new ArrayList<SalesOrderGoodsItem>();;
 
 	private void updatePartnerInfo() {
 		customerInfoArea.clear();
@@ -264,7 +268,10 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 
 	@Override
 	protected SalesOrderGoodsItem[] initItemList() {
+		if(CheckIsNull.isEmpty(salesOrderGoodsItems))
 		return orderInfo.getSalesOrderGoodsItems();
+		else
+			return salesOrderGoodsItems.toArray(new SalesOrderGoodsItem[0]);
 	}
 
 	public void process(Situation context) {
@@ -278,7 +285,7 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 		orderstatusLabel = createControl(ID_OrderStatusLabel, Label.class);
 		checkInfoLabel = createControl(ID_CheckInfoLabel, Label.class);
 		this.customerInfo = this.orderInfo.getPartnerInfo();
-		//
+		
 		updatePartnerInfo();
 		if (viewEnum != View.Look) {
 			deliveryDatePicker
@@ -342,14 +349,18 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 					public void handle(Object returnValue, Object returnValue2, Object returnValue3, Object returnValue4) {
 						MaterialsItemInfo[] itemList = (MaterialsItemInfo[]) returnValue;
 						SalesOrderGoodsItem orderItem;
+						salesOrderGoodsItems = new ArrayList<SalesOrderGoodsItem>();
 						for (MaterialsItemInfo item : itemList) {
+							
 							orderItem = SalesMaterialsUtil.getSalesOrderMaterialsItem(getContext(), item);
 							if (null != orderItem) {
-								table.addRow(orderItem); // XXX：表格控件提供插入多行数据接口后修改，目前效率
+//								table.addRow(orderItem); // XXX：表格控件提供插入多行数据接口后修改，目前效率
+								salesOrderGoodsItems.add(orderItem);
 							}
 						}
-						table.renderUpate();
-						table.getParent().layout();
+						table.render();
+//						table.renderUpate();
+//						table.getParent().layout();
 					}
 				});
 				getContext().bubbleMessage(request);
@@ -360,6 +371,14 @@ public class SalesOrderDetailProcessor extends AbstractSalesOrderDetailProcessor
 	@Override
 	protected String getSheetTitle() {
 		return "销售订单";
+	}
+
+	@Override
+	public Object[] getElements(Context context, STableStatus tablestatus) {
+		if(CheckIsNull.isEmpty(salesOrderGoodsItems))
+			return orderInfo.getSalesOrderGoodsItems();
+			else
+				return salesOrderGoodsItems.toArray(new SalesOrderGoodsItem[0]);
 	}
 
 	@Override
