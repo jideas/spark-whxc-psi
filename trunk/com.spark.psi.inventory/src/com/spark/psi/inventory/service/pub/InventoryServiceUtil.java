@@ -573,7 +573,7 @@ public final class InventoryServiceUtil {
 							itemImpl.setGoodsCode(goods.getBaseInfo().getCode());
 							itemImpl.setGoodsNo(goods.getItemData().getMaterialNo());
 							itemImpl.setGoodsItemName(goods.getBaseInfo().getName());
-							itemImpl.setGoodsItemProperties(goods.getItemData().getPropertiesWithoutUnit());
+							itemImpl.setGoodsItemProperties(goods.getItemData().getMaterialSpec());
 							itemImpl.setGoodsItemUnit(goods.getItemData().getUnit());
 							itemImpl.setCountDecimal(goods.getItemData().getScale());
 						}

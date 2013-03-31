@@ -100,7 +100,7 @@ public class GoodsCountSheetDetailProcessor extends SimpleSheetPageProcessor<Inv
 								item.setGoodsNo(goodsItem.getItemData().getMaterialNo());
 								item.setGoodsItemId(goodsItem.getItemData().getId());
 								item.setGoodsItemName(goodsItem.getBaseInfo().getName());
-								item.setGoodsItemProperties(goodsItem.getItemData().getPropertiesWithoutUnit());
+								item.setGoodsItemProperties(goodsItem.getItemData().getMaterialSpec());
 								item.setGoodsItemUnit(goodsItem.getItemData().getPropertyValues()[0]);
 								GetInventoryInfoListKey key = new GetInventoryInfoListKey(new GUID[] { goodsItem
 										.getItemData().getId() }, new GUID[] { countSheet.getStoreId() });
