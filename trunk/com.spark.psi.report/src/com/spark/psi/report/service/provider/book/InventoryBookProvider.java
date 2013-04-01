@@ -42,10 +42,12 @@ public class InventoryBookProvider extends Service {
 	}
 
 	@Publish
-	protected class BookProvider extends OneKeyResultListProvider<InventoryBook, ReportInventoryBookKey> {
+	protected class BookProvider extends
+			OneKeyResultListProvider<InventoryBook, ReportInventoryBookKey> {
 
 		@Override
-		protected void provide(Context context, ReportInventoryBookKey key, List<InventoryBook> list) throws Throwable {
+		protected void provide(Context context, ReportInventoryBookKey key,
+				List<InventoryBook> list) throws Throwable {
 			QuerySqlBuilder qb = new QuerySqlBuilder(context);
 			qb.addTable("sa_report_sto_stdbook", "t");
 			qb.addColumn("t.goodsGuid", "goodsGuid");
@@ -72,19 +74,23 @@ public class InventoryBookProvider extends Service {
 				qb.addEquals("t.storeGuid", "@storeGuid");
 			}
 
-			qb.addArgs("invenType", qb.STRING, key.getInventoryType().getCode());
+			qb
+					.addArgs("invenType", qb.STRING, key.getInventoryType()
+							.getCode());
 			qb.addEquals("t.inventoryType", "@invenType");
 			List<GUID> cateGoryList = new ArrayList<GUID>();
 			if (null != key.getGoodsTypeId()) {
 				if (InventoryType.Goods.equals(key.getInventoryType())) {
-					GoodsCategory gc = context.find(GoodsCategory.class, key.getGoodsTypeId());
+					GoodsCategory gc = context.find(GoodsCategory.class, key
+							.getGoodsTypeId());
 					if (null != gc) {
 						GoodsCategory[] gclist = gc.getLeafNodes(context);
 						List<String> args = new ArrayList<String>();
 						int index = 0;
 						for (GoodsCategory g : gclist) {
 							cateGoryList.add(g.getId());
-							qb.addArgs("goodsTypeId" + index, qb.guid, g.getId());
+							qb.addArgs("goodsTypeId" + index, qb.guid, g
+									.getId());
 							args.add("@goodsTypeId" + index);
 							index++;
 						}
@@ -92,15 +98,18 @@ public class InventoryBookProvider extends Service {
 						args.add("@goodsTypeId" + index);
 						qb.addIn("t.goodsTypeGuid", args);
 					}
-				} else if (InventoryType.Materials.equals(key.getInventoryType())) {
-					MaterialsCategory gc = context.find(MaterialsCategory.class, key.getGoodsTypeId());
+				} else if (InventoryType.Materials.equals(key
+						.getInventoryType())) {
+					MaterialsCategory gc = context.find(
+							MaterialsCategory.class, key.getGoodsTypeId());
 					if (null != gc) {
 						MaterialsCategory[] gclist = gc.getLeafNodes(context);
 						List<String> args = new ArrayList<String>();
 						int index = 0;
 						for (MaterialsCategory g : gclist) {
 							cateGoryList.add(g.getId());
-							qb.addArgs("goodsTypeId" + index, qb.guid, g.getId());
+							qb.addArgs("goodsTypeId" + index, qb.guid, g
+									.getId());
 							args.add("@goodsTypeId" + index);
 							index++;
 						}
@@ -149,7 +158,7 @@ public class InventoryBookProvider extends Service {
 					book.setGoodsName(rs.getFields().get(1).getString());
 					book.setGoodsAttr(rs.getFields().get(2).getString());
 					book.setGoodsUnit(rs.getFields().get(3).getString());
-					book.setGoodsNo(rs.getFields().get(4).getString());
+//					book.setGoodsNo(rs.getFields().get(4).getString());
 					book.setGoodsScale(rs.getFields().get(5).getInt());
 					book.setCount_begin(rs.getFields().get(6).getDouble());
 					book.setAmount_begin(rs.getFields().get(7).getDouble());
@@ -157,8 +166,10 @@ public class InventoryBookProvider extends Service {
 				if (null != dmap && dmap.get(goodsId) != null) {
 					Set<GUID> set = dmap.get(goodsId);
 					if (set.add(rs.getFields().get(14).getGUID())) {
-						book.setCount_begin(book.getCount_begin() + rs.getFields().get(6).getDouble());
-						book.setAmount_begin(book.getAmount_begin() + rs.getFields().get(7).getDouble());
+						book.setCount_begin(book.getCount_begin()
+								+ rs.getFields().get(6).getDouble());
+						book.setAmount_begin(book.getAmount_begin()
+								+ rs.getFields().get(7).getDouble());
 					}
 				} else if (null != dmap) {
 					Set<GUID> set = new HashSet<GUID>();
@@ -173,19 +184,23 @@ public class InventoryBookProvider extends Service {
 					Map<GUID, Double> c = ecmap.get(goodsId);
 					if (null == c) {
 						Map<GUID, Double> mm = new HashMap<GUID, Double>();
-						mm.put(rs.getFields().get(14).getGUID(), rs.getFields().get(12).getDouble());
+						mm.put(rs.getFields().get(14).getGUID(), rs.getFields()
+								.get(12).getDouble());
 						ecmap.put(goodsId, mm);
 					} else {
-						c.put(rs.getFields().get(14).getGUID(), rs.getFields().get(12).getDouble());
+						c.put(rs.getFields().get(14).getGUID(), rs.getFields()
+								.get(12).getDouble());
 						ecmap.put(goodsId, c);
 					}
 					Map<GUID, Double> a = eamap.get(goodsId);
 					if (null == a) {
 						Map<GUID, Double> mm = new HashMap<GUID, Double>();
-						mm.put(rs.getFields().get(14).getGUID(), rs.getFields().get(13).getDouble());
+						mm.put(rs.getFields().get(14).getGUID(), rs.getFields()
+								.get(13).getDouble());
 						eamap.put(goodsId, mm);
 					} else {
-						a.put(rs.getFields().get(14).getGUID(), rs.getFields().get(13).getDouble());
+						a.put(rs.getFields().get(14).getGUID(), rs.getFields()
+								.get(13).getDouble());
 						eamap.put(goodsId, a);
 					}
 				} else {
@@ -193,20 +208,26 @@ public class InventoryBookProvider extends Service {
 					book.setAmount_end(rs.getFields().get(13).getDouble());
 				}
 				book.setInventoryType(rs.getFields().get(15).getString());
-				
-				if (CheckIsNull.isEmpty(book.getGoodsCode())) {
-					if (InventoryType.Materials.getCode().equals(book.getInventoryType())) {
-						MaterialsItem gi = context.find(MaterialsItem.class, book.getGoodsId());
-						if (null != gi) {
-							book.setGoodsCode(gi.getMaterialCode());
-						}
-					} else if(InventoryType.Goods.getCode().equals(book.getInventoryType())){
-						GoodsItem gi = context.find(GoodsItem.class, book.getGoodsId());
-						if (null != gi) {
-							book.setGoodsCode(gi.getGoodsCode());
-						}
+
+				// if (CheckIsNull.isEmpty(book.getGoodsCode())) {
+				if (InventoryType.Materials.getCode().equals(
+						book.getInventoryType())) {
+					MaterialsItem gi = context.find(MaterialsItem.class, book
+							.getGoodsId());
+					if (null != gi) {
+						book.setGoodsCode(gi.getMaterialCode());
+						book.setGoodsNo(gi.getMaterialNo());
+					}
+				} else if (InventoryType.Goods.getCode().equals(
+						book.getInventoryType())) {
+					GoodsItem gi = context.find(GoodsItem.class, book
+							.getGoodsId());
+					if (null != gi) {
+						book.setGoodsCode(gi.getGoodsCode());
+						book.setGoodsNo(gi.getGoodsNo());
 					}
 				}
+				// }
 				map.put(goodsId, book);
 			}
 			List<GUID> glist = new ArrayList<GUID>();
@@ -215,11 +236,13 @@ public class InventoryBookProvider extends Service {
 				if (key.getStoreId() == null) {
 					Map<GUID, Double> c = ecmap.get(book.getGoodsId());
 					for (Double d : c.values()) {
-						book.setCount_end(DoubleUtil.sum(d, book.getCount_end()));
+						book.setCount_end(DoubleUtil
+								.sum(d, book.getCount_end()));
 					}
 					Map<GUID, Double> a = eamap.get(book.getGoodsId());
 					for (Double d : a.values()) {
-						book.setAmount_end(DoubleUtil.sum(d, book.getAmount_end()));
+						book.setAmount_end(DoubleUtil.sum(d, book
+								.getAmount_end()));
 					}
 				}
 				list.add(book);
@@ -228,7 +251,8 @@ public class InventoryBookProvider extends Service {
 			if (key.getStoreId() == null) {
 				allList = context.getList(Inventory.class);
 			} else {
-				allList = context.getList(Inventory.class, new GetGoodsInventoryByStoreIdKey(key.getStoreId()));
+				allList = context.getList(Inventory.class,
+						new GetGoodsInventoryByStoreIdKey(key.getStoreId()));
 			}
 			Map<GUID, InventoryBook> allList1 = new HashMap<GUID, InventoryBook>();
 			for (Inventory gi : allList) {
@@ -236,7 +260,8 @@ public class InventoryBookProvider extends Service {
 				if (book == null) {
 					book = new InventoryBook();
 				}
-				MaterialsItem good1 = context.find(MaterialsItem.class, gi.getStockId());
+				MaterialsItem good1 = context.find(MaterialsItem.class, gi
+						.getStockId());
 				if (null != good1) {
 					if (cateGoryList.indexOf(good1.getCategoryId()) < 0) {
 						continue;
@@ -244,7 +269,8 @@ public class InventoryBookProvider extends Service {
 					if (CheckIsNull.isNotEmpty(key.getSearchKey())) {
 						if (good1.getMaterialName().indexOf(key.getSearchKey()) < 0
 								&& good1.getSpec().indexOf(key.getSearchKey()) < 0
-								&& good1.getMaterialCode().indexOf(key.getSearchKey()) < 0) {
+								&& good1.getMaterialCode().indexOf(
+										key.getSearchKey()) < 0) {
 							continue;
 						}
 					}
@@ -255,21 +281,26 @@ public class InventoryBookProvider extends Service {
 					book.setGoodsName(good1.getMaterialName());
 					book.setGoodsAttr(good1.getSpec());
 					book.setGoodsUnit(good1.getMaterialUnit());
-					book.setGoodsNo(good1.getMaterialCode());
+					book.setGoodsNo(good1.getMaterialNo());
+					book.setGoodsCode(good1.getMaterialCode());
 					book.setGoodsScale(good1.getScale());
 					book.setCount_begin(gi.getCount() + book.getCount_begin());
-					book.setAmount_begin(gi.getAmount() + book.getAmount_begin());
+					book.setAmount_begin(gi.getAmount()
+							+ book.getAmount_begin());
 					book.setAmount_end(gi.getAmount() + book.getAmount_end());
 					book.setCount_end(gi.getCount() + book.getCount_end());
 				} else {
-					GoodsItem good = context.find(GoodsItem.class, gi.getStockId());
+					GoodsItem good = context.find(GoodsItem.class, gi
+							.getStockId());
 					if (cateGoryList.indexOf(good.getCategoryId()) < 0) {
 						continue;
 					}
 					if (CheckIsNull.isNotEmpty(key.getSearchKey())) {
 						if (good.getGoodsName().indexOf(key.getSearchKey()) < 0
-								&& good.getPropertiesWithoutUnit().indexOf(key.getSearchKey()) < 0
-								&& good.getGoodsCode().indexOf(key.getSearchKey()) < 0) {
+								&& good.getPropertiesWithoutUnit().indexOf(
+										key.getSearchKey()) < 0
+								&& good.getGoodsCode().indexOf(
+										key.getSearchKey()) < 0) {
 							continue;
 						}
 					}
@@ -280,10 +311,12 @@ public class InventoryBookProvider extends Service {
 					book.setGoodsName(good.getGoodsName());
 					book.setGoodsAttr(good.getPropertiesWithoutUnit());
 					book.setGoodsUnit(good.getGoodsUnit());
-					book.setGoodsNo(good.getGoodsCode());
+					book.setGoodsNo(good.getGoodsNo());
+					book.setGoodsCode(good.getGoodsCode());
 					book.setGoodsScale(good.getScale());
 					book.setCount_begin(gi.getCount() + book.getCount_begin());
-					book.setAmount_begin(gi.getAmount() + book.getAmount_begin());
+					book.setAmount_begin(gi.getAmount()
+							+ book.getAmount_begin());
 					book.setAmount_end(gi.getAmount() + book.getAmount_end());
 					book.setCount_end(gi.getCount() + book.getCount_end());
 				}
@@ -298,7 +331,8 @@ public class InventoryBookProvider extends Service {
 			}
 
 			if (key.getSortField() != null) {
-				ComparatorUtils.sort(list, key.getSortField().getColumn(), key.getSortType() == SortType.Asc);
+				ComparatorUtils.sort(list, key.getSortField().getColumn(), key
+						.getSortType() == SortType.Asc);
 			}
 		}
 	}
