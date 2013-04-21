@@ -1,12 +1,20 @@
 package com.spark.psi.base.browser.goods;
 
 import com.jiuqi.dna.ui.common.constants.JWT;
+import com.jiuqi.dna.ui.wt.widgets.Button;
 import com.spark.common.components.table.STableColumn;
 import com.spark.common.components.table.StableUtil;
 import com.spark.psi.publish.base.goods.entity.GoodsInfo;
 
 public final class GoodsListOnSaleRender extends GoodsListRender {
 
+	@Override
+	protected void afterFooterRender() {
+		super.afterFooterRender(); 
+		Button delButton = new Button(footerRightArea, JWT.APPEARANCE3);
+		delButton.setID(GoodsListOnSaleProcessor.ID_Button_Export777);
+		delButton.setText(" 导出电子称数据 ");
+	}
 	@Override
 	public STableColumn[] getColumns() {
 		STableColumn[] columns = new STableColumn[4];
