@@ -30,6 +30,7 @@ public abstract class OrderListRender<T extends OrderItem> extends PSIListPageRe
 		new SSearchText2(headerRightArea).setID(OrderListProcessor.ID_TEXT_SEARCH);
 	}
 	
+	
 	@Override
 	public STableColumn[] getColumns() {
 		Columns[] enums = getColumnsEnumList();
