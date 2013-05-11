@@ -6,6 +6,7 @@ package com.spark.psi.order.browser.purchase;
 import com.jiuqi.dna.ui.common.constants.JWT;
 import com.jiuqi.dna.ui.custom.combo.LWComboList;
 import com.jiuqi.dna.ui.wt.widgets.Label;
+import com.spark.common.components.table.STableStyle;
 import com.spark.psi.order.browser.util.OrderListProcessor.Columns;
 
 /**
@@ -36,5 +37,11 @@ public class ProcessedPurchaseOrderListRender extends PurchaseOrderListRender {
 	@Override
 	protected Columns[] getColumnsEnumList() {
 		return new Columns[]{Columns.DeliveryDate, Columns.OrderNumber, Columns.PartnerName, Columns.Type, Columns.Amount, Columns.Creator, Columns.CreateDate, Columns.status};
+	}
+	
+	public STableStyle getTableStyle() {
+		STableStyle style = new STableStyle();
+		style.setPageAble(false);
+		return style;
 	}
 }
